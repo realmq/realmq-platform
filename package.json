@@ -1,0 +1,31 @@
+{
+  "name": "@realmq/realmq",
+  "version": "0.0.0",
+  "private": true,
+  "license": "UNLICENSED",
+  "author": "RealMQ GmbH <service@realmq.com> (https://realmq.com)",
+  "description": "RealMQ Monolith",
+  "repository": "https://github.com/realmq/realmq.git",
+  "scripts": {
+    "precommit": "lint-staged",
+    "lint": "xo",
+    "lint-fix": "xo --fix",
+    "test": "yarn lint"
+  },
+  "devDependencies": {
+    "husky": "^0.14.3",
+    "lint-staged": "^7.1.0",
+    "xo": "^0.21.0"
+  },
+  "engines": {
+    "node": ">= 8"
+  },
+  "lint-staged": {
+    "*.js": [
+      "yarn lint"
+    ]
+  },
+  "xo": {
+    "space": true
+  }
+}
