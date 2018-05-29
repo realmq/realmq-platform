@@ -1,7 +1,7 @@
 FROM node:8
 
 LABEL \
-  Description="RealMQ Backend" \
+  Description="RealMQ Platform" \
   Vendor="RealMQ GmbH" \
   Version="0.0.0"
 

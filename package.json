@@ -1,11 +1,11 @@
 {
-  "name": "@realmq/realmq",
+  "name": "@realmq/realmq-platform",
   "version": "0.0.0",
   "private": true,
   "license": "UNLICENSED",
   "author": "RealMQ GmbH <service@realmq.com> (https://realmq.com)",
-  "description": "RealMQ Monolith",
-  "repository": "https://github.com/realmq/realmq.git",
+  "description": "RealMQ Platform",
+  "repository": "https://github.com/realmq/realmq-platform.git",
   "scripts": {
     "precommit": "lint-staged",
     "lint": "xo",

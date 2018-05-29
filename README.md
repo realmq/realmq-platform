@@ -1,1 +1,1 @@
-# RealMQ Backend
+# RealMQ Platform
