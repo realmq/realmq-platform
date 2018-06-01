@@ -7,6 +7,8 @@ that can also be injected via `.env` file:
 
 | Variable | Description | Default |
 |----------|-------------|---------|
+| LOG_LEVEL | App wide logging verbosity | `info` |
+| PORT | The HTTP Port the server will listen to | `8080` |
 
 ## Run
 
