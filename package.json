@@ -10,6 +10,7 @@
     "precommit": "lint-staged",
     "lint": "xo",
     "lint-fix": "xo --fix",
+    "start": "node src",
     "test": "yarn lint"
   },
   "devDependencies": {

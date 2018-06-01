@@ -15,6 +15,12 @@ that can also be injected via `.env` file:
 The recommended way of launching the RealMQ platform is using the
 [docker compose setup](https://github.com/realmq/dev-env).
 
+Alternatively run:
+
+```bash
+npm start
+```
+
 ## Documentation
 
 * [Architecture](/docs/architecture)
