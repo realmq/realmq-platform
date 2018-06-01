@@ -11,7 +11,7 @@
     "lint": "xo",
     "lint-fix": "xo --fix",
     "start": "node src",
-    "test": "yarn lint"
+    "test": "npm run lint"
   },
   "devDependencies": {
     "husky": "^0.14.3",
@@ -23,7 +23,7 @@
   },
   "lint-staged": {
     "*.js": [
-      "yarn lint"
+      "npm run lint"
     ]
   },
   "xo": {
