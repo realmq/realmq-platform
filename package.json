@@ -27,5 +27,11 @@
   },
   "xo": {
     "space": true
+  },
+  "dependencies": {
+    "bunyan": "^1.8.12",
+    "bunyan-format": "^0.2.1",
+    "compression": "^1.7.2",
+    "express": "^4.16.3"
   }
 }
