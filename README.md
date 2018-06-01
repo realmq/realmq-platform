@@ -15,4 +15,7 @@ The recommended way of launching the RealMQ platform is using the
 
 ## Documentation
 
+* [Architecture](/docs/architecture)
 * [Code Style](/docs/code-style)
+* [Workflows](/docs/workflow)
+* [Specification](/docs/spec)
