@@ -2,11 +2,11 @@
 
 const config = require('./config');
 const createApp = require('./app');
-const logging = require('./lib/logger');
+const createLogger = require('./lib/logger');
 
 (async () => {
   try {
-    const logger = logging({name: config.appId, level: config.logging.level});
+    const logger = createLogger({name: config.appId, level: config.logging.level});
     const app = createApp({config, logger});
     await app.start();
 
