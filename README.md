@@ -13,8 +13,6 @@ that can also be injected via `.env` file:
 The recommended way of launching the RealMQ platform is using the
 [docker compose setup](https://github.com/realmq/dev-env).
 
-## Coding Standard
+## Documentation
 
-This app follows [xo code style](https://github.com/xojs/xo) and adheres
-to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
-All notable changes to this app will be documented in this [change log](CHANGELOG.md).
+* [Code Style](/docs/code-style)
