@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  platform:
+    build:
+      context: .
+    ports:
+      - 8888:8080
+    volumes:
+      - .:/usr/src/app
+
+  database:
+    image: bitnami/mongodb
+    volumes:
+      - ./.db:/bitnami
+    ports:
+      - 27017:27017
+    environment:
+      - MONGODB_ROOT_PASSWORD=root
+      - MONGODB_USERNAME=realmq
+      - MONGODB_PASSWORD=realmq
+      - MONGODB_DATABASE=realmq
