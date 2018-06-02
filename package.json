@@ -29,12 +29,20 @@
   },
   "xo": {
     "extends": ".eslintrc.yaml"
+    "space": true,
+    "rules": {
+      "comma-dangle": [
+        "error",
+        "always-multiline"
+      ]
+    }
   },
   "dependencies": {
     "body-parser": "^1.18.3",
     "bunyan": "^1.8.12",
     "bunyan-format": "^0.2.1",
     "compression": "^1.7.2",
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "mongodb": "^3.0.10"
   }
 }
