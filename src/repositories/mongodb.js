@@ -1,6 +1,15 @@
 const {ObjectID: objectId} = require('mongodb');
 
 /**
+ * Converts given ID into ObjectID if it's a valid ObjectID and returns it,
+ * otherwise returns original
+ *
+ * @param {string} id
+ * @return {ObjectID|string}
+ */
+const plainOrObjectId = id => (objectId.isValid(id) ? objectId(id) : id);
+
+/**
  * Abstract class for MongoDB repositories
  */
 class MongoDbRepository {
@@ -32,11 +41,12 @@ class MongoDbRepository {
    * @return {Promise<Object>}
    */
   async create(data) {
-    if (data.id) {
-      throw new Error('Given entity has an ID');
+    const {id, ...createData} = data;
+
+    if (id) {
+      createData._id = plainOrObjectId(id);
     }
 
-    const {id, ...createData} = data;
     createData.createdAt = new Date();
     createData.updatedAt = new Date();
     const result = await this.collection.insertOne(createData);
@@ -59,7 +69,7 @@ class MongoDbRepository {
     const {id, createdAt, ...updateData} = data;
     updateData.updatedAt = new Date();
     const result = await this.collection.findOneAndUpdate(
-      {_id: objectId(id)},
+      {_id: plainOrObjectId(id)},
       {$set: updateData},
       {returnOriginal: false}
     );
@@ -74,7 +84,7 @@ class MongoDbRepository {
    * @return {Promise<void>}
    */
   async delete(id) {
-    await this.collection.findOneAndDelete({_id: objectId(id)});
+    await this.collection.findOneAndDelete({_id: plainOrObjectId(id)});
   }
 
   /**
@@ -84,7 +94,7 @@ class MongoDbRepository {
    * @return {Promise<Object|null>}
    */
   async findOneById(id) {
-    const result = await this.collection.findOne({_id: objectId(id)});
+    const result = await this.collection.findOne({_id: plainOrObjectId(id)});
 
     return result ? this.toModel(result) : null;
   }
