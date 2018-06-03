@@ -26,4 +26,6 @@ module.exports = async ({config, logger}) => {
   ]);
 
   logger.debug('Database collections and indexes created');
+
+  return {db};
 };
