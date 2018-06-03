@@ -1,5 +1,5 @@
 const realmModel = require('../models/realm');
-const MongoDbRepository = require('./mongodb');
+const MongoDbRepository = require('./lib/mongodb');
 
 class RealmRepository extends MongoDbRepository {
   get collection() {
@@ -8,9 +8,8 @@ class RealmRepository extends MongoDbRepository {
 
   toModel(data) {
     return realmModel({
-      id: data._id ? data._id.toString() : data.id,
+      id: data.id,
       name: data.name,
-      tenantId: data.tenantId,
       ownerAccountId: data.ownerAccountId,
       createdAt: data.createdAt,
       updatedAt: data.updatedAt,

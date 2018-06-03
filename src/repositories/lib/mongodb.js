@@ -1,13 +1,4 @@
-const {ObjectID: objectId} = require('mongodb');
-
-/**
- * Converts given ID into ObjectID if it's a valid ObjectID and returns it,
- * otherwise returns original
- *
- * @param {string} id
- * @return {ObjectID|string}
- */
-const plainOrObjectId = id => (objectId.isValid(id) ? objectId(id) : id);
+const uuid = require('uuid').v4;
 
 /**
  * Abstract class for MongoDB repositories
@@ -41,18 +32,15 @@ class MongoDbRepository {
    * @return {Promise<Object>}
    */
   async create(data) {
-    const {id, ...createData} = data;
+    data.id = data.id || uuid();
+    data.createdAt = new Date();
+    data.updatedAt = new Date();
 
-    if (id) {
-      createData._id = plainOrObjectId(id);
-    }
+    const result = await this.collection.insertOne(data);
 
-    createData.createdAt = new Date();
-    createData.updatedAt = new Date();
-    const result = await this.collection.insertOne(createData);
-    const createdEntity = (result.ops || [])[0];
+    const entity = (result.ops || [])[0];
 
-    return this.toModel(createdEntity);
+    return this.toModel(entity);
   }
 
   /**
@@ -66,10 +54,12 @@ class MongoDbRepository {
       throw new Error('Missing ID in given entity');
     }
 
-    const {id, createdAt, ...updateData} = data;
+    // Strip createdAt
+    const {createdAt, ...updateData} = data;
+
     updateData.updatedAt = new Date();
     const result = await this.collection.findOneAndUpdate(
-      {_id: plainOrObjectId(id)},
+      {id: data.id},
       {$set: updateData},
       {returnOriginal: false}
     );
@@ -84,7 +74,7 @@ class MongoDbRepository {
    * @return {Promise<void>}
    */
   async delete(id) {
-    await this.collection.findOneAndDelete({_id: plainOrObjectId(id)});
+    await this.collection.findOneAndDelete({id});
   }
 
   /**
@@ -94,7 +84,7 @@ class MongoDbRepository {
    * @return {Promise<Object|null>}
    */
   async findOneById(id) {
-    const result = await this.collection.findOne({_id: plainOrObjectId(id)});
+    const result = await this.collection.findOne({id});
 
     return result ? this.toModel(result) : null;
   }

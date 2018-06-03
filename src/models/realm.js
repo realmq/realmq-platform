@@ -5,7 +5,6 @@ const setPropertyIfDefined = require('./lib/set-property-if-defined');
  * @param {string} [id]
  * @param {string} name
  * @param {string} ownerAccountId
- * @param {string} tenantId
  * @param {Date} [createdAt]
  * @param {Date} [updatedAt]
  */
@@ -17,7 +16,6 @@ module.exports = ({
   id,
   ownerAccountId,
   name,
-  tenantId,
   createdAt,
   updatedAt,
 }) => {
@@ -26,7 +24,6 @@ module.exports = ({
   setPropertyIfDefined(realm, 'id', id);
   setPropertyIfDefined(realm, 'ownerAccountId', ownerAccountId);
   setPropertyIfDefined(realm, 'name', name);
-  setPropertyIfDefined(realm, 'tenantId', tenantId);
   setPropertyIfDefined(realm, 'createdAt', createdAt);
   setPropertyIfDefined(realm, 'updatedAt', updatedAt);
 

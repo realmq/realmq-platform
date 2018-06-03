@@ -5,7 +5,6 @@ const setPropertyIfDefined = require('./lib/set-property-if-defined');
  * @param {string} id
  * @param {boolean} isOnline
  * @param {Object} [properties]
- * @param {string} tenantId
  * @param {Date} [createdAt]
  * @param {Date} [updatedAt]
  */
@@ -17,7 +16,6 @@ module.exports = ({
   id,
   isOnline,
   properties,
-  tenantId,
   createdAt,
   updatedAt,
 }) => {
@@ -26,7 +24,6 @@ module.exports = ({
   setPropertyIfDefined(user, 'id', id);
   setPropertyIfDefined(user, 'isOnline', isOnline);
   setPropertyIfDefined(user, 'properties', properties);
-  setPropertyIfDefined(user, 'tenantId', tenantId);
   setPropertyIfDefined(user, 'createdAt', createdAt);
   setPropertyIfDefined(user, 'updatedAt', updatedAt);
 
