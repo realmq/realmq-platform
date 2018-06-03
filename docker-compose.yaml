@@ -8,6 +8,8 @@ services:
       - 8888:8080
     volumes:
       - .:/usr/src/app
+    environment:
+      - LOG_LEVEL=debug
 
   database:
     image: bitnami/mongodb
