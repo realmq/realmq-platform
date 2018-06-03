@@ -2,10 +2,10 @@ const setPropertyIfDefined = require('./lib/set-property-if-defined');
 
 /**
  * @typedef {Object} AccountModel
- * @params {string} id
- * @params {string} name
- * @params {string} email
- * @params {string} passwordHash
+ * @param {string} id
+ * @param {string} name
+ * @param {string} email
+ * @param {string} passwordHash
  * @param {Date} [createdAt]
  * @param {Date} [updatedAt]
  */
