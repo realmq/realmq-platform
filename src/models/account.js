@@ -6,7 +6,6 @@ const setPropertyIfDefined = require('./lib/set-property-if-defined');
  * @params {string} name
  * @params {string} email
  * @params {string} passwordHash
- * @param {string} tenantId
  * @param {Date} [createdAt]
  * @param {Date} [updatedAt]
  */
@@ -19,7 +18,6 @@ module.exports = ({
   name,
   email,
   passwordHash,
-  tenantId,
   createdAt,
   updatedAt,
 }) => {
@@ -29,7 +27,6 @@ module.exports = ({
   setPropertyIfDefined(account, 'name', name);
   setPropertyIfDefined(account, 'email', email);
   setPropertyIfDefined(account, 'passwordHash', passwordHash);
-  setPropertyIfDefined(account, 'tenantId', tenantId);
   setPropertyIfDefined(account, 'createdAt', createdAt);
   setPropertyIfDefined(account, 'updatedAt', updatedAt);
 

@@ -1,17 +1,16 @@
 const userModel = require('../models/user');
-const MongoDbRepository = require('./mongodb');
+const RealmAwareRepository = require('./lib/realm-aware');
 
-class UserRepository extends MongoDbRepository {
+class UserRepository extends RealmAwareRepository {
   get collection() {
     return this.db.collection('users');
   }
 
   toModel(data) {
     return userModel({
-      id: data._id ? data._id.toString() : data.id,
+      id: data.id,
       isOnline: data.isOnline,
       properties: data.properties,
-      tenantId: data.tenantId,
       createdAt: data.createdAt,
       updatedAt: data.updatedAt,
     });
