@@ -54,17 +54,7 @@ class MongoDbRepository {
       throw new Error('Missing ID in given entity');
     }
 
-    // Strip createdAt
-    const {createdAt, ...updateData} = data;
-
-    updateData.updatedAt = new Date();
-    const result = await this.collection.findOneAndUpdate(
-      {id: data.id},
-      {$set: updateData},
-      {returnOriginal: false}
-    );
-
-    return result.value ? this.toModel(result.value) : null;
+    return this.findOneAndUpdate({id: data.id}, data);
   }
 
   /**
@@ -84,9 +74,27 @@ class MongoDbRepository {
    * @return {Promise<Object|null>}
    */
   async findOneById(id) {
-    const result = await this.collection.findOne({id});
+    return this.findOne({id});
+  }
+
+  async findOne(filter) {
+    const result = await this.collection.findOne(filter);
 
     return result ? this.toModel(result) : null;
+  }
+
+  async findOneAndUpdate(filter, data) {
+    // Strip createdAt
+    const {createdAt, ...updateData} = data;
+
+    updateData.updatedAt = new Date();
+    const result = await this.collection.findOneAndUpdate(
+      filter,
+      {$set: updateData},
+      {returnOriginal: false}
+    );
+
+    return result.value ? this.toModel(result.value) : null;
   }
 }
 
