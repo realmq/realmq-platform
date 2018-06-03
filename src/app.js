@@ -3,6 +3,7 @@ const compression = require('compression');
 const express = require('express');
 const initBrokerTasks = require('./tasks/broker');
 const initBrokerMiddleware = require('./api/broker/bootstrap');
+const bootstrapDatabase = require('./bootstrap/database');
 
 /**
  * @param {Object} logger the logging object
@@ -45,6 +46,8 @@ module.exports = ({config, logger}) => {
 
       http.use('/broker/v1', api.broker.v1);
 
+      await bootstrapDatabase({config, logger});
+
       http.use((req, res) => res.status(404).send());
       httpServer = http.listen(config.http.port);
 
@@ -71,6 +74,6 @@ module.exports = ({config, logger}) => {
 
       logger.info('stopped');
       return 0;
-    }
+    },
   };
 };
