@@ -37,6 +37,8 @@ class MongoDbRepository {
     }
 
     const {id, ...createData} = data;
+    createData.createdAt = new Date();
+    createData.updatedAt = new Date();
     const result = await this.collection.insertOne(createData);
     const createdEntity = (result.ops || [])[0];
 
@@ -54,7 +56,8 @@ class MongoDbRepository {
       throw new Error('Missing ID in given entity');
     }
 
-    const {id, ...updateData} = data;
+    const {id, createdAt, ...updateData} = data;
+    updateData.updatedAt = new Date();
     const result = await this.collection.findOneAndUpdate(
       {_id: objectId(id)},
       {$set: updateData},
@@ -72,6 +75,18 @@ class MongoDbRepository {
    */
   async delete(id) {
     await this.collection.findOneAndDelete({_id: objectId(id)});
+  }
+
+  /**
+   * Finds and entity by its id
+   *
+   * @param {string} id
+   * @return {Promise<Object|null>}
+   */
+  async findOneById(id) {
+    const result = await this.collection.findOne({_id: objectId(id)});
+
+    return result ? this.toModel(result) : null;
   }
 }
 
