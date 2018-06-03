@@ -1,17 +1,28 @@
 /**
- * The realm model
- *
- * @param {string} id
+ * @typedef {Object} RealmModel
+ * @param {string} [id]
  * @param {string} name
+ * @param {string} ownerAccountId
  * @param {string} tenantId
- * @return {{id: string, name: string, tenantId: string}}
+ * @param {Date} [createdAt]
+ * @param {Date} [updatedAt]
+ */
+
+/**
+ * @return {RealmModel}
  */
 module.exports = ({
   id,
+  ownerAccountId,
   name,
   tenantId,
+  createdAt,
+  updatedAt,
 }) => ({
   id,
+  ownerAccountId,
   name,
   tenantId,
+  createdAt,
+  updatedAt,
 });

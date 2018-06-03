@@ -1,4 +1,4 @@
 module.exports = {
-  MongoDbRepository: require('./mongodb-repository'),
-  RealmRepository: require('./realm-repository'),
+  MongoDbRepository: require('./mongodb'),
+  RealmRepository: require('./realm'),
 };
