@@ -6,6 +6,12 @@ class AccountRepository extends MongoDbRepository {
     return this.db.collection('accounts');
   }
 
+  async findOneByEmail(email) {
+    const account = await this.collection.findOne({email});
+
+    return account ? this.toModel(account) : null;
+  }
+
   toModel(data) {
     return accountModel({
       id: data._id ? data._id.toString() : data.id,
