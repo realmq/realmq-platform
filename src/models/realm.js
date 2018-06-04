@@ -1,4 +1,4 @@
-const setPropertyIfDefined = require('./lib/set-property-if-defined');
+const stripUndefined = require('../lib/strip-undefined');
 
 /**
  * @typedef {Object} RealmModel
@@ -10,7 +10,7 @@ const setPropertyIfDefined = require('./lib/set-property-if-defined');
  */
 
 /**
- * @return {RealmModel}
+ * @return {RealmModel} The generalized realm model
  */
 module.exports = ({
   id,
@@ -18,14 +18,10 @@ module.exports = ({
   name,
   createdAt,
   updatedAt,
-}) => {
-  const realm = {};
-
-  setPropertyIfDefined(realm, 'id', id);
-  setPropertyIfDefined(realm, 'ownerAccountId', ownerAccountId);
-  setPropertyIfDefined(realm, 'name', name);
-  setPropertyIfDefined(realm, 'createdAt', createdAt);
-  setPropertyIfDefined(realm, 'updatedAt', updatedAt);
-
-  return realm;
-};
+}) => stripUndefined({
+  id,
+  ownerAccountId,
+  name,
+  createdAt,
+  updatedAt,
+});

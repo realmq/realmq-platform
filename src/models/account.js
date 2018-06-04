@@ -1,4 +1,4 @@
-const setPropertyIfDefined = require('./lib/set-property-if-defined');
+const stripUndefined = require('../lib/strip-undefined');
 
 /**
  * @typedef {Object} AccountModel
@@ -11,7 +11,7 @@ const setPropertyIfDefined = require('./lib/set-property-if-defined');
  */
 
 /**
- * @return {AccountModel}
+ * @return {AccountModel} The generalized account model
  */
 module.exports = ({
   id,
@@ -20,15 +20,11 @@ module.exports = ({
   passwordHash,
   createdAt,
   updatedAt,
-}) => {
-  const account = {};
-
-  setPropertyIfDefined(account, 'id', id);
-  setPropertyIfDefined(account, 'name', name);
-  setPropertyIfDefined(account, 'email', email);
-  setPropertyIfDefined(account, 'passwordHash', passwordHash);
-  setPropertyIfDefined(account, 'createdAt', createdAt);
-  setPropertyIfDefined(account, 'updatedAt', updatedAt);
-
-  return account;
-};
+}) => stripUndefined({
+  id,
+  name,
+  email,
+  passwordHash,
+  createdAt,
+  updatedAt,
+});
