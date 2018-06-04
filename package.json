@@ -28,7 +28,7 @@
     ]
   },
   "xo": {
-    "space": true
+    "extends": ".eslintrc.yaml"
   },
   "dependencies": {
     "bunyan": "^1.8.12",

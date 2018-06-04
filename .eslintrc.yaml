@@ -1,0 +1,13 @@
+extends:
+  - xo/esnext
+  - ./node_modules/xo/config/plugins.js
+rules:
+  indent:
+    - error
+    - 2
+overrides:
+  - files:
+    - src/**/*.test.js
+    - src/**/*.spec.js
+    env:
+      jest: true
