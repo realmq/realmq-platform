@@ -1,4 +1,4 @@
-const setPropertyIfDefined = require('./lib/set-property-if-defined');
+const stripUndefined = require('../lib/strip-undefined');
 
 /**
  * @typedef {Object} UserModel
@@ -10,7 +10,7 @@ const setPropertyIfDefined = require('./lib/set-property-if-defined');
  */
 
 /**
- * @return {UserModel}
+ * @return {UserModel} The generalized user model
  */
 module.exports = ({
   id,
@@ -18,14 +18,10 @@ module.exports = ({
   properties,
   createdAt,
   updatedAt,
-}) => {
-  const user = {};
-
-  setPropertyIfDefined(user, 'id', id);
-  setPropertyIfDefined(user, 'isOnline', isOnline);
-  setPropertyIfDefined(user, 'properties', properties);
-  setPropertyIfDefined(user, 'createdAt', createdAt);
-  setPropertyIfDefined(user, 'updatedAt', updatedAt);
-
-  return user;
-};
+}) => stripUndefined({
+  id,
+  isOnline,
+  properties,
+  createdAt,
+  updatedAt,
+});
