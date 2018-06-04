@@ -7,7 +7,7 @@ LABEL \
 
 WORKDIR /usr/src/app
 
-COPY package.json package.json
+COPY package.json package-lock.json ./
 RUN npm install
 
 # add rest of source
