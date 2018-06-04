@@ -1,5 +1,12 @@
 const {MongoClient} = require('mongodb');
 
+/**
+ * Connect to mongodb, create collections and necessary indexes.
+ *
+ * @param {Object} config Configuration
+ * @param {Logger} logger Logger
+ * @return {Promise<Db>} The database connection
+ */
 module.exports = async ({config, logger}) => {
   const client = await MongoClient.connect(config.database.url);
   logger.debug('Database connected successfully');
@@ -12,20 +19,24 @@ module.exports = async ({config, logger}) => {
   };
   const customIdIdxSpec = {key: {id: 1}, name: 'id', unique: true};
 
-  await db.createCollection('accounts');
-  await db.createCollection('users');
-  await db.createCollection('realms');
-  await db.createCollection('auths');
+  await Promise.all([
+    db.createCollection('accounts'),
+    db.createCollection('users'),
+    db.createCollection('realms'),
+    db.createCollection('auths'),
+  ]);
 
-  await db.collection('accounts').createIndexes([realmAwareIdxSpec]);
-  await db.collection('users').createIndexes([realmAwareIdxSpec]);
-  await db.collection('realms').createIndexes([customIdIdxSpec]);
-  await db.collection('auths').createIndexes([
-    realmAwareIdxSpec,
-    {key: {token: 1}, name: 'token', unique: true},
+  await Promise.all([
+    db.collection('accounts').createIndexes([realmAwareIdxSpec]),
+    db.collection('users').createIndexes([realmAwareIdxSpec]),
+    db.collection('realms').createIndexes([customIdIdxSpec]),
+    db.collection('auths').createIndexes([
+      realmAwareIdxSpec,
+      {key: {token: 1}, name: 'token', unique: true},
+    ]),
   ]);
 
   logger.debug('Database collections and indexes created');
 
-  return {db};
+  return db;
 };
