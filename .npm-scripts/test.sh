@@ -9,6 +9,7 @@ if [ "$#" = "0" ]; then
   npm run lint
   exec jest
 else
-  set -x
+  set -ex
+  npm run lint $@
   exec jest $@
 fi
