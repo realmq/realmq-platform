@@ -14,7 +14,7 @@ services:
   database:
     image: bitnami/mongodb
     volumes:
-      - ./.db:/bitnami
+      - database-volume:/bitnami
     ports:
       - 27017:27017
     environment:
@@ -22,3 +22,6 @@ services:
       - MONGODB_USERNAME=realmq
       - MONGODB_PASSWORD=realmq
       - MONGODB_DATABASE=realmq
+
+volumes:
+  database-volume:
