@@ -5,6 +5,6 @@ module.exports = ({name, level}) => {
   return bunyan.createLogger({
     name,
     level: level || 'info',
-    stream: bunyanFormat({outputMode: 'long'})
+    stream: bunyanFormat({outputMode: 'long'}),
   });
 };
