@@ -5,7 +5,7 @@
  * @param {number} [state.status] Initial value for status
  * @param {boolean} [state.isSend] Initial value for isSend
  * @param {*} [state.data] Initial value for data
- * @returns ExpressTestResponse Response
+ * @returns {ExpressTestResponse} Response
  */
 module.exports = (state = {}) => {
   state.status = state.status || 200;
@@ -14,7 +14,7 @@ module.exports = (state = {}) => {
   const response = {
     /**
      * @memberOf ExpressTestResponse
-     * @returns ExpressTestResponse Response
+     * @returns {ExpressTestResponse} Response
      */
     send: () => {
       state.isSend = true;
@@ -24,7 +24,7 @@ module.exports = (state = {}) => {
      * @memberof ExpressTestResponse
      * @param {(string|Object<string, string>)} name Header name or hash map
      * @param {string} [value] Header value
-     * @returns ExpressTestResponse Response
+     * @returns {ExpressTestResponse} Response
      */
     set: (name, value) => {
       if (value === undefined) {
@@ -37,7 +37,7 @@ module.exports = (state = {}) => {
     /**
      * @memberOf ExpressTestResponse
      * @param {number} value Status code
-     * @returns ExpressTestResponse Response
+     * @returns {ExpressTestResponse} Response
      */
     status: value => {
       state.status = value;
@@ -46,7 +46,7 @@ module.exports = (state = {}) => {
     /**
      * @memberOf ExpressTestResponse
      * @param {*} value JSON response value
-     * @returns ExpressTestResponse Response
+     * @returns {ExpressTestResponse} Response
      */
     json: value => {
       state.data = value;
