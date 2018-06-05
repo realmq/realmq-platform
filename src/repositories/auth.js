@@ -13,7 +13,7 @@ module.exports = ({collection, createModel} = {createModel: createAuthModel}) =>
   return {
     ...multiRealmRepository,
     findOneByToken: token => findOneGlobally({token}),
-    deleteAllByUserId: async (realmId, userId) => multiRealmRepository.deleteMany({realmId, userId})
+    deleteAllByUserId: (realmId, userId) => multiRealmRepository.deleteMany({realmId, userId})
   };
 };
 
