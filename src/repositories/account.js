@@ -1,7 +1,7 @@
 const createAccountModel = require('../models/account');
 const createMongoRepository = require('./lib/mongo');
 
-module.exports = ({collection, createModel} = {createModel: createAccountModel}) => {
+module.exports = ({collection, createModel = createAccountModel}) => {
   const repository = createMongoRepository({
     collection,
     createModel
