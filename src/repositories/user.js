@@ -12,7 +12,7 @@ class UserRepository extends RealmAwareRepository {
       isOnline: data.isOnline,
       properties: data.properties,
       createdAt: data.createdAt,
-      updatedAt: data.updatedAt,
+      updatedAt: data.updatedAt
     });
   }
 }

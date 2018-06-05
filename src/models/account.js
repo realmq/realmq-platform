@@ -19,12 +19,12 @@ module.exports = ({
   email,
   passwordHash,
   createdAt,
-  updatedAt,
+  updatedAt
 }) => stripUndefined({
   id,
   name,
   email,
   passwordHash,
   createdAt,
-  updatedAt,
+  updatedAt
 });

@@ -17,11 +17,11 @@ module.exports = ({
   isOnline,
   properties,
   createdAt,
-  updatedAt,
+  updatedAt
 }) => stripUndefined({
   id,
   isOnline,
   properties,
   createdAt,
-  updatedAt,
+  updatedAt
 });

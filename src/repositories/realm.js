@@ -12,7 +12,7 @@ class RealmRepository extends MongoDbRepository {
       name: data.name,
       ownerAccountId: data.ownerAccountId,
       createdAt: data.createdAt,
-      updatedAt: data.updatedAt,
+      updatedAt: data.updatedAt
     });
   }
 }

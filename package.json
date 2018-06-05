@@ -29,13 +29,6 @@
   },
   "xo": {
     "extends": ".eslintrc.yaml"
-    "space": true,
-    "rules": {
-      "comma-dangle": [
-        "error",
-        "always-multiline"
-      ]
-    }
   },
   "dependencies": {
     "body-parser": "^1.18.3",

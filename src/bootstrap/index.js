@@ -11,7 +11,7 @@ const bootstrapHttp = require('./http');
 module.exports = async ({config, logger}) => {
   const [db, http] = await Promise.all([
     bootstrapDatabase({config, logger}),
-    bootstrapHttp({config, logger}),
+    bootstrapHttp({config, logger})
   ]);
 
   return {db, http};

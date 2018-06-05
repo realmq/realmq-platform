@@ -23,7 +23,7 @@ class AccountRepository extends RealmAwareRepository {
       email: data.email,
       passwordHash: data.passwordHash,
       createdAt: data.createdAt,
-      updatedAt: data.updatedAt,
+      updatedAt: data.updatedAt
     });
   }
 }

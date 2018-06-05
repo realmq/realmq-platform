@@ -5,13 +5,13 @@ test('undefined values get stripped from object', () => {
     a: 0,
     b: false,
     c: null,
-    d: undefined,
+    d: undefined
   };
 
   const expectedResult = {
     a: 0,
     b: false,
-    c: null,
+    c: null
   };
 
   const result = stripUndefined(obj);

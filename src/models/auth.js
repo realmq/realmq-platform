@@ -23,7 +23,7 @@ module.exports = ({
   scope,
   description,
   createdAt,
-  updatedAt,
+  updatedAt
 }) => stripUndefined({
   id,
   userId,
@@ -32,5 +32,5 @@ module.exports = ({
   scope,
   description,
   createdAt,
-  updatedAt,
+  updatedAt
 });
