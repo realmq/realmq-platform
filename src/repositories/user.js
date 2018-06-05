@@ -1,20 +1,9 @@
-const userModel = require('../models/user');
-const RealmAwareRepository = require('./lib/realm-aware');
+const createUserModel = require('../models/user');
+const createMongoMultiRealmRepository = require('./lib/mongo-multi-realm');
 
-class UserRepository extends RealmAwareRepository {
-  get collection() {
-    return this.db.collection('users');
-  }
+module.exports = ({collection, createModel} = {createModel: createUserModel}) =>
+  createMongoMultiRealmRepository({
+    collection,
+    createModel
+  });
 
-  toModel(data) {
-    return userModel({
-      id: data.id,
-      isOnline: data.isOnline,
-      properties: data.properties,
-      createdAt: data.createdAt,
-      updatedAt: data.updatedAt
-    });
-  }
-}
-
-module.exports = UserRepository;

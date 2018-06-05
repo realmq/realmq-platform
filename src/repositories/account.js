@@ -1,31 +1,15 @@
-const accountModel = require('../models/account');
-const RealmAwareRepository = require('./lib/realm-aware');
+const createAccountModel = require('../models/account');
+const createMongoRepository = require('./lib/mongo');
 
-class AccountRepository extends RealmAwareRepository {
-  get collection() {
-    return this.db.collection('accounts');
-  }
+module.exports = ({collection, createModel} = {createModel: createAccountModel}) => {
+  const repository = createMongoRepository({
+    collection,
+    createModel
+  });
 
-  async findOneByEmail(realmId, email) {
-    if (!realmId) {
-      throw new Error('Missing realmId');
-    }
+  return {
+    ...repository,
+    findOneByEmail: email => repository.findOne({email})
+  };
+};
 
-    const account = await this.collection.findOne({realmId, email});
-
-    return account ? this.toModel(account) : null;
-  }
-
-  toModel(data) {
-    return accountModel({
-      id: data.id,
-      name: data.name,
-      email: data.email,
-      passwordHash: data.passwordHash,
-      createdAt: data.createdAt,
-      updatedAt: data.updatedAt
-    });
-  }
-}
-
-module.exports = AccountRepository;

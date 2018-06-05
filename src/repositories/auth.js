@@ -1,37 +1,19 @@
-const authModel = require('../models/auth');
-const RealmAwareRepository = require('./lib/realm-aware');
+const createAuthModel = require('../models/auth');
+const createMongoMultiRealmRepository = require('./lib/mongo-multi-realm');
+const createGlobalFindOne = require('./lib/mongodb/find-one');
 
-class AuthRepository extends RealmAwareRepository {
-  get collection() {
-    return this.db.collection('auths');
-  }
+module.exports = ({collection, createModel} = {createModel: createAuthModel}) => {
+  const multiRealmRepository = createMongoMultiRealmRepository({
+    collection,
+    createModel
+  });
 
-  /**
-   * @param {string} token
-   * @return {Promise<AuthModel|null>}
-   */
-  async findOneByToken(token) {
-    const auth = await this.collection.findOne({token});
+  const findOneGlobally = createGlobalFindOne({collection, createModel});
 
-    return auth ? this.toModel(auth) : null;
-  }
+  return {
+    ...multiRealmRepository,
+    findOneByToken: token => findOneGlobally({token}),
+    deleteAllByUserId: async (realmId, userId) => multiRealmRepository.deleteMany({realmId, userId})
+  };
+};
 
-  async findByUserIdAndRemove(realmId, userId) {
-    return this.collection.deleteMany({realmId, userId});
-  }
-
-  toModel(data) {
-    return authModel({
-      id: data.id,
-      userId: data.userId,
-      isOnline: data.isOnline,
-      token: data.token,
-      scope: data.scope,
-      description: data.description,
-      createdAt: data.createdAt,
-      updatedAt: data.updatedAt
-    });
-  }
-}
-
-module.exports = AuthRepository;
