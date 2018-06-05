@@ -3,6 +3,7 @@ const stripUndefined = require('../lib/strip-undefined');
 /**
  * @typedef {Object} AuthModel
  * @param {string} id
+ * @param {string} realmId
  * @param {string} userId
  * @param {boolean} isOnline
  * @param {string} token
@@ -17,6 +18,7 @@ const stripUndefined = require('../lib/strip-undefined');
  */
 module.exports = ({
   id,
+  realmId,
   userId,
   isOnline,
   token,
@@ -26,6 +28,7 @@ module.exports = ({
   updatedAt
 }) => stripUndefined({
   id,
+  realmId,
   userId,
   isOnline,
   token,
