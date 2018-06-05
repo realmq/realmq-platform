@@ -5,19 +5,16 @@ const bootstrap = require('./bootstrap');
 /**
  * Bootstrap api.
  *
- * @return {Promise<Object>} bootstrapped api resource
+ * @return {Promise<{broker: {v1: router}}>} bootstrapped api resource
  */
 const bootstrapApi = async () => {
   const brokerTasks = initBrokerTasks({
     loadAuth: _ => null,
     loadTopicPermissions: _ => ({read: false, write: false})
   });
-  const tasks = {broker: brokerTasks};
 
   const brokerMiddleware = initBrokerMiddleware(brokerTasks);
-  const api = {broker: {v1: brokerMiddleware}};
-
-  return api;
+  return {broker: {v1: brokerMiddleware}};
 };
 
 module.exports = ({config, logger}) => {
@@ -61,6 +58,6 @@ module.exports = ({config, logger}) => {
 
       logger.info('stopped');
       return 0;
-    },
+    }
   };
 };

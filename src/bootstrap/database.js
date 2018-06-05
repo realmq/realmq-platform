@@ -15,7 +15,7 @@ module.exports = async ({config, logger}) => {
   const realmAwareIdxSpec = {
     key: {realmId: 1, id: 1},
     name: 'id_realmId',
-    unique: true,
+    unique: true
   };
   const customIdIdxSpec = {key: {id: 1}, name: 'id', unique: true};
 
@@ -23,7 +23,7 @@ module.exports = async ({config, logger}) => {
     db.createCollection('accounts'),
     db.createCollection('users'),
     db.createCollection('realms'),
-    db.createCollection('auths'),
+    db.createCollection('auths')
   ]);
 
   await Promise.all([
@@ -32,8 +32,8 @@ module.exports = async ({config, logger}) => {
     db.collection('realms').createIndexes([customIdIdxSpec]),
     db.collection('auths').createIndexes([
       realmAwareIdxSpec,
-      {key: {token: 1}, name: 'token', unique: true},
-    ]),
+      {key: {token: 1}, name: 'token', unique: true}
+    ])
   ]);
 
   logger.debug('Database collections and indexes created');
