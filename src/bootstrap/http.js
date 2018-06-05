@@ -6,9 +6,10 @@ const {json: jsonBodyParser} = require('body-parser');
  * Initialize express http app.
  *
  * @param {Object} logger Logger
+ * @param {object} middlewares Middlewares
  * @return Promise<Object> Express App
  */
-module.exports = async ({logger}) => {
+module.exports = async ({logger, middlewares}) => {
   const http = express();
   http.use(compression());
   http.use(jsonBodyParser());
@@ -17,6 +18,7 @@ module.exports = async ({logger}) => {
     next();
   });
 
+  http.use('/broker', middlewares.broker);
   http.use((req, res) => res.status(404).send());
 
   return http;

@@ -1,22 +1,4 @@
-const initBrokerTasks = require('./tasks/broker');
-const initBrokerMiddleware = require('./api/broker/bootstrap');
 const bootstrap = require('./bootstrap');
-
-/**
- * Bootstrap api.
- *
- * @return {Promise<{broker: {v1: router}}>} bootstrapped api resource
- */
-const bootstrapApi = async () => {
-  const brokerTasks = initBrokerTasks({
-    loadAuth: _ => null,
-    updateAuth: _ => null,
-    loadTopicPermissions: _ => ({read: false, write: false})
-  });
-
-  const brokerMiddleware = initBrokerMiddleware(brokerTasks);
-  return {broker: {v1: brokerMiddleware}};
-};
 
 module.exports = ({config, logger}) => {
   let started = false;
@@ -31,8 +13,6 @@ module.exports = ({config, logger}) => {
       logger.debug('starting...');
 
       const {http} = await bootstrap({config, logger});
-      const api = await bootstrapApi();
-      http.use('/broker/v1', api.broker.v1);
 
       httpServer = http.listen(config.http.port);
 
