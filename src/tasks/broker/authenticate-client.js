@@ -1,6 +1,6 @@
 /**
  * @typedef {object} BrokerClient
- * @prop {string} clientId
+ * @prop {string} id
  * @prop {boolean} authenticated
  * @prop {string} [realmId]
  * @prop {string} [authTokenId]
@@ -19,7 +19,7 @@ module.exports = ({loadAuth}) =>
    */
   async clientId => {
     const client = {
-      clientId,
+      id: clientId,
       authenticated: false
     };
 
