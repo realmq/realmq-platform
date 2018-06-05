@@ -1,20 +1,9 @@
-const realmModel = require('../models/realm');
-const MongoDbRepository = require('./lib/mongodb');
+const createRealmModel = require('../models/realm');
+const createMongoRepository = require('./lib/mongo');
 
-class RealmRepository extends MongoDbRepository {
-  get collection() {
-    return this.db.collection('realms');
-  }
+module.exports = ({collection, createModel} = {createModel: createRealmModel}) =>
+  createMongoRepository({
+    collection,
+    createModel
+  });
 
-  toModel(data) {
-    return realmModel({
-      id: data.id,
-      name: data.name,
-      ownerAccountId: data.ownerAccountId,
-      createdAt: data.createdAt,
-      updatedAt: data.updatedAt
-    });
-  }
-}
-
-module.exports = RealmRepository;
