@@ -2,7 +2,6 @@ const bootstrapDatabase = require('./database');
 const bootstrapHttp = require('./http');
 const bootstrapRepositories = require('./repositories');
 const bootstrapTasks = require('./tasks');
-const bootstrapMiddlewares = require('./middlewares');
 
 /**
  * Bootstrap all services.
@@ -15,8 +14,7 @@ module.exports = async ({config, logger}) => {
   const db = await bootstrapDatabase({config, logger});
   const repositories = await bootstrapRepositories({db});
   const tasks = await bootstrapTasks({repositories});
-  const middlewares = await bootstrapMiddlewares({tasks});
-  const http = await bootstrapHttp({config, logger, middlewares});
+  const http = await bootstrapHttp({config, logger, tasks});
 
   return {db, http, repositories, tasks};
 };

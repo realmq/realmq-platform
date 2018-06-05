@@ -3,7 +3,7 @@ const initRoutes = require('./routes');
 
 /**
  * @param {BrokerTasks} brokerTasks Broker tasks
- * @returns {Promise<function>} Middleware
+ * @returns {function} Middleware
  */
 module.exports = ({brokerTasks}) => {
   const routes = initRoutes({brokerTasks});
