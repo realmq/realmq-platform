@@ -10,6 +10,7 @@ const bootstrap = require('./bootstrap');
 const bootstrapApi = async () => {
   const brokerTasks = initBrokerTasks({
     loadAuth: _ => null,
+    updateAuth: _ => null,
     loadTopicPermissions: _ => ({read: false, write: false})
   });
 

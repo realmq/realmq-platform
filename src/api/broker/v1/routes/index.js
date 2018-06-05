@@ -15,12 +15,16 @@ module.exports = ({
   authenticateClient,
   authorizeRegister,
   authorizePublish,
-  authorizeSubscribe
+  authorizeSubscribe,
+  markClientOffline,
+  markClientOnline
 }) => ({
   vmq: constructVmqRoutes({
     authenticateClient,
     authorizeRegister,
     authorizePublish,
-    authorizeSubscribe
+    authorizeSubscribe,
+    markClientOffline,
+    markClientOnline
   })
 });
