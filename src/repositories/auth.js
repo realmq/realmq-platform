@@ -17,7 +17,7 @@ class AuthRepository extends RealmAwareRepository {
   }
 
   async findByUserIdAndRemove(realmId, userId) {
-    this.collection.deleteMany({realmId, userId});
+    return this.collection.deleteMany({realmId, userId});
   }
 
   toModel(data) {
