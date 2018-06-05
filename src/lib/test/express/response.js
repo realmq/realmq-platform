@@ -5,6 +5,7 @@
  * @param {number} [state.status] Initial value for status
  * @param {boolean} [state.isSend] Initial value for isSend
  * @param {*} [state.data] Initial value for data
+ * @param {object} [state.headers] Initial value for headers
  * @returns {ExpressTestResponse} Response
  */
 module.exports = (state = {}) => {
