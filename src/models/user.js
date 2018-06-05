@@ -3,6 +3,7 @@ const stripUndefined = require('../lib/strip-undefined');
 /**
  * @typedef {Object} UserModel
  * @param {string} id
+ * @param {string} realmId
  * @param {boolean} isOnline
  * @param {Object} [properties]
  * @param {Date} [createdAt]
@@ -14,12 +15,14 @@ const stripUndefined = require('../lib/strip-undefined');
  */
 module.exports = ({
   id,
+  realmId,
   isOnline,
   properties,
   createdAt,
   updatedAt
 }) => stripUndefined({
   id,
+  realmId,
   isOnline,
   properties,
   createdAt,
