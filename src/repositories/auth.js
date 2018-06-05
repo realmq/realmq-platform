@@ -2,7 +2,7 @@ const createAuthModel = require('../models/auth');
 const createMongoMultiRealmRepository = require('./lib/mongo-multi-realm');
 const createGlobalFindOne = require('./lib/mongodb/find-one');
 
-module.exports = ({collection, createModel} = {createModel: createAuthModel}) => {
+module.exports = ({collection, createModel = createAuthModel}) => {
   const multiRealmRepository = createMongoMultiRealmRepository({
     collection,
     createModel
