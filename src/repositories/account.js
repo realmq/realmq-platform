@@ -2,10 +2,6 @@ const createAccountModel = require('../models/account');
 const createMongoRepository = require('./lib/mongo');
 
 /**
- * @typedef {MongoRepository} AccountRepository
- * @mixes MongoRepository
- */
-/**
  * Create account repository.
  *
  * @param {Collection} collection Dependency
@@ -18,12 +14,15 @@ module.exports = ({collection, createModel = createAccountModel}) => {
     createModel
   });
 
+  /**
+   * @class AccountRepository
+   * @extends MongoRepository
+   */
   return {
     ...repository,
 
     /**
      * Lookup a single record by matching email.
-     * @function AccountRepository~findOneByEmail
      * @param {string} email The email to search
      * @return {Promise<AccountModel>} Promised account model
      */

@@ -2,14 +2,10 @@ const createAuthModel = require('../models/auth');
 const createMongoMultiRealmRepository = require('./lib/mongo-multi-realm');
 
 /**
- * @typedef {MongoMultiRealmRepository} AuthRepository
- * @mixes MongoMultiRealmRepository
- */
-/**
  * Create auth repository.
  *
  * @param {Collection} collection Mongodb collection
- * @param {MongoMultiRealmRepository} createModel Model factory
+ * @param {function} createModel Model factory
  * @return {AuthRepository} The created auth repository
  */
 module.exports = ({collection, createModel = createAuthModel}) => {
@@ -18,13 +14,16 @@ module.exports = ({collection, createModel = createAuthModel}) => {
     createModel
   });
 
+  /**
+   * @class AuthRepository
+   * @extends MongoMultiRealmRepository
+   */
   return {
     ...multiRealmRepository,
 
     /**
      * Lookup auth model by access token.
      *
-     * @function AuthRepository~findOneByToken
      * @param {string} token Unique access token
      * @return {AuthModel} The auth model
      */
@@ -33,7 +32,6 @@ module.exports = ({collection, createModel = createAuthModel}) => {
     /**
      * Remove all auth tokens for the given user id.
      *
-     * @function AuthRepository~deleteAllByUserId
      * @param {string} realmId The realm context
      * @param {string} userId The user id
      * @return {Promise} Promised execution
