@@ -21,6 +21,7 @@ module.exports = async ({config, logger}) => {
 
   await Promise.all([
     db.createCollection('accounts'),
+    db.createCollection('channels'),
     db.createCollection('users'),
     db.createCollection('realms'),
     db.createCollection('auths')
@@ -28,6 +29,7 @@ module.exports = async ({config, logger}) => {
 
   await Promise.all([
     db.collection('accounts').createIndexes([realmAwareIdxSpec]),
+    db.collection('channels').createIndexes([realmAwareIdxSpec]),
     db.collection('users').createIndexes([realmAwareIdxSpec]),
     db.collection('realms').createIndexes([customIdIdxSpec]),
     db.collection('auths').createIndexes([
