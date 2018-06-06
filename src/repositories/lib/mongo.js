@@ -2,9 +2,6 @@ const uuid = require('uuid');
 const {id: assertId} = require('./assert');
 
 /**
- * @typedef {object} MongoRepository
- */
-/**
  * Create mongo repository
  *
  * @param {Collection} collection Mongodb collection
@@ -13,9 +10,13 @@ const {id: assertId} = require('./assert');
  * @return {MongoRepository} Created repository
  */
 module.exports = ({collection, createModel, generateId = uuid}) => {
+  /**
+   * @class MongoRepository
+   */
   const mongoRepo = {
     /**
-     * @property {Collection} MongoRepository~collection
+     * Collection
+     * @returns {Collection}
      */
     get collection() {
       return collection;
@@ -23,7 +24,6 @@ module.exports = ({collection, createModel, generateId = uuid}) => {
 
     /**
      * Create a new record.
-     * @function MongoRepository~create
      * @param {object} data Model data
      * @return {Promise<object>} The created model
      */
@@ -41,7 +41,6 @@ module.exports = ({collection, createModel, generateId = uuid}) => {
 
     /**
      * Delete all documents within a collection that match the query.
-     * @function MongoRepository~deleteMany
      * @param {object} query Record filter
      * @return {Promise} Promised result
      */
@@ -49,7 +48,6 @@ module.exports = ({collection, createModel, generateId = uuid}) => {
 
     /**
      * Find one record that matches the query.
-     * @function MongoRepository~findOne
      * @param {object} query Record filter
      * @return {Promise<object>} Promised model
      */
@@ -61,7 +59,6 @@ module.exports = ({collection, createModel, generateId = uuid}) => {
 
     /**
      * Find one record that matches the query and remove it from the collection.
-     * @function MongoRepository~findOneAndDelete
      * @param {object} query Record filter
      * @return {Promise<object>} Promised model
      */
@@ -72,7 +69,6 @@ module.exports = ({collection, createModel, generateId = uuid}) => {
 
     /**
      * Find one record that matches the query and update it with given data.
-     * @function MongoRepository~findOneAndUpdate
      * @param {object} query Record filter
      * @param {object} data Update data
      * @return {Promise<object>} Promised updated model
@@ -93,7 +89,6 @@ module.exports = ({collection, createModel, generateId = uuid}) => {
 
     /**
      * Find record by model id and update it with given data.
-     * @function MongoRepository~update
      * @param {object} model The model to update
      * @return {Promise<object>} Promised updated model
      */
