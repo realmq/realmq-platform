@@ -18,14 +18,6 @@ module.exports = ({collection, createModel, generateId}) => {
    */
   const multiRealmRepo = {
     /**
-     * Collection
-     * @return {Collection} the collection
-     */
-    get collection() {
-      return collection;
-    },
-
-    /**
      * Plain repository
      * @return {MongoRepository} The base repository
      */
@@ -90,6 +82,15 @@ module.exports = ({collection, createModel, generateId}) => {
       return multiRealmRepo.findOneAndUpdate({
         id: model.id, realmId: model.realmId
       }, model);
+    },
+
+    /**
+     * @inheritDoc
+     */
+    find: async (query, options) => {
+      assertRealmId(query.realmId);
+
+      return multiRealmRepo.find(query, options);
     }
   };
 
