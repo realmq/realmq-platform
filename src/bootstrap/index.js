@@ -8,7 +8,7 @@ const bootstrapTasks = require('./tasks');
  *
  * @param {Object} config Configuration
  * @param {Object} logger Logger
- * @return {Promise<{db: Object, http: Object, repositories: Object}>} Resolves with bootstrapped services.
+ * @return {Promise<{db: Object, http: Object, repositories: Repositories}>} Resolves with bootstrapped services.
  */
 module.exports = async ({config, logger}) => {
   const db = await bootstrapDatabase({config, logger});
