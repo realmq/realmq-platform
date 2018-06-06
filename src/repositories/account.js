@@ -3,7 +3,7 @@ const createMongoRepository = require('./lib/mongo');
 
 /**
  * @typedef {MongoRepository} AccountRepository
- * @property {AccountRepository#findOneByEmail} findOneByEmail
+ * @mixes MongoRepository
  */
 /**
  * Create account repository.
@@ -20,6 +20,13 @@ module.exports = ({collection, createModel = createAccountModel}) => {
 
   return {
     ...repository,
+
+    /**
+     * Lookup a single record by matching email.
+     * @function AccountRepository~findOneByEmail
+     * @param {string} email The email to search
+     * @return {Promise<AccountModel>} Promised account model
+     */
     findOneByEmail: email => repository.findOne({email})
   };
 };
