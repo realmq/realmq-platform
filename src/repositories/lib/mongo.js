@@ -16,7 +16,7 @@ module.exports = ({collection, createModel, generateId = uuid}) => {
   const mongoRepo = {
     /**
      * Collection
-     * @returns {Collection}
+     * @return {Collection} The collection
      */
     get collection() {
       return collection;

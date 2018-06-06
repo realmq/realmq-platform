@@ -19,7 +19,7 @@ module.exports = ({collection, createModel, generateId}) => {
   const multiRealmRepo = {
     /**
      * Collection
-     * @returns {Collection}
+     * @return {Collection} the collection
      */
     get collection() {
       return collection;
@@ -27,36 +27,51 @@ module.exports = ({collection, createModel, generateId}) => {
 
     /**
      * Plain repository
-     * @returns {MongoRepository}
+     * @return {MongoRepository} The base repository
      */
     get mongoRepo() {
       return mongoRepo;
     },
 
+    /**
+     * @inheritDoc
+     */
     create: async data => {
       assertRealmId(data.realmId);
 
       return mongoRepo.create(data);
     },
 
+    /**
+     * @inheritDoc
+     */
     deleteMany: async query => {
       assertRealmId(query.realmId);
 
       return mongoRepo.deleteMany(query);
     },
 
+    /**
+     * @inheritDoc
+     */
     findOne: async data => {
       assertRealmId(data.realmId);
 
       return mongoRepo.findOne(data);
     },
 
+    /**
+     * @inheritDoc
+     */
     findOneAndDelete: async query => {
       assertRealmId(query.realmId);
 
       return mongoRepo.findOneAndDelete(query);
     },
 
+    /**
+     * @inheritDoc
+     */
     findOneAndUpdate: async (query, data) => {
       assertRealmId(query.realmId);
 
@@ -66,6 +81,9 @@ module.exports = ({collection, createModel, generateId}) => {
       return mongoRepo.findOneAndUpdate(query, updateData);
     },
 
+    /**
+     * @inheritDoc
+     */
     update: async model => {
       assertId(model.id);
 
