@@ -1,4 +1,5 @@
 const uuid = require('uuid');
+const {id: assertId} = require('./assert');
 
 /**
  * @typedef {object} MongoRepository
@@ -12,7 +13,7 @@ const uuid = require('uuid');
  * @return {MongoRepository} Created repository
  */
 module.exports = ({collection, createModel, generateId = uuid}) => {
-  return {
+  const mongoRepo = {
     /**
      * @property {Collection} MongoRepository~collection
      */
@@ -88,6 +89,20 @@ module.exports = ({collection, createModel, generateId = uuid}) => {
       );
 
       return result.value ? createModel(result.value) : null;
+    },
+
+    /**
+     * Find record by model id and update it with given data.
+     * @function MongoRepository~update
+     * @param {object} model The model to update
+     * @return {Promise<object>} Promised updated model
+     */
+    update: async model => {
+      assertId(model.id);
+
+      return mongoRepo.findOneAndUpdate({id: model.id}, model);
     }
   };
+
+  return mongoRepo;
 };

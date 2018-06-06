@@ -1,5 +1,5 @@
 const createMongoRepo = require('./mongo');
-const assertRealmId = require('./assert-realm-id');
+const {id: assertId, realmId: assertRealmId} = require('./assert');
 
 /**
  * @typedef {MongoRepository} MongoMultiRealmRepository
@@ -16,7 +16,7 @@ const assertRealmId = require('./assert-realm-id');
 module.exports = ({collection, createModel, generateId}) => {
   const mongoRepo = createMongoRepo({collection, createModel, generateId});
 
-  return {
+  const multiRealmRepo = {
     /**
      * @property {Collection} MongoMultiRealmRepository~collection
      */
@@ -62,6 +62,16 @@ module.exports = ({collection, createModel, generateId}) => {
       const {realmId, ...updateData} = data;
 
       return mongoRepo.findOneAndUpdate(query, updateData);
+    },
+
+    update: async model => {
+      assertId(model.id);
+
+      return multiRealmRepo.findOneAndUpdate({
+        id: model.id, realmId: model.realmId
+      }, model);
     }
   };
+
+  return multiRealmRepo;
 };
