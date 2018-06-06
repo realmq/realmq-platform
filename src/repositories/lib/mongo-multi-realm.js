@@ -2,10 +2,6 @@ const createMongoRepo = require('./mongo');
 const {id: assertId, realmId: assertRealmId} = require('./assert');
 
 /**
- * @typedef {MongoRepository} MongoMultiRealmRepository
- * @augments MongoRepository
- */
-/**
  * Create a multi realm aware repository.
  *
  * @param {Object} collection MongoDb Collection
@@ -16,16 +12,22 @@ const {id: assertId, realmId: assertRealmId} = require('./assert');
 module.exports = ({collection, createModel, generateId}) => {
   const mongoRepo = createMongoRepo({collection, createModel, generateId});
 
+  /**
+   * @class MongoMultiRealmRepository
+   * @extends MongoRepository
+   */
   const multiRealmRepo = {
     /**
-     * @property {Collection} MongoMultiRealmRepository~collection
+     * Collection
+     * @returns {Collection}
      */
     get collection() {
       return collection;
     },
 
     /**
-     * @property {MongoRepository} MongoMultiRealmRepository~mongoRepo
+     * Plain repository
+     * @returns {MongoRepository}
      */
     get mongoRepo() {
       return mongoRepo;
