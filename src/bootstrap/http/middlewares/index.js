@@ -1,14 +1,18 @@
-const bootstrapBrokerMiddleware = require('./broker');
+const initAdmin = require('./admin');
+const initBroker = require('./broker');
+const initClient = require('./client');
 const catchAll = require('./catch-all');
 const error = require('./error');
 
 /**
  *
- * @param {BrokerTasks} brokerTasks Broker tasks
- * @returns {{broker: function, catchAll: function, error: function}} Middlewares
+ * @param {object} tasks Tasks
+ * @returns {{admin: function, broker: function, catchAll: function, error: function}} Middlewares
  */
-module.exports = ({tasks: {broker: brokerTasks}}) => ({
-  broker: bootstrapBrokerMiddleware({brokerTasks}),
+module.exports = async ({tasks}) => ({
+  admin: await initAdmin({tasks}),
+  broker: await initBroker({tasks}),
+  client: await initClient({tasks}),
   catchAll,
   error
 });
