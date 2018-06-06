@@ -8,7 +8,7 @@ const bootstrapBrokerTasks = require('../tasks/broker');
 module.exports = ({repositories: {auth: authRepository}}) => ({
   broker: bootstrapBrokerTasks({
     loadAuth: token => authRepository.findOneByToken(token),
-    updateAuth: entity => authRepository.update(entity.realmId, entity),
+    updateAuth: entity => authRepository.update(entity),
     loadTopicPermissions: () => ({
       read: false,
       write: false
