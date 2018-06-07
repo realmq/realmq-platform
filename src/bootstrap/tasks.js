@@ -3,15 +3,20 @@ const bootstrapBrokerTasks = require('../tasks/broker');
 /**
  *
  * @param {AuthRepository} authRepository Authentication repository
+ * @param {ChannelRepository} channelRepository Channel repository
+ * @param {SubscriptionRepository} subscriptionRepository Subscription repository
  * @returns {{broker: BrokerTasks}} Tasks
  */
-module.exports = ({repositories: {auth: authRepository}}) => ({
+module.exports = ({
+  repositories: {
+    auth: authRepository,
+    channel: channelRepository,
+    subscription: subscriptionRepository
+  }
+}) => ({
   broker: bootstrapBrokerTasks({
-    loadAuth: token => authRepository.findOneByToken(token),
-    updateAuth: entity => authRepository.update(entity),
-    loadTopicPermissions: () => ({
-      read: false,
-      write: false
-    })
+    authRepository,
+    channelRepository,
+    subscriptionRepository
   })
 });

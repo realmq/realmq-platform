@@ -8,10 +8,10 @@
  * @prop {string} [scope]
  */
 /**
- * @param {function(token: string): ?object} loadAuth Dependency
+ * @param {AuthRepository} authRepository Auth repository
  * @returns {BrokerTasks#authenticateClient} Task
  */
-module.exports = ({loadAuth}) =>
+module.exports = ({authRepository}) =>
   /**
    * @typedef {Function} BrokerTasks#authenticateClient
    * @param {string} clientId
@@ -23,7 +23,7 @@ module.exports = ({loadAuth}) =>
       authenticated: false
     };
 
-    const auth = await loadAuth(clientId);
+    const auth = await authRepository.findOneByToken(clientId);
     if (auth) {
       Object.assign(client, {
         authenticated: true,

@@ -2,6 +2,7 @@ const initAuthenticateClient = require('./authenticate-client');
 const initAuthorizePublish = require('./authorize-publish');
 const initAuthorizeRegister = require('./authorize-register');
 const initAuthorizeSubscribe = require('./authorize-subscribe');
+const initLoadTopicPermissions = require('./load-topic-permissions');
 const initMarkClientOffline = require('./mark-client-offline');
 const initMarkClientOnline = require('./mark-client-online');
 
@@ -10,14 +11,15 @@ const initMarkClientOnline = require('./mark-client-online');
  */
 /**
  * Initialize broker tasks
- * @param {function} loadAuth Load auth model
- * @param {function} updateAuth Update auth model
- * @param {function} loadTopicPermissions Load topic permissions
+ * @param {AuthRepository} authRepository Auth repository
+ * @param {ChannelRepository} channelRepository Channel repository
+ * @param {SubscriptionRepository} subscriptionRepository Subscription repository
  * @return {BrokerTasks} Initialized tasks
  */
-module.exports = ({loadAuth, updateAuth, loadTopicPermissions}) => {
-  const rewriteTopicToInternal = () => {};
-  const authenticateClient = initAuthenticateClient({loadAuth});
+module.exports = ({authRepository, channelRepository, subscriptionRepository}) => {
+  const loadTopicPermissions = () => ({read: false, write: false});
+  const rewriteTopicToInternal = t => t;
+  const authenticateClient = initAuthenticateClient({authRepository});
   return {
     authenticateClient,
     authorizePublish:
@@ -27,8 +29,8 @@ module.exports = ({loadAuth, updateAuth, loadTopicPermissions}) => {
     authorizeSubscribe:
       initAuthorizeSubscribe({loadTopicPermissions, rewriteTopicToInternal}),
     markClientOffline:
-      initMarkClientOffline({loadAuth, updateAuth}),
+      initMarkClientOffline({authRepository}),
     markClientOnline:
-      initMarkClientOnline({loadAuth, updateAuth})
+      initMarkClientOnline({authRepository})
   };
 };
