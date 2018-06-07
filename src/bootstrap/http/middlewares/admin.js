@@ -6,8 +6,7 @@ const statusUnauthorized = message => ({
   message: {error: 'unauthorized', message}
 });
 
-const positiveResult = () => [null, true];
-const negativeResult = status => [status, false];
+const base64Decode = value => Buffer.from(value, 'base64').toString();
 
 module.exports = async ({tasks, logger}) => ({
   v1: await mw({
@@ -16,18 +15,22 @@ module.exports = async ({tasks, logger}) => ({
       tasks
     },
     securityHandlers: {
-      accountCredentialsScheme: (req, scopes, definitions, callback) => {
-        (async () => {
+      async accountCredentialsScheme(req, scopes, definitions, callback) {
+        try {
+          const positiveResult = () => callback(null, true);
+          const negativeResult = status => callback(status, false);
+
           const auth = req.headers.authorization;
           if (!auth) {
             return [statusUnauthorized('Missing authorization'), false];
           }
+
           const [scheme, value] = auth.trim().split(' ');
           if (scheme.toLowerCase() !== 'basic') {
             return negativeResult(statusUnauthorized('Invalid authorization scheme'));
           }
-          const [username, password] = Buffer.from(value, 'base64').toString().split(':');
 
+          const [username, password] = base64Decode(value).split(':');
           const result = await tasks.admin.authenticateAccount(username, password);
           if (!result.authenticated) {
             return negativeResult(statusUnauthorized('Invalid credentials'));
@@ -35,12 +38,10 @@ module.exports = async ({tasks, logger}) => ({
 
           req.account = result.account;
           return positiveResult();
-        })()
-          .then(([status, statisfied]) => callback(status, statisfied))
-          .catch(err => {
-            logger.error(`Unexpected error on authenticating request: ${err}`, {err});
-            callback({status: 500}, false);
-          });
+        } catch (err) {
+          logger.error(`Unexpected error on authenticating request: ${err}`, {err});
+          callback({status: 500}, false);
+        }
       }
     }
   })
