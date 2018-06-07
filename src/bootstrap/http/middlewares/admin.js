@@ -16,13 +16,13 @@ module.exports = async ({tasks, logger}) => ({
     },
     securityHandlers: {
       async accountCredentialsScheme(req, scopes, definitions, callback) {
-        try {
-          const positiveResult = () => callback(null, true);
-          const negativeResult = status => callback(status, false);
+        const positiveResult = () => callback(null, true);
+        const negativeResult = status => callback(status, false);
 
+        try {
           const auth = req.headers.authorization;
           if (!auth) {
-            return [statusUnauthorized('Missing authorization'), false];
+            return negativeResult(statusUnauthorized('Missing authorization'));
           }
 
           const [scheme, value] = auth.trim().split(' ');
@@ -40,7 +40,7 @@ module.exports = async ({tasks, logger}) => ({
           return positiveResult();
         } catch (err) {
           logger.error(`Unexpected error on authenticating request: ${err}`, {err});
-          callback({status: 500}, false);
+          return negativeResult({status: 500});
         }
       }
     }
