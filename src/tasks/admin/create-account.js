@@ -2,11 +2,11 @@ const {success, failure} = require('../../lib/result');
 const error = require('../../lib/error/task');
 
 /**
- *
- * @param {AccountRepository} accountRepository Account Repository
+ * @param {AccountRules} accountRules Account rules
+ * @param {AccountRepository} accountRepository Account repository
  * @returns {Function} Task
  */
-module.exports = ({accountRepository}) =>
+module.exports = ({accountRules, accountRepository}) =>
   /**
    * @function AdminTasks#createAccount
    * @param {object} data Data
@@ -19,7 +19,8 @@ module.exports = ({accountRepository}) =>
     // get a duplication error so we have to handle it anyway. We just skip the
     // inaccurate check.
     try {
-      const account = await accountRepository.create(data);
+      const dataWithPasswordHash = await accountRules.setPassword(data, data.password);
+      const account = await accountRepository.create(dataWithPasswordHash);
       return success(account);
     } catch (err) {
       if (err.name === 'RepositoryError' && err.reason === 'duplicate') {
