@@ -21,7 +21,7 @@ module.exports = ({channelRepository, subscriptionRepository, lookupStaticTopicP
 
     const [channel, subscription] = Promise.all([
       channelRepository.findOne({realmId, id: topic}),
-      subscriptionRepository.findOne({realmId, channelId: topic, userId}),
+      subscriptionRepository.findOneByChannelAndUserId({realmId, channelId: topic, userId})
     ]);
 
     if (!channel || !subscription) {
