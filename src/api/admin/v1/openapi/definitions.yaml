@@ -1,3 +1,13 @@
+RequestError:
+  type: object
+  properties:
+    code:
+      type: string
+    message:
+      type: string
+  required:
+    - code
+
 BaseEntity:
   type: object
   properties:
