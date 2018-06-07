@@ -34,6 +34,21 @@ BaseList:
     - limit
     - items
 
+TimestampsTrait:
+  type: object
+  properties:
+    createdAt:
+      description: Datetime of entity creation.
+      type: string
+      format: date-time
+    updatedAt:
+      description: Datetime of entity last modification.
+      type: string
+      format: date-time
+  required:
+    - createdAt
+    - updatedAt
+
 Realm:
   allOf:
     - $ref: '#/definitions/BaseEntity'
