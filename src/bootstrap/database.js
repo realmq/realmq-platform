@@ -29,7 +29,7 @@ module.exports = async ({config, logger}) => {
 
   await Promise.all([
     db.collection('accounts').createIndexes([
-      realmAwareIdxSpec,
+      customIdIdxSpec,
       {key: {email: 1}, name: 'email', unique: true}
     ]),
     db.collection('channels').createIndexes([realmAwareIdxSpec]),
