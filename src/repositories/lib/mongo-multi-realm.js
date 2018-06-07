@@ -46,10 +46,10 @@ module.exports = ({collection, createModel, generateId}) => {
     /**
      * @inheritDoc
      */
-    findOne: async data => {
-      assertRealmId(data.realmId);
+    findOne: async query => {
+      assertRealmId(query.realmId);
 
-      return mongoRepo.findOne(data);
+      return mongoRepo.findOne(query);
     },
 
     /**
@@ -87,10 +87,10 @@ module.exports = ({collection, createModel, generateId}) => {
     /**
      * @inheritDoc
      */
-    find: async (query, options) => {
+    find: async (query, {limit, offset, sort} = {}) => {
       assertRealmId(query.realmId);
 
-      return multiRealmRepo.find(query, options);
+      return mongoRepo.find(query, {limit, offset, sort});
     },
   };
 

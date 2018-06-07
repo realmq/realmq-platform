@@ -101,7 +101,7 @@ module.exports = ({collection, createModel, createPaginatedList = paginatedListF
      * @param {Object} [sort] Sorting of the result
      * @return {Promise<PaginatedList>} The paginated list of records
      */
-    find: async (query, {limit, offset = 0, sort = {createdAt: -1}}) => {
+    find: async (query, {limit, offset = 0, sort = {createdAt: -1}} = {}) => {
       const cursor = await collection.find(query, {skip: offset, limit, sort});
 
       let docs = [];
