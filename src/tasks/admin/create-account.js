@@ -24,13 +24,13 @@ module.exports = ({accountRules, accountRepository}) =>
       return success(account);
     } catch (err) {
       if (err.name === 'RepositoryError' && err.reason === 'duplicate') {
-        return failure([
+        return failure(
           error(
             'EmailAlreadyTaken',
             'Account could not be created, since an account with the same email already exists.'
           ),
           err
-        ]);
+        );
       }
       return Promise.reject(err);
     }

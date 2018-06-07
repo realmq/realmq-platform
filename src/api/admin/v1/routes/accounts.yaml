@@ -34,11 +34,10 @@ post:
       description: Account was successfully created.
       schema:
         $ref: '#/definitions/Account'
-    400:
-      description: Request validation failed.
     409:
       description: |
-        The account could not be created since the email address is already in use with another account.
+        Either request validation failed or the account could not be created
+        since the email address is already in use with another account.
       schema:
         allOf:
         - $ref: '#/definitions/RequestError'
