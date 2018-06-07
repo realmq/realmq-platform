@@ -1,13 +1,13 @@
 const stripUndefined = require('../lib/strip-undefined');
 
 /**
- * @typedef {Object} AccountModel
- * @param {string} id
- * @param {string} name
- * @param {string} email
- * @param {string} passwordHash
- * @param {Date} [createdAt]
- * @param {Date} [updatedAt]
+ * @class AccountModel
+ * @prop {string} id
+ * @prop {string} name
+ * @prop {string} email
+ * @prop {string} passwordHash
+ * @prop {Date} [createdAt]
+ * @prop {Date} [updatedAt]
  */
 
 /**
