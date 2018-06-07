@@ -16,7 +16,7 @@ module.exports = async ({path, dependencies}) => {
     docsPath: '/openapi.json',
     exposeApiDocs: true,
     paths,
-    validateApiDoc: false
+    promiseMode: true
   });
 
   return router;

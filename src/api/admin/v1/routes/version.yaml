@@ -3,7 +3,5 @@ get:
   responses:
     200:
       description: Current version, see https://semver.org for format.
-      content:
-        application/json:
-          schema:
-            type: string
+      schema:
+        type: string
