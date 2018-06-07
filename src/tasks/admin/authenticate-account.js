@@ -16,7 +16,7 @@ module.exports = ({accountRules, accountRepository}) =>
    * @param {string} password
    * @returns {Promise<AdminTasks~authenticateAccountResult>}
    */
-  async (email, password) => {
+  async ({email, password}) => {
     const account = await accountRepository.findOneByEmail(email);
     if (!account) {
       return {authenticated: false};

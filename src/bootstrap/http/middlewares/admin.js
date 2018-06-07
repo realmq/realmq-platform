@@ -31,7 +31,7 @@ module.exports = async ({tasks, logger}) => ({
           }
 
           const [username, password] = base64Decode(value).split(':');
-          const result = await tasks.admin.authenticateAccount(username, password);
+          const result = await tasks.admin.authenticateAccount({email: username, password});
           if (!result.authenticated) {
             return negativeResult(statusUnauthorized('Invalid credentials'));
           }
