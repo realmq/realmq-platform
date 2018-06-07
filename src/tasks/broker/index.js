@@ -5,6 +5,7 @@ const initAuthorizeSubscribe = require('./authorize-subscribe');
 const initLoadTopicPermissions = require('./load-topic-permissions');
 const initMarkClientOffline = require('./mark-client-offline');
 const initMarkClientOnline = require('./mark-client-online');
+const initLookupStaticPermissions = require('./lib/lookup-static-topic-permission');
 const initRewriteTopicToInternal = require('./lib/rewrite-topic-to-internal');
 
 /**
@@ -18,7 +19,12 @@ const initRewriteTopicToInternal = require('./lib/rewrite-topic-to-internal');
  * @return {BrokerTasks} Initialized tasks
  */
 module.exports = ({authRepository, channelRepository, subscriptionRepository}) => {
-  const loadTopicPermissions = () => ({read: false, write: false});
+  const lookupStaticPermissions = initLookupStaticPermissions();
+  const loadTopicPermissions = initLoadTopicPermissions({
+    channelRepository,
+    subscriptionRepository,
+    lookupStaticPermissions
+  });
   const rewriteTopicToInternal = initRewriteTopicToInternal();
   const authenticateClient = initAuthenticateClient({authRepository});
   return {
