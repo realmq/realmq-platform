@@ -1,6 +1,6 @@
 module.exports = tasks => ({
   get: async (req, res) => {
-    const {offset = 0, limit = 20} = req.query;
+    const {offset, limit} = req.query;
     const {ok, result: list, error} =
       await tasks.admin.listRealms({account: req.account, offset, limit});
     if (!ok) {
