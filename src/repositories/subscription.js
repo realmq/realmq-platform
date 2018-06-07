@@ -38,12 +38,12 @@ module.exports = ({collection, createModel = createSubscriptionModel}) => {
     },
 
     /**
-     * Find a subscribtion of a given channel and user.
+     * Find a subscription of a given channel and user.
      *
-     * @param {string} realmId
-     * @param {string} channelId
-     * @param {string} userId
-     * @returns {Promise<SubscriptionModel>}
+     * @param {string} realmId Realm context
+     * @param {string} channelId Id of channel to find subscription for
+     * @param {string} userId Id of user to find subscription for
+     * @returns {Promise<?SubscriptionModel>} Subscription
      */
     async findOneByChannelAndUserId({realmId, channelId, userId}) {
       if (!channelId) {
@@ -60,11 +60,11 @@ module.exports = ({collection, createModel = createSubscriptionModel}) => {
     },
 
     /**
-     * Find all subscribtions on a given channel.
+     * Find all subscriptions on a given channel.
      *
-     * @param {string} realmId
-     * @param {string} channelId
-     * @returns {Promise<PaginatedList<SubscriptionModel>>}
+     * @param {string} realmId Realm context
+     * @param {string} channelId Id of channel to find subscriptions for
+     * @returns {Promise<PaginatedList<SubscriptionModel>>} Paginated list of subscriptions
      */
     async findAllByChannelId({realmId, channelId}) {
       if (!channelId) {
@@ -78,13 +78,13 @@ module.exports = ({collection, createModel = createSubscriptionModel}) => {
     },
 
     /**
-     * Find all subscribtions of a given user.
+     * Find all subscriptions of a given user.
      *
-     * @param {string} realmId
-     * @param {string} userId
-     * @param {number} limit
-     * @param {number} offset
-     * @returns {Promise<PaginatedList<SubscriptionModel>>}
+     * @param {string} realmId Realm context
+     * @param {string} userId Id of user to find subscription for
+     * @param {number} limit Limit
+     * @param {number} offset Offset
+     * @returns {Promise<PaginatedList<SubscriptionModel>>} Paginated list of subscriptions
      */
     async findAllByUserId({realmId, userId}, {limit, offset} = {}) {
       if (!userId) {
@@ -97,31 +97,31 @@ module.exports = ({collection, createModel = createSubscriptionModel}) => {
     /**
      * Remove all subscriptions from the given channel.
      *
-     * @param {string} realmId
-     * @param {string} channelId
-     * @returns {Promise}
+     * @param {string} realmId Realm context
+     * @param {string} channelId Id of channel to remove subscriptions for
+     * @returns {Promise<void>} Nothing
      */
     async findByChannelIdAndRemove({realmId, channelId}) {
       if (!channelId) {
         throw new Error('Missing channel id.');
       }
 
-      return multiRealmRepo.deleteMany({realmId, channelId});
+      await multiRealmRepo.deleteMany({realmId, channelId});
     },
 
     /**
      * Remove all subscriptions of the given user.
      *
-     * @param {string} realmId
-     * @param {string} userId
-     * @returns {Promise}
+     * @param {string} realmId Realm context
+     * @param {string} userId Id of user to remove subscriptions for
+     * @returns {Promise<void>} Nothing
      */
     async findByUserIdAndRemove({realmId, userId}) {
       if (!userId) {
         throw new Error('Missing user id.');
       }
 
-      return multiRealmRepo.deleteMany({realmId, userId});
+      await multiRealmRepo.deleteMany({realmId, userId});
     }
   };
 };

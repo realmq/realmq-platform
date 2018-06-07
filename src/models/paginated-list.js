@@ -2,11 +2,12 @@ module.exports = ({items = [], limit, offset = 0, total} = {}) => {
   const count = items.length;
 
   /**
-   * @typedef {Object} PaginatedList
+   * @class PaginatedList
+   * @template T
    */
   return {
     /**
-     * @type {Array<Object>}
+     * @type {T[]}
      */
     items,
 
