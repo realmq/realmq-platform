@@ -6,9 +6,22 @@ const createRepositories = require('../repositories');
  * @param {Db} db Dependency
  * @return {Promise<Repositories>} The bootstrapped repositories
  */
-module.exports = ({db}) => createRepositories({
-  accountCollection: db.createCollection('accounts'),
-  authCollection: db.createCollection('auths'),
-  realmCollection: db.createCollection('realms'),
-  userCollection: db.createCollection('users')
-});
+module.exports = async ({db}) => {
+  const [
+    accountCollection,
+    authCollection,
+    realmCollection,
+    userCollection
+  ] = await Promise.all([
+    db.createCollection('accounts'),
+    db.createCollection('auths'),
+    db.createCollection('realms'),
+    db.createCollection('users')
+  ]);
+  return createRepositories({
+    accountCollection,
+    authCollection,
+    realmCollection,
+    userCollection
+  });
+};
