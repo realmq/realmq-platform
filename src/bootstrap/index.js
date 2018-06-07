@@ -13,7 +13,7 @@ const bootstrapTasks = require('./tasks');
 module.exports = async ({config, logger}) => {
   const db = await bootstrapDatabase({config, logger});
   const repositories = await bootstrapRepositories({db});
-  const tasks = await bootstrapTasks({repositories});
+  const tasks = await bootstrapTasks({repositories, logger});
   const http = await bootstrapHttp({config, logger, tasks});
 
   return {db, http, repositories, tasks};

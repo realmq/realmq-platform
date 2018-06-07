@@ -1,0 +1,56 @@
+BaseEntity:
+  type: object
+  properties:
+    id:
+      description: The Id of the entity
+      type: string
+  required:
+    - id
+
+BaseList:
+  type: object
+  properties:
+    total:
+      description: Absolute number of items available.
+      type: integer
+    count:
+      description: Number of items in the list.
+      type: integer
+    offset:
+      description: Current offset from beginning of the total result set.
+      type: integer
+    limit:
+      description: Maximum list size.
+      type: integer
+    items:
+      description: The result list of entities.
+      type: array
+      items:
+        $ref: '#/definitions/BaseEntity'
+  required:
+    - total
+    - count
+    - offset
+    - limit
+    - items
+
+Realm:
+  allOf:
+    - $ref: '#/definitions/BaseEntity'
+    - properties:
+        name:
+          type: string
+      required:
+        - name
+    - $ref: '#/definitions/TimestampsTrait'
+
+RealmList:
+  allOf:
+    - $ref: '#/definitions/BaseList'
+    - properties:
+        items:
+          type: array
+          items:
+            $ref: '#/definitions/Realm'
+      required:
+        - items

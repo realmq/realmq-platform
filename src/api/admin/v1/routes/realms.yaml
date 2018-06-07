@@ -1,0 +1,12 @@
+get:
+  operationId: listRealms
+  parameters:
+    - $ref: '#/parameters/paginationOffset'
+    - $ref: '#/parameters/paginationLimit'
+  responses:
+    403:
+      description: Not authorized to access resource.
+    200:
+      description: List of realms
+      schema:
+        $ref: '#/definitions/RealmList'

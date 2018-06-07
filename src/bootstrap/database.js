@@ -28,7 +28,10 @@ module.exports = async ({config, logger}) => {
   ]);
 
   await Promise.all([
-    db.collection('accounts').createIndexes([realmAwareIdxSpec]),
+    db.collection('accounts').createIndexes([
+      realmAwareIdxSpec,
+      {key: {email: 1}, name: 'email', unique: true}
+    ]),
     db.collection('channels').createIndexes([realmAwareIdxSpec]),
     db.collection('users').createIndexes([realmAwareIdxSpec]),
     db.collection('realms').createIndexes([customIdIdxSpec]),

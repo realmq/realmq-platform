@@ -1,6 +1,7 @@
 const uuid = require('uuid');
 const paginatedListFactory = require('../../models/paginated-list');
 const {id: assertId} = require('./assert');
+const {wrap: errorWrap} = require('./error');
 
 /**
  * Create mongo repository
@@ -28,7 +29,7 @@ module.exports = ({collection, createModel, createPaginatedList = paginatedListF
         createdAt: new Date(),
         updatedAt: new Date()
       });
-      const {ops} = await collection.insertOne(model);
+      const {ops} = await errorWrap(collection.insertOne(model));
 
       return createModel(ops[0]);
     },

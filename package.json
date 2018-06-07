@@ -31,6 +31,7 @@
     "extends": ".eslintrc.yaml"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "bunyan": "^1.8.12",
     "bunyan-format": "^0.2.1",

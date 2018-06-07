@@ -1,0 +1,16 @@
+paginationOffset:
+  name: offset
+  in: query
+  description: Retrieve items of paginated starting at this offset.
+  type: integer
+  default: 0
+  minimum: 0
+
+paginationLimit:
+  name: limit
+  in: query
+  description: Maximum items in pagination list.
+  type: integer
+  default: 20
+  minimum: 1
+  maximum: 100
