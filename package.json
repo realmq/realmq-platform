@@ -11,7 +11,8 @@
     "lint": "xo",
     "lint-fix": "xo --fix",
     "start": "node src",
-    "test": ".npm-scripts/test.sh"
+    "test": ".npm-scripts/test.sh",
+    "test-coverage": "jest --coverage"
   },
   "devDependencies": {
     "husky": "^0.14.3",
@@ -29,6 +30,17 @@
   },
   "xo": {
     "extends": ".eslintrc.yaml"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/rules/**/*",
+      "src/tasks/**/*",
+      "!**/index.js"
+    ],
+    "coverageDirectory": "./test-coverage",
+    "coverageReporters": [
+      "lcov"
+    ]
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
