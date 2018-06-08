@@ -11,7 +11,7 @@ describe('A fetchRealm admin task', () => {
 
     describe('called with proper account', () => {
       const account = {id: '5'};
-      const realm = {id: '23', owningAccountId: '5'};
+      const realm = {id: '23', ownerAccountId: '5'};
 
       describe('for existing realm', () => {
         beforeEach(() => {

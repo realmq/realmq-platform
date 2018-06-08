@@ -12,4 +12,4 @@ module.exports = ({realmRepository}) =>
    * @returns {Promise<Result<?RealmModel>>} Realm
    */
   async ({account, id}) =>
-    success(await realmRepository.findOne({id, owningAccountId: account.id}));
+    success(await realmRepository.findOne({id, ownerAccountId: account.id}));
