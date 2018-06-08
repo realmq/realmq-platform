@@ -5,6 +5,9 @@ rules:
   indent:
     - error
     - 2
+  comma-dangle:
+    - error
+    - always-multiline
 overrides:
   - files:
     - src/**/*.test.js
