@@ -13,4 +13,4 @@ module.exports = ({realmRepository}) =>
    * @returns {Promise<PaginatedList>} Paginated list
    */
   async ({account, offset, limit}) =>
-    success(await realmRepository.find({owningAccountId: account.id}, {offset, limit}));
+    success(await realmRepository.find({ownerAccountId: account.id}, {offset, limit}));
