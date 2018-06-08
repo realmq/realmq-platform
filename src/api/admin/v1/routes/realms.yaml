@@ -6,18 +6,18 @@
     Get paginated realm listing.
   tags:
     - Realm
-    parameters:
-      - $ref: '#/parameters/paginationOffset'
-      - $ref: '#/parameters/paginationLimit'
-    responses:
-      200:
-        description: The list of realms was successfully retrieved.
-          schema:
-            $ref: '#/definitions/RealmList'
-      400:
-        description: Request validation failed.
-      401:
-        description: The realms could not be listed since the account authorization failed.
+  parameters:
+    - $ref: '#/parameters/paginationOffset'
+    - $ref: '#/parameters/paginationLimit'
+  responses:
+    200:
+      description: The list of realms was successfully retrieved.
+        schema:
+          $ref: '#/definitions/RealmList'
+    400:
+      description: Request validation failed.
+    401:
+      description: The realms could not be listed since the account authorization failed.
 
   post:
     operationId: createRealm
