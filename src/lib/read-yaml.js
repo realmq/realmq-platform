@@ -4,20 +4,36 @@ const {safeLoad: parseYaml, Type: YamlType, Schema: {create: createSchema}} = re
 
 const buildSchema = (path, readYaml) => {
   const dir = dirname(path);
+  const absoultizePath = path => (path[0] === '/' ? path : `${dir}/${path}`);
+
   const includeType = new YamlType('!include', {
     kind: 'scalar',
+    resolve: data => data !== null,
     construct: path => {
-      if (path[0] !== '/') {
-        path = `${dir}/${path}`;
-      }
       try {
-        return readYaml(path);
+        return readYaml(absoultizePath(path));
       } catch (err) {
         return `[Error: ${err.message}]`;
       }
     },
   });
-  return createSchema([includeType]);
+  const includeMergedType = new YamlType('!includeMerged', {
+    kind: 'sequence',
+    resolve: data => data !== null && data.length > 0,
+    construct: paths => {
+      try {
+        const contents = paths.map(path => readYaml(absoultizePath(path)));
+        return contents.reduce((merged, content) => {
+          return Array.isArray(merged) ?
+            merged.concat(content) :
+            Object.assign({}, content, merged);
+        });
+      } catch (err) {
+        return `[Error: ${err.message}]`;
+      }
+    },
+  });
+  return createSchema([includeType, includeMergedType]);
 };
 
 const readYamlSync = path => {

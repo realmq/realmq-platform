@@ -4,10 +4,10 @@ info:
   title: RealMQ admin api
   version: 0.1.0
 
-paths:
-  /accounts: !include routes/accounts.yaml
-  /realms: !include routes/realms.yaml
-  /version: !include routes/version.yaml
+paths: !includeMerged
+  - routes/accounts.yaml
+  - routes/realms.yaml
+  - routes/version.yaml
 
 definitions: !include openapi/definitions.yaml
 parameters: !include openapi/parameters.yaml

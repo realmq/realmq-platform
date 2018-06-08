@@ -1,46 +1,47 @@
-post:
-  summary: Register a new account.
-  description: |
-    Signup for a new account.
+/accounts:
+  post:
+    summary: Register a new account.
+    description: |
+      Signup for a new account.
 
-    #### Allowed Scopes
-    **anonymous**
-  tags:
-    - Account
-  parameters:
-    - name: body
-      in: body
-      required: true
-      schema:
-        title: AccountRegistration
-        type: object
-        additionalProperties: false
-        required:
-        - email
-        - password
-        properties:
-          email:
-            description: A valid e-mail address.
-            type: string
-          password:
-            description: The password.
-            type: string
-          name:
-            description: Full name used for communications.
-            type: string
-  security: []
-  responses:
-    201:
-      description: Account was successfully created.
-      schema:
-        $ref: '#/definitions/Account'
-    409:
-      description: |
-        Either request validation failed or the account could not be created
-        since the email address is already in use with another account.
-      schema:
-        allOf:
-        - $ref: '#/definitions/RequestError'
-        - example:
-            code: EMAIL_ALREADY_TAKEN
-            message: Account could not be created, since an account with the same email already exists.
+      #### Allowed Scopes
+      **anonymous**
+    tags:
+      - Account
+    parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          title: AccountRegistration
+          type: object
+          additionalProperties: false
+          required:
+          - email
+          - password
+          properties:
+            email:
+              description: A valid e-mail address.
+              type: string
+            password:
+              description: The password.
+              type: string
+            name:
+              description: Full name used for communications.
+              type: string
+    security: []
+    responses:
+      201:
+        description: Account was successfully created.
+        schema:
+          $ref: '#/definitions/Account'
+      409:
+        description: |
+          Either request validation failed or the account could not be created
+          since the email address is already in use with another account.
+        schema:
+          allOf:
+          - $ref: '#/definitions/RequestError'
+          - example:
+              code: EMAIL_ALREADY_TAKEN
+              message: Account could not be created, since an account with the same email already exists.

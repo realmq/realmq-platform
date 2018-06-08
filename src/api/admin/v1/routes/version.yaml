@@ -1,7 +1,8 @@
-get:
-  operationId: fetchVersion
-  responses:
-    200:
-      description: Current version, see https://semver.org for format.
-      schema:
-        type: string
+/version:
+  get:
+    operationId: fetchVersion
+    responses:
+      200:
+        description: Current version, see https://semver.org for format.
+        schema:
+          type: string
