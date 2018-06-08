@@ -4,7 +4,9 @@ const initListRealms = require('./list-realms');
 
 /** @typedef {object} AdminTasks */
 /**
- * @param realmRepository
+ * @param {AccountRules} accountRules The account rules
+ * @param {AccountRepository} accountRepository The account repository
+ * @param {RealmRepository} realmRepository The real repository
  * @returns {AdminTasks} Initialized admin tasks
  */
 module.exports = ({accountRules, accountRepository, realmRepository}) => ({
