@@ -1,8 +1,8 @@
 const initAdmin = require('./admin');
 const initBroker = require('./broker');
 const initClient = require('./client');
-const catchAll = require('./catch-all');
-const error = require('./error');
+const initCatchAll = require('./catch-all');
+const initError = require('./error');
 
 /**
  *
@@ -13,6 +13,6 @@ module.exports = async ({tasks, logger}) => ({
   admin: await initAdmin({tasks, logger}),
   broker: await initBroker({tasks}),
   client: await initClient({tasks}),
-  catchAll,
-  error,
+  catchAll: await initCatchAll({logger}),
+  error: await initError({logger}),
 });
