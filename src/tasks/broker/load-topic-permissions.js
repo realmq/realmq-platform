@@ -3,7 +3,7 @@
  * @param {ChannelRepository} channelRepository Channel repository
  * @param {SubscriptionRepository} subscriptionRepository Subscription repository
  * @param {function(string): object} lookupStaticTopicPermissions Lookup of static permissions
- * @returns {Function}
+ * @returns {Function} loadTopicPermissions
  */
 module.exports = ({channelRepository, subscriptionRepository, lookupStaticTopicPermissions}) =>
   /**
