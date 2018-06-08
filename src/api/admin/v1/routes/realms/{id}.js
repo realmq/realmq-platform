@@ -16,5 +16,5 @@ module.exports = tasks => ({
     } else {
       res.status(404).send();
     }
-  }
+  },
 });
