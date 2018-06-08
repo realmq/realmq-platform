@@ -1,5 +1,5 @@
 const status = require('./status');
-const initResult = require('./result');
+const initResponder = require('./responder');
 
 const statusUnauthorized = message => status.unauthorized({
   challenge: 'Bearer',
@@ -19,16 +19,16 @@ module.exports = ({authenticateUser, logger}) => {
    * @returns {Promise<void>} Nothing
    */
   return async (req, scopes, definitions, callback) => {
-    const {negative, positive} = initResult(callback);
+    const responder = initResponder(callback);
     try {
       const auth = req.headers.authorization;
       if (!auth) {
-        return negative(statusUnauthorized('Missing authorization'));
+        return responder.decline(statusUnauthorized('Missing authorization'));
       }
 
       const [scheme, token] = auth.trim().split(' ');
       if (scheme.toLowerCase() !== 'bearer' || !token) {
-        return negative(statusUnauthorized('Invalid authorization scheme'));
+        return responder.decline(statusUnauthorized('Invalid authorization scheme'));
       }
 
       const {ok, result, error} = await authenticateUser(token);
@@ -37,15 +37,15 @@ module.exports = ({authenticateUser, logger}) => {
       }
 
       if (!result.authenticated) {
-        return negative(statusUnauthorized('Invalid credentials'));
+        return responder.decline(statusUnauthorized('Invalid credentials'));
       }
 
       req.auth = result.auth;
       req.user = result.user;
-      return positive();
+      return responder.grant();
     } catch (err) {
       logger.error(`Unexpected error on authenticating request: ${err}`, {err});
-      return negative({status: 500});
+      return responder.fail();
     }
   };
 };

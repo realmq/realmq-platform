@@ -1,6 +1,6 @@
 const {decode: base64Decode} = require('../../base64');
 const status = require('./status');
-const initResult = require('./result');
+const initResponder = require('./responder');
 
 const statusUnauthorized = message => status.unauthorized({
   challenge: 'Basic realm="Account credentials"',
@@ -27,30 +27,30 @@ module.exports = ({authenticateAccount, logger}) => {
    * @returns {Promise<void>} Nothing
    */
   return async (req, scopes, definitions, callback) => {
-    const {negative, positive} = initResult(callback);
+    const responder = initResponder(callback);
 
     try {
       const auth = req.headers.authorization;
       if (!auth) {
-        return negative(statusUnauthorized('Missing authorization'));
+        return responder.decline(statusUnauthorized('Missing authorization'));
       }
 
       const [scheme, value] = auth.trim().split(' ');
       if (scheme.toLowerCase() !== 'basic' || !value) {
-        return negative(statusUnauthorized('Invalid authorization scheme'));
+        return responder.decline(statusUnauthorized('Invalid authorization scheme'));
       }
 
       const [username, password] = base64Decode(value).split(':');
       const result = await authenticateAccount({email: username, password});
       if (!result.authenticated) {
-        return negative(statusUnauthorized('Invalid credentials'));
+        return responder.decline(statusUnauthorized('Invalid credentials'));
       }
 
       req.account = result.account;
-      return positive();
+      return responder.grant();
     } catch (err) {
       logger.error(`Unexpected error on authenticating request: ${err}`, {err});
-      return negative({status: 500});
+      return responder.fail();
     }
   };
 };
