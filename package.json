@@ -10,6 +10,8 @@
     "precommit": "lint-staged",
     "lint": "xo",
     "lint-fix": "xo --fix",
+    "validate-yaml": ".npm-scripts/validate-yaml.sh",
+    "validate-openapi-spec": ".npm-scripts/validate-openapi-spec.sh",
     "start": "node src",
     "test": ".npm-scripts/test.sh",
     "test-coverage": "jest --coverage"
@@ -54,6 +56,7 @@
     "fast-json-patch": "^2.0.6",
     "js-yaml": "^3.12.0",
     "mongodb": "^3.0.10",
+    "openapi-schema-validation": "^0.4.1",
     "uuid": "^3.2.1"
   }
 }
