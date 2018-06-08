@@ -9,7 +9,7 @@ const {success} = require('../../lib/result');
 /**
  * @param {AuthRepository} authRepository Auth repository
  * @param {UserRepository} userRepository User repository
- * @returns {ClientTasks#authenticateClient} Task
+ * @returns {ClientTasks#authenticateUser} Task
  */
 module.exports = ({authRepository, userRepository}) =>
   /**
