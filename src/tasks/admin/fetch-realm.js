@@ -2,7 +2,7 @@ const {success} = require('../../lib/result');
 
 /**
  * @param {RealmRepository} realmRepository Realm repository
- * @returns {function} Task
+ * @returns {AdminTasks#fetchRealm} Task
  */
 module.exports = ({realmRepository}) =>
   /**
