@@ -1,5 +1,6 @@
 const accountRules = require('../rules/account');
 const initAdminTasks = require('../tasks/admin');
+const initCommonTasks = require('../tasks/common');
 const initBrokerTasks = require('../tasks/broker');
 const initClientTasks = require('../tasks/client');
 
@@ -11,7 +12,7 @@ const initClientTasks = require('../tasks/client');
  * @param {RealmRepository} realmRepository Realm repository
  * @param {SubscriptionRepository} subscriptionRepository Subscription repository
  * @param {UserRepository} userRepository User repository
- * @returns {{broker: BrokerTasks}} Tasks
+ * @returns {{broker: BrokerTasks, admin: AdminTasks}} Tasks
  */
 module.exports = ({
   repositories: {
@@ -22,19 +23,25 @@ module.exports = ({
     subscription: subscriptionRepository,
     user: userRepository,
   },
-}) => ({
-  admin: initAdminTasks({
-    accountRules,
-    accountRepository,
-    realmRepository,
-  }),
-  broker: initBrokerTasks({
-    authRepository,
-    channelRepository,
-    subscriptionRepository,
-  }),
-  client: initClientTasks({
-    authRepository,
-    userRepository,
-  }),
-});
+}) => {
+  const commonTasks = initCommonTasks({userRepository});
+
+  return {
+    admin: initAdminTasks({
+      commonTasks,
+      accountRules,
+      accountRepository,
+      authRepository,
+      realmRepository,
+    }),
+    broker: initBrokerTasks({
+      authRepository,
+      channelRepository,
+      subscriptionRepository,
+    }),
+    client: initClientTasks({
+      authRepository,
+      userRepository,
+    }),
+  };
+};
