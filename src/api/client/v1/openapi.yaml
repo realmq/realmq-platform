@@ -6,3 +6,8 @@ info:
 
 paths:
   /version: !include routes/version.yaml
+
+securityDefinitions: !include openapi/security-definitions.yaml
+
+security:
+  - authTokenScheme: []

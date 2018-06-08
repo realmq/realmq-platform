@@ -1,0 +1,7 @@
+authTokenScheme:
+  type: apiKey
+  description: |
+    The authTokenScheme is a plain bearer token authentication. To authenticate
+    send a header like this: `Authorization: Bearer <authToken>`.
+  name: Authorization
+  in: header
