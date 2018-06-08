@@ -18,7 +18,7 @@ const createUserRepository = require('./user');
  */
 module.exports = ({
   accountCollection, authCollection, channelCollection, realmCollection,
-  subscriptionCollection, userCollection
+  subscriptionCollection, userCollection,
 }) =>
   /**
    * @typedef {object} Repositories
@@ -35,5 +35,5 @@ module.exports = ({
     channel: createChannelRepository({collection: channelCollection}),
     realm: createRealmRepository({collection: realmCollection}),
     subscription: createSubscriptionRepository({collection: subscriptionCollection}),
-    user: createUserRepository({collection: userCollection})
+    user: createUserRepository({collection: userCollection}),
   });

@@ -33,7 +33,7 @@ module.exports = ({collection, createModel = createSubscriptionModel}) => {
 
       return multiRealmRepo.find({
         realmId,
-        id: {$in: ids}
+        id: {$in: ids},
       }, {offset, limit});
     },
 
@@ -55,7 +55,7 @@ module.exports = ({collection, createModel = createSubscriptionModel}) => {
       }
 
       return multiRealmRepo.findOne({
-        realmId, channelId, userId
+        realmId, channelId, userId,
       });
     },
 
@@ -73,7 +73,7 @@ module.exports = ({collection, createModel = createSubscriptionModel}) => {
 
       return multiRealmRepo.find({
         realmId,
-        channelId
+        channelId,
       });
     },
 
@@ -122,6 +122,6 @@ module.exports = ({collection, createModel = createSubscriptionModel}) => {
       }
 
       await multiRealmRepo.deleteMany({realmId, userId});
-    }
+    },
   };
 };

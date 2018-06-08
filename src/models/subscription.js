@@ -23,7 +23,7 @@ module.exports = ({
   allowRead,
   allowWrite,
   createdAt,
-  updatedAt
+  updatedAt,
 }) => stripUndefined({
   id,
   realmId,
@@ -32,5 +32,5 @@ module.exports = ({
   allowRead,
   allowWrite,
   createdAt,
-  updatedAt
+  updatedAt,
 });
