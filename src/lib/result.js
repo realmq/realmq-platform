@@ -17,7 +17,7 @@ module.exports = {
    */
   success: (result, ...results) => ({
     ok: true,
-    result: results.length === 0 ? result : [result, ...results]
+    result: results.length === 0 ? result : [result, ...results],
   }),
   /**
    * Failed operation
@@ -29,7 +29,7 @@ module.exports = {
     return {
       ok: false,
       error,
-      errors: [error, ...errors]
+      errors: [error, ...errors],
     };
-  }
+  },
 };

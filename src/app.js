@@ -39,6 +39,6 @@ module.exports = ({config, logger}) => {
 
       logger.info('stopped');
       return 0;
-    }
+    },
   };
 };

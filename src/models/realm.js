@@ -17,11 +17,11 @@ module.exports = ({
   ownerAccountId,
   name,
   createdAt,
-  updatedAt
+  updatedAt,
 }) => stripUndefined({
   id,
   ownerAccountId,
   name,
   createdAt,
-  updatedAt
+  updatedAt,
 });

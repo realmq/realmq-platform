@@ -29,6 +29,6 @@ module.exports = ({accountRules, accountRepository}) =>
 
     return {
       authenticated: true,
-      account
+      account,
     };
   };

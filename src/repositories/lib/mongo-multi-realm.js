@@ -80,7 +80,7 @@ module.exports = ({collection, createModel, generateId}) => {
       assertId(model.id);
 
       return multiRealmRepo.findOneAndUpdate({
-        id: model.id, realmId: model.realmId
+        id: model.id, realmId: model.realmId,
       }, model);
     },
 
@@ -91,7 +91,7 @@ module.exports = ({collection, createModel, generateId}) => {
       assertRealmId(query.realmId);
 
       return multiRealmRepo.find(query, options);
-    }
+    },
   };
 
   return multiRealmRepo;

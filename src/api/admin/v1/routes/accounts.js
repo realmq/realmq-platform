@@ -11,10 +11,10 @@ module.exports = tasks => ({
     } else if (error.name === 'TaskError' && error.reason === 'EmailAlreadyTaken') {
       res.status(400).json({
         code: 'EMAIL_ALREADY_TAKEN',
-        message: error.message
+        message: error.message,
       });
     } else {
       return Promise.reject(error);
     }
-  }
+  },
 });

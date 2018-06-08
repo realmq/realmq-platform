@@ -16,6 +16,6 @@ module.exports = ({collection, createModel = createUserModel}) => {
    * @extends MongoMultiRealmRepository
    */
   return {
-    ...multiRealmRepo
+    ...multiRealmRepo,
   };
 };

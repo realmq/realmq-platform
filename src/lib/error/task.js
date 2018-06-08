@@ -15,6 +15,6 @@ module.exports = (reason, message) =>
     new Error(message),
     {
       name: 'TaskError',
-      reason
+      reason,
     }
   );

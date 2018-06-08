@@ -19,12 +19,12 @@ module.exports = ({
   features,
   properties,
   createdAt,
-  updatedAt
+  updatedAt,
 }) => stripUndefined({
   id,
   realmId,
   features,
   properties,
   createdAt,
-  updatedAt
+  updatedAt,
 });

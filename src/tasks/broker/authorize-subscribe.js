@@ -22,7 +22,7 @@ module.exports = ({loadTopicPermissions, rewriteTopicToInternal}) =>
       const permissions = await loadTopicPermissions(topic);
       return {
         topic: internalTopic,
-        qos: permissions.read ? qos : QOS_FAILURE
+        qos: permissions.read ? qos : QOS_FAILURE,
       };
     }));
   };

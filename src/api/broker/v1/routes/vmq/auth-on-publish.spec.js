@@ -31,7 +31,7 @@ describe('An auth-on-register handler', () => {
           default:
             return {authorized: false};
           }
-        }
+        },
       });
       responseState = {};
       response = initResponse(responseState);
@@ -48,8 +48,8 @@ describe('An auth-on-register handler', () => {
           expect(responseState.data).toEqual({
             result: 'ok',
             modifiers: {
-              topic: 'internal-topic'
-            }
+              topic: 'internal-topic',
+            },
           });
         });
       });

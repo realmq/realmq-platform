@@ -11,7 +11,7 @@ const createMongoRepository = require('./lib/mongo');
 module.exports = ({collection, createModel = createAccountModel}) => {
   const repository = createMongoRepository({
     collection,
-    createModel
+    createModel,
   });
 
   /**
@@ -26,7 +26,7 @@ module.exports = ({collection, createModel = createAccountModel}) => {
      * @param {string} email The email to search
      * @return {Promise<AccountModel>} Promised account model
      */
-    findOneByEmail: email => repository.findOne({email})
+    findOneByEmail: email => repository.findOne({email}),
   };
 };
 

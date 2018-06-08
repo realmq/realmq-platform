@@ -10,5 +10,5 @@ const initListRealms = require('./list-realms');
 module.exports = ({accountRules, accountRepository, realmRepository}) => ({
   authenticateAccount: initAuthenticateAccount({accountRules, accountRepository}),
   createAccount: initCreateAccount({accountRules, accountRepository}),
-  listRealms: initListRealms({realmRepository})
+  listRealms: initListRealms({realmRepository}),
 });

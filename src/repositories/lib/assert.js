@@ -23,5 +23,5 @@ module.exports = {
    * @throws Error
    * @return {void}
    */
-  realmId: realmId => assertSomeId(realmId, 'realmId')
+  realmId: realmId => assertSomeId(realmId, 'realmId'),
 };

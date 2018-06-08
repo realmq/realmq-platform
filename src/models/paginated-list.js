@@ -28,6 +28,6 @@ module.exports = ({items = [], limit, offset = 0, total} = {}) => {
     /**
      * @type {number}
      */
-    total: total || count
+    total: total || count,
   };
 };

@@ -14,5 +14,5 @@ module.exports = async ({tasks, logger}) => ({
   broker: await initBroker({tasks}),
   client: await initClient({tasks}),
   catchAll,
-  error
+  error,
 });

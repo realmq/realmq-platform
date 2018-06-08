@@ -31,7 +31,7 @@ describe('An auth-on-subscribe handler', () => {
           default:
             return subscriptions.map(({topic}) => ({topic, qos: 0x80}));
           }
-        }
+        },
       });
       responseState = {};
       response = initResponse(responseState);
@@ -43,7 +43,7 @@ describe('An auth-on-subscribe handler', () => {
           const topics = [
             {topic: 'dada', qos: 0},
             {topic: 'dudu', qos: 1},
-            {topic: 'dodo', qos: 2}
+            {topic: 'dodo', qos: 2},
           ];
           // eslint-disable-next-line camelcase
           const request = {body: {client_id: authorizedClientId, topics}};
@@ -52,7 +52,7 @@ describe('An auth-on-subscribe handler', () => {
           expect(responseState.status).toBe(200);
           expect(responseState.data).toEqual({
             result: 'ok',
-            topics
+            topics,
           });
         });
       });
@@ -61,7 +61,7 @@ describe('An auth-on-subscribe handler', () => {
           const topics = [
             {topic: 'dada', qos: 0},
             {topic: 'dudu', qos: 1},
-            {topic: 'dodo', qos: 2}
+            {topic: 'dodo', qos: 2},
           ];
           // eslint-disable-next-line camelcase
           const request = {body: {client_id: unauthorizedClientId, topics}};
@@ -73,8 +73,8 @@ describe('An auth-on-subscribe handler', () => {
             topics: [
               {topic: 'dada', qos: 0x80},
               {topic: 'dudu', qos: 0x80},
-              {topic: 'dodo', qos: 0x80}
-            ]
+              {topic: 'dodo', qos: 0x80},
+            ],
           });
         });
       });

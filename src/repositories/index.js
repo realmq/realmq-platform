@@ -28,5 +28,5 @@ module.exports = ({accountCollection, authCollection, channelCollection, realmCo
     auth: createAuthRepository({collection: authCollection}),
     channel: createChannelRepository({collection: channelCollection}),
     realm: createRealmRepository({collection: realmCollection}),
-    user: createUserRepository({collection: userCollection})
+    user: createUserRepository({collection: userCollection}),
   });

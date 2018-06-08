@@ -7,7 +7,7 @@ describe('A rewriteTopicToInternal function', () => {
       rewriteTopicToInternal = initRewriteTopicToInternal({
         rmqSysTopic: '$RMQ',
         realmTopic: 'realm',
-        userTopic: 'user'
+        userTopic: 'user',
       });
     });
 

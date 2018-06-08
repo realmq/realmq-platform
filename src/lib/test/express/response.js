@@ -53,7 +53,7 @@ module.exports = (state = {}) => {
       state.data = value;
       state.isSend = true;
       return response;
-    }
+    },
   };
   return response;
 };

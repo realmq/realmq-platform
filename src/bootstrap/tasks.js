@@ -17,17 +17,17 @@ module.exports = ({
     auth: authRepository,
     channel: channelRepository,
     realm: realmRepository,
-    subscription: subscriptionRepository
-  }
+    subscription: subscriptionRepository,
+  },
 }) => ({
   admin: initAdminTasks({
     accountRules,
     accountRepository,
-    realmRepository
+    realmRepository,
   }),
   broker: initBrokerTasks({
     authRepository,
     channelRepository,
-    subscriptionRepository
-  })
+    subscriptionRepository,
+  }),
 });

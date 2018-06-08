@@ -16,7 +16,7 @@ module.exports = ({collection, createModel = createRealmModel}) => {
    * @extends MongoRepository
    */
   return {
-    ...mongoRepo
+    ...mongoRepo,
   };
 };
 

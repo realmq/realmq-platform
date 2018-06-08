@@ -19,12 +19,12 @@ module.exports = ({
   isOnline,
   properties,
   createdAt,
-  updatedAt
+  updatedAt,
 }) => stripUndefined({
   id,
   realmId,
   isOnline,
   properties,
   createdAt,
-  updatedAt
+  updatedAt,
 });

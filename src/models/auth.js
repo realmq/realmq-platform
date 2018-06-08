@@ -25,7 +25,7 @@ module.exports = ({
   scope,
   description,
   createdAt,
-  updatedAt
+  updatedAt,
 }) => stripUndefined({
   id,
   realmId,
@@ -35,5 +35,5 @@ module.exports = ({
   scope,
   description,
   createdAt,
-  updatedAt
+  updatedAt,
 });

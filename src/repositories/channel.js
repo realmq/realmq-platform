@@ -33,8 +33,8 @@ module.exports = ({collection, createModel = createChannelModel}) => {
 
       return multiRealmRepo.find({
         realmId,
-        id: {$in: ids}
+        id: {$in: ids},
       }, {offset, limit});
-    }
+    },
   };
 };

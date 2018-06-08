@@ -23,7 +23,7 @@ module.exports = {
   setPassword: async (account, password) => {
     return {
       ...account,
-      passwordHash: await hashPassword(password, 10)
+      passwordHash: await hashPassword(password, 10),
     };
   },
   /**
@@ -37,5 +37,5 @@ module.exports = {
       return false;
     }
     return comparePasswordToHash(password, account.passwordHash);
-  }
+  },
 };

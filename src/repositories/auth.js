@@ -11,7 +11,7 @@ const createMongoMultiRealmRepository = require('./lib/mongo-multi-realm');
 module.exports = ({collection, createModel = createAuthModel}) => {
   const multiRealmRepository = createMongoMultiRealmRepository({
     collection,
-    createModel
+    createModel,
   });
 
   /**
@@ -36,7 +36,7 @@ module.exports = ({collection, createModel = createAuthModel}) => {
      * @param {string} userId The user id
      * @return {Promise} Promised execution
      */
-    deleteAllByUserId: (realmId, userId) => multiRealmRepository.deleteMany({realmId, userId})
+    deleteAllByUserId: (realmId, userId) => multiRealmRepository.deleteMany({realmId, userId}),
   };
 };
 

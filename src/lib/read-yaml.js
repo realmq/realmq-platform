@@ -15,7 +15,7 @@ const buildSchema = (path, readYaml) => {
       } catch (err) {
         return `[Error: ${err.message}]`;
       }
-    }
+    },
   });
   return createSchema([includeType]);
 };

@@ -17,7 +17,7 @@ module.exports = async ({path, dependencies, securityHandlers = {}}) => {
     exposeApiDocs: true,
     paths,
     promiseMode: true,
-    securityHandlers
+    securityHandlers,
   });
 
   return router;

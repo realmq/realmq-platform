@@ -7,5 +7,5 @@ module.exports = tasks => ({
       throw error;
     }
     return res.json(list);
-  }
+  },
 });

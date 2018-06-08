@@ -21,7 +21,7 @@ module.exports = ({channelRepository, subscriptionRepository, lookupStaticTopicP
 
     const [channel, subscription] = Promise.all([
       channelRepository.findOne({realmId, id: topic}),
-      subscriptionRepository.findOne({realmId, channelId: topic, userId})
+      subscriptionRepository.findOne({realmId, channelId: topic, userId}),
     ]);
 
     if (!channel || !subscription) {
@@ -30,6 +30,6 @@ module.exports = ({channelRepository, subscriptionRepository, lookupStaticTopicP
 
     return {
       read: subscription.allowRead,
-      write: subscription.allowWrite
+      write: subscription.allowWrite,
     };
   };

@@ -27,7 +27,7 @@ module.exports = ({collection, createModel, createPaginatedList = paginatedListF
         ...data,
         id: data.id || generateId(),
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
       });
       const {ops} = await errorWrap(collection.insertOne(model));
 
@@ -118,7 +118,7 @@ module.exports = ({collection, createModel, createPaginatedList = paginatedListF
         // Fetch range of documents and total number of matching records
         [docs, total] = await Promise.all([
           cursor.toArray(),
-          cursor.count(false)
+          cursor.count(false),
         ]);
       }
 
@@ -126,9 +126,9 @@ module.exports = ({collection, createModel, createPaginatedList = paginatedListF
         items: docs.map(doc => createModel(doc)),
         total,
         limit,
-        offset
+        offset,
       });
-    }
+    },
   };
 
   return mongoRepo;

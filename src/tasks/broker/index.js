@@ -23,7 +23,7 @@ module.exports = ({authRepository, channelRepository, subscriptionRepository}) =
   const loadTopicPermissions = initLoadTopicPermissions({
     channelRepository,
     subscriptionRepository,
-    lookupStaticPermissions
+    lookupStaticPermissions,
   });
   const rewriteTopicToInternal = initRewriteTopicToInternal();
   const authenticateClient = initAuthenticateClient({authRepository});
@@ -38,6 +38,6 @@ module.exports = ({authRepository, channelRepository, subscriptionRepository}) =
     markClientOffline:
       initMarkClientOffline({authRepository}),
     markClientOnline:
-      initMarkClientOnline({authRepository})
+      initMarkClientOnline({authRepository}),
   };
 };

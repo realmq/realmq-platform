@@ -9,19 +9,19 @@
 }
  */
 const codeMap = new Map([
-  [11000, {message: 'Duplicate key error', reason: 'duplicate'}]
+  [11000, {message: 'Duplicate key error', reason: 'duplicate'}],
 ]);
 
 const error = {
   generic: ({message, reason, previous}) => Object.assign(new Error(message), {
     name: 'RepositoryError',
     reason,
-    previous
+    previous,
   }),
   duplicate: ({previous}) => error.generic({
     message: 'Duplicate key error',
     reason: 'duplicate',
-    previous
+    previous,
   }),
   wrap: op => Promise.resolve(op).catch(err => {
     const {name, code} = err;
@@ -34,7 +34,7 @@ const error = {
         error.generic(codeMap.get(code)) :
         {message: 'Data store error', reason: 'other'};
     return Promise.reject(error.generic({...props, previous: err}));
-  })
+  }),
 };
 
 module.exports = error;

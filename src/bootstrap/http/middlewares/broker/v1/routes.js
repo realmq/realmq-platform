@@ -13,5 +13,5 @@ module.exports = ({brokerTasks}) => ({
   authOnRegister: initAuthOnRegister(brokerTasks),
   authOnSubscribe: initAuthOnSubscribe(brokerTasks),
   onClientOffline: initOnClientOffline(brokerTasks),
-  onClientOnline: initOnClientOnline(brokerTasks)
+  onClientOnline: initOnClientOnline(brokerTasks),
 });

@@ -11,17 +11,17 @@ module.exports = async ({db}) => {
     accountCollection,
     authCollection,
     realmCollection,
-    userCollection
+    userCollection,
   ] = await Promise.all([
     db.createCollection('accounts'),
     db.createCollection('auths'),
     db.createCollection('realms'),
-    db.createCollection('users')
+    db.createCollection('users'),
   ]);
   return createRepositories({
     accountCollection,
     authCollection,
     realmCollection,
-    userCollection
+    userCollection,
   });
 };

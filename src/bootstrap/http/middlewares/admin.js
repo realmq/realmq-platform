@@ -3,7 +3,7 @@ const mw = require('../../../lib/bootstrap/openapi-middleware');
 const statusUnauthorized = message => ({
   status: 401,
   challenge: 'Basic realm="Account credentials"',
-  message: {error: 'unauthorized', message}
+  message: {error: 'unauthorized', message},
 });
 
 const base64Decode = value => Buffer.from(value, 'base64').toString();
@@ -12,7 +12,7 @@ module.exports = async ({tasks, logger}) => ({
   v1: await mw({
     path: `${__dirname}/../../../api/admin/v1`,
     dependencies: {
-      tasks
+      tasks,
     },
     securityHandlers: {
       async accountCredentialsScheme(req, scopes, definitions, callback) {
@@ -42,7 +42,7 @@ module.exports = async ({tasks, logger}) => ({
           logger.error(`Unexpected error on authenticating request: ${err}`, {err});
           return negativeResult({status: 500});
         }
-      }
-    }
-  })
+      },
+    },
+  }),
 });

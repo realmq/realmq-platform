@@ -20,7 +20,7 @@ module.exports = ({authRepository}) =>
   async clientId => {
     const client = {
       id: clientId,
-      authenticated: false
+      authenticated: false,
     };
 
     const auth = await authRepository.findOneByToken(clientId);
@@ -30,7 +30,7 @@ module.exports = ({authRepository}) =>
         realmId: auth.realmId,
         authTokenId: auth.id,
         userId: auth.userId,
-        scope: auth.scope
+        scope: auth.scope,
       });
     }
 
