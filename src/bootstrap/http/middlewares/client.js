@@ -1,5 +1,5 @@
 const mw = require('../../../lib/bootstrap/openapi-middleware');
-const initAccountCredentialsScheme = require('../../../lib/express-openapi/security-scheme/account-credentials');
+const initAuthTokenScheme = require('../../../lib/express-openapi/security-scheme/auth-token');
 
 /**
  *
@@ -15,8 +15,8 @@ module.exports = async ({tasks, logger}) => ({
       tasks,
     },
     securityHandlers: {
-      accountCredentialsScheme: initAccountCredentialsScheme({
-        authenticateAccount: tasks.client.authenticateUser,
+      authTokenScheme: initAuthTokenScheme({
+        authenticateUser: tasks.client.authenticateUser,
         logger,
       }),
     },
