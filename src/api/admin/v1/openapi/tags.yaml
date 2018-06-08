@@ -1,0 +1,4 @@
+- name: Account
+  description: Signup and account management.
+- name: Realm
+  description: Manage realms (project/org).

@@ -7,6 +7,7 @@ info:
 paths: !includeMerged
   - routes/accounts.yaml
   - routes/realms.yaml
+  - routes/realms/{id}.yaml
   - routes/version.yaml
 
 definitions: !include openapi/definitions.yaml

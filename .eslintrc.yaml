@@ -14,3 +14,7 @@ overrides:
     - src/**/*.spec.js
     env:
       jest: true
+  - files:
+      - src/api/admin/v1/routes/**/*.js
+    rules:
+      unicorn/filename-case: off

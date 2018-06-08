@@ -1,0 +1,27 @@
+/realms/{id}:
+  parameters:
+    - name: id
+      description: The realm id.
+      in: path
+      required: true
+      type: string
+      pattern: ^[\w-]+$
+
+  get:
+    operationId: fetchRealm
+    summary: Retrieve one single realm.
+    description: |
+      Find a realm by its id.
+    tags:
+      - Realm
+    responses:
+      200:
+        description: The realm was loaded sucessfully.
+        schema:
+          $ref: '#/definitions/Realm'
+      400:
+        description: Request validation failed.
+      401:
+        description: The realm could not be retrieved due to an authorization error.
+      403:
+        description: Insufficient rights to access this realm.

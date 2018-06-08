@@ -1,9 +1,10 @@
 /**
- * @typedef {object} Result
- * @param {boolean} ok Result is success (true) of failure (false)
- * @param {*} [result] Operation result
- * @param {*} [error] Last occurred error, if any
- * @param {*[]} [errors] Error chain, from latest to first, if any
+ * @class Result
+ * @template T
+ * @prop {boolean} ok Result is success (true) of failure (false)
+ * @prop {T} [result] Operation result
+ * @prop {*} [error] Last occurred error, if any
+ * @prop {*[]} [errors] Error chain, from latest to first, if any
  */
 /**
  * Generic operation results
