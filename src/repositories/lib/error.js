@@ -17,11 +17,13 @@ const error = {
     name: 'RepositoryError',
     reason,
     previous,
+    isRepositoryError: true,
   }),
   duplicate: ({previous}) => error.generic({
     message: 'Duplicate key error',
     reason: 'duplicate',
     previous,
+    isDuplicateKeyError: true,
   }),
   wrap: op => Promise.resolve(op).catch(err => {
     const {name, code} = err;
