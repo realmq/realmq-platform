@@ -16,15 +16,13 @@ const initListRealmTokens = require('./list-realm-tokens');
  * @returns {AdminTasks} Initialized admin tasks
  */
 module.exports = ({accountRules, accountRepository, authRepository, realmRepository, userRepository}) => {
-  const fetchRealm = initFetchRealm({realmRepository});
-
   return {
-    fetchRealm,
+    fetchRealm: initFetchRealm({realmRepository}),
     authenticateAccount: initAuthenticateAccount({accountRules, accountRepository}),
     createAccount: initCreateAccount({accountRules, accountRepository}),
     createRealm: initCreateRealm({realmRepository}),
-    createRealmToken: initCreateRealmToken({fetchRealm, userRepository, authRepository}),
+    createRealmToken: initCreateRealmToken({realmRepository, userRepository, authRepository}),
     listRealms: initListRealms({realmRepository}),
-    listRealmTokens: initListRealmTokens({fetchRealm, authRepository}),
+    listRealmTokens: initListRealmTokens({realmRepository, authRepository}),
   };
 };
