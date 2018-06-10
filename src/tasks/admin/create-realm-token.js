@@ -22,8 +22,8 @@ module.exports = ({realmRepository, userRepository, authRepository}) =>
     const realm = await realmRepository.findOne({ownerAccountId: account.id, id: realmId});
     if (!realm) {
       return failure(createTaskError(
-        'MissingAccessRights',
-        'Missing access rights to access this realm.'
+        'UnknownEntity',
+        'Cannot lookup the given realm.'
       ));
     }
 
@@ -42,8 +42,8 @@ module.exports = ({realmRepository, userRepository, authRepository}) =>
       if (tokenCreationErr.isDuplicateKeyError) {
         return failure(
           createTaskError(
-            'EmailAlreadyTaken',
-            'Account could not be created, since an account with the same email already exists.'
+            'AuthTokenAlreadyExists',
+            'Auth token could not be created, since an auth token with the same id already exists.',
           ),
           tokenCreationErr
         );

@@ -8,7 +8,7 @@ module.exports = tasks => ({
       return res.json(list);
     }
 
-    if (error && error.name === 'TaskError' && error.reason === 'MissingAccessRights') {
+    if (error && error.name === 'TaskError' && error.reason === 'UnknownEntity') {
       return res.status(403).json({
         code: 'ACCESS_DENIED',
         message: error.message,
@@ -27,7 +27,7 @@ module.exports = tasks => ({
       return res.status(201).json(realmToken);
     }
 
-    if (error && error.name === 'TaskError' && error.reason === 'MissingAccessRights') {
+    if (error && error.name === 'TaskError' && error.reason === 'UnknownEntity') {
       return res.status(403).json({
         code: 'ACCESS_DENIED',
         message: error.message,
