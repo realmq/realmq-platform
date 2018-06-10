@@ -2,11 +2,11 @@ const {success, failure} = require('../../lib/result');
 const createTaskError = require('../../lib/error/task');
 
 /**
- * @param {AdminTasks#fetchRealm} fetchRealm Task
+ * @param {RealmRepository} realmRepository The realmRespository
  * @param {AuthRepository} authRepository Auth repository
  * @returns {AdminTasks#listRealmTokens} Task
  */
-module.exports = ({fetchRealm, authRepository}) =>
+module.exports = ({realmRepository, authRepository}) =>
   /**
    * @function AdminTasks#listRealmTokens
    * @param {{id: string}} account
@@ -16,8 +16,8 @@ module.exports = ({fetchRealm, authRepository}) =>
    * @return {Promise<PaginatedList<AuthModel>>} Paginated list
    */
   async ({account, realmId, offset, limit}) => {
-    const {ok: fetchRealmOk, result: realm} = await fetchRealm({account, id: realmId});
-    if (!fetchRealmOk || !realm) {
+    const realm = await realmRepository.findOne({ownerAccountId: account.id, id: realmId});
+    if (!realm) {
       return failure(createTaskError(
         'MissingAccessRights',
         'Missing access rights to access this realm.'
