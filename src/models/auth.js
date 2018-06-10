@@ -5,8 +5,8 @@ const stripUndefined = require('../lib/strip-undefined');
  * @param {string} id
  * @param {string} realmId
  * @param {string} userId
- * @param {boolean} isOnline
- * @param {string} token
+ * @param {boolean} [isOnline]
+ * @param {string} [token]
  * @param {string} scope
  * @param {string} description
  * @param {Date} createdAt
@@ -20,9 +20,9 @@ module.exports = ({
   id,
   realmId,
   userId,
-  isOnline,
+  isOnline = false,
   token,
-  scope,
+  scope = 'user',
   description,
   createdAt,
   updatedAt,
