@@ -1,6 +1,5 @@
 const accountRules = require('../rules/account');
 const initAdminTasks = require('../tasks/admin');
-const initCommonTasks = require('../tasks/common');
 const initBrokerTasks = require('../tasks/broker');
 const initClientTasks = require('../tasks/client');
 
@@ -24,15 +23,13 @@ module.exports = ({
     user: userRepository,
   },
 }) => {
-  const commonTasks = initCommonTasks({userRepository});
-
   return {
     admin: initAdminTasks({
-      commonTasks,
       accountRules,
       accountRepository,
       authRepository,
       realmRepository,
+      userRepository,
     }),
     broker: initBrokerTasks({
       authRepository,
