@@ -1,4 +1,5 @@
 const accountRules = require('../rules/account');
+const authTokenRules = require('../rules/auth-token');
 const initAdminTasks = require('../tasks/admin');
 const initBrokerTasks = require('../tasks/broker');
 const initClientTasks = require('../tasks/client');
@@ -26,6 +27,7 @@ module.exports = ({
   return {
     admin: initAdminTasks({
       accountRules,
+      authTokenRules,
       accountRepository,
       authRepository,
       realmRepository,
