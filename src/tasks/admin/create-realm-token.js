@@ -3,11 +3,11 @@ const createTaskError = require('../../lib/error/task');
 
 /**
  * @param {AdminTasks#fetchRealm} fetchRealm Sub task
- * @param {CommonTasks#upsertUser} upsertUser Sub task
+ * @param {UserRepository} userRepository The user repository
  * @param {AuthRepository} authRepository Auth repository
  * @return {AdminTasks#createRealmToken} Task
  */
-module.exports = ({fetchRealm, upsertUser, authRepository}) =>
+module.exports = ({fetchRealm, userRepository, authRepository}) =>
   /**
    * @function AdminTasks#createRealmToken
    * @param {{id: string}} account
@@ -27,7 +27,7 @@ module.exports = ({fetchRealm, upsertUser, authRepository}) =>
       ));
     }
 
-    const {result: user} = await upsertUser({realmId, id: userId});
+    const user = await userRepository.findOrCreate({realmId, id: userId});
 
     if (!user) {
       return failure(createTaskError(

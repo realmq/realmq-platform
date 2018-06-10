@@ -8,14 +8,14 @@ const initListRealmTokens = require('./list-realm-tokens');
 
 /** @typedef {object} AdminTasks */
 /**
- * @param {CommonTasks} commonTasks Shared sub tasks
  * @param {AccountRules} accountRules The account rules
  * @param {RealmRepository} realmRepository The realm repository
  * @param {AuthRepository} authRepository The auth repository
  * @param {AccountRepository} accountRepository The account repository
+ * @param {UserRepository} userRepository The user repository
  * @returns {AdminTasks} Initialized admin tasks
  */
-module.exports = ({commonTasks, accountRules, accountRepository, authRepository, realmRepository}) => {
+module.exports = ({accountRules, accountRepository, authRepository, realmRepository, userRepository}) => {
   const fetchRealm = initFetchRealm({realmRepository});
 
   return {
@@ -23,7 +23,7 @@ module.exports = ({commonTasks, accountRules, accountRepository, authRepository,
     authenticateAccount: initAuthenticateAccount({accountRules, accountRepository}),
     createAccount: initCreateAccount({accountRules, accountRepository}),
     createRealm: initCreateRealm({realmRepository}),
-    createRealmToken: initCreateRealmToken({fetchRealm, upsertUser: commonTasks.upsertUser, authRepository}),
+    createRealmToken: initCreateRealmToken({fetchRealm, userRepository, authRepository}),
     listRealms: initListRealms({realmRepository}),
     listRealmTokens: initListRealmTokens({fetchRealm, authRepository}),
   };

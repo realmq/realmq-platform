@@ -17,5 +17,26 @@ module.exports = ({collection, createModel = createUserModel}) => {
    */
   return {
     ...multiRealmRepo,
+
+    /**
+     * Find or create a user by realm id and id.
+     *
+     * @param {string} realmId The realm id
+     * @param {string} [id] The user id
+     * @return {Promise<UserModel>} The promised user
+     */
+    async findOrCreate({realmId, id}) {
+      let user;
+
+      if (id) {
+        user = await multiRealmRepo.findOne({id, realmId});
+      }
+
+      if (!user) {
+        user = await multiRealmRepo.create({id, realmId});
+      }
+
+      return user;
+    },
   };
 };
