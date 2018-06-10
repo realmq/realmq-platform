@@ -2,12 +2,13 @@ const {success, failure} = require('../../lib/result');
 const createTaskError = require('../../lib/error/task');
 
 /**
+ * @param {AuthTokenRules} authTokenRules The auth token rules
  * @param {RealmRepository} realmRepository The realm repository
  * @param {UserRepository} userRepository The user repository
  * @param {AuthRepository} authRepository Auth repository
  * @return {AdminTasks#createRealmToken} Task
  */
-module.exports = ({realmRepository, userRepository, authRepository}) =>
+module.exports = ({authTokenRules, realmRepository, userRepository, authRepository}) =>
   /**
    * @function AdminTasks#createRealmToken
    * @param {{id: string}} account
@@ -37,7 +38,8 @@ module.exports = ({realmRepository, userRepository, authRepository}) =>
     }
 
     try {
-      return success(await authRepository.create({realmId, id, userId: user.id, scope, description}));
+      const token = await authTokenRules.generateToken();
+      return success(await authRepository.create({realmId, id, token, userId: user.id, scope, description}));
     } catch (tokenCreationErr) {
       if (tokenCreationErr.isDuplicateKeyError) {
         return failure(
