@@ -10,7 +10,6 @@ module.exports = ({channelRepository}) =>
   /**
    * @function ClientTasks#createChannel
    * @param {AuthModel} authToken Authentication
-   * @param {UserModel} user User
    * @param {object} data Entity data
    * @returns {Result<>}
    */

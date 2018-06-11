@@ -22,10 +22,10 @@ module.exports = (tasks, mapper) => ({
    * @param {object} res Response
    */
   post: async (req, res) => {
-    const {auth: authToken, user, body: data} = req;
+    const {auth: authToken, body: data} = req;
 
     const {ok, value: list, error} =
-      await tasks.client.createChannel({authToken, user, data});
+      await tasks.client.createChannel({authToken, data});
 
     if (!ok) {
       throw error;
