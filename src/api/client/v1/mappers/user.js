@@ -1,21 +1,20 @@
 const mapGeneric = require('../../../../lib/mappers/generic-entity');
+
 /**
- * @class ChannelViewModel
+ * @class UserViewModel
  * @property {string} id
- * @property {object} features
  * @property {object} properties
  * @property {Date} createdAt
  * @property {Date} updatedAt
  */
 /**
- * @param {ChannelModel} entity The channel to map
- * @return {ChannelViewModel} The mapped channel model
+ * @param {UserModel} entity The user to map
+ * @return {UserViewModel} The mapped user model
  */
 module.exports = entity => mapGeneric({
   entity,
   propertyMap: {
     id: 'id',
-    features: 'features',
     properties: 'properties',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
