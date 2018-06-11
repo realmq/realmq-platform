@@ -23,7 +23,7 @@ module.exports = ({authRepository, userRepository}) =>
       return success({authenticated: false});
     }
 
-    const user = await userRepository.findOne({id: auth.userId});
+    const user = await userRepository.findOne({id: auth.userId, realmId: auth.realmId});
     if (!user) {
       return success({authenticated: false});
     }
