@@ -1,3 +1,4 @@
+const {duplicate: createDuplicateKeyError} = require('../../repositories/lib/error');
 const initCreateAccount = require('./create-account');
 
 describe('The account creation task', () => {
@@ -16,13 +17,7 @@ describe('The account creation task', () => {
       accountRepository: {
         async create({email, hashedPassword}) {
           if (email === existingEmail) {
-            throw Object.assign(
-              new Error(),
-              {
-                name: 'RepositoryError',
-                code: 'duplicate',
-              }
-            );
+            throw createDuplicateKeyError();
           }
 
           return {email, hashedPassword};
