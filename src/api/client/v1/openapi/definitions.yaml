@@ -1,0 +1,149 @@
+CustomId:
+  title: Custom Id
+  description: Custom Id
+  type: string
+  pattern: ^[\w-]+$
+
+CustomProperties:
+  title: Custom Properties
+  description: A map of custom properties.
+  type: object
+  additionalProperties: true
+
+RequestError:
+  type: object
+  properties:
+    code:
+      type: string
+    message:
+      type: string
+  required:
+  - code
+
+TimestampsTrait:
+  type: object
+  properties:
+    createdAt:
+      description: Datetime of entity creation.
+      type: string
+      format: date-time
+    updatedAt:
+      description: Datetime of entity last modification.
+      type: string
+      format: date-time
+  required:
+    - createdAt
+    - updatedAt
+
+BaseEntity:
+  type: object
+  properties:
+    id:
+      description: The Id of the entity
+      type: string
+  required:
+    - id
+
+BaseList:
+  type: object
+  properties:
+    total:
+      description: Absolute number of items available.
+      type: integer
+    count:
+      description: Number of items in the list.
+      type: integer
+    offset:
+      description: Current offset from beginning of the total result set.
+      type: integer
+    limit:
+      description: Maximum list size.
+      type: integer
+    items:
+      description: The result list of entities.
+      type: array
+      items:
+        $ref: '#/definitions/BaseEntity'
+  required:
+    - total
+    - count
+    - offset
+    - limit
+    - items
+
+# channel entity
+Channel:
+  allOf:
+    - $ref: '#/definitions/BaseEntity'
+    - properties:
+        features:
+          $ref: '#/definitions/ChannelFeatures'
+        properties:
+          type: object
+      required:
+      - properties
+    - $ref: '#/definitions/TimestampsTrait'
+
+ChannelCreation:
+  title: ChannelCreation
+  type: object
+  additionalProperties: false
+  properties:
+    id:
+      $ref: '#/definitions/CustomId'
+    properties:
+      $ref: '#/definitions/CustomProperties'
+    features:
+      $ref: '#/definitions/ChannelFeatures'
+
+ChannelFeatures:
+  type: object
+  properties:
+    persistence:
+      $ref: '#/definitions/ChannelFeaturePersistence'
+
+ChannelFeaturePersistence:
+  type: object
+  properties:
+    enabled:
+      type: boolean
+      description: Flag to switch message persistence on/off.
+    duration:
+      type: string
+      pattern: '^\d+[smhd]$'
+      description: |
+        Time interval to persist messages published on channel. If not set messages will be
+        persisted forever. Supported units: s, m, h, d
+
+ChannelList:
+  allOf:
+  - $ref: '#/definitions/BaseList'
+  - properties:
+      items:
+        type: array
+        items:
+          $ref: '#/definitions/Channel'
+    required:
+    - items
+
+ChannelMessage:
+  type: object
+  properties:
+    content:
+      type: string
+      description: Raw message encoded in base64.
+    timestamp:
+      type: string
+      format: dateTime
+      description: Datetime the message was recorded.
+
+ChannelMessageList:
+  allOf:
+    - $ref: '#/definitions/BaseList'
+    - properties:
+        items:
+          type: array
+          items:
+            $ref: '#/definitions/ChannelMessage'
+      required:
+        - items

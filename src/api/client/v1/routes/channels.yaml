@@ -1,0 +1,58 @@
+/channels:
+  get:
+    summary: Search and list channels.
+    description: |
+      Get paginated channel listing.
+
+      #### Allowed Scopes
+      **admin**, **user**
+    tags:
+      - Channels
+    parameters:
+      - $ref: '#/parameters/paginationOffset'
+      - $ref: '#/parameters/paginationLimit'
+    responses:
+      200:
+        description: The list of channels was successfully retrieved.
+        schema:
+          $ref: '#/definitions/ChannelList'
+      400:
+        description: Request validation failed.
+      401:
+        description: The channels could not be listed due to failed authorization.
+  post:
+    summary: Create a channel
+    description: |
+      Create a new channel.
+
+      #### Allowed Scopes
+      **admin**
+    tags:
+      - Channels
+    parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/ChannelCreation'
+    responses:
+      201:
+        description: Channel was created successfully.
+        schema:
+          $ref: '#/definitions/Channel'
+      400:
+        description: Request validation failed.
+      401:
+        description: The channel could not be created due to failed authorization.
+      403:
+        description: Insufficient access rights to create the channel.
+      409:
+        description: |
+          The channel could not be created since a channel with the same id already exists.
+          Error codes is: **CHANNEL_ALREADY_EXISTS**.
+        schema:
+          allOf:
+            - $ref: '#/definitions/RequestError'
+            - example:
+                code: CHANNEL_ALREADY_EXISTS
+                message: A channel with the same id already exists.

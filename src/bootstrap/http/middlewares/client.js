@@ -1,5 +1,6 @@
 const mw = require('../../../lib/bootstrap/openapi-middleware');
 const initAuthTokenScheme = require('../../../lib/express-openapi/security-scheme/auth-token');
+const mappers = require('../../../api/client/v1/mappers');
 
 /**
  *
@@ -13,6 +14,7 @@ module.exports = async ({tasks, logger}) => ({
     path: `${__dirname}/../../../api/client/v1`,
     dependencies: {
       tasks,
+      mappers,
     },
     securityHandlers: {
       authTokenScheme: initAuthTokenScheme({
