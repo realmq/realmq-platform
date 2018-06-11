@@ -7,7 +7,7 @@ module.exports = (tasks, mappers) => ({
    */
   get: async (req, res) => {
     const {auth: authToken, user, query: {offset, limit}} = req;
-    const {ok, value: list, error} =
+    const {ok, result: list, error} =
       await tasks.client.listChannels({authToken, user, offset, limit});
 
     if (!ok) {
@@ -24,7 +24,7 @@ module.exports = (tasks, mappers) => ({
   post: async (req, res) => {
     const {auth: authToken, body: data} = req;
 
-    const {ok, value: channel, error} =
+    const {ok, result: channel, error} =
       await tasks.client.createChannel({authToken, data});
 
     if (!ok) {
