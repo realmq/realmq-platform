@@ -1,0 +1,76 @@
+/channels/{id}:
+  parameters:
+    - name: id
+      description: The channel id.
+      in: path
+      required: true
+      type: string
+      pattern: ^[\w-]+$
+
+  get:
+    summary: Retrieve one single channel.
+    description: |
+      Find a channel by its id.
+
+      #### Allowed Scopes
+      **admin**, **user**
+    tags:
+      - Channels
+    responses:
+      200:
+        description: The channel was loaded sucessfully.
+        schema:
+          $ref: '#/definitions/Channel'
+      400:
+        description: Request validation failed.
+      401:
+        description: The channel could not be retrieved due to failed authorization.
+      403:
+        description: Insufficient access rights to retrieve this channel.
+      404:
+        description: The requested channel does not exist.
+
+  patch:
+    summary: Perform a json-patch update on a channel.
+    description: |
+      Update channel properties via JSON-patch [(RFC6902)](http://tools.ietf.org/html/rfc6902).
+
+      #### Allowed Scopes
+      **admin**
+    tags:
+      - Channels
+    parameters:
+      - $ref: '#/parameters/jsonPatch'
+    responses:
+      200:
+        description: The updated channel.
+        schema:
+          $ref: '#/definitions/Channel'
+      401:
+        description: The channel could not be updated due to failed authorization.
+      403:
+        description: Insufficient access rights to update this channel.
+      404:
+        description: The requested channel does not exist.
+
+  delete:
+    summary: Delete the given channel.
+    description: |
+      Delete a channel referenced by id.
+      This will also delete all subscriptions on this channel.
+
+      #### Allowed Scopes
+      **admin**
+    tags:
+      - Channels
+    responses:
+      204:
+        description: The channel has been deleted sucessfully.
+      400:
+        description: Request validation failed.
+      401:
+        description: The channel could not be deleted due to failed authorization.
+      403:
+        description: Insufficient access rights to delete this channel.
+      404:
+        description: The requested channel does not exist.

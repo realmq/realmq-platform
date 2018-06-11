@@ -43,6 +43,7 @@
     ]
   },
   "dependencies": {
+    "ajv": "^6.5.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "bunyan": "^1.8.12",
@@ -50,6 +51,7 @@
     "compression": "^1.7.2",
     "express": "^4.16.3",
     "express-openapi": "^1.6.3",
+    "fast-json-patch": "^2.0.6",
     "js-yaml": "^3.12.0",
     "mongodb": "^3.0.10",
     "uuid": "^3.2.1"
