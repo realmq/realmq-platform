@@ -1,0 +1,78 @@
+/subscriptions/{id}:
+  parameters:
+    - name: id
+      description: The subscription id.
+      in: path
+      required: true
+      type: string
+      pattern: ^[\w-]+$
+
+  get:
+    summary: Retrieve one single subscription.
+    description: |
+      Find a subscription by its id.
+
+      #### Allowed Scopes
+      **admin**, **user**
+    tags:
+      - Subscriptions
+    responses:
+      200:
+        description: The subscription was loaded sucessfully.
+        schema:
+          $ref: '#/definitions/Subscription'
+      400:
+        description: Request validation failed.
+      401:
+        description: The subscription could not be retrieved due to failed authorization.
+      403:
+        description: Insufficient access rights to retrieve this subscription.
+      404:
+        description: The requested subscription does not exist.
+
+  patch:
+    summary: Perform a json-patch update on a subscription.
+    description: |
+      Update subscription properties via JSON-patch [(RFC6902)](http://tools.ietf.org/html/rfc6902).
+      Only replace operations on `allowRead` and `allowWrite` are permitted.
+
+      #### Allowed Scopes
+      **admin**
+    tags:
+      - Subscriptions
+    parameters:
+      - $ref: '#/parameters/jsonPatch'
+    responses:
+      200:
+        description: The updated subscription.
+        schema:
+          $ref: '#/definitions/Subscription'
+      400:
+        description: Request validation failed.
+      401:
+        description: The subscription could not be updated due to failed authorization.
+      403:
+        description: Insufficient access rights to update this subscription.
+      404:
+        description: The requested subscription does not exist.
+
+  delete:
+    summary: Delete the given subscription.
+    description: |
+      Delete a subscription referenced by id.
+
+      #### Allowed Scopes
+      **admin**
+    tags:
+      - Subscriptions
+    responses:
+      204:
+        description: The subscription has been deleted sucessfully.
+      400:
+        description: Request validation failed.
+      401:
+        description: The subscription could not be deleted due to failed authorization.
+      403:
+        description: Insufficient access rights to delete this subscription.
+      404:
+        description: The requested subscription does not exist.

@@ -173,6 +173,38 @@ ChannelMessageList:
       required:
         - items
 
+Subscription:
+  allOf:
+    - $ref: '#/definitions/BaseEntity'
+    - properties:
+        channelId:
+          type: string
+          readOnly: true
+        userId:
+          type: string
+          readOnly: true
+        allowRead:
+          type: boolean
+        allowWrite:
+          type: boolean
+      required:
+        - channelId
+        - userId
+        - allowRead
+        - allowWrite
+    - $ref: '#/definitions/TimestampsTrait'
+
+SubscriptionList:
+  allOf:
+    - $ref: '#/definitions/BaseList'
+    - properties:
+        items:
+          type: array
+          items:
+            $ref: '#/definitions/Subscription'
+      required:
+        - items
+
 # user entity
 User:
   allOf:
