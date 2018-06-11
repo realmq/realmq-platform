@@ -31,7 +31,7 @@ module.exports = ({authenticateUser, logger}) => {
         return responder.decline(statusUnauthorized('Invalid authorization scheme'));
       }
 
-      const {ok, result, error} = await authenticateUser(token);
+      const {ok, result, error} = await authenticateUser({token});
       if (!ok) {
         throw error;
       }
