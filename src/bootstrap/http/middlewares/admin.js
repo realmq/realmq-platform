@@ -10,6 +10,7 @@ const initAccountCredentialsScheme = require('../../../lib/express-openapi/secur
  */
 module.exports = async ({tasks, logger}) => ({
   v1: await mw({
+    logger,
     path: `${__dirname}/../../../api/admin/v1`,
     dependencies: {
       tasks,

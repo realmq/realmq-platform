@@ -17,10 +17,10 @@ module.exports = tasks => ({
     const {account, body: {name}} = req;
     const {ok, result: realm, error} = await tasks.admin.createRealm({account, name});
 
-    if (ok) {
-      return res.status(201).json(realm);
+    if (!ok) {
+      throw error;
     }
 
-    return Promise.reject(error);
+    return res.status(201).json(realm);
   },
 });

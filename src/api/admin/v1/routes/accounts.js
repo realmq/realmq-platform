@@ -6,15 +6,11 @@
 module.exports = tasks => ({
   post: async (req, res) => {
     const {ok, result: account, error} = await tasks.admin.createAccount(req.body);
-    if (ok) {
-      res.status(201).json(account);
-    } else if (error.name === 'TaskError' && error.code === 'EmailAlreadyTaken') {
-      res.status(400).json({
-        code: 'EMAIL_ALREADY_TAKEN',
-        message: error.message,
-      });
-    } else {
-      return Promise.reject(error);
+
+    if (!ok) {
+      throw error;
     }
+
+    res.status(201).json(account);
   },
 });

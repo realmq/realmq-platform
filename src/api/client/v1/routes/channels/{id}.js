@@ -19,12 +19,16 @@ module.exports = (tasks, mappers) => ({
       throw error;
     }
 
-    if (channel === null) {
-      res.status(404);
-    } else {
-      res.json(mappers.channel(channel));
+    if (!channel) {
+      return res.status(404).json({
+        code: 'UnknownChannel',
+        message: 'Channel does not exists.',
+      });
     }
+
+    res.json(mappers.channel(channel));
   },
+
   /**
    * PATCH /channel/{id}
    * @param {object} req Request
