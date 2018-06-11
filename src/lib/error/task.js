@@ -3,6 +3,7 @@
  * @extends Error
  * @property {string} name
  * @property {string} code
+ * @property {boolean} isTaskError
  */
 /**
  * Task error
@@ -14,6 +15,7 @@ module.exports = ({code, message}) =>
   Object.assign(
     new Error(message),
     {
+      isTaskError: true,
       name: 'TaskError',
       code,
     }
