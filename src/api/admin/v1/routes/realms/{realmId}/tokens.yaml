@@ -78,18 +78,18 @@
         schema:
           $ref: '#/definitions/AuthToken'
       400:
-        description: Request validation failed.
-      401:
-        description: The auth token could not be created due to failed authorization.
-      404:
-        description: Realm not accessible.
-      409:
         description: |
-          The auth token could not be created since an auth token with the same id already exists.
-          Error codes is: **AUTH_TOKEN_ALREADY_EXISTS**.
+          Either request validation failed or the auth token could not be created since an auth token
+          with the same id already exists.
+          Error codes are: **AuthTokenAlreadyExists**.
         schema:
           allOf:
           - $ref: '#/definitions/RequestError'
           - example:
-              code: AUTH_TOKEN_ALREADY_EXISTS
+              code: AuthTokenAlreadyExists
               message: An auth token with the same id already exists.
+
+      401:
+        description: The auth token could not be created due to failed authorization.
+      404:
+        description: Realm not accessible.

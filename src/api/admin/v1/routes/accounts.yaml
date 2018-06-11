@@ -35,7 +35,7 @@
         description: Account was successfully created.
         schema:
           $ref: '#/definitions/Account'
-      409:
+      400:
         description: |
           Either request validation failed or the account could not be created
           since the email address is already in use with another account.
@@ -43,5 +43,5 @@
           allOf:
           - $ref: '#/definitions/RequestError'
           - example:
-              code: EMAIL_ALREADY_TAKEN
+              code: EmailAlreadyTaken
               message: Account could not be created, since an account with the same email already exists.
