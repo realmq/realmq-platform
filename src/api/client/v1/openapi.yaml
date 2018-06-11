@@ -4,8 +4,14 @@ info:
   title: RealMQ client api
   version: 0.0.0
 
-paths:
-  /version: !include routes/version.yaml
+paths: !includeMerged
+  - routes/channels.yaml
+  - routes/channels/{id}.yaml
+  - routes/version.yaml
+
+parameters: !include openapi/parameters.yaml
+
+definitions: !include openapi/definitions.yaml
 
 securityDefinitions: !include openapi/security-definitions.yaml
 

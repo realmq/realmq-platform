@@ -14,3 +14,13 @@ paginationLimit:
   default: 20
   minimum: 1
   maximum: 100
+
+jsonPatch:
+  name: jsonPatch
+  in: body
+  required: true
+  description: JSON-Patch request as defined by [RFC 6902](http://tools.ietf.org/html/rfc6902).
+  schema:
+    type: array
+    items:
+      $ref: '#/definitions/JsonPatchDocument'
