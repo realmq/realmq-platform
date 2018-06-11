@@ -17,10 +17,10 @@ module.exports = ({channelRepository}) =>
     const {scope, realmId} = authToken;
 
     if (scope !== 'admin') {
-      return failure(error(
-        'InsufficientPrivileges',
-        'Insufficient privileges to create a channel.'
-      ));
+      return failure(error({
+        code: 'InsufficientPrivileges',
+        message: 'Insufficient privileges to create a channel.',
+      }));
     }
 
     try {
@@ -30,12 +30,12 @@ module.exports = ({channelRepository}) =>
       });
       return success(channel);
     } catch (creationError) {
-      if (creationError.name === 'RepositoryError' && creationError.reason === 'duplicate') {
+      if (creationError.isDuplicateKeyError) {
         return failure(
-          error(
-            'ChannelAlreadyExists',
-            'A channel with the same id already exists.'
-          ),
+          error({
+            code: 'ChannelAlreadyExists',
+            message: 'A channel with the same id already exists.',
+          }),
           creationError
         );
       }

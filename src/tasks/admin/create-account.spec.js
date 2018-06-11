@@ -20,7 +20,7 @@ describe('The account creation task', () => {
               new Error(),
               {
                 name: 'RepositoryError',
-                reason: 'duplicate',
+                code: 'duplicate',
               }
             );
           }
@@ -45,6 +45,6 @@ describe('The account creation task', () => {
 
     expect(ok).toEqual(false);
     expect(error).toBeDefined();
-    expect(error.reason).toEqual('EmailAlreadyTaken');
+    expect(error.code).toEqual('EmailAlreadyTaken');
   });
 });

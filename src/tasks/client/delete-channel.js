@@ -17,20 +17,18 @@ module.exports = ({channelRepository}) =>
     const {scope, realmId} = authToken;
 
     if (scope !== 'admin') {
-      return failure(error(
-        'InsufficientPrivileges',
-        'Insufficient privileges to delete a channel.'
-      ));
+      return failure(error({
+        code: 'InsufficientPrivileges',
+        message: 'Insufficient privileges to delete a channel.',
+      }));
     }
 
     const channel = await channelRepository.findOne({realmId, id});
     if (!channel) {
-      return failure(
-        error(
-          'UnknownChannel',
-          'Channel does not exists.'
-        )
-      );
+      return failure(error({
+        code: 'UnknownChannel',
+        message: 'Channel does not exists.',
+      }));
     }
 
     await channelRepository.findOneAndDelete({realmId, id});
