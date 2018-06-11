@@ -1,0 +1,24 @@
+/users:
+  get:
+    summary: Search and list users.
+    description: |
+      Get paginated user listing.
+
+      #### Allowed Scopes
+      **admin**
+    tags:
+    - Users
+    parameters:
+    - $ref: '#/parameters/paginationOffset'
+    - $ref: '#/parameters/paginationLimit'
+    responses:
+      200:
+        description: The list of users was successfully retrieved.
+        schema:
+          $ref: '#/definitions/UserList'
+      400:
+        description: Request validation failed.
+      401:
+        description: The users could not be listed due to failed authorization.
+      403:
+        description: Insufficient access rights to list users.
