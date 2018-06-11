@@ -40,7 +40,9 @@ module.exports = ({
     }),
     client: initClientTasks({
       authRepository,
+      channelRepository,
       userRepository,
+      subscriptionRepository,
     }),
   };
 };
