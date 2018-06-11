@@ -34,7 +34,7 @@ const schema = {
 };
 
 /**
- * @function ChannelMode.validate
+ * @function ChannelModel.validate
  * @param {*} data Data to validate
  * @returns {{valid: boolean, errors: *[]}} Valid or not
  */
