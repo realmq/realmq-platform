@@ -27,8 +27,8 @@
         description: Request validation failed.
       401:
         description: The auth tokens could not be listed due to failed authorization.
-      403:
-        description: Insufficient rights to access this realm.
+      404:
+        description: Realm not accessible.
   post:
     summary: Create a new auth token within the realm.
     description: |
@@ -81,8 +81,8 @@
         description: Request validation failed.
       401:
         description: The auth token could not be created due to failed authorization.
-      403:
-        description: Insufficient rights to access this realm.
+      404:
+        description: Realm not accessible.
       409:
         description: |
           The auth token could not be created since an auth token with the same id already exists.
