@@ -20,7 +20,7 @@ module.exports = ({channelRepository, subscriptionRepository}) =>
     const {scope, realmId} = authToken;
 
     if (scope === 'admin') {
-      // Admins see all repositories
+      // Admins see all channels
       const list = await channelRepository.find({realmId}, {offset, limit});
       return success(list);
     }
@@ -39,5 +39,10 @@ module.exports = ({channelRepository, subscriptionRepository}) =>
     const channelIds = subscriptionList.items.map(subscription => subscription.channelId);
     const channelList = await channelRepository.findByIds({realmId, ids: channelIds});
 
-    return success(channelList);
+    return success(paginatedList({
+      offset,
+      limit,
+      total: subscriptionList.total,
+      items: channelList.items,
+    }));
   };
