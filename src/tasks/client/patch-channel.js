@@ -20,29 +20,27 @@ module.exports = ({channelRepository}) =>
     const {scope, realmId} = authToken;
 
     if (scope !== 'admin') {
-      return failure(error(
-        'InsufficientPrivileges',
-        'Insufficient privileges to patch a channel.'
-      ));
+      return failure(error({
+        code: 'InsufficientPrivileges',
+        message: 'Insufficient privileges to patch a channel.',
+      }));
     }
 
     const channel = await channelRepository.findOne({realmId, id});
     if (!channel) {
-      return failure(
-        error(
-          'UnknownChannel',
-          'Channel does not exists.'
-        )
-      );
+      return failure(error({
+        code: 'UnknownChannel',
+        message: 'Channel does not exists.',
+      }));
     }
 
     const patchValidationError = jsonPatch.validate(patch, channel);
     if (patchValidationError) {
       return failure(
-        error(
-          'InvalidPatch',
-          'Provided patch is invalid.'
-        ),
+        error({
+          code: 'InvalidPatch',
+          message: 'Provided patch is invalid.',
+        }),
         patchValidationError
       );
     }
@@ -51,10 +49,10 @@ module.exports = ({channelRepository}) =>
     const {valid, errors: validationErrors} = ChannelModel.validate(patchedChannel);
     if (!valid) {
       return failure(
-        error(
-          'InvalidChannel',
-          'Invalid channel after applying patch.'
-        ),
+        error({
+          code: 'InvalidChannel',
+          message: 'Invalid channel after applying patch.',
+        }),
         validationErrors
       );
     }

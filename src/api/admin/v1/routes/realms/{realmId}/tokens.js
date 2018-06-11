@@ -8,7 +8,7 @@ module.exports = tasks => ({
       return res.json(list);
     }
 
-    if (error && error.name === 'TaskError' && error.reason === 'UnknownRealm') {
+    if (error && error.name === 'TaskError' && error.code === 'UnknownRealm') {
       return res.status(404).json({
         code: 'UNKNOWN_REALM',
         message: error.message,
@@ -27,7 +27,7 @@ module.exports = tasks => ({
       return res.status(201).json(realmToken);
     }
 
-    if (error && error.name === 'TaskError' && error.reason === 'UnknownRealm') {
+    if (error && error.name === 'TaskError' && error.code === 'UnknownRealm') {
       return res.status(404).json({
         code: 'UNKNOWN_REALM',
         message: error.message,

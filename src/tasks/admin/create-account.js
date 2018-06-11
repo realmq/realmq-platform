@@ -23,12 +23,12 @@ module.exports = ({accountRules, accountRepository}) =>
       const account = await accountRepository.create(dataWithPasswordHash);
       return success(account);
     } catch (err) {
-      if (err.name === 'RepositoryError' && err.reason === 'duplicate') {
+      if (err.isDuplicateKeyError) {
         return failure(
-          error(
-            'EmailAlreadyTaken',
-            'Account could not be created, since an account with the same email already exists.'
-          ),
+          error({
+            code: 'EmailAlreadyTaken',
+            message: 'Account could not be created, since an account with the same email already exists.',
+          }),
           err
         );
       }
