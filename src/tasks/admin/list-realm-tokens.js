@@ -18,10 +18,10 @@ module.exports = ({realmRepository, authRepository}) =>
   async ({account, realmId, offset, limit}) => {
     const realm = await realmRepository.findOne({ownerAccountId: account.id, id: realmId});
     if (!realm) {
-      return failure(createTaskError(
-        'UnknownRealm',
-        'Cannot lookup the given realm.'
-      ));
+      return failure(createTaskError({
+        code: 'UnknownRealm',
+        message: 'Cannot lookup the given realm.',
+      }));
     }
 
     return success(await authRepository.find({realmId}, {offset, limit}));
