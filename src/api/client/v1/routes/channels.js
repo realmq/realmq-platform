@@ -1,5 +1,5 @@
 
-module.exports = (tasks, mapper) => ({
+module.exports = (tasks, mappers) => ({
   /**
    * GET /channels
    * @param {object} req Request
@@ -14,7 +14,7 @@ module.exports = (tasks, mapper) => ({
       throw error;
     }
 
-    res.json(mapper.channelList(list));
+    res.json(mappers.channelList(list));
   },
   /**
    * POST /channels
@@ -24,13 +24,13 @@ module.exports = (tasks, mapper) => ({
   post: async (req, res) => {
     const {auth: authToken, body: data} = req;
 
-    const {ok, value: list, error} =
+    const {ok, value: channel, error} =
       await tasks.client.createChannel({authToken, data});
 
     if (!ok) {
       throw error;
     }
 
-    res.status(201).json(mapper.channel(list));
+    res.status(201).json(mappers.channel(channel));
   },
 });
