@@ -22,19 +22,19 @@ module.exports = ({authTokenRules, realmRepository, userRepository, authReposito
   async ({account, realmId, id, userId, scope, description}) => {
     const realm = await realmRepository.findOne({ownerAccountId: account.id, id: realmId});
     if (!realm) {
-      return failure(createTaskError(
-        'UnknownRealm',
-        'Cannot lookup the given realm.'
-      ));
+      return failure(createTaskError({
+        code: 'UnknownRealm',
+        message: 'Cannot lookup the given realm.',
+      }));
     }
 
     const user = await userRepository.findOrCreate({realmId, id: userId});
 
     if (!user) {
-      return failure(createTaskError(
-        'UserAutoCreationFailed',
-        'Could not fetch or create user on the fly.'
-      ));
+      return failure(createTaskError({
+        code: 'UserAutoCreationFailed',
+        message: 'Could not fetch or create user on the fly.',
+      }));
     }
 
     try {
@@ -43,10 +43,10 @@ module.exports = ({authTokenRules, realmRepository, userRepository, authReposito
     } catch (tokenCreationErr) {
       if (tokenCreationErr.isDuplicateKeyError) {
         return failure(
-          createTaskError(
-            'AuthTokenAlreadyExists',
-            'Auth token could not be created, since an auth token with the same id already exists.',
-          ),
+          createTaskError({
+            code: 'AuthTokenAlreadyExists',
+            message: 'Auth token could not be created, since an auth token with the same id already exists.',
+          }),
           tokenCreationErr
         );
       }
