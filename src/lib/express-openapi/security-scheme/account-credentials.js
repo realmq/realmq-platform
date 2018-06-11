@@ -4,7 +4,7 @@ const initResponder = require('./responder');
 
 const statusUnauthorized = message => status.unauthorized({
   challenge: 'Basic realm="Account credentials"',
-  code: 'INVALID_AUTHORIZATION',
+  code: 'InvalidAuthorization',
   message,
 });
 
