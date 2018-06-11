@@ -16,13 +16,14 @@ module.exports = ({channelRepository, subscriptionRepository}) =>
   async ({authToken, id}) => {
     const {scope, realmId, userId} = authToken;
 
-    if (scope === 'admin') {
-      // Admins can access all channels
-      const channel = await channelRepository.findOne({realmId, id});
-      return success(channel);
+    if (scope !== 'admin') {
+      // Plain users can only access channels they have a subscription for
+      const subscription = await subscriptionRepository.findOne({realmId, channelId: id, userId});
+      if (!subscription) {
+        return success(null);
+      }
     }
 
-    // Plain users can only access channels they have a subscription for
-    const subscription = await subscriptionRepository.findOne({realmId, channelId: id, userId});
-    return success(subscription ? subscription : null);
+    const channel = await channelRepository.findOne({realmId, id});
+    return success(channel);
   };
