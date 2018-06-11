@@ -3,7 +3,7 @@ const initResponder = require('./responder');
 
 const statusUnauthorized = message => status.unauthorized({
   challenge: 'Bearer',
-  code: 'INVALID_AUTHORIZATION',
+  code: 'InvalidAuthorization',
   message,
 });
 
