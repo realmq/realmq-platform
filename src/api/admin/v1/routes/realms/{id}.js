@@ -9,12 +9,16 @@ module.exports = tasks => ({
     const {account, params: {id}} = req;
     const {ok, result: realm, error} = await tasks.admin.fetchRealm({account, id});
     if (!ok) {
-      return Promise.reject(error);
+      throw error;
     }
-    if (realm) {
-      res.json(realm);
-    } else {
-      res.status(404).send();
+
+    if (!realm) {
+      return res.status(404).json({
+        code: 'UnknownRealm',
+        message: 'Cannot lookup the given realm.',
+      });
     }
+
+    res.json(realm);
   },
 });

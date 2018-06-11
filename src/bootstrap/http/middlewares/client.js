@@ -11,6 +11,7 @@ const mappers = require('../../../api/client/v1/mappers');
  */
 module.exports = async ({tasks, logger}) => ({
   v1: await mw({
+    logger,
     path: `${__dirname}/../../../api/client/v1`,
     dependencies: {
       tasks,

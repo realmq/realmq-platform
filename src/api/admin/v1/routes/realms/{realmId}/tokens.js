@@ -4,18 +4,11 @@ module.exports = tasks => ({
     const {ok, result: list, error} =
       await tasks.admin.listRealmTokens({account, realmId, offset, limit});
 
-    if (ok) {
-      return res.json(list);
+    if (!ok) {
+      throw error;
     }
 
-    if (error && error.name === 'TaskError' && error.code === 'UnknownRealm') {
-      return res.status(404).json({
-        code: 'UNKNOWN_REALM',
-        message: error.message,
-      });
-    }
-
-    return Promise.reject(error);
+    res.json(list);
   },
 
   post: async (req, res) => {
@@ -23,17 +16,10 @@ module.exports = tasks => ({
     const {ok, result: realmToken, error} =
       await tasks.admin.createRealmToken({account, realmId, id, userId, scope, description});
 
-    if (ok) {
-      return res.status(201).json(realmToken);
+    if (!ok) {
+      throw error;
     }
 
-    if (error && error.name === 'TaskError' && error.code === 'UnknownRealm') {
-      return res.status(404).json({
-        code: 'UNKNOWN_REALM',
-        message: error.message,
-      });
-    }
-
-    return Promise.reject(error);
+    res.status(201).json(realmToken);
   },
 });

@@ -1,8 +1,9 @@
 const {Router: createRouter} = require('express');
 const expressOpenApi = require('express-openapi');
 const readYaml = require('../read-yaml');
+const initErrorMiddleware = require('../express-openapi/error-middleware');
 
-module.exports = async ({path, dependencies, securityHandlers = {}}) => {
+module.exports = async ({logger, path, dependencies, securityHandlers = {}}) => {
   const router = createRouter({});
 
   const root = path;
@@ -18,6 +19,7 @@ module.exports = async ({path, dependencies, securityHandlers = {}}) => {
     paths,
     promiseMode: true,
     securityHandlers,
+    errorMiddleware: initErrorMiddleware({logger}),
   });
 
   return router;
