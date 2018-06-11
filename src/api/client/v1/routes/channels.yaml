@@ -41,18 +41,16 @@
         schema:
           $ref: '#/definitions/Channel'
       400:
-        description: Request validation failed.
-      401:
-        description: The channel could not be created due to failed authorization.
-      403:
-        description: Insufficient access rights to create the channel.
-      409:
         description: |
-          The channel could not be created since a channel with the same id already exists.
-          Error codes is: **CHANNEL_ALREADY_EXISTS**.
+          Request validation failed or  The channel could not be created since a channel with the same id already exists.
+          Error codes are: **ChannelAlreadyExists**.
         schema:
           allOf:
             - $ref: '#/definitions/RequestError'
             - example:
-                code: CHANNEL_ALREADY_EXISTS
+                code: ChannelAlreadyExists
                 message: A channel with the same id already exists.
+      401:
+        description: The channel could not be created due to failed authorization.
+      403:
+        description: Insufficient access rights to create the channel.

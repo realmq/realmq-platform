@@ -23,7 +23,5 @@
         description: Request validation failed.
       401:
         description: The realm could not be retrieved due to an authorization error.
-      403:
-        description: Insufficient rights to access this realm.
       404:
         description: The requested realm does not exist.
