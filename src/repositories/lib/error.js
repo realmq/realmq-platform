@@ -1,42 +1,78 @@
-/**
- * {
-  "name": "MongoError",
-  "message": "E11000 duplicate key error collection: realmq.accounts index: email dup key: { : \"baranga@posteo.de\" }",
-  "driver": true,
-  "index": 0,
-  "code": 11000,
-  "errmsg": "E11000 duplicate key error collection: realmq.accounts index: email dup key: { : \"baranga@posteo.de\" }"
-}
- */
 const codeMap = new Map([
-  [11000, {message: 'Duplicate key error', code: 'duplicate'}],
+  [11000, duplicate],
 ]);
 
-const error = {
-  generic: ({message, code, previous}) => Object.assign(new Error(message), {
+/**
+ * @class RepositoryError
+ * @extends Error
+ * @property {string} name
+ * @property {string} code
+ * @property {Error|void} previous
+ * @property {boolean} isRepositoryError
+ */
+/**
+ * Create a generic repository error.
+ *
+ * @param {string} message The error message
+ * @param {string} code The error code
+ * @param {Error} [previous] The root error
+ * @param {object} additionalProperties Additional properties
+ * @return {RepositoryError} The repository error
+ */
+function generic({
+  message = 'Data store error',
+  code = 'UnknownRepositoryError',
+  previous,
+  ...additionalProperties
+}) {
+  return Object.assign(new Error(message), {
+    ...additionalProperties,
     name: 'RepositoryError',
     code,
     previous,
     isRepositoryError: true,
-  }),
-  duplicate: ({previous}) => error.generic({
+  });
+}
+
+/**
+ * @class DuplicateKeyError
+ * @extends RepositoryError
+ * @property {boolean} isDuplicateKeyError
+ * @return {DuplicateKeyError}
+ */
+/**
+ * Create a duplicate key error object.
+ *
+ * @param {Error} [previous] The root error
+ * @return {DuplicateKeyError} The duplicate key error
+ */
+function duplicate({previous} = {}) {
+  return generic({
     message: 'Duplicate key error',
-    code: 'duplicate',
+    code: 'DuplicateKeyError',
     previous,
     isDuplicateKeyError: true,
-  }),
-  wrap: op => Promise.resolve(op).catch(err => {
+  });
+}
+
+/**
+ * @param {*} op Io operation
+ * @return {Promise<*>} Result
+ */
+function wrap(op) {
+  return Promise.resolve(op).catch(err => {
     const {name, code} = err;
     if (name !== 'MongoError') {
       return Promise.reject(err);
     }
 
-    const props = codeMap.has(code) ?
-      error.generic(codeMap.get(code)) :
-      {message: 'Data store error', code: 'other'};
+    const wrappedError = (codeMap.get(code) || generic)({previous: err});
+    return Promise.reject(wrappedError);
+  });
+}
 
-    return Promise.reject(error.generic({...props, previous: err}));
-  }),
+module.exports = {
+  generic,
+  duplicate,
+  wrap,
 };
-
-module.exports = error;
