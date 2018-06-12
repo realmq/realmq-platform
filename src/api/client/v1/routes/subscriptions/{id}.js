@@ -18,14 +18,14 @@ module.exports = (tasks, mappers) => ({
       throw error;
     }
 
-    if (subscription === null) {
-      res.status(404).json({
+    if (!subscription) {
+      return res.status(404).json({
         code: 'UnknownSubscription',
         message: 'Subscription does not exists.',
       });
-    } else {
-      res.json(mappers.subscription(subscription));
     }
+
+    res.json(mappers.subscription(subscription));
   },
   /**
    * PATCH /subscriptions/{id}
