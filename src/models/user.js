@@ -16,8 +16,8 @@ const stripUndefined = require('../lib/strip-undefined');
 module.exports = ({
   id,
   realmId,
-  isOnline,
-  properties,
+  isOnline = false,
+  properties = {},
   createdAt,
   updatedAt,
 }) => stripUndefined({
