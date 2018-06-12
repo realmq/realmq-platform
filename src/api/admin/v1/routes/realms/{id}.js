@@ -1,10 +1,11 @@
 /**
- *
+ * Realm controller
  * @param {object} tasks Tasks
  * @param {AdminTasks} tasks.admin Admin tasks
- * @returns {{get: get}}
+ * @param {AdminApiV1Mappers} mappers Response mappers
+ * @returns {{get: get}} The realm controller
  */
-module.exports = tasks => ({
+module.exports = (tasks, mappers) => ({
   get: async (req, res) => {
     const {account, params: {id}} = req;
     const {ok, result: realm, error} = await tasks.admin.fetchRealm({account, id});
@@ -19,6 +20,6 @@ module.exports = tasks => ({
       });
     }
 
-    res.json(realm);
+    res.json(mappers.realm(realm));
   },
 });
