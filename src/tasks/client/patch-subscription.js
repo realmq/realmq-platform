@@ -39,7 +39,7 @@ module.exports = ({subscriptionRepository}) =>
   /**
    * @function ClientTasks#patchSubscription
    * @param {AuthModel} authToken Authentication
-   * @param {string} id Channel id
+   * @param {string} id Subscription id
    * @param {object[]} patch Patch to apply
    * @returns {Result<ChannelModel>}
    */
