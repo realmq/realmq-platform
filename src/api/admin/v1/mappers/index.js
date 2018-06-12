@@ -1,4 +1,8 @@
+const account = require('./account');
+
 /**
  * @class AdminApiV1Mappers
  */
-module.exports = {};
+module.exports = {
+  account,
+};
