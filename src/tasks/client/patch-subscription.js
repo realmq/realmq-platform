@@ -94,6 +94,6 @@ module.exports = ({subscriptionRepository}) =>
       ...subscription,
       ...patchedChangeableProperties,
     };
-    const updatedChannel = subscriptionRepository.update(patchedSubscription);
+    const updatedChannel = await subscriptionRepository.update(patchedSubscription);
     return success(updatedChannel);
   };
