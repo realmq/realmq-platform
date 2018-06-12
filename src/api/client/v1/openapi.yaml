@@ -8,6 +8,7 @@ paths: !includeMerged
   - routes/channels.yaml
   - routes/channels/{id}.yaml
   - routes/users.yaml
+  - routes/users/{id}.yaml
   - routes/version.yaml
 
 parameters: !include openapi/parameters.yaml

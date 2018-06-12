@@ -15,6 +15,7 @@ const ERROR_CODE_TO_STATUS_MAP = {
   // 404
   UnknownChannel: 404,
   UnknownRealm: 404,
+  UnknownUser: 404,
 };
 
 /**

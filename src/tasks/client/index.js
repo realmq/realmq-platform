@@ -3,6 +3,7 @@ const initCreateChannel = require('./create-channel');
 const initCreateUser = require('./create-user');
 const initDeleteChannel = require('./delete-channel');
 const initFetchChannel = require('./fetch-channel');
+const initFetchUser = require('./fetch-user');
 const initListChannels = require('./list-channels');
 const initListUsers = require('./list-users');
 const initPatchChannel = require('./patch-channel');
@@ -27,6 +28,7 @@ module.exports = ({
   createUser: initCreateUser({userRepository}),
   deleteChannel: initDeleteChannel({channelRepository}),
   fetchChannel: initFetchChannel({channelRepository, subscriptionRepository}),
+  fetchUser: initFetchUser({userRepository}),
   listChannels: initListChannels({channelRepository, subscriptionRepository}),
   listUsers: initListUsers({userRepository}),
   patchChannel: initPatchChannel({channelRepository}),

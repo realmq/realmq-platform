@@ -1,0 +1,30 @@
+/users/{id}:
+  parameters:
+    - name: id
+      description: The user id.
+      in: path
+      required: true
+      type: string
+      pattern: ^[\w-]+$
+  get:
+    summary: Retrieve one single user.
+    description: |
+      Find a user by its id.
+
+      #### Allowed Scopes
+      **admin**
+    tags:
+      - Users
+    responses:
+      200:
+        description: The user was loaded sucessfully.
+        schema:
+          $ref: '#/definitions/User'
+      400:
+        description: Request validation failed.
+      401:
+        description: The user could not be retrieved due to failed authorization.
+      403:
+        description: Insufficient access rights to retrieve this user.
+      404:
+        description: The requested user does not exist.
