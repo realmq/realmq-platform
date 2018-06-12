@@ -1,5 +1,11 @@
 const {success} = require('../../lib/result');
 
+const buildQuery = ({scope, id, realmId, userId}) => (
+  scope === 'admin' ?
+    {realmId, id} : // Admins see all subscriptions
+    {realmId, id, userId} // Non admins see only their subscriptions
+);
+
 /**
  * Init fetch subscription task
  * @param {SubscriptionRepository} subscriptionRepository Subscription repository
@@ -15,11 +21,8 @@ module.exports = ({subscriptionRepository}) =>
   async ({authToken, id}) => {
     const {scope, realmId, userId} = authToken;
 
-    const subscription = await (
-      scope === 'admin' ?
-        subscriptionRepository.findOne({realmId, channelId: id}) :
-        subscriptionRepository.findOne({realmId, channelId: id, userId})
-    );
+    const query = buildQuery({scope, realmId, id, userId});
+    const subscription = subscriptionRepository.findOne(query);
 
     return success(subscription);
   };
