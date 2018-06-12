@@ -1,4 +1,5 @@
 # RealMQ Platform
+![build status](https://drone.rmq.ovh/api/badges/RealMQ/realmq-platform/status.svg)
 
 ## Configuration
 
