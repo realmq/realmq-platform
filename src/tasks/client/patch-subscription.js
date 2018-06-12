@@ -49,7 +49,7 @@ module.exports = ({subscriptionRepository}) =>
     if (scope !== 'admin') {
       return failure(error({
         code: 'InsufficientPrivileges',
-        message: 'Insufficient privileges to patch a channel.',
+        message: 'Insufficient privileges to patch a subscription.',
       }));
     }
 
@@ -94,6 +94,6 @@ module.exports = ({subscriptionRepository}) =>
       ...subscription,
       ...patchedChangeableProperties,
     };
-    const updatedChannel = await subscriptionRepository.update(patchedSubscription);
-    return success(updatedChannel);
+    const updatedSubscription = await subscriptionRepository.update(patchedSubscription);
+    return success(updatedSubscription);
   };
