@@ -39,14 +39,14 @@ module.exports = ({userRepository, channelRepository, subscriptionRepository}) =
     const {scope, realmId} = authToken;
 
     if (scope !== 'admin') {
-      return failure(error(
-        'InsufficientPrivileges',
-        'Insufficient privileges to create a subscription.'
-      ));
+      return failure(error({
+        code: 'InsufficientPrivileges',
+        message: 'Insufficient privileges to create a subscription.',
+      }));
     }
 
     const {userId: requestedUserId, channelId: requestedChannelId} = data;
-    const [user, channel] = Promise.all([
+    const [user, channel] = await Promise.all([
       ensureUserExists({userRepository, realmId, userId: requestedUserId}),
       ensureChannelExists({channelRepository, realmId, channelId: requestedChannelId}),
     ]);
@@ -62,10 +62,10 @@ module.exports = ({userRepository, channelRepository, subscriptionRepository}) =
     } catch (creationError) {
       if (creationError.name === 'RepositoryError' && creationError.reason === 'duplicate') {
         return failure(
-          error(
-            'SubscriptionAlreadyExists',
-            'A subscription with the same id already exists.'
-          ),
+          error({
+            code: 'SubscriptionAlreadyExists',
+            message: 'A subscription with the same id already exists.',
+          }),
           creationError
         );
       }
