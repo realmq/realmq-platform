@@ -24,7 +24,7 @@ module.exports = async ({config, logger}) => {
     db.createCollection('channels'),
     db.createCollection('users'),
     db.createCollection('realms'),
-    db.createCollection('subscription'),
+    db.createCollection('subscriptions'),
     db.createCollection('auths'),
   ]);
 
@@ -39,7 +39,7 @@ module.exports = async ({config, logger}) => {
       customIdIdxSpec,
       {key: {ownerAccountId: 1}, name: 'ownerAccountId'},
     ]),
-    db.collection('subscription').createIndexes([
+    db.collection('subscriptions').createIndexes([
       realmAwareIdxSpec,
       {key: {realmId: 1, userId: 1, channelId: 1}, name: 'realmId_userId_channelId', unique: true},
     ]),
