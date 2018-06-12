@@ -20,8 +20,8 @@ module.exports = ({
   realmId,
   channelId,
   userId,
-  allowRead,
-  allowWrite,
+  allowRead = true,
+  allowWrite = true,
   createdAt,
   updatedAt,
 }) => stripUndefined({
