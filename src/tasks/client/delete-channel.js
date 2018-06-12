@@ -2,7 +2,7 @@ const {success, failure} = require('../../lib/result');
 const error = require('../../lib/error/task');
 
 /**
- * Init patch channel task
+ * Init delete channel task
  * @param {ChannelRepository} channelRepository Channel repository
  * @returns {Function} Task
  */
