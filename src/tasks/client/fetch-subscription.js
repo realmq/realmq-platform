@@ -3,7 +3,7 @@ const {success} = require('../../lib/result');
 /**
  * Init fetch subscription task
  * @param {SubscriptionRepository} subscriptionRepository Subscription repository
- * @returns {Function} Task
+ * @returns {ClientTasks#fetchSubscription} Task
  */
 module.exports = ({subscriptionRepository}) =>
   /**

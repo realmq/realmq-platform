@@ -4,7 +4,7 @@ const error = require('../../lib/error/task');
 /**
  * Init delete subscription task
  * @param {SubscriptionRepository} subscriptionRepository Subscription repository
- * @returns {Function} Task
+ * @returns {ClientTasks#deleteSubscription} Task
  */
 module.exports = ({subscriptionRepository}) =>
   /**

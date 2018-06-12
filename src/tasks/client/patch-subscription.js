@@ -33,7 +33,7 @@ const validateChangeableProperties = properties => {
 /**
  * Init patch subscription task
  * @param {SubscriptionRepository} subscriptionRepository Subscription repository
- * @returns {Function} Task
+ * @returns {ClientTasks#patchSubscription} Task
  */
 module.exports = ({subscriptionRepository}) =>
   /**

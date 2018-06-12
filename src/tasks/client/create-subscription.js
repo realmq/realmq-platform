@@ -26,7 +26,7 @@ const ensureChannelExists = ({channelRepository, realmId, channelId}) =>
  * @param {UserRepository} userRepository User repository
  * @param {ChannelRepository} channelRepository Channel repository
  * @param {SubscriptionRepository} subscriptionRepository Subscription repository
- * @returns {Function} Task
+ * @returns {ClientTasks#createSubscription} Task
  */
 module.exports = ({userRepository, channelRepository, subscriptionRepository}) =>
   /**
