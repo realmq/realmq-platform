@@ -49,3 +49,27 @@
         description: Insufficient access rights to delete users.
       404:
         description: The requested user does not exist.
+  patch:
+    summary: Perform a json-patch update on a user.
+    description: |
+      Update user properties via JSON-patch [(RFC6902)](http://tools.ietf.org/html/rfc6902).
+
+      #### Allowed Scopes
+      **admin**
+    tags:
+      - Users
+    parameters:
+      - $ref: '#/parameters/jsonPatch'
+    responses:
+      200:
+        description: The updated user.
+        schema:
+          $ref: '#/definitions/User'
+      400:
+        description: Request validation failed.
+      401:
+        description: The user could not be updated due to failed authorization.
+      403:
+        description: Insufficient access rights to update this user.
+      404:
+        description: The requested user does not exist.

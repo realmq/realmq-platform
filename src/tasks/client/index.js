@@ -8,6 +8,7 @@ const initFetchUser = require('./fetch-user');
 const initListChannels = require('./list-channels');
 const initListUsers = require('./list-users');
 const initPatchChannel = require('./patch-channel');
+const initPatchUser = require('./patch-user');
 
 /** @typedef {object} ClientTasks */
 /**
@@ -34,4 +35,5 @@ module.exports = ({
   listChannels: initListChannels({channelRepository, subscriptionRepository}),
   listUsers: initListUsers({userRepository}),
   patchChannel: initPatchChannel({channelRepository}),
+  patchUser: initPatchUser({userRepository}),
 });
