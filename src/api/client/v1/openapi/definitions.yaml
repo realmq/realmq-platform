@@ -172,3 +172,30 @@ ChannelMessageList:
             $ref: '#/definitions/ChannelMessage'
       required:
         - items
+
+# user entity
+User:
+  allOf:
+    - $ref: '#/definitions/BaseEntity'
+    - properties:
+        isOnline:
+          description: Whether the user is currently connected to the real time broker.
+          type: boolean
+          readOnly: true
+        properties:
+          type: object
+      required:
+      - properties
+      - isOnline
+    - $ref: '#/definitions/TimestampsTrait'
+
+UserList:
+  allOf:
+  - $ref: '#/definitions/BaseList'
+  - properties:
+      items:
+        type: array
+        items:
+          $ref: '#/definitions/User'
+    required:
+    - items
