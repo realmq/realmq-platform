@@ -1,4 +1,5 @@
 const account = require('./account');
+const auth = require('./auth');
 const realm = require('./realm');
 const realmList = require('./realm-list');
 
@@ -7,6 +8,7 @@ const realmList = require('./realm-list');
  */
 module.exports = {
   account,
+  auth,
   realm,
   realmList,
 };
