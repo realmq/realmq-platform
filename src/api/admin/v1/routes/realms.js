@@ -1,8 +1,9 @@
 /**
  * @param {{admin: AdminTasks}} tasks The task injection
+ * @param {AdminApiV1Mappers} mappers Response mappers
  * @return {object} The express-openapi router
  */
-module.exports = tasks => ({
+module.exports = (tasks, mappers) => ({
   async get(req, res) {
     const {offset, limit} = req.query;
     const {ok, result: list, error} =
@@ -21,6 +22,6 @@ module.exports = tasks => ({
       throw error;
     }
 
-    return res.status(201).json(realm);
+    return res.status(201).json(mappers.realm(realm));
   },
 });
