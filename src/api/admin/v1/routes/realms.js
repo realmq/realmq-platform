@@ -11,7 +11,7 @@ module.exports = (tasks, mappers) => ({
     if (!ok) {
       throw error;
     }
-    return res.json(list);
+    return res.json(mappers.realmList(list));
   },
 
   async post(req, res) {

@@ -1,5 +1,6 @@
 const account = require('./account');
 const realm = require('./realm');
+const realmList = require('./realm-list');
 
 /**
  * @class AdminApiV1Mappers
@@ -7,4 +8,5 @@ const realm = require('./realm');
 module.exports = {
   account,
   realm,
+  realmList,
 };
