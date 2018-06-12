@@ -47,20 +47,18 @@ module.exports = ({subscriptionRepository}) =>
     const {scope, realmId} = authToken;
 
     if (scope !== 'admin') {
-      return failure(error(
-        'InsufficientPrivileges',
-        'Insufficient privileges to patch a channel.'
-      ));
+      return failure(error({
+        code: 'InsufficientPrivileges',
+        message: 'Insufficient privileges to patch a channel.',
+      }));
     }
 
     const subscription = await subscriptionRepository.findOne({realmId, id});
     if (!subscription) {
-      return failure(
-        error(
-          'UnknownSubscription',
-          'Subscription does not exists.'
-        )
-      );
+      return failure(error({
+        code: 'UnknownSubscription',
+        message: 'Subscription does not exists.',
+      }));
     }
 
     const changeableProperties = {
@@ -71,10 +69,10 @@ module.exports = ({subscriptionRepository}) =>
     const patchValidationError = jsonPatch.validate(patch, changeableProperties);
     if (patchValidationError) {
       return failure(
-        error(
-          'InvalidPatch',
-          'Provided patch is invalid.'
-        ),
+        error({
+          code: 'InvalidPatch',
+          message: 'Provided patch is invalid.',
+        }),
         patchValidationError
       );
     }
@@ -84,10 +82,10 @@ module.exports = ({subscriptionRepository}) =>
     const {valid, errors: validationErrors} = validateChangeableProperties(patchedChangeableProperties);
     if (!valid) {
       return failure(
-        error(
-          'InvalidSubscription',
-          'Invalid subscription after applying patch.'
-        ),
+        error({
+          code: 'InvalidSubscription',
+          message: 'Invalid subscription after applying patch.',
+        }),
         validationErrors
       );
     }

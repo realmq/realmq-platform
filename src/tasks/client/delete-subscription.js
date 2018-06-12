@@ -17,20 +17,18 @@ module.exports = ({subscriptionRepository}) =>
     const {scope, realmId} = authToken;
 
     if (scope !== 'admin') {
-      return failure(error(
-        'InsufficientPrivileges',
-        'Insufficient privileges to delete a subscription.'
-      ));
+      return failure(error({
+        code: 'InsufficientPrivileges',
+        message: 'Insufficient privileges to delete a subscription.',
+      }));
     }
 
     const subscription = await subscriptionRepository.findOne({realmId, id});
     if (!subscription) {
-      return failure(
-        error(
-          'UnknownSubscription',
-          'Subscription does not exists.'
-        )
-      );
+      return failure(error({
+        code: 'UnknownSubscription',
+        message: 'Subscription does not exists.',
+      }));
     }
 
     await subscriptionRepository.findOneAndDelete({realmId, id});
