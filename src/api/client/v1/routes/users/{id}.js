@@ -29,4 +29,21 @@ module.exports = (tasks, mappers) => ({
 
     res.json(mappers.user(user));
   },
+
+  /**
+   * DELETE /channel/{id}
+   * @param {object} req Request
+   * @param {object} res Response
+   */
+  async delete(req, res) {
+    const {auth: authToken, params: {id}} = req;
+
+    const {ok, error} = await tasks.client.deleteUser({authToken, id});
+
+    if (!ok) {
+      throw error;
+    }
+
+    res.status(204).send();
+  },
 });

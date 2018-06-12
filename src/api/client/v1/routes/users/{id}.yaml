@@ -28,3 +28,24 @@
         description: Insufficient access rights to retrieve this user.
       404:
         description: The requested user does not exist.
+  delete:
+    summary: Delete the given user.
+    description: |
+      Delete a user referenced by id.
+      This will also delete all subscriptions and auth tokens of the user.
+
+      #### Allowed Scopes
+      **admin**
+    tags:
+      - Users
+    responses:
+      204:
+        description: The user has been deleted sucessfully.
+      400:
+        description: Request validation failed.
+      401:
+        description: The user could not be deleted due to failed authorization.
+      403:
+        description: Insufficient access rights to delete users.
+      404:
+        description: The requested user does not exist.
