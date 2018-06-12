@@ -14,7 +14,7 @@ module.exports = (tasks, mappers) => ({
       throw error;
     }
 
-    res.json(list);
+    res.json(mappers.authList(list));
   },
 
   post: async (req, res) => {
