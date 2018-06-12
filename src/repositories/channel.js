@@ -36,5 +36,26 @@ module.exports = ({collection, createModel = createChannelModel}) => {
         id: {$in: ids},
       }, {offset, limit});
     },
+
+    /**
+     * Find or create a channel by realm id and id.
+     *
+     * @param {string} realmId The realm id
+     * @param {string} [id] The channel id
+     * @return {Promise<ChannelModel>} The promised channel
+     */
+    async findOrCreate({realmId, id}) {
+      let channel;
+
+      if (id) {
+        channel = await multiRealmRepo.findOne({id, realmId});
+      }
+
+      if (!channel) {
+        channel = await multiRealmRepo.create({id, realmId});
+      }
+
+      return channel;
+    },
   };
 };
