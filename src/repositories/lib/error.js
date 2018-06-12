@@ -47,11 +47,17 @@ function generic({
  * @return {DuplicateKeyError} The duplicate key error
  */
 function duplicate({previous} = {}) {
+  // E11000 duplicate key error collection: <db>.<collection> index: <index> dup key: ...
+  const match = previous.message.match(/^E11000[^:]+:[^:]+index:\s*([^\s]+)/);
+  const index = match === null ? null : match[1];
   return generic({
     message: 'Duplicate key error',
     code: 'DuplicateKeyError',
     previous,
     isDuplicateKeyError: true,
+    details: {
+      index,
+    },
   });
 }
 
