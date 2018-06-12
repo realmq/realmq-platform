@@ -10,3 +10,5 @@ pipeline:
     image: plugins/slack
     username: drone
     secrets: [slack_webhook]
+    when:
+      event: [pull_request]
