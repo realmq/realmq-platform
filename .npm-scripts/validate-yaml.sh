@@ -5,7 +5,7 @@ SCRIPT="${ROOT}/scripts/validate-openapi-spec.js"
 if [ "$#" = "0" ]; then
   # called without parameters
   # validate all yaml files
-  exec find src -name '*.yaml' -or -name '*.yml' -exec scripts/validate-yaml.js '{}' \;
+  exec find src \( -name '*.yaml' -or -name '*.yml' \) -exec scripts/validate-yaml.js '{}' \;
 else
   # called with parameters
   # validate just the specified files
