@@ -1,5 +1,6 @@
 /version:
   get:
+    security: []
     operationId: fetchVersion
     responses:
       200:
