@@ -1,0 +1,7 @@
+pipeline:
+  test:
+    image: node:8
+    commands:
+      - npm install
+      - npm run lint
+      - npm test
