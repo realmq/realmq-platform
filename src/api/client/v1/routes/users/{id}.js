@@ -46,4 +46,21 @@ module.exports = (tasks, mappers) => ({
 
     res.status(204).send();
   },
+
+  /**
+   * PATCH /channel/{id}
+   * @param {object} req Request
+   * @param {object} res Response
+   */
+  async patch(req, res) {
+    const {auth: authToken, params: {id}, body: patch} = req;
+
+    const {ok, result: user, error} = await tasks.client.patchUser({authToken, id, patch});
+
+    if (!ok) {
+      throw error;
+    }
+
+    res.json(mappers.user(user));
+  },
 });

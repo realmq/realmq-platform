@@ -8,6 +8,7 @@ const ERROR_CODE_TO_STATUS_MAP = {
   EmailAlreadyTaken: 400,
   InvalidPatch: 400,
   InvalidChannel: 400,
+  InvalidUser: 400,
 
   // 403
   InsufficientPrivileges: 403,
