@@ -19,7 +19,10 @@ module.exports = (tasks, mappers) => ({
     }
 
     if (subscription === null) {
-      res.status(404);
+      res.status(404).json({
+        code: 'UnknownSubscription',
+        message: 'Subscription does not exists.',
+      });
     } else {
       res.json(mappers.subscription(subscription));
     }
