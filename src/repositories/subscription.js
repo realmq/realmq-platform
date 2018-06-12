@@ -99,9 +99,8 @@ module.exports = ({collection, createModel = createSubscriptionModel}) => {
      *
      * @param {string} realmId Realm context
      * @param {string} channelId Id of channel to remove subscriptions for
-     * @returns {Promise<void>} Nothing
      */
-    async findByChannelIdAndRemove({realmId, channelId}) {
+    async deleteAllByChannelId({realmId, channelId}) {
       if (!channelId) {
         throw new Error('Missing channel id.');
       }
@@ -114,9 +113,8 @@ module.exports = ({collection, createModel = createSubscriptionModel}) => {
      *
      * @param {string} realmId Realm context
      * @param {string} userId Id of user to remove subscriptions for
-     * @returns {Promise<void>} Nothing
      */
-    async findByUserIdAndRemove({realmId, userId}) {
+    async deleteAllByUserId({realmId, userId}) {
       if (!userId) {
         throw new Error('Missing user id.');
       }

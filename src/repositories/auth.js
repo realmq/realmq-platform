@@ -34,9 +34,14 @@ module.exports = ({collection, createModel = createAuthModel}) => {
      *
      * @param {string} realmId The realm context
      * @param {string} userId The user id
-     * @return {Promise} Promised execution
      */
-    deleteAllByUserId: (realmId, userId) => multiRealmRepository.deleteMany({realmId, userId}),
+    async deleteAllByUserId({realmId, userId}) {
+      if (!userId) {
+        throw new Error('Missing user id.');
+      }
+
+      await multiRealmRepository.deleteMany({realmId, userId});
+    },
   };
 };
 
