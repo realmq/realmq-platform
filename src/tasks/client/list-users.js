@@ -18,10 +18,10 @@ module.exports = ({userRepository}) =>
     const {scope, realmId} = authToken;
 
     if (scope !== 'admin') {
-      return failure(error(
-        'InsufficientPrivileges',
-        'Insufficient privileges to list users.'
-      ));
+      return failure(error({
+        code: 'InsufficientPrivileges',
+        message: 'Insufficient privileges to list users.',
+      }));
     }
 
     return success(await userRepository.find({realmId}, {offset, limit}));
