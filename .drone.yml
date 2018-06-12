@@ -5,3 +5,8 @@ pipeline:
       - npm install
       - npm run lint
       - npm test
+
+  slack:
+    image: plugins/slack
+    username: drone
+    secrets: [slack_webhook]
