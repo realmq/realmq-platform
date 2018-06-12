@@ -6,4 +6,11 @@
       200:
         description: Current version, see https://semver.org for format.
         schema:
-          type: string
+          type: object
+          properties:
+            version:
+              type: string
+          required:
+            - version
+        examples:
+          version: 1.0.0
