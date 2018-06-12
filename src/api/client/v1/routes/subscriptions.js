@@ -12,7 +12,7 @@ module.exports = (tasks, mappers) => ({
    */
   get: async (req, res) => {
     const {auth: authToken, query: {offset, limit}} = req;
-    const {ok, value: list, error} =
+    const {ok, result: list, error} =
       await tasks.client.listSubscriptions({authToken, offset, limit});
 
     if (!ok) {
@@ -29,7 +29,7 @@ module.exports = (tasks, mappers) => ({
   post: async (req, res) => {
     const {auth: authToken, body: data} = req;
 
-    const {ok, value: subscription, error} =
+    const {ok, result: subscription, error} =
       await tasks.client.createSubscription({authToken, data});
 
     if (!ok) {
