@@ -1,6 +1,7 @@
 /**
  * Create /users express openapi controller.
- * @param {ClientTasks} tasks tasks
+ * @param {object} tasks Tasks
+ * @param {ClientTasks} tasks.client Client tasks
  * @param {ClientApiV1Mappers} mappers Response mappers
  * @return {object} The express openapi controller
  */
@@ -10,7 +11,7 @@ module.exports = (tasks, mappers) => ({
    * @param {object} req Request
    * @param {object} res Response
    */
-  get: async (req, res) => {
+  async get(req, res) {
     const {auth: authToken, user, query: {offset, limit}} = req;
     const {ok, result: list, error} =
       await tasks.client.listUsers({authToken, user, offset, limit});
@@ -20,5 +21,22 @@ module.exports = (tasks, mappers) => ({
     }
 
     res.json(mappers.userList(list));
+  },
+
+  /**
+   * POST /users
+   * @param {object} req Request
+   * @param {object} res Response
+   */
+  async post(req, res) {
+    const {auth: authToken, body: payload} = req;
+    const {ok, result: user, error} =
+      await tasks.client.createUser({authToken, data: payload});
+
+    if (!ok) {
+      throw error;
+    }
+
+    res.json(mappers.user(user));
   },
 });

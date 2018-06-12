@@ -4,6 +4,7 @@ const ERROR_CODE_TO_STATUS_MAP = {
   // 400
   AuthTokenAlreadyExists: 400,
   ChannelAlreadyExists: 400,
+  UserAlreadyExists: 400,
   EmailAlreadyTaken: 400,
   InvalidPatch: 400,
   InvalidChannel: 400,
