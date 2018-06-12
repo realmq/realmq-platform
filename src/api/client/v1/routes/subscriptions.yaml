@@ -73,19 +73,19 @@
         schema:
           $ref: '#/definitions/Subscription'
       400:
-        description: Request validation failed.
-      401:
-        description: The subscription could not be created due to failed authorization.
-      403:
-        description: Insufficient access rights to create a subscription.
-      409:
         description: |
-          The subscription could not be created due to unmet constraints like the user is already subscribed
-          to the channel or a subscription with the same id already exists.
-          Possible error codes are: **ALREADY_SUBSCRIBED** and **SUBSCRIPTION_ALREADY_EXISTS**.
+          Request validation failed or the subscription could not be created
+          due to unmet constraints like the user is already subscribed to the
+          channel or a subscription with the same id already exists.
+
+          Possible error codes are: **ALREADY_SUBSCRIBED** and **SubscriptionAlreadyExists**.
         schema:
           allOf:
             - $ref: '#/definitions/RequestError'
             - example:
-                code: ALREADY_SUBSCRIBED
-                message: There is already an existing subscription.
+                code: SubscriptionAlreadyExists
+                message: A subscription with the same id already exists.
+      401:
+        description: The subscription could not be created due to failed authorization.
+      403:
+        description: Insufficient access rights to create a subscription.
