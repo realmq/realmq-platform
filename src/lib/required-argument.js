@@ -4,11 +4,11 @@
  * @param {string} name The argument label
  * @throws TypeError
  */
-module.exports = function argue(name) {
+module.exports = function requiredArgument(name) {
   const requiredArgumentError = new TypeError(`Required argument ${name} is missing.`);
 
   // Retains the correct stack trace for the location where the error was triggered
-  Error.captureStackTrace(requiredArgumentError, argue);
+  Error.captureStackTrace(requiredArgumentError, requiredArgument);
 
   throw requiredArgumentError;
 };
