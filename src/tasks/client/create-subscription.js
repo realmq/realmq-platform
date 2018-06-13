@@ -33,7 +33,7 @@ module.exports = ({userRepository, channelRepository, subscriptionRepository}) =
    * @function ClientTasks#createSubscription
    * @param {AuthModel} authToken Authentication
    * @param {object} data Entity data
-   * @returns {Result<>}
+   * @returns {Result<SubscriptionModel>}
    */
   async ({authToken, data}) => {
     const {scope, realmId} = authToken;
