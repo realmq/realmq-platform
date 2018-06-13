@@ -1,11 +1,9 @@
 /**
  * Authenticated user controller
- * @param {object} tasks Tasks
- * @param {ClientTasks} tasks.client Client tasks
  * @param {object} mappers Mappers
  * @returns {object} The authenticated user controller
  */
-module.exports = (tasks, mappers) => ({
+module.exports = mappers => ({
   /**
    * GET /me/user
    * @param {object} req Request
