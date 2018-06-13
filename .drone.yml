@@ -12,7 +12,7 @@ pipeline:
       - npm run validate-yaml
       - npm run validate-openapi-spec
 
-  smoke-test-instance:
+  start-smoke-test-instance:
     image: node:8
     detach: true
     environment:
@@ -20,7 +20,7 @@ pipeline:
     commands:
       - npm start
 
-  smoke-test-tester:
+  run-smoke-test:
     image: node:8
     environment:
       - SMOKE_HOST=smoke-test-instance
