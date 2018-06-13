@@ -17,15 +17,7 @@ const changeablePropertiesSchema = {
   required: ['properties'],
 };
 
-/**
- * Validate changeable properties
- * @param {object} properties Properties to validate
- * @returns {{valid: boolean, errors: object[]}} Result
- */
-const validateChangeableProperties = properties => {
-  const valid = schemaValidator.validate(changeablePropertiesSchema, properties);
-  return {valid, errors: valid ? [] : schemaValidator.errors};
-};
+const validateChangeableProperties = schemaValidator(changeablePropertiesSchema);
 
 /**
  * Init patch user task
