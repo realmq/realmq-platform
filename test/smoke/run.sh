@@ -1,13 +1,17 @@
 #!/usr/bin/env bash
+: ${SMOKE_TARGET_HOST=localhost}
+: ${SMOKE_TARGET_PORT=8080}
+
 email="test@example.com"
 password="test"
+baseUrl="http://$SMOKE_TARGET_HOST:$SMOKE_TARGET_PORT"
 
 adminRequest() {
   method=$1
   path=$2
   data=$3
 
-  url="localhost:8080/admin/v1$path"
+  url="${baseUrl}/admin/v1${path}"
   curl -Ssf -X "$method" \
     --basic -u "$email:$password" \
     -H "Content-Type: application/json" \
@@ -21,7 +25,7 @@ clientRequest() {
   path=$3
   data=$4
 
-  url="localhost:8080/client/v1$path"
+  url="${baseUrl}/client/v1${path}"
   curl -Ssf -X "$method" \
     -H "Authorization: Bearer $token" \
     -H "Content-Type: application/json" \
