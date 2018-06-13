@@ -75,7 +75,7 @@
           Request validation failed or the auth token could not be created
           since an auth token with the same id already exists.
 
-          Error codes is: **AuthTokenAlreadyExists**.
+          Error codes are: **AuthTokenAlreadyExists**.
         schema:
           allOf:
             - $ref: '#/definitions/RequestError'
