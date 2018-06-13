@@ -4,7 +4,7 @@
 const {createConnection} = require('net');
 
 const connect = (host, port) => new Promise((resolve, reject) => {
-  const connection = createConnection(host, port);
+  const connection = createConnection(port, host);
   connection.once('connect', () => resolve(connection));
   connection.once('error', err => reject(err));
 });
