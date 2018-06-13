@@ -4,11 +4,22 @@ pipeline:
     commands:
       - npm install
 
-  test:
+  lint:
+    group: test
     image: node:8
     commands:
       - npm run lint
+
+  test:
+    group: test
+    image: node:8
+    commands:
       - npm test
+
+  validate-spec:
+    group: test
+    image: node:8
+    commands:
       - npm run validate-yaml
       - npm run validate-openapi-spec
 
