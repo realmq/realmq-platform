@@ -1,7 +1,7 @@
 const Ajv = require('ajv');
-const jsonPatch = require('fast-json-patch');
 const {success, failure} = require('../../lib/result');
 const error = require('../../lib/error/task');
+const {apply: patchDocument, validate: validatePatch} = require('../../lib/json-patch');
 
 /**
  * JSON Schema describing the set of changeable properties
@@ -86,7 +86,7 @@ module.exports = ({channelRepository}) =>
       properties: channel.properties || {},
     };
 
-    const patchValidationError = jsonPatch.validate(patch, changeableProperties);
+    const patchValidationError = validatePatch({patch, document: changeableProperties});
     if (patchValidationError) {
       return failure(
         error({
@@ -97,7 +97,7 @@ module.exports = ({channelRepository}) =>
       );
     }
 
-    const patchedProperties = jsonPatch.applyPatch(changeableProperties, patch);
+    const patchedProperties = patchDocument({document: changeableProperties, patch});
     const {valid, errors: validationErrors} = validateChangeableProperties(patchedProperties);
     if (!valid) {
       return failure(

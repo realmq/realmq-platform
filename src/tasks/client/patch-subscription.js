@@ -1,7 +1,7 @@
 const Ajv = require('ajv');
-const jsonPatch = require('fast-json-patch');
 const {success, failure} = require('../../lib/result');
 const error = require('../../lib/error/task');
+const {apply: patchDocument, validate: validatePatch} = require('../../lib/json-patch');
 
 /**
  * JSON Schema describing the set of changeable properties
@@ -66,7 +66,7 @@ module.exports = ({subscriptionRepository}) =>
       allowWrite: subscription.allowWrite,
     };
 
-    const patchValidationError = jsonPatch.validate(patch, changeableProperties);
+    const patchValidationError = validatePatch({patch, document: changeableProperties});
     if (patchValidationError) {
       return failure(
         error({
@@ -77,9 +77,8 @@ module.exports = ({subscriptionRepository}) =>
       );
     }
 
-    const patchedChangeableProperties =
-      jsonPatch.applyPatch(changeableProperties, patch);
-    const {valid, errors: validationErrors} = validateChangeableProperties(patchedChangeableProperties);
+    const patchedProperties = patchDocument({document: changeableProperties, patch});
+    const {valid, errors: validationErrors} = validateChangeableProperties(patchedProperties);
     if (!valid) {
       return failure(
         error({
@@ -92,7 +91,7 @@ module.exports = ({subscriptionRepository}) =>
 
     const patchedSubscription = {
       ...subscription,
-      ...patchedChangeableProperties,
+      ...patchedProperties,
     };
     const updatedSubscription = await subscriptionRepository.update(patchedSubscription);
     return success(updatedSubscription);
