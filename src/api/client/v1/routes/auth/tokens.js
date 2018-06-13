@@ -11,9 +11,9 @@ module.exports = (tasks, mappers) => ({
    * @param {object} res Response
    */
   get: async (req, res) => {
-    const {auth: authToken, user, query: {offset, limit}} = req;
+    const {auth: authToken, query: {offset, limit}} = req;
     const {ok, result: list, error} =
-      await tasks.client.listAuths({authToken, user, offset, limit});
+      await tasks.client.listAuths({authToken, offset, limit});
 
     if (!ok) {
       throw error;
