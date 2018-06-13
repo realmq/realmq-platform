@@ -2,7 +2,10 @@ const Ajv = require('ajv');
 const jsonPatch = require('fast-json-patch');
 const {success, failure} = require('../../lib/result');
 const error = require('../../lib/error/task');
-const {unknown: unknownAuthError} = require('./auth/errors');
+const {
+  invalidAfterPatch: errorInvalidAfterPatch,
+  unknown: unknownAuthError,
+} = require('./auth/errors');
 const createLookupQuery = require('./auth/create-lookup-query');
 
 const changeablePropertiesValidator = (new Ajv()).compile({
@@ -56,10 +59,7 @@ module.exports = ({authRepository}) =>
     const valid = changeablePropertiesValidator(patchedProperties);
     if (!valid) {
       return failure(
-        error({
-          code: 'InvalidAuthToken',
-          message: 'Invalid auth token after applying patch.',
-        }),
+        errorInvalidAfterPatch(),
         changeablePropertiesValidator.errors
       );
     }

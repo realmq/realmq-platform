@@ -1,5 +1,8 @@
 const {success, failure} = require('../../lib/result');
-const error = require('../../lib/error/task');
+const {
+  alreadyExists: errorAlreadyExists,
+  insufficientPrivileges: errorInsufficientPrivileges,
+} = require('./auth/errors');
 
 /**
  * Init create auth task
@@ -17,9 +20,8 @@ module.exports = ({authRepository}) =>
     const {scope, realmId} = authToken;
 
     if (scope !== 'admin') {
-      return failure(error({
-        code: 'InsufficientPrivileges',
-        message: 'Insufficient privileges to create a auth token.',
+      return failure(errorInsufficientPrivileges({
+        action: 'create an auth token',
       }));
     }
 
@@ -31,13 +33,7 @@ module.exports = ({authRepository}) =>
       return success(createdAuth);
     } catch (creationError) {
       if (creationError.isDuplicateKeyError) {
-        return failure(
-          error({
-            code: 'AuthTokenAlreadyExists',
-            message: 'A auth token with the same id already exists.',
-          }),
-          creationError
-        );
+        return failure(errorAlreadyExists(), creationError);
       }
       throw creationError;
     }
