@@ -39,7 +39,9 @@ pipeline:
     detach: true
     environment:
       - NODE_ENV=production
+      - DB_URL=mongodb://realmq:realmq@start-smoke-test-database:27017/realmq
     commands:
+      - scripts/wait-for.js start-smoke-test-database 27017
       - npm start
     when:
       branch: master
@@ -51,6 +53,7 @@ pipeline:
     commands:
       - curl -L https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64 -o /usr/local/bin/jq
       - chmod +x /usr/local/bin/jq
+      - scripts/wait-for.js start-smoke-test-instance 8080
       - test/smoke/run.sh
     when:
       branch: master
