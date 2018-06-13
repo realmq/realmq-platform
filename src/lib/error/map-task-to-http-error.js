@@ -7,6 +7,7 @@ const ERROR_CODE_TO_STATUS_MAP = {
   ChannelAlreadyExists: 400,
   UserAlreadyExists: 400,
   EmailAlreadyTaken: 400,
+  InvalidAuthToken: 400,
   InvalidChannel: 400,
   InvalidPatch: 400,
   InvalidSubscription: 400,
@@ -17,6 +18,7 @@ const ERROR_CODE_TO_STATUS_MAP = {
   InsufficientPrivileges: 403,
 
   // 404
+  UnknownAuthToken: 404,
   UnknownChannel: 404,
   UnknownRealm: 404,
   UnknownSubscription: 404,

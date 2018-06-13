@@ -5,6 +5,8 @@ info:
   version: 0.0.0
 
 paths: !includeMerged
+  - routes/auth/tokens.yaml
+  - routes/auth/tokens/{id}.yaml
   - routes/channels.yaml
   - routes/channels/{id}.yaml
   - routes/me/user.yaml

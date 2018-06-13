@@ -1,0 +1,88 @@
+/auth/tokens:
+  get:
+    summary: Search and list auth tokens.
+    description: |
+      List all auth tokens of the current user, or account-wide if the request is performed as admin.
+
+      #### Allowed Scopes
+      **admin**, **user**
+    tags:
+      - Auth
+    parameters:
+      - $ref: '#/parameters/paginationOffset'
+      - $ref: '#/parameters/paginationLimit'
+    responses:
+      200:
+        description: The list of auth tokens was successfully retrieved.
+        schema:
+          $ref: '#/definitions/AuthTokenList'
+      400:
+        description: Request validation failed.
+      401:
+        description: The auth tokens could not be listed since the authorization failed.
+
+  post:
+    summary: Create a new auth token.
+    description: |
+      Create a new auth token and passively create a new user if not existing yet.
+      Auth tokens can only be created when requesting with an admin scoped token.
+
+      #### User Referencing
+      If you want to create an auth token for an existing user you have to pass its id as **userId**.
+
+      **NOTE**: For unknown userId's or without providing a userId, a user is created and referenced on the fly.
+
+      #### Allowed Scopes
+      **admin**
+    tags:
+      - Auth
+    parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          title: AuthTokenCreation
+          type: object
+          additionalProperties: false
+          properties:
+            id:
+              description: The custom Id of the auth token.
+              type: string
+              pattern: ^[\w-]+$
+            userId:
+              description: The custom id of a user, that will be created if not yet existing.
+              type: string
+              pattern: ^[\w-]+$
+            scope:
+              description: The scope of the access token. Valid are user (default) and admin.
+              type: string
+              enum:
+              - admin
+              - user
+            description:
+              description: An optional description text for better human auth token identification.
+              type: string
+          example:
+            scope: user
+            userId: "540001"
+    responses:
+      201:
+        description: Auth token was successfully created.
+        schema:
+          $ref: '#/definitions/AuthToken'
+      400:
+        description: |
+          Request validation failed or the auth token could not be created
+          since an auth token with the same id already exists.
+
+          Error codes is: **AUTH_TOKEN_ALREADY_EXISTS**.
+        schema:
+          allOf:
+            - $ref: '#/definitions/RequestError'
+            - example:
+                code: AuthTokenAlreadyExists
+                message: An auth token with the same id already exists.
+      401:
+        description: The auth token could not be created due to failed authorization.
+      403:
+        description: Insufficient access rights to create the auth token.

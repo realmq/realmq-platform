@@ -1,0 +1,80 @@
+/auth/tokens/{id}:
+  parameters:
+    - name: id
+      description: The auth token id.
+      in: path
+      required: true
+      type: string
+      pattern: ^[\w-]+$
+
+  get:
+    summary: Retrieve one single auth token.
+    description: |
+      Find an auth token by its id.
+
+      #### Allowed Scopes
+      **admin**, **user**
+    tags:
+      - Auth
+    responses:
+      200:
+        description: The auth token was loaded sucessfully.
+        schema:
+          $ref: '#/definitions/AuthToken'
+      400:
+        description: Request validation failed.
+      401:
+        description: The auth token could not be retrieved due to failed authorization.
+      403:
+        description: Insufficient access rights to retrieve this auth token.
+      404:
+        description: The requested auth token does not exist.
+
+  delete:
+    summary: Delete the auth token referenced by id.
+    description: |
+      Delete the auth token and invalidates the session.
+
+      #### Allowed Scopes
+      **admin**, **user**
+    tags:
+      - Auth
+    responses:
+      204:
+        description: Auth token has been deleted successfully.
+      400:
+        description: Request validation failed.
+      401:
+        description: The auth token could not be deleted due to failed authorization.
+      403:
+        description: Insufficient access rights to delete this auth token.
+      404:
+        description: The requested auth token does not exist.
+
+  patch:
+    summary: Perform a json-patch update on an auth token.
+    description: |
+      Update auth token via JSON-patch [(RFC6902)](http://tools.ietf.org/html/rfc6902).
+
+      #### Patchable fields
+      **description**
+
+      #### Allowed Scopes
+      **admin**, **user**
+    tags:
+      - Auth
+    parameters:
+      - $ref: '#/parameters/jsonPatch'
+    responses:
+      200:
+        description: The updated auth token.
+        schema:
+          $ref: '#/definitions/AuthToken'
+      400:
+        description: Request validation failed.
+      401:
+        description: The auth token could not be updated due to failed authorization.
+      403:
+        description: Insufficient access rights to update this auth token.
+      404:
+        description: The requested auth token does not exist.
