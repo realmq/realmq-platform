@@ -7,6 +7,7 @@ info:
 paths: !includeMerged
   - routes/channels.yaml
   - routes/channels/{id}.yaml
+  - routes/me/user.yaml
   - routes/subscriptions.yaml
   - routes/subscriptions/{id}.yaml
   - routes/users.yaml

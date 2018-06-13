@@ -1,0 +1,18 @@
+/me/user:
+  get:
+    summary: Get current user.
+    description: |
+      Load the user that owns the given access token.
+
+      #### Allowed Scopes
+      **admin**, **user**
+    tags:
+      - Users
+      - Me
+    responses:
+      200:
+        description: User was loaded successfully.
+        schema:
+          $ref: '#/definitions/User'
+      401:
+        description: The user resource could not be retrieved due to failed authorization.
