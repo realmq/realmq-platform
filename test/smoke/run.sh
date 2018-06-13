@@ -50,5 +50,5 @@ adminAuthToken=$(adminRequest "POST" "/realms/${realmId}/tokens" '{"scope":"admi
 echo "Create channel"
 clientRequest "$adminAuthToken" "POST" "/channels" '{"id":"test"}' > /dev/null
 
-#echo "Create subscription"
-#clientRequest "$adminAuthToken" "POST" "/subscriptions" '{"id":"test","userId":"client","channelId":"test"}' > /dev/null
+echo "Create subscription"
+clientRequest "$adminAuthToken" "POST" "/subscriptions" '{"id":"test","userId":"client","channelId":"test"}' > /dev/null
