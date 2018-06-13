@@ -34,7 +34,7 @@ pipeline:
   run-smoke-test:
     image: node:8
     environment:
-      - SMOKE_HOST=smoke-test-instance
+      - SMOKE_TARGET_HOST=start-smoke-test-instance
     commands:
       - sleep 10
       - test/smoke/run.sh
