@@ -6,10 +6,11 @@ const {
 
 /**
  * Init create auth task
- * @param {AuthRepository} authRepository Auth Repository
+ * @param {AuthRepository} authRepository Auth repository
+ * @param {UserRepository} userRepository User repository
  * @returns {ClientTasks#createAuth} Create auth task
  */
-module.exports = ({authRepository}) =>
+module.exports = ({authRepository, userRepository}) =>
   /**
    * @function ClientTasks#createAuth
    * @param {AuthModel} authToken Authorization
@@ -25,9 +26,11 @@ module.exports = ({authRepository}) =>
       }));
     }
 
+    const user = await userRepository.findOrCreate({realmId, id: authToken.userId});
     try {
       const createdAuth = await authRepository.create({
         ...data,
+        userId: user.id,
         realmId,
       });
       return success(createdAuth);

@@ -39,7 +39,7 @@ module.exports = ({
   authenticateUser:
     initAuthenticateUser({authRepository, userRepository}),
   createAuth:
-    initCreateAuth({authRepository}),
+    initCreateAuth({authRepository, userRepository}),
   createChannel:
     initCreateChannel({channelRepository}),
   createSubscription:
