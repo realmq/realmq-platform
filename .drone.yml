@@ -1,9 +1,39 @@
 pipeline:
-  test:
+  build:
     image: node:8
     commands:
       - npm install
+
+  test:
+    image: node:8
+    commands:
       - npm run lint
       - npm test
       - npm run validate-yaml
       - npm run validate-openapi-spec
+
+  smoke-test-instance:
+    image: node:8
+    detach: true
+    environment:
+      - NODE_ENV=production
+    commands:
+      - scripts/nuke_db.sh
+      - npm start
+
+  smoke-test-tester:
+    image: node:8
+    environment:
+      - SMOKE_HOST=smoke-test-instance
+    commands:
+      - sleep 10
+      - test/smoke/run.sh
+
+services:
+  database:
+    image: bitnami/mongodb
+    environment:
+      - MONGODB_ROOT_PASSWORD=root
+      - MONGODB_USERNAME=realmq
+      - MONGODB_PASSWORD=realmq
+      - MONGODB_DATABASE=realmq
