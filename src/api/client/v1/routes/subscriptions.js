@@ -6,7 +6,7 @@
  */
 module.exports = (tasks, mappers) => ({
   /**
-   * GET /subscriptions/{id}
+   * GET /subscriptions
    * @param {object} req Request
    * @param {object} res Response
    */
@@ -22,7 +22,7 @@ module.exports = (tasks, mappers) => ({
     res.json(mappers.subscriptionList(list));
   },
   /**
-   * POST /subscriptions/{id}
+   * POST /subscriptions
    * @param {object} req Request
    * @param {object} res Response
    */

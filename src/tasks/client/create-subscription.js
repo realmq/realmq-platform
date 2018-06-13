@@ -16,7 +16,7 @@ const ensureUserExists = ({userRepository, realmId, userId}) =>
  * @param {ChannelRepository} channelRepository Channel repository
  * @param {string} realmId Realm id
  * @param {string} channelId Channel id
- * @returns {Promise<UserModel>} User
+ * @returns {Promise<ChannelModel>} User
  */
 const ensureChannelExists = ({channelRepository, realmId, channelId}) =>
   channelRepository.findOrCreate({realmId, id: channelId});
