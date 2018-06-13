@@ -60,41 +60,6 @@ TimestampsTrait:
     - createdAt
     - updatedAt
 
-AuthToken:
-  allOf:
-    - $ref: '#/definitions/BaseEntity'
-    - properties:
-        scope:
-          type: string
-        userId:
-          type: string
-        token:
-          type: string
-        isOnline:
-          description: Whether the access token is currently connected to the real time broker.
-          type: boolean
-          readOnly: true
-        description:
-          description: An optional description of the auth token for better identification.
-          type: string
-      required:
-        - scope
-        - userId
-        - token
-        - isOnline
-    - $ref: '#/definitions/TimestampsTrait'
-
-AuthTokenList:
-  allOf:
-    - $ref: '#/definitions/BaseList'
-    - properties:
-        items:
-          type: array
-          items:
-            $ref: '#/definitions/AuthToken'
-      required:
-        - items
-
 BaseEntity:
   type: object
   properties:
@@ -130,6 +95,41 @@ BaseList:
     - offset
     - limit
     - items
+
+AuthToken:
+  allOf:
+    - $ref: '#/definitions/BaseEntity'
+    - properties:
+        scope:
+          type: string
+        userId:
+          type: string
+        token:
+          type: string
+        isOnline:
+          description: Whether the access token is currently connected to the real time broker.
+          type: boolean
+          readOnly: true
+        description:
+          description: An optional description of the auth token for better identification.
+          type: string
+      required:
+        - scope
+        - userId
+        - token
+        - isOnline
+    - $ref: '#/definitions/TimestampsTrait'
+
+AuthTokenList:
+  allOf:
+    - $ref: '#/definitions/BaseList'
+    - properties:
+        items:
+          type: array
+          items:
+            $ref: '#/definitions/AuthToken'
+      required:
+        - items
 
 # channel entity
 Channel:
