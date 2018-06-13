@@ -42,6 +42,7 @@ pipeline:
       - DB_URL=mongodb://realmq:realmq@start-smoke-test-database:27017/realmq
     commands:
       - scripts/wait-for.js start-smoke-test-database 27017
+      - sleep 1
       - npm start
     when:
       branch: master
