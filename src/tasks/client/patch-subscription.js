@@ -1,4 +1,4 @@
-const ajv = require('ajv');
+const Ajv = require('ajv');
 const jsonPatch = require('fast-json-patch');
 const {success, failure} = require('../../lib/result');
 const error = require('../../lib/error/task');
@@ -6,7 +6,7 @@ const error = require('../../lib/error/task');
 /**
  * JSON Schema describing the set of changeable properties
  */
-const changeablePropertiesSchema = {
+const changeablePropertiesSchemaValidator = (new Ajv()).compile({
   type: 'object',
   additionalProperties: false,
   properties: {
@@ -18,7 +18,7 @@ const changeablePropertiesSchema = {
     },
   },
   required: ['allowRead', 'allowWrite'],
-};
+});
 
 /**
  * Validate changeable properties
@@ -26,8 +26,8 @@ const changeablePropertiesSchema = {
  * @returns {{valid: boolean, errors: object[]}} Result
  */
 const validateChangeableProperties = properties => {
-  const valid = ajv.validate(changeablePropertiesSchema, properties);
-  return {valid, errors: valid ? [] : ajv.errors};
+  const valid = changeablePropertiesSchemaValidator(properties);
+  return {valid, errors: (changeablePropertiesSchemaValidator.errors || [])};
 };
 
 /**
