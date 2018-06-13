@@ -36,7 +36,8 @@ pipeline:
     environment:
       - SMOKE_TARGET_HOST=start-smoke-test-instance
     commands:
-      - sleep 10
+      - curl -L https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64 -o /usr/local/bin/jq
+      - chmod +x /usr/local/bin/jq
       - test/smoke/run.sh
 
 services:
