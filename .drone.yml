@@ -18,7 +18,6 @@ pipeline:
     environment:
       - NODE_ENV=production
     commands:
-      - scripts/nuke_db.sh
       - npm start
 
   smoke-test-tester:
