@@ -23,6 +23,17 @@ pipeline:
       - npm run validate-yaml
       - npm run validate-openapi-spec
 
+  start-smoke-test-database:
+    image: bitnami/mongodb
+    detach: true
+    environment:
+      - MONGODB_ROOT_PASSWORD=root
+      - MONGODB_USERNAME=realmq
+      - MONGODB_PASSWORD=realmq
+      - MONGODB_DATABASE=realmq
+    when:
+      branch: master
+
   start-smoke-test-instance:
     image: node:8
     detach: true
@@ -30,6 +41,8 @@ pipeline:
       - NODE_ENV=production
     commands:
       - npm start
+    when:
+      branch: master
 
   run-smoke-test:
     image: node:8
@@ -39,12 +52,5 @@ pipeline:
       - curl -L https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64 -o /usr/local/bin/jq
       - chmod +x /usr/local/bin/jq
       - test/smoke/run.sh
-
-services:
-  database:
-    image: bitnami/mongodb
-    environment:
-      - MONGODB_ROOT_PASSWORD=root
-      - MONGODB_USERNAME=realmq
-      - MONGODB_PASSWORD=realmq
-      - MONGODB_DATABASE=realmq
+    when:
+      branch: master
