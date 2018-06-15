@@ -1,0 +1,50 @@
+/channels/{id}/messages:
+  parameters:
+    - name: id
+      description: The channel id.
+      in: path
+      required: true
+      type: string
+      pattern: ^[\w-]+$
+  get:
+    summary: Retrieve persisted messages published on channel.
+    description: |
+      Look up persisted messages of channel. The total amount of messages stored depends
+      on channel settings (`featues.persistence.enabled` and `featues.persistence.duration`).
+
+      Messages are sorted from newer to older so newer ones will be returned before older ones.
+      Setting the `to` parameter to a past time will result in a stable result set.
+
+      This resource is accessible in admin scope without restircitons. With user scope a
+      subscription covering the channel and read permissions are required.
+
+      #### Allowed Scopes
+      **admin**, **user**
+    tags:
+      - Channels
+    parameters:
+      - $ref: '#/parameters/paginationOffset'
+      - $ref: '#/parameters/paginationLimit'
+      - name: from
+        description: Inclusive lower time boundary to filter items by.
+        in: query
+        required: false
+        type: string
+        format: dateTime
+      - name: to
+        description: Exclusive upper time boundary to filter items by.
+        in: query
+        required: false
+        type: string
+        format: dateTime
+    responses:
+      200:
+        description: The list of records was successfully retrieved.
+        schema:
+          $ref: '#/definitions/ChannelMessageList'
+      400:
+        description: Request validation failed.
+      401:
+        description: The channel messages could not be retrieved due to failed authorization.
+      404:
+        description: The requested channel is not accessible.
