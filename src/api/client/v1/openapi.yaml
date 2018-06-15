@@ -15,7 +15,19 @@ paths: !includeMerged
   - routes/users.yaml
   - routes/users/{id}.yaml
   - routes/version.yaml
-
+tags:
+  - name: Auth
+    description: Manage authorization and authentication.
+  - name: Channels
+    description: Manage channels.
+  - name: Users
+    description: Manage users.
+  - name: Subscriptions
+    description: Manage user access on channels.
+  - name: Me
+    description: Manage resources represented by the authenticated client.
+  - name: Info
+    description: Information about the API.
 parameters: !include openapi/parameters.yaml
 
 definitions: !include openapi/definitions.yaml
