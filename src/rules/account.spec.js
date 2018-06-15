@@ -33,5 +33,10 @@ describe('The account rules', () => {
       const isValid = await checkPassword(accountWithPassword, 'invalidpassword');
       expect(isValid).toEqual(false);
     });
+
+    it('should not validate if account has no password', async () => {
+      const isValid = await checkPassword({}, 'password');
+      expect(isValid).toBe(false);
+    });
   });
 });
