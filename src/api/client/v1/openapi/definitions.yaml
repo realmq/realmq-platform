@@ -187,16 +187,14 @@ ChannelList:
     - items
 
 ChannelMessage:
-  type: object
-  properties:
-    content:
-      type: string
-      description: Raw message encoded in base64.
-    timestamp:
-      type: string
-      format: dateTime
-      description: Datetime the message was recorded.
-
+  allOf:
+    - $ref: '#/definitions/BaseEntity'
+    - properties:
+        content:
+          type: string
+          description: Raw message encoded in base64.
+      required:
+        - content
 ChannelMessageList:
   allOf:
     - $ref: '#/definitions/BaseList'
