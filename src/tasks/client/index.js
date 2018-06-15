@@ -14,6 +14,7 @@ const initFetchSubscription = require('./fetch-subscription');
 const initFetchUser = require('./fetch-user');
 const initListAuths = require('./list-auths');
 const initListChannels = require('./list-channels');
+const initListMessages = require('./list-messages');
 const initListSubscriptions = require('./list-subscriptions');
 const initListUsers = require('./list-users');
 const initPatchAuth = require('./patch-auth');
@@ -27,6 +28,7 @@ const initPatchUser = require('./patch-user');
  * @param {AuthTokenRules} authTokenRules Auth rules
  * @param {AuthRepository} authRepository Auth repository
  * @param {ChannelRepository} channelRepository Auth repository
+ * @param {MessageRepository} messageRepository Message repository
  * @param {SubscriptionRepository} subscriptionRepository Auth repository
  * @param {UserRepository} userRepository Auth repository
  * @return {ClientTasks} Initialized tasks
@@ -35,6 +37,7 @@ module.exports = ({
   authTokenRules,
   authRepository,
   channelRepository,
+  messageRepository,
   subscriptionRepository,
   userRepository,
 }) => ({
@@ -68,6 +71,8 @@ module.exports = ({
     initListAuths({authRepository}),
   listChannels:
     initListChannels({channelRepository, subscriptionRepository}),
+  listMessages:
+    initListMessages({channelRepository, messageRepository, subscriptionRepository}),
   listSubscriptions:
     initListSubscriptions({subscriptionRepository}),
   listUsers:
