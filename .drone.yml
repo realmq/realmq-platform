@@ -61,7 +61,7 @@ pipeline:
 
   release-image:
     image: plugins/docker
-    repo: realmq/realmq-platform
+    repo: registry.gitlab.com/realmq/realmq-platform
     registry: registry.gitlab.com
     secrets: [docker_username, docker_password]
     auto_tag: true
