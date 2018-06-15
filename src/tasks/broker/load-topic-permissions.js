@@ -19,7 +19,7 @@ module.exports = ({channelRepository, subscriptionRepository, lookupStaticTopicP
       return staticPermission;
     }
 
-    const [channel, subscription] = Promise.all([
+    const [channel, subscription] = await Promise.all([
       channelRepository.findOne({realmId, id: topic}),
       subscriptionRepository.findOneByChannelAndUserId({realmId, channelId: topic, userId}),
     ]);
