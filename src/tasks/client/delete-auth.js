@@ -2,7 +2,7 @@ const {success, failure} = require('../../lib/result');
 const {
   insufficientPrivileges: errorInsufficientPrivileges,
   unknown: unknownAuthError,
-} = require('./auth/errors');errorInsufficientPrivileges
+} = require('./auth/errors');
 const createLookupQuery = require('./auth/create-lookup-query');
 
 /**
