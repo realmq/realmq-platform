@@ -63,7 +63,5 @@ pipeline:
     image: plugins/docker
     repo: realmq/realmq-platform
     registry: registry.gitlab.com
-    secrets:
-      - source: docker_auth_token
-        target: auth
+    secrets: [docker_username, docker_password]
     auto_tag: true
