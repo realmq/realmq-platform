@@ -31,7 +31,7 @@ module.exports = ({
     const {scope, realmId, userId} = authToken;
 
     if (scope === 'admin') {
-      const channel = await channelRepository.findOne({realmId, channelId});
+      const channel = await channelRepository.findOne({realmId, id: channelId});
       if (!channel) {
         return failure(unknwonChannel());
       }
