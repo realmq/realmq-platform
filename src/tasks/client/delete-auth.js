@@ -1,5 +1,8 @@
 const {success, failure} = require('../../lib/result');
-const {unknown: unknownAuthError} = require('./auth/errors');
+const {
+  insufficientPrivileges: errorInsufficientPrivileges,
+  unknown: unknownAuthError,
+} = require('./auth/errors');errorInsufficientPrivileges
 const createLookupQuery = require('./auth/create-lookup-query');
 
 /**
@@ -16,6 +19,12 @@ module.exports = ({authRepository}) =>
    */
   async ({authToken, id}) => {
     const {scope, realmId, userId} = authToken;
+
+    if (scope !== 'admin') {
+      return failure(errorInsufficientPrivileges({
+        action: 'patch an auth token',
+      }));
+    }
 
     const query = createLookupQuery({scope, realmId, id, userId});
     const authToDelete = await authRepository.findOne(query);
