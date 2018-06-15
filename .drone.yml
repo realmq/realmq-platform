@@ -58,3 +58,12 @@ pipeline:
       - test/smoke/run.sh
     when:
       branch: master
+
+  release-image:
+    image: plugins/docker
+    repo: realmq/realmq-platform
+    registry: registry.gitlab.com
+    secrets:
+      - source: docker_auth_token
+        target: auth
+    auto_tag: true
