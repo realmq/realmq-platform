@@ -1,6 +1,6 @@
-/channels/{id}/messages:
+/channels/{channelId}/messages:
   parameters:
-    - name: id
+    - name: channelId
       description: The channel id.
       in: path
       required: true
