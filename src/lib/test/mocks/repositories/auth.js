@@ -59,4 +59,14 @@ module.exports = {
 
     return [];
   },
+
+  async findOneByToken(token) {
+    if (token === knownToken) {
+      return validAuth;
+    }
+  },
+
+  async update(auth) {
+    return auth;
+  },
 };
