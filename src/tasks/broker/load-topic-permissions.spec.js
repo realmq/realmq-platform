@@ -62,7 +62,7 @@ describe('The loadTopicPermissions task', () => {
     it('should come back with expected permissions', async () => {
       const permissions = await loadTopicPermissions(validParams);
 
-      expect(permissions).toEqual({read: true, write: true});
+      expect(permissions).toEqual({read: true, write: false});
     });
   });
 });
