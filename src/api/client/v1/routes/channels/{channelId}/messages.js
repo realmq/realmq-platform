@@ -8,13 +8,13 @@
  */
 module.exports = (tasks, mappers) => ({
   /**
-   * GET /channel/{id}/messages
+   * GET /channel/{channelId}/messages
    * @param {object} req Request
    * @param {object} res Response
    * @return {void}
    */
   async get(req, res) {
-    const {auth: authToken, params: {id: channelId}} = req;
+    const {auth: authToken, params: {channelId}} = req;
 
     const {ok, result: list, error} = await tasks.client.listMessages({authToken, channelId});
     if (!ok) {
