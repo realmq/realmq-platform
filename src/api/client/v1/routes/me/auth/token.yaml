@@ -1,0 +1,20 @@
+/me/auth/token:
+  get:
+    summary: Retrieve the auth token passed as bearer header.
+    description: |
+      Retrieve the auth token object that has been passed as bearer token within the request header.
+
+      #### Allowed Scopes
+      **admin**, **user**
+    tags:
+      - Auth
+      - Me
+    responses:
+      200:
+        description: The auth token was loaded sucessfully.
+        schema:
+          $ref: '#/definitions/AuthToken'
+      400:
+        description: Request validation failed.
+      401:
+        description: The auth token could not be retrieved due to failed authorization.
