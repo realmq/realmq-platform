@@ -21,11 +21,12 @@ module.exports = async ({config, logger}) => {
 
   await Promise.all([
     db.createCollection('accounts'),
+    db.createCollection('auths'),
     db.createCollection('channels'),
-    db.createCollection('users'),
+    db.createCollection('messages'),
     db.createCollection('realms'),
     db.createCollection('subscriptions'),
-    db.createCollection('auths'),
+    db.createCollection('users'),
   ]);
 
   await Promise.all([
@@ -33,8 +34,16 @@ module.exports = async ({config, logger}) => {
       customIdIdxSpec,
       {key: {email: 1}, name: 'email', unique: true},
     ]),
+    db.collection('auths').createIndexes([
+      realmAwareIdxSpec,
+      {key: {token: 1}, name: 'token', unique: true},
+    ]),
     db.collection('channels').createIndexes([realmAwareIdxSpec]),
-    db.collection('users').createIndexes([realmAwareIdxSpec]),
+    db.collection('messages').createIndexes([
+      realmAwareIdxSpec,
+      {key: {realmId: 1, channelId: 1}, name: 'realmId_channelId'},
+      {key: {realmId: 1, channelId: 1, createdAt: 1}, name: 'realmId_channelId_createdAt'},
+    ]),
     db.collection('realms').createIndexes([
       customIdIdxSpec,
       {key: {ownerAccountId: 1}, name: 'ownerAccountId'},
@@ -43,10 +52,7 @@ module.exports = async ({config, logger}) => {
       realmAwareIdxSpec,
       {key: {realmId: 1, userId: 1, channelId: 1}, name: 'realmId_userId_channelId', unique: true},
     ]),
-    db.collection('auths').createIndexes([
-      realmAwareIdxSpec,
-      {key: {token: 1}, name: 'token', unique: true},
-    ]),
+    db.collection('users').createIndexes([realmAwareIdxSpec]),
   ]);
 
   logger.debug('Database collections and indexes created');
