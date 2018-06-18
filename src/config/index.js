@@ -11,4 +11,9 @@ module.exports = {
   database: {
     url: env.DB_URL || 'mongodb://realmq:realmq@database:27017/realmq',
   },
+  api: {
+    broker: {
+      key: env.API_BROKER_KEY || null,
+    },
+  },
 };

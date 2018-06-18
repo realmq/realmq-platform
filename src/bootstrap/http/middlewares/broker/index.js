@@ -1,5 +1,5 @@
 const initV1 = require('./v1');
 
-module.exports = ({tasks}) => ({
-  v1: initV1({tasks}),
+module.exports = ({config, tasks}) => ({
+  v1: initV1({config, tasks}),
 });

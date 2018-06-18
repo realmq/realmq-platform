@@ -1,9 +1,9 @@
 const initServer = require('./server');
 const initMiddlewares = require('./middlewares');
 
-module.exports = async ({tasks, logger}) => {
+module.exports = async ({config, tasks, logger}) => {
   const server = initServer({logger});
-  const mws = await initMiddlewares({tasks, logger});
+  const mws = await initMiddlewares({config, tasks, logger});
 
   server.use('/admin/v1', mws.admin.v1);
   server.use('/client/v1', mws.client.v1);
