@@ -1,5 +1,4 @@
+const {notFound: notFoundError} = require('../../../lib/error/http');
+
 module.exports = () =>
-  (req, res) => res.status(404).json({
-    code: 'EndpointNotFound',
-    message: `${req.path} does not exist.`,
-  });
+  (req, res, next) => next(notFoundError({path: req.path}));

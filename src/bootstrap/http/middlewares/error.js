@@ -1,8 +1,14 @@
+const {internal: internalError} = require('../../../lib/error/http');
+
 module.exports = ({logger}) =>
   (err, req, res, _) => {
-    logger.error(`Unhandled error in http call: ${err}`, {err});
-    res.status(500).json({
-      code: 'InternalServerError',
-      message: 'The request could not be processed.',
+    if (!err.isHttpError) {
+      logger.error(`Unhandled error in http call: ${err}`, {err});
+      err = internalError({previous: err});
+    }
+
+    res.status(err.status).json({
+      code: err.code,
+      message: err.message,
     });
   };
