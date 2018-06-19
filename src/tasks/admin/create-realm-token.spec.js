@@ -19,6 +19,12 @@ describe('The createRealmToken task', () => {
       async generateToken() {
         return authRepository.knownToken;
       },
+      async buildEntity(data) {
+        return {
+          token: await authTokenRules.generateToken(),
+          ...data,
+        };
+      },
     };
     createRealmToken = initCreateRealmToken({
       authTokenRules,
