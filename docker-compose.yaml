@@ -4,12 +4,18 @@ services:
   platform:
     build:
       context: .
+    command: npm run start-debug
     ports:
       - 8888:8080
+      - 9229:9229
     volumes:
       - .:/usr/src/app
     environment:
       - LOG_LEVEL=debug
+      - BROKER_HOST=broker
+      - BROKER_USERNAME=adapter
+      - BROKER_PASSWORD=adapter
+      - API_BROKER_KEY=broker-key
 
   database:
     image: bitnami/mongodb
@@ -22,6 +28,18 @@ services:
       - MONGODB_USERNAME=realmq
       - MONGODB_PASSWORD=realmq
       - MONGODB_DATABASE=realmq
+
+  broker:
+    #image: registry.gitlab.com/realmq/broker
+    build: ../broker
+    ports:
+      - 1883:1883
+    environment:
+      - HOST=0.0.0.0
+      - ADAPTER_KEY=broker-key
+      - ADAPTER_HOST=platform
+      - ADAPTER_PORT=8080
+      - CREDENTIALS=adapter:adapter
 
 volumes:
   database-volume:
