@@ -32,8 +32,9 @@ module.exports = ({config, tasks: {broker: brokerTasks}}) => {
   router.post('/vmq/auth-on-publish', auth, routes.authOnPublish);
   router.post('/vmq/auth-on-register', auth, routes.authOnRegister);
   router.post('/vmq/auth-on-subscribe', auth, routes.authOnSubscribe);
-  router.post('/vmq/on-client-online', auth, routes.onClientOnline);
+  router.post('/vmq/on-client-wakeup', auth, routes.onClientOnline);
   router.post('/vmq/on-client-offline', auth, routes.onClientOffline);
+  router.post('/vmq/on-client-gone', auth, routes.onClientOffline);
 
   return router;
 };
