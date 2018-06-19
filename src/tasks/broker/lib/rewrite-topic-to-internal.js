@@ -16,7 +16,7 @@ module.exports = ({rmqSysTopic = '$RMQ', realmTopic = 'realm', userTopic = 'user
    * @param {{realmId: string, userId: string}} client
    * @return {string}
    */
-  (externalTopic, client) => {
+  ({topic: externalTopic, client}) => {
     const externalLevels = externalTopic.split('/');
     const firstLevel = externalLevels[0];
     const isSysTopic = firstLevel === rmqSysTopic;
