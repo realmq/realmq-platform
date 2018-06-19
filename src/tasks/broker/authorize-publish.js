@@ -12,7 +12,11 @@ module.exports = ({loadTopicPermissions, rewriteTopicToInternal}) =>
    * @returns {Promise<{authorized: boolean, internalTopic: string=}>}
    */
   async (client, topic) => {
-    const permissions = await loadTopicPermissions(topic);
+    const permissions = await loadTopicPermissions({
+      realmId: client.realmId,
+      userId: client.userId,
+      topic,
+    });
     if (permissions.write) {
       const internalTopic = rewriteTopicToInternal(topic, client);
       return {authorized: true, internalTopic};

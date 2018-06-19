@@ -19,7 +19,11 @@ module.exports = ({loadTopicPermissions, rewriteTopicToInternal}) =>
   async (client, subscriptions) => {
     return Promise.all(subscriptions.map(async ({topic, qos}) => {
       const internalTopic = rewriteTopicToInternal(topic, client);
-      const permissions = await loadTopicPermissions(topic);
+      const permissions = await loadTopicPermissions({
+        realmId: client.realmId,
+        userId: client.userId,
+        topic,
+      });
       return {
         topic: internalTopic,
         qos: permissions.read ? qos : QOS_FAILURE,

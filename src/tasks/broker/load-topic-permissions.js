@@ -2,10 +2,10 @@
  *
  * @param {ChannelRepository} channelRepository Channel repository
  * @param {SubscriptionRepository} subscriptionRepository Subscription repository
- * @param {function(string): object} lookupStaticTopicPermissions Lookup of static permissions
+ * @param {function({topic: string}): object} lookupStaticPermissions Lookup of static permissions
  * @returns {Function} loadTopicPermissions
  */
-module.exports = ({channelRepository, subscriptionRepository, lookupStaticTopicPermissions}) =>
+module.exports = ({channelRepository, subscriptionRepository, lookupStaticPermissions}) =>
   /**
    * @function BrokerTasks#loadTopicPermissions
    * @param {string} realmId Realm ID
@@ -14,7 +14,7 @@ module.exports = ({channelRepository, subscriptionRepository, lookupStaticTopicP
    * @returns {Promise<?{read: boolean, write: boolean}>}
    */
   async ({realmId, userId, topic}) => {
-    const staticPermission = lookupStaticTopicPermissions(topic);
+    const staticPermission = lookupStaticPermissions({topic});
     if (staticPermission) {
       return staticPermission;
     }
