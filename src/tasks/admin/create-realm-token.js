@@ -38,8 +38,14 @@ module.exports = ({authTokenRules, realmRepository, userRepository, authReposito
     }
 
     try {
-      const token = await authTokenRules.generateToken();
-      return success(await authRepository.create({realmId, id, token, userId: user.id, scope, description}));
+      const entity = await authTokenRules.buildEntity({
+        realmId,
+        id,
+        userId: user.id,
+        scope,
+        description,
+      });
+      return success(await authRepository.create(entity));
     } catch (tokenCreationErr) {
       if (tokenCreationErr.isDuplicateKeyError) {
         return failure(

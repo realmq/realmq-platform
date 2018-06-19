@@ -6,11 +6,12 @@ const {
 
 /**
  * Init create auth task
+ * @param {AuthTokenRules} authTokenRules Auth rules
  * @param {AuthRepository} authRepository Auth repository
  * @param {UserRepository} userRepository User repository
  * @returns {ClientTasks#createAuth} Create auth task
  */
-module.exports = ({authRepository, userRepository}) =>
+module.exports = ({authTokenRules, authRepository, userRepository}) =>
   /**
    * @function ClientTasks#createAuth
    * @param {AuthModel} authToken Authorization
@@ -28,12 +29,13 @@ module.exports = ({authRepository, userRepository}) =>
 
     const user = await userRepository.findOrCreate({realmId, id: data.userId});
     try {
-      const createdAuth = await authRepository.create({
+      const ephemeralAuth = await authTokenRules.buildEntity({
         ...data,
         userId: user.id,
         realmId,
       });
-      return success(createdAuth);
+      const persistedAuth = await authRepository.create(ephemeralAuth);
+      return success(persistedAuth);
     } catch (creationError) {
       if (creationError.isDuplicateKeyError) {
         return failure(errorAlreadyExists(), creationError);

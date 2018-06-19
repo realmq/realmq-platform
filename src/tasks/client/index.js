@@ -24,6 +24,7 @@ const initPatchUser = require('./patch-user');
 /** @typedef {object} ClientTasks */
 /**
  * Initialize client tasks
+ * @param {AuthTokenRules} authTokenRules Auth rules
  * @param {AuthRepository} authRepository Auth repository
  * @param {ChannelRepository} channelRepository Auth repository
  * @param {SubscriptionRepository} subscriptionRepository Auth repository
@@ -31,6 +32,7 @@ const initPatchUser = require('./patch-user');
  * @return {ClientTasks} Initialized tasks
  */
 module.exports = ({
+  authTokenRules,
   authRepository,
   channelRepository,
   subscriptionRepository,
@@ -39,7 +41,7 @@ module.exports = ({
   authenticateUser:
     initAuthenticateUser({authRepository, userRepository}),
   createAuth:
-    initCreateAuth({authRepository, userRepository}),
+    initCreateAuth({authTokenRules, authRepository, userRepository}),
   createChannel:
     initCreateChannel({channelRepository}),
   createSubscription:
