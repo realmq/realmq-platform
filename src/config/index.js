@@ -16,4 +16,11 @@ module.exports = {
       key: env.API_BROKER_KEY || null,
     },
   },
+  broker: {
+    protocol: env.BROKER_PROTOCOL || 'mqtt',
+    host: env.BROKER_HOST || 'broker',
+    port: env.BROKER_PORT || '1883',
+    username: env.BROKER_USERNAME || 'adapter',
+    password: env.BROKER_PASSWORD || 'adapter',
+  },
 };
