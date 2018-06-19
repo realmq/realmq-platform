@@ -1,5 +1,5 @@
 const {Router: createRouter} = require('express');
-const {notFound: notFoundError} = require('../../../../../lib/error/http');
+const {notAllowed: notAllowedError} = require('../../../../../lib/error/http');
 const initRoutes = require('./routes');
 
 const initAuth = ({apiKey}) => {
@@ -9,11 +9,20 @@ const initAuth = ({apiKey}) => {
 
   return (req, res, next) => {
     const requestingApiKey = req.headers['api-key'] || req.query['api-key'];
-    if (requestingApiKey !== apiKey) {
-      const path = `${req.baseUrl}${req.path}`;
-      return next(notFoundError({path}));
+    if (requestingApiKey === apiKey) {
+      return next();
     }
-    next();
+
+    // Check for ...?api-key:xxx param style
+    const matchingEqualLessKey = Object.keys(req.query)
+      .filter(key => key.startsWith('api-key:'))
+      .map(key => key.split(':')[1] || '')
+      .some(val => val === apiKey);
+    if (matchingEqualLessKey) {
+      return next();
+    }
+
+    return next(notAllowedError({path: req.originalUrl}));
   };
 };
 

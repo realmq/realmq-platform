@@ -21,6 +21,12 @@ const error = ({status, message, code, previous}) =>
     previous,
   });
 
+error.notAllowed = ({path}) => error({
+  status: 403,
+  code: 'InsufficientPrivileges',
+  message: `Insufficient privileges to access ${path}`,
+});
+
 /**
  * Not found error
  * @param {string} path
