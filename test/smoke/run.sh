@@ -44,11 +44,11 @@ realmId=$(adminRequest "POST" "/realms" '{"name":"test"}' | jq -r .id)
 echo "Create admin user via admin api"
 adminAuthToken=$(adminRequest "POST" "/realms/${realmId}/tokens" '{"scope":"admin","userId":"admin"}' | jq -r .token)
 
-#echo "Create client user via client api"
-#userAuthToken=$(clientRequest "$adminAuthToken" "POST" "/auth/tokens" '{"scope":"user","userId":"user"}' | jq -r .token)
+echo "Create client user via client api"
+userAuthToken=$(clientRequest "$adminAuthToken" "POST" "/auth/tokens" '{"scope":"user","userId":"user"}' | jq -r .token)
 
 echo "Create channel"
 clientRequest "$adminAuthToken" "POST" "/channels" '{"id":"test"}' > /dev/null
 
 echo "Create subscription"
-clientRequest "$adminAuthToken" "POST" "/subscriptions" '{"id":"test","userId":"client","channelId":"test"}' > /dev/null
+clientRequest "$adminAuthToken" "POST" "/subscriptions" '{"id":"test","userId":"user","channelId":"test"}' > /dev/null
