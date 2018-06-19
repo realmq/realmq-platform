@@ -1,6 +1,7 @@
 const initAuthorizePublish = require('./authorize-publish');
 
-const rewriteTopicToInternal = (topic, {realmId, userId}) => `${realmId}-${userId}-${topic}`;
+const rewriteTopicToInternal =
+  ({client: {realmId, userId}, topic}) => `${realmId}-${userId}-${topic}`;
 
 describe('The authorizePublish task', () => {
   const writableTopic = 'writable-topic';
@@ -10,7 +11,7 @@ describe('The authorizePublish task', () => {
 
   beforeEach(() => {
     authorizePublish = initAuthorizePublish({
-      loadTopicPermissions: async topic => ({write: topic === writableTopic}),
+      loadTopicPermissions: async ({topic}) => ({write: topic === writableTopic}),
       rewriteTopicToInternal,
     });
   });
@@ -20,7 +21,7 @@ describe('The authorizePublish task', () => {
       const {authorized, internalTopic} = await authorizePublish(client, writableTopic);
 
       expect(authorized).toBe(true);
-      expect(internalTopic).toBe(rewriteTopicToInternal(writableTopic, client));
+      expect(internalTopic).toBe(rewriteTopicToInternal({topic: writableTopic, client}));
     });
   });
 

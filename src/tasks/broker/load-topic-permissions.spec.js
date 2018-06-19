@@ -17,7 +17,7 @@ describe('The loadTopicPermissions task', () => {
     loadTopicPermissions = initLoadTopicPermissions({
       channelRepository,
       subscriptionRepository,
-      lookupStaticTopicPermissions(topic) {
+      lookupStaticPermissions({topic}) {
         if (topic === topicWithStaticPermissions) {
           return staticPermissions;
         }

@@ -2,6 +2,7 @@ const initRewriteTopicToInternal = require('./rewrite-topic-to-internal');
 
 describe('A rewriteTopicToInternal function', () => {
   describe('with valid configuration', () => {
+    const client = {realmId: 'r5', userId: 'u23'};
     let rewriteTopicToInternal;
     beforeEach(() => {
       rewriteTopicToInternal = initRewriteTopicToInternal({
@@ -12,12 +13,14 @@ describe('A rewriteTopicToInternal function', () => {
     });
 
     it('handles plain topics', () => {
-      const topic = rewriteTopicToInternal('plain/topic', {realmId: 'r5', userId: 'u23'});
-      expect(topic).toBe('realm/r5/plain/topic');
+      const topic = 'plain/topic';
+      const rewrittenTopic = rewriteTopicToInternal({topic, client});
+      expect(rewrittenTopic).toBe('realm/r5/plain/topic');
     });
     it('handles rmq sys sync topics', () => {
-      const topic = rewriteTopicToInternal('$RMQ/sync/my/entity', {realmId: 'r5', userId: 'u23'});
-      expect(topic).toBe('$RMQ/realm/r5/sync/user/u23/entity');
+      const topic = '$RMQ/sync/my/entity';
+      const rewrittenTopic = rewriteTopicToInternal({topic, client});
+      expect(rewrittenTopic).toBe('$RMQ/realm/r5/sync/user/u23/entity');
     });
   });
 });
