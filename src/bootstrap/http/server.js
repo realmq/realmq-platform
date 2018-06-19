@@ -15,7 +15,7 @@ module.exports = ({logger}) => {
   http.use(jsonBodyParser());
   http.use(cors());
   http.use((req, res, next) => {
-    logger.info(`HTTP: ${req.url}`);
+    logger.info(`HTTP: ${req.method} ${req.originalUrl}`);
     next();
   });
 
