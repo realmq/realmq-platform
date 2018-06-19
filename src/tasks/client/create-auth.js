@@ -26,7 +26,7 @@ module.exports = ({authRepository, userRepository}) =>
       }));
     }
 
-    const user = await userRepository.findOrCreate({realmId, id: authToken.userId});
+    const user = await userRepository.findOrCreate({realmId, id: data.userId});
     try {
       const createdAuth = await authRepository.create({
         ...data,
