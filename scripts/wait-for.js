@@ -3,15 +3,18 @@
 
 const {createConnection} = require('net');
 
-const connect = (host, port) => new Promise((resolve, reject) => {
+const connect = ({host, port}) => new Promise((resolve, reject) => {
   const connection = createConnection(port, host);
-  connection.once('connect', () => resolve(connection));
+  connection.once('connect', () => {
+    connection.end();
+    resolve(connection);
+  });
   connection.once('error', err => reject(err));
 });
 
-const test = async (host, port) => {
+const test = async ({host, port}) => {
   try {
-    await connect(host, port);
+    await connect({host, port});
     return true;
   } catch (_) {
     return false;
@@ -21,21 +24,46 @@ const test = async (host, port) => {
 const sleep = time => new Promise(resolve => setTimeout(resolve, time));
 
 const main = async argv => {
-  const [host, port, timeout = 30] = argv.slice(2);
-  if (!host || !port) {
-    console.error(`usage: ${argv[1]} <host> <port> [timeout]`);
+  const args = argv.slice(2);
+  const [endpoints, timeout] = args.reduce(
+    ([endpoints, timeout], arg) => {
+      if (arg.indexOf(':') > -1) {
+        const [host, port] = arg.split(':');
+        endpoints.push({host, port});
+      } else {
+        timeout = parseInt(arg, 10);
+      }
+      return [endpoints, timeout];
+    },
+    [[], 30]
+  );
+
+  if (endpoints.length === 0) {
+    console.error(`usage: ${argv[1]} <host>:<port> [...<host>:<port>] [timeout]`);
     return 2;
   }
 
   const start = Date.now();
-  let present = false;
-  while (!present) {
-    if (Date.now() - start > (timeout * 1000)) {
-      throw new Error(`Timeout connecting to ${host}:${port}`);
+  let allPresent = false;
+  let lastResults = [];
+  do {
+    lastResults = await Promise.all(endpoints.map(endpoint => test(endpoint)));
+    allPresent = lastResults.reduce((acc, present) => acc && present);
+
+    if (!allPresent) {
+      if (Date.now() - start > (timeout * 1000)) {
+        const resultReport = endpoints.reduce(
+          (report, {host, port}, index) => {
+            const online = lastResults[index];
+            return online ? report : `${report}\n${host}:${port}`;
+          },
+          ''
+        );
+        throw new Error(`Timeout connecting to endpoint(s):${resultReport}`);
+      }
+      await sleep(980);
     }
-    await sleep(980);
-    present = await test(host, port);
-  }
+  } while (!allPresent);
 };
 
 (async () => {
