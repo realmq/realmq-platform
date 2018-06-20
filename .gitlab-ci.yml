@@ -1,0 +1,25 @@
+image: node:8
+
+npm-install:
+  stage: build
+  script: npm install
+  cache:
+    paths:
+      - node_modules/
+  artifacts:
+    paths:
+      - node_modules/
+
+lint:
+  stage: test
+  script: npm run lint
+
+test:
+  stage: test
+  script: npm test
+
+validate-spec:
+  stage: test
+  script:
+    - npm run validate-yaml
+    - npm run validate-openapi-spec
