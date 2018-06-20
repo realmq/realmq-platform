@@ -32,9 +32,9 @@ describe('The listRealmTokens task', () => {
 
       expect(ok).toBe(true);
       expect(error).not.toBeDefined();
-      expect(Array.isArray(result)).toBe(true);
-      expect(result.length).toBeGreaterThan(0);
-      expect(result[0].token).toBe(authRepository.knownToken);
+      expect(Array.isArray(result.items)).toBe(true);
+      expect(result.total).toBeGreaterThan(0);
+      expect(result.items[0].token).toBe(authRepository.knownToken);
     });
   });
 });
