@@ -1,3 +1,6 @@
+workspace:
+  base: platform
+
 pipeline:
   build:
     image: node:8
