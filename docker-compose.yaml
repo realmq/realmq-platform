@@ -30,8 +30,8 @@ services:
       - MONGODB_DATABASE=realmq
 
   broker:
-    #image: registry.gitlab.com/realmq/broker
-    build: ../broker
+    image: registry.gitlab.com/realmq/broker:feature-platform
+    #build: ../broker
     ports:
       - 1883:1883
     environment:
