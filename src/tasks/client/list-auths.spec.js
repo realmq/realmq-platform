@@ -1,4 +1,5 @@
 const authRepository = require('../../lib/test/mocks/repositories/auth');
+const isPaginatedList = require('../../lib/test/models/is-paginated-list');
 const initListAuths = require('./list-auths');
 
 describe('The client listAuths task', () => {
@@ -17,7 +18,7 @@ describe('The client listAuths task', () => {
     const {ok, result} = await listAuths({authToken});
 
     expect(ok).toBe(true);
-    expect(Array.isArray(result.items)).toBe(true);
+    expect(isPaginatedList(result)).toBe(true);
     expect(result.items[0].id).toBe(authRepository.knownAuthId);
   });
 });
