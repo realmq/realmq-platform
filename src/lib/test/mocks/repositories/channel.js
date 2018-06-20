@@ -30,7 +30,7 @@ module.exports = {
       return [];
     }
 
-    return [validChannel];
+    return paginatedList({items: [validChannel]});
   },
 
   async findOne({realmId, id}) {

@@ -80,8 +80,10 @@ module.exports = {
     }
 
     if (userId && userId !== knownUserId) {
-      return paginatedList({items: [validSubscription], offset, limit});
+      return paginatedList({offset, limit});
     }
+
+    return paginatedList({items: [validSubscription], offset, limit});
   },
 
   async findOneAndDelete() {},

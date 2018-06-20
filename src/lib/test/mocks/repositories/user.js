@@ -1,4 +1,5 @@
 const userModel = require('../../../../models/user');
+const paginatedList = require('../../../../models/paginated-list');
 const {duplicate: duplicateError} = require('../../../../repositories/lib/error');
 
 const knownUserId = 'known-user-id';
@@ -24,6 +25,14 @@ module.exports = {
   unknownUserId,
   failingUserId,
   validUser,
+
+  async find({realmId}, {offset, limit}) {
+    if (realmId && realmId !== knownRealmId) {
+      return paginatedList({offset, limit});
+    }
+
+    return paginatedList({items: [validUser], offset, limit});
+  },
 
   async findOrCreate({realmId, id}) {
     if (id === failingUserId) {
