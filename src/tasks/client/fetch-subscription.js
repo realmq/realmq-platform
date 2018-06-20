@@ -22,7 +22,7 @@ module.exports = ({subscriptionRepository}) =>
     const {scope, realmId, userId} = authToken;
 
     const query = buildQuery({scope, realmId, id, userId});
-    const subscription = subscriptionRepository.findOne(query);
+    const subscription = await subscriptionRepository.findOne(query);
 
     return success(subscription);
   };

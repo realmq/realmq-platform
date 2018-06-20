@@ -1,12 +1,15 @@
 const subscriptionModel = require('../../../../models/subscription');
+const paginatedList = require('../../../../models/paginated-list');
+const {duplicate: duplicateError} = require('../../../../repositories/lib/error');
 
-const knownSubscriptionId = 'subscription-id';
+const knownSubscriptionId = 'known-subscription-id';
 const unknownSubscriptionId = 'unknown-subscription-id';
-const knownRealmId = 'realm-id';
+const duplicateSubscriptionId = 'duplicate-subscription-id';
+const knownRealmId = 'known-realm-id';
 const unknownRealmId = 'unknown-realm-id';
-const knownChannelId = 'channel-id';
+const knownChannelId = 'known-channel-id';
 const unknownChannelId = 'unknown-channel-id';
-const knownUserId = 'user-id';
+const knownUserId = 'known-user-id';
 const unknownUserId = 'unknown-user-id';
 
 const validSubscription = subscriptionModel({
@@ -26,6 +29,7 @@ module.exports = {
   knownRealmId,
   knownSubscriptionId,
   unknownChannelId,
+  duplicateSubscriptionId,
   unknownRealmId,
   unknownUserId,
   unknownSubscriptionId,
@@ -36,4 +40,50 @@ module.exports = {
       return validSubscription;
     }
   },
+
+  async create({id, realmId, userId, channelId, allowRead = false, allowWrite = false}) {
+    if (id === duplicateSubscriptionId) {
+      throw duplicateError();
+    }
+
+    return subscriptionModel({
+      id: id || knownSubscriptionId,
+      realmId,
+      userId,
+      channelId,
+      allowRead,
+      allowWrite,
+      updatedAt: new Date(),
+      createdAt: new Date(),
+    });
+  },
+
+  async findOne({id, channelId, userId}) {
+    if (id && id !== knownSubscriptionId) {
+      return;
+    }
+
+    if (channelId && channelId !== knownChannelId) {
+      return;
+    }
+
+    if (userId && userId !== knownUserId) {
+      return;
+    }
+
+    return validSubscription;
+  },
+
+  async find({realmId, userId}, {offset, limit}) {
+    if (realmId && realmId !== knownRealmId) {
+      return paginatedList({offset, limit});
+    }
+
+    if (userId && userId !== knownUserId) {
+      return paginatedList({items: [validSubscription], offset, limit});
+    }
+  },
+
+  async findOneAndDelete() {},
+  async deleteAllByUserId() {},
 };

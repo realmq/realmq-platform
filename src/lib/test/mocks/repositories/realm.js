@@ -1,8 +1,8 @@
 const realmModel = require('../../../../models/realm');
 
-const knownRealmId = 'realm-id';
+const knownRealmId = 'known-realm-id';
 const unknownRealmId = 'unknown-realm-id';
-const knownAccountId = 'account-id';
+const knownAccountId = 'known-account-id';
 const unknownAccountId = 'unknown-accountId';
 
 const validRealm = realmModel({
@@ -21,8 +21,14 @@ module.exports = {
   validRealm,
 
   findOne({ownerAccountId, id}) {
-    if (ownerAccountId === knownAccountId && id === knownRealmId) {
-      return validRealm;
+    if (id && id !== knownRealmId) {
+      return;
     }
+
+    if (ownerAccountId && ownerAccountId !== knownAccountId) {
+      return;
+    }
+
+    return validRealm;
   },
 };

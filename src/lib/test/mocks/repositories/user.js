@@ -1,7 +1,9 @@
 const userModel = require('../../../../models/user');
+const {duplicate: duplicateError} = require('../../../../repositories/lib/error');
 
 const knownUserId = 'known-user-id';
 const unknownUserId = 'unknown-user-id';
+const duplicateUserId = 'duplicate-user-id';
 const failingUserId = 'failing-user-id';
 const knownRealmId = 'known-realm-id';
 const unknownRealmId = 'unknown-realm-id';
@@ -17,6 +19,7 @@ const validUser = userModel({
 module.exports = {
   knownRealmId,
   unknownRealmId,
+  duplicateUserId,
   knownUserId,
   unknownUserId,
   failingUserId,
@@ -35,4 +38,32 @@ module.exports = {
       updatedAt: new Date(),
     });
   },
+
+  async findOne({id, realmId}) {
+    if (id && id !== knownUserId) {
+      return;
+    }
+
+    if (realmId && realmId !== knownRealmId) {
+      return;
+    }
+
+    return validUser;
+  },
+
+  async create({id, realmId, isOnline = false}) {
+    if (id === duplicateUserId) {
+      throw duplicateError();
+    }
+
+    return userModel({
+      id,
+      realmId,
+      isOnline,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
+  },
+
+  async findOneAndDelete() {},
 };

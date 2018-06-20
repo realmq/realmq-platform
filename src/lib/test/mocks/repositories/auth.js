@@ -1,11 +1,12 @@
 const authModel = require('../../../../models/auth');
+const paginatedList = require('../../../../models/paginated-list');
 const {duplicate: duplicateError} = require('../../../../repositories/lib/error');
 
-const knownAuthId = 'auth-id';
-const unKnownAuthId = 'unknown-auth-id';
-const knownRealmId = 'realm-id';
+const knownAuthId = 'known-auth-id';
+const unknownAuthId = 'unknown-auth-id';
+const knownRealmId = 'known-realm-id';
 const unknownRealmId = 'unknown-realm-id';
-const knownUserId = 'user-id';
+const knownUserId = 'known-user-id';
 const unknownUserId = 'unknown-user-id';
 const knownToken = Buffer.from('token').toString('base64');
 const unknownToken = Buffer.from('unknown-token').toString('base64');
@@ -25,7 +26,7 @@ const validAuth = authModel({
 
 module.exports = {
   knownAuthId,
-  unKnownAuthId,
+  unknownAuthId,
   knownRealmId,
   unknownRealmId,
   knownUserId,
@@ -41,7 +42,7 @@ module.exports = {
     }
 
     return authModel({
-      id,
+      id: id || knownAuthId,
       realmId,
       userId,
       scope,
@@ -52,12 +53,12 @@ module.exports = {
     });
   },
 
-  async find({realmId}) {
-    if (realmId === knownRealmId) {
-      return [validAuth];
+  async find({realmId}, {offset, limit}) {
+    if (realmId !== knownRealmId) {
+      return paginatedList({offset, limit});
     }
 
-    return [];
+    return paginatedList({items: [validAuth], limit, offset});
   },
 
   async findOneByToken(token) {
@@ -66,7 +67,16 @@ module.exports = {
     }
   },
 
+  async findOne({id}) {
+    if (id === knownAuthId) {
+      return validAuth;
+    }
+  },
+
   async update(auth) {
     return auth;
   },
+
+  async findOneAndDelete() {},
+  async deleteAllByUserId() {},
 };

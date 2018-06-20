@@ -18,7 +18,7 @@ module.exports = {
    * @param {string} action Action not allowed
    * @returns {TaskError} Task error
    */
-  insufficientPrivileges: ({action}) => error({
+  insufficientPrivileges: ({action} = {}) => error({
     code: 'InsufficientPrivileges',
     message: `Insufficient privileges to ${action}.`,
   }),
