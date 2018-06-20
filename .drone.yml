@@ -1,5 +1,5 @@
 workspace:
-  base: platform
+  base: /platform
 
 pipeline:
   build:
