@@ -34,12 +34,25 @@ pipeline:
     when:
       branch: master
 
+  start-smoke-test-broker:
+    image: registry.gitlab.com/realmq/broker:feature-platform
+    detach: true
+    environment:
+      - HOST=0.0.0.0
+      - ADAPTER_HOST=start-smoke-test-instance
+      - CREDENTIALS=platfrom:platform
+    when:
+      branch: master
+
   start-smoke-test-instance:
     image: node:8
     detach: true
     environment:
       - NODE_ENV=production
       - DB_URL=mongodb://realmq:realmq@start-smoke-test-database:27017/realmq
+      - BROKER_HOST=start-smoke-test-broker
+      - BROKER_USERNAME=platform
+      - BROKER_PASSWORD=platform
     commands:
       - scripts/wait-for.js start-smoke-test-database 27017
       - sleep 10
