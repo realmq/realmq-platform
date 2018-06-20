@@ -40,7 +40,7 @@ pipeline:
     environment:
       - HOST=0.0.0.0
       - ADAPTER_HOST=start-smoke-test-instance
-      - CREDENTIALS=platfrom:platform
+      - CREDENTIALS=platform:platform
     when:
       branch: master
 
