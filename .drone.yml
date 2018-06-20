@@ -68,7 +68,7 @@ pipeline:
     environment:
       - SMOKE_TARGET_HOST=start-smoke-test-instance
     commands:
-      - test -x /usr/local/bin/jq || curl -L https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64 -o /usr/local/bin/jq && chmod +x /usr/local/bin/jq
+      #- test -x /usr/local/bin/jq || curl -L https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64 -o /usr/local/bin/jq && chmod +x /usr/local/bin/jq
       - md5sum ./scripts/wait-for.js
       - ./scripts/wait-for.js start-smoke-test-instance:8080
       - ./test/smoke/run.sh
