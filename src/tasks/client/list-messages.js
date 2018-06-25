@@ -20,6 +20,8 @@ module.exports = ({
    * @param {number} channelId The channel id
    * @param {number} [offset] Offset
    * @param {number} [limit] Limit
+   * @param {Date} [from] Earliest message
+   * @param {Date} [to] Latest message
    * @returns {Result<PaginatedList<MessageModel>>}
    */
   async ({
@@ -27,6 +29,8 @@ module.exports = ({
     channelId = required('channelId'),
     offset,
     limit,
+    from,
+    to,
   }) => {
     const {scope, realmId, userId} = authToken;
 
@@ -43,7 +47,10 @@ module.exports = ({
       }
     }
 
-    const list = await messageRepository.find({realmId, channelId}, {offset, limit});
+    const list = await messageRepository.find(
+      {realmId, channelId, from, to},
+      {offset, limit, sort: {createdAt: -1}}
+    );
 
     return success(list);
   };
