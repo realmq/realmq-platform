@@ -77,6 +77,10 @@ Message unwrapping strategies:
   Introducing the RMQ Envelop (with multi part support) and translate the
   multipart message to it.
 
+Tech:
+- https://developers.sparkpost.com/api/relay-webhooks.html
+- https://nodemailer.com/extras/smtp-server/
+
 ### Outbound
 We would provide a new feature so the integrator can configure a channel to
 trigger outbound emails. For sure we need a `enabled` flag and `from` and `to`
