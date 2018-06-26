@@ -1,3 +1,4 @@
+const initRewriteTopicToInternal = require('../../rules/rewrite-topic-to-internal');
 const initAuthenticateClient = require('./authenticate-client');
 const initAuthorizePublish = require('./authorize-publish');
 const initAuthorizeRegister = require('./authorize-register');
@@ -6,7 +7,6 @@ const initLoadTopicPermissions = require('./load-topic-permissions');
 const initMarkClientOffline = require('./mark-client-offline');
 const initMarkClientOnline = require('./mark-client-online');
 const initLookupStaticPermissions = require('./lib/lookup-static-topic-permission');
-const initRewriteTopicToInternal = require('./lib/rewrite-topic-to-internal');
 
 /**
  * @typedef {object} BrokerTasks
