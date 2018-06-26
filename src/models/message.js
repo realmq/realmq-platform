@@ -5,7 +5,7 @@ const stripUndefined = require('../lib/strip-undefined');
  * @param {string} id
  * @param {string} realmId
  * @param {string} channelId
- * @param {string} content
+ * @param {Buffer} content
  * @param {Date} createdAt
  * @param {Date} updatedAt
  */
