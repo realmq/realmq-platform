@@ -2,8 +2,7 @@ const mapGeneric = require('../../../../lib/mappers/generic-entity');
 /**
  * @class MessageViewModel
  * @property {string} id
- * @property {object} features
- * @property {object} properties
+ * @property {string} content Base64 encoded message content.
  * @property {Date} createdAt
  * @property {Date} updatedAt
  */
@@ -11,12 +10,24 @@ const mapGeneric = require('../../../../lib/mappers/generic-entity');
  * @param {MessageModel} entity The message to map
  * @return {MessageViewModel} The mapped message model
  */
-module.exports = entity => mapGeneric({
-  entity,
-  propertyMap: {
-    id: 'id',
-    content: 'content',
-    createdAt: 'createdAt',
-    updatedAt: 'updatedAt',
-  },
-});
+module.exports = entity => {
+  const message = {...entity};
+
+  if (!entity.content) {
+    message.content = '';
+  } else if (entity.content.buffer) {
+    message.content = entity.buffer.toString('base64');
+  } else {
+    message.content = Buffer.from(entity.content).toString('base64');
+  }
+
+  return mapGeneric({
+    entity: message,
+    propertyMap: {
+      id: 'id',
+      content: 'content',
+      createdAt: 'createdAt',
+      updatedAt: 'updatedAt',
+    },
+  });
+};

@@ -1,3 +1,4 @@
+const {Binary} = require('mongodb');
 const createMessageModel = require('../models/message');
 const createMongoMultiRealmRepository = require('./lib/mongo-multi-realm');
 
@@ -17,6 +18,15 @@ module.exports = ({collection, createModel = createMessageModel}) => {
    */
   return {
     ...multiRealmRepo,
+
+    async create({id, realmId, channelId, content}) {
+      return multiRealmRepo.create({
+        id,
+        realmId,
+        channelId,
+        content: new Binary(content),
+      });
+    },
 
     /**
      * Lookup a paginated list of messages.
