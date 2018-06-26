@@ -5,16 +5,18 @@ const initBrokerTasks = require('../tasks/broker');
 const initClientTasks = require('../tasks/client');
 
 /**
- *
+ * @param {Logger} logger Logging
  * @param {AccountRepository} accountRepository Account repository
  * @param {AuthRepository} authRepository Authentication repository
  * @param {ChannelRepository} channelRepository Channel repository
+ * @param {MessageRepository} messageRepository Message repository
  * @param {RealmRepository} realmRepository Realm repository
  * @param {SubscriptionRepository} subscriptionRepository Subscription repository
  * @param {UserRepository} userRepository User repository
- * @returns {{broker: BrokerTasks, admin: AdminTasks}} Tasks
+ * @returns {{broker: BrokerTasks, admin: AdminTasks, client: ClientTasks}} Tasks
  */
 module.exports = ({
+  logger,
   repositories: {
     account: accountRepository,
     auth: authRepository,
@@ -35,9 +37,11 @@ module.exports = ({
       userRepository,
     }),
     broker: initBrokerTasks({
+      logger,
       authRepository,
       channelRepository,
       subscriptionRepository,
+      messageRepository,
     }),
     client: initClientTasks({
       authTokenRules,

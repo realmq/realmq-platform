@@ -1,5 +1,6 @@
 const bootstrapDatabase = require('./database');
 const bootstrapHttp = require('./http');
+const bootstrapMessagePersistence = require('./message-persistence');
 const bootstrapMqtt = require('./mqtt');
 const bootstrapRepositories = require('./repositories');
 const bootstrapTasks = require('./tasks');
@@ -19,6 +20,7 @@ module.exports = async ({config, logger}) => {
   const repositories = await bootstrapRepositories({db});
   const tasks = await bootstrapTasks({repositories, logger});
   const http = await bootstrapHttp({config, logger, tasks});
+  const messagePersistence = await bootstrapMessagePersistence({logger, tasks, mqttClient: mqtt});
 
-  return {db, http, mqtt, repositories, tasks};
+  return {db, http, mqtt, repositories, tasks, messagePersistence};
 };
