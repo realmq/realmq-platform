@@ -81,17 +81,15 @@ RealmList:
         - items
 
 Account:
-  type: object
-  properties:
-    id:
-      type: string
-    name:
-      type: string
-    email:
-      type: string
-  required:
-    - id
-    - email
+  allOf:
+    - $ref: '#/definitions/BaseEntity'
+    - properties:
+        name:
+          type: string
+        email:
+          type: string
+      required:
+        - email
 
 AuthToken:
   allOf:
