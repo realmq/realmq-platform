@@ -1,5 +1,5 @@
 const isSysTopicLevel = topicLevel => topicLevel[0] === '$';
-const isRmqSysTopicLevel = topicLevel => topicLevel === this.rmqSysTopic;
+const isRmqSysTopicLevel = topicLevel => topicLevel === '$RMQ';
 
 /**
  * Parse internal topic.
