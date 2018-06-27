@@ -1,7 +1,7 @@
 /**
- * @param {BrokerTasks#recordMessage} recordMessage
- * @param {MqttClient} mqttClient
- * @return {Promise<{stop: function}>}
+ * @param {BrokerTasks#recordMessage} recordMessage Task
+ * @param {MqttClient} mqttClient Mqtt client
+ * @return {Promise<{stop: function}>} Subscription handler
  */
 module.exports = ({tasks: {broker: {recordMessage}}, mqttClient}) => new Promise((resolve, reject) => {
   mqttClient.on('message', (topic, message) => recordMessage({topic, message}));
