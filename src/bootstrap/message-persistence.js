@@ -1,30 +1,10 @@
-const parseTopic = require('../rules/parse-internal-topic');
-
-const initMessageHandler = ({logger, recordMessage}) =>
-  /**
-   * Forward message
-   * @param {string} topic Topic
-   * @param {Buffer} message Message
-   */
-  (topic, message) => {
-    const match = parseTopic(topic);
-    if (!match || match.isRmqSysTopic) {
-      return;
-    }
-
-    logger.debug(`forward message on: ${topic}`);
-
-    recordMessage({
-      realmId: match.realmId,
-      channelId: match.topic,
-      message,
-    });
-  };
-
-module.exports = ({logger, tasks: {broker: {recordMessage}}, mqttClient}) => new Promise((resolve, reject) => {
-  const onMessage = initMessageHandler({logger, recordMessage});
-
-  mqttClient.on('message', onMessage);
+/**
+ * @param {BrokerTasks#recordMessage} recordMessage
+ * @param {MqttClient} mqttClient
+ * @return {Promise<{stop: function}>}
+ */
+module.exports = ({tasks: {broker: {recordMessage}}, mqttClient}) => new Promise((resolve, reject) => {
+  mqttClient.on('message', (topic, message) => recordMessage({topic, message}));
 
   // Register on all topics via shared subscription so multiple running
   // instances won't duplicate messages
