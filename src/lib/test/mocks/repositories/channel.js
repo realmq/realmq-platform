@@ -79,5 +79,12 @@ module.exports = {
     return paginatedList({items: [validChannel], offset, limit});
   },
 
+  async update(channel, properties) {
+    return {
+      ...channel,
+      ...properties,
+    };
+  },
+
   async findOneAndDelete() {},
 };

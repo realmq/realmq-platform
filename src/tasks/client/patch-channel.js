@@ -110,6 +110,6 @@ module.exports = ({channelRepository}) =>
     }
 
     const patchedChannel = {...channel, ...patchedProperties};
-    const updatedChannel = channelRepository.update(patchedChannel);
+    const updatedChannel = await channelRepository.update(patchedChannel);
     return success(updatedChannel);
   };

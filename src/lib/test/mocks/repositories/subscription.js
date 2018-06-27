@@ -86,6 +86,13 @@ module.exports = {
     return paginatedList({items: [validSubscription], offset, limit});
   },
 
+  async update(subscription, properties) {
+    return {
+      ...subscription,
+      ...properties,
+    };
+  },
+
   async findOneAndDelete() {},
   async deleteAllByUserId() {},
 };
