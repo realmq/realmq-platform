@@ -1,4 +1,5 @@
 const parseDuration = require('../../rules/parse-persistence-duration');
+const parseTopic = require('../../rules/parse-internal-topic');
 
 /**
  * @param {Logger} logger Logger
@@ -9,12 +10,20 @@ const parseDuration = require('../../rules/parse-persistence-duration');
 module.exports = ({logger, channelRepository, messageRepository}) =>
   /**
    * @function BrokerTasks#recordMessage
-   * @param {string} realmId Realm ID
-   * @param {string} channelId Channel ID
+   * @param {string} topic Mqtt topic
    * @param {Buffer} message Message
    * @returns {Promise<>}
    */
-  async ({realmId, channelId, message}) => {
+  async ({topic, message}) => {
+    const match = parseTopic(topic);
+    if (!match || match.isRmqSysTopic) {
+      return;
+    }
+
+    logger.debug(`forward message on: ${topic}`);
+
+    const {realmId, topic: channelId} = match;
+
     try {
       const channel = await channelRepository.findOne({realmId, id: channelId});
 
