@@ -41,7 +41,6 @@ module.exports = async ({config, logger}) => {
     db.collection('channels').createIndexes([realmAwareIdxSpec]),
     db.collection('messages').createIndexes([
       realmAwareIdxSpec,
-      {key: {realmId: 1, channelId: 1}, name: 'realmId_channelId'},
       {key: {realmId: 1, channelId: 1, createdAt: 1}, name: 'realmId_channelId_createdAt'},
     ]),
     db.collection('realms').createIndexes([
