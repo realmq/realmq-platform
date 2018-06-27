@@ -60,7 +60,10 @@ module.exports = ({userRepository, channelRepository, subscriptionRepository}) =
       });
       return success(subscription);
     } catch (creationError) {
-      if (creationError.name === 'RepositoryError' && creationError.reason === 'duplicate') {
+      if (
+        creationError.isRepositoryError &&
+        creationError.isDuplicateKeyError
+      ) {
         return failure(
           error({
             code: 'SubscriptionAlreadyExists',
@@ -69,6 +72,6 @@ module.exports = ({userRepository, channelRepository, subscriptionRepository}) =
           creationError
         );
       }
-      return Promise.reject(creationError);
+      throw creationError;
     }
   };
