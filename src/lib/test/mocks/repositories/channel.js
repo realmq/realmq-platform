@@ -27,7 +27,7 @@ module.exports = {
 
   async findByIds({realmId}) {
     if (realmId !== knownRealmId) {
-      return [];
+      return paginatedList({items: []});
     }
 
     return paginatedList({items: [validChannel]});
