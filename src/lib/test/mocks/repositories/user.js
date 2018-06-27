@@ -74,5 +74,12 @@ module.exports = {
     });
   },
 
+  async update(user, properties) {
+    return {
+      ...user,
+      ...properties,
+    };
+  },
+
   async findOneAndDelete() {},
 };

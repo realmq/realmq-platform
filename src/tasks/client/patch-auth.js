@@ -71,7 +71,7 @@ module.exports = ({authRepository}) =>
       );
     }
 
-    const updatedAuth = authRepository.update({
+    const updatedAuth = await authRepository.update({
       ...authToPatch,
       ...patchedProperties,
     });

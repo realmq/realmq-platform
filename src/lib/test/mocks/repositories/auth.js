@@ -73,8 +73,11 @@ module.exports = {
     }
   },
 
-  async update(auth) {
-    return auth;
+  async update(auth, properties) {
+    return {
+      ...auth,
+      ...properties,
+    };
   },
 
   async findOneAndDelete() {},
