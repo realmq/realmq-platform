@@ -15,6 +15,9 @@ tbd
 - With the one connection per auth token rule we have a connection limit build
   in. This will be lost so we have to add some logic to enforce connection
   limits to avoid a potential DOS vector.
+- Auth token online status calculation becomes harder as its not binary anymore
+  but we have to count number of open connections. That's something we have to
+  do for the limit thing anyway.
 
 ## Voting
 tbd
@@ -29,3 +32,7 @@ Possible multi connection schemes:
 - Use auth token as username and leave password empty. Client id will be
   a random identifier chosen by client (`[0-9a-zA-Z]*`). The broker will
   internally resolve the client id to something unique.
+- Pass auth token as client id with an optional random postfix chosen by client
+  (`[0-9a-zA-Z]*`) separated by a special character (e.g. `|`). Username and
+  password are left empty. This approach may collide with a potential future
+  feature where the integrator defines valid auth tokes (e.g. by webhook).
