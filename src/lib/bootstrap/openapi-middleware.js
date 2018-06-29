@@ -13,7 +13,10 @@ module.exports = async ({logger, path, dependencies, securityHandlers = {}}) => 
   expressOpenApi.initialize({
     app: router,
     apiDoc: spec,
-    dependencies,
+    dependencies: {
+      ...dependencies,
+      openApiSpec: spec,
+    },
     docsPath: '/openapi.json',
     exposeApiDocs: true,
     paths,
