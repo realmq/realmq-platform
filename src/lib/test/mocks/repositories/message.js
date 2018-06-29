@@ -11,7 +11,7 @@ const validMessage = messageModel({
   id: knownMessageId,
   realmId: knownRealmId,
   channelId: knownChannelId,
-  content: 'message content',
+  content: Buffer.from('message content'),
   createdAt: new Date(),
   updatedAt: new Date(),
 });
@@ -29,7 +29,7 @@ module.exports = {
     return messageModel({
       realmId,
       channelId,
-      content,
+      content: Buffer.from(content),
       createdAt: new Date(),
       updatedAt: new Date(),
     });
