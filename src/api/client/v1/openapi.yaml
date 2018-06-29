@@ -57,6 +57,7 @@ paths: !includeMerged
   - routes/channels.yaml
   - routes/channels/{id}.yaml
   - routes/channels/{channelId}/messages.yaml
+  - routes/me/auth/token.yaml
   - routes/me/user.yaml
   - routes/subscriptions.yaml
   - routes/subscriptions/{id}.yaml
