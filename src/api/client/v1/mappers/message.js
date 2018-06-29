@@ -16,7 +16,7 @@ module.exports = entity => {
   if (!entity.content) {
     message.content = '';
   } else if (entity.content.buffer) {
-    message.content = entity.buffer.toString('base64');
+    message.content = entity.content.buffer.toString('base64');
   } else {
     message.content = Buffer.from(entity.content).toString('base64');
   }
