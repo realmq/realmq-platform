@@ -2,6 +2,8 @@
   get:
     security: []
     operationId: fetchVersion
+    tags:
+      - Info
     responses:
       200:
         description: Current version, see https://semver.org for format.
