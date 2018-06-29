@@ -5,7 +5,7 @@ const isRmqSysTopicLevel = topicLevel => topicLevel === '$RMQ';
  * Parse internal topic.
  *
  * @param {string} topic Topic
- * @return {TopicParseResult} Topic parse result
+ * @return {TopicParseResult|null} Topic parse result
  */
 module.exports = topic => {
   const parts = topic.split('/');
