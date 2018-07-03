@@ -38,7 +38,7 @@ pipeline:
       branch: master
 
   start-smoke-test-broker:
-    image: registry.gitlab.com/realmq/broker:feature-platform
+    image: realmq/realmq-broker:master
     detach: true
     environment:
       - HOST=0.0.0.0
@@ -77,7 +77,6 @@ pipeline:
 
   release-image:
     image: plugins/docker
-    repo: registry.gitlab.com/realmq/realmq-platform
-    registry: registry.gitlab.com
+    repo: realmq/realmq-platform
     secrets: [docker_username, docker_password]
     auto_tag: true
