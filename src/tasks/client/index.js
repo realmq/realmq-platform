@@ -31,7 +31,7 @@ const initPatchUser = require('./patch-user');
  * @param {MessageRepository} messageRepository Message repository
  * @param {SubscriptionRepository} subscriptionRepository Auth repository
  * @param {UserRepository} userRepository Auth repository
- * @param {ClientTasks#createSubscription} sendSubscriptionCreatedSync Send subscription created task
+ * @param {CommonTasks#sendSubscriptionSync} sendSubscriptionSync Send subscription created task
  * @return {ClientTasks} Initialized tasks
  */
 module.exports = ({
@@ -41,7 +41,7 @@ module.exports = ({
   messageRepository,
   subscriptionRepository,
   userRepository,
-  sendSubscriptionCreatedSync,
+  sendSubscriptionSync,
 }) => ({
   authenticateUser:
     initAuthenticateUser({authRepository, userRepository}),
@@ -54,7 +54,7 @@ module.exports = ({
       userRepository,
       channelRepository,
       subscriptionRepository,
-      sendSubscriptionCreatedSync,
+      sendSubscriptionSync,
     }),
   createUser:
     initCreateUser({userRepository}),

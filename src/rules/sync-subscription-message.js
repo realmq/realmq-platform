@@ -1,10 +1,11 @@
 /**
  * Generate the subscription sync message
+ * @function syncSubscriptionMessageRule
  * @param {SubscriptionModel} subscription The subscription
  * @param {string} action e.g. 'created', 'deleted' or 'updated'
  * @return {string} Message
  */
-const generateMessage = (subscription, action = 'updated') => {
+module.exports = (subscription, action = 'updated') => {
   return JSON.stringify({
     event: `subscription-${action}`,
     ts: (new Date()).toISOString(),
@@ -18,18 +19,4 @@ const generateMessage = (subscription, action = 'updated') => {
       updatedAt: subscription.updatedAt,
     },
   });
-};
-
-module.exports = {
-  generateSubscriptionCreatedMessage(subscription) {
-    return generateMessage(subscription, 'created');
-  },
-
-  generateSubscriptionDeletedMessage(subscription) {
-    return generateMessage(subscription, 'deleted');
-  },
-
-  generateSubscriptionUpdatedMessage(subscription) {
-    return generateMessage(subscription, 'updated');
-  },
 };
