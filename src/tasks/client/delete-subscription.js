@@ -4,9 +4,13 @@ const error = require('../../lib/error/task');
 /**
  * Init delete subscription task
  * @param {SubscriptionRepository} subscriptionRepository Subscription repository
+ * @param {CommonTasks#sendSubscriptionSync} sendSubscriptionSync Task for sending subscription sync
  * @returns {ClientTasks#deleteSubscription} Task
  */
-module.exports = ({subscriptionRepository}) =>
+module.exports = ({
+  subscriptionRepository,
+  sendSubscriptionSync,
+}) =>
   /**
    * @function ClientTasks#deleteSubscription
    * @param {AuthModel} authToken Authentication
@@ -32,5 +36,6 @@ module.exports = ({subscriptionRepository}) =>
     }
 
     await subscriptionRepository.findOneAndDelete({realmId, id});
+    sendSubscriptionSync(subscription, 'deleted');
     return success(subscription);
   };
