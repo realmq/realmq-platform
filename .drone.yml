@@ -70,7 +70,7 @@ pipeline:
     commands:
       - curl -L https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64 -o /usr/local/bin/jq
       - chmod +x /usr/local/bin/jq
-      - ./scripts/wait-for.js start-smoke-test-instance:8080
+      - ./scripts/wait-for.js start-smoke-test-instance:8080 60
       - ./test/smoke/run.sh
     when:
       branch: master
