@@ -18,7 +18,7 @@ module.exports = async ({config, logger}) => {
     bootstrapMqtt({config, logger}),
   ]);
   const repositories = await bootstrapRepositories({db});
-  const tasks = await bootstrapTasks({repositories, logger});
+  const tasks = await bootstrapTasks({repositories, logger, mqttClient: mqtt});
   const http = await bootstrapHttp({config, logger, tasks});
   const messagePersistence = await bootstrapMessagePersistence({logger, tasks, mqttClient: mqtt});
 

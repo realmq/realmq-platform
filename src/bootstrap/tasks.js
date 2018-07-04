@@ -1,11 +1,14 @@
 const accountRules = require('../rules/account');
 const authTokenRules = require('../rules/auth-token');
+
 const initAdminTasks = require('../tasks/admin');
 const initBrokerTasks = require('../tasks/broker');
 const initClientTasks = require('../tasks/client');
+const initCommonTasks = require('../tasks/common');
 
 /**
  * @param {Logger} logger Logging
+ * @param {MqttClient} mqttClient Mqtt Client
  * @param {AccountRepository} accountRepository Account repository
  * @param {AuthRepository} authRepository Authentication repository
  * @param {ChannelRepository} channelRepository Channel repository
@@ -17,6 +20,7 @@ const initClientTasks = require('../tasks/client');
  */
 module.exports = ({
   logger,
+  mqttClient,
   repositories: {
     account: accountRepository,
     auth: authRepository,
@@ -27,6 +31,11 @@ module.exports = ({
     user: userRepository,
   },
 }) => {
+  // Common tasks
+  const {
+    sendSubscriptionCreatedSync,
+  } = initCommonTasks({mqttClient});
+
   return {
     admin: initAdminTasks({
       accountRules,
@@ -50,6 +59,7 @@ module.exports = ({
       messageRepository,
       userRepository,
       subscriptionRepository,
+      sendSubscriptionCreatedSync,
     }),
   };
 };
