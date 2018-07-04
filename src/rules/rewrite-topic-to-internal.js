@@ -7,6 +7,7 @@
  */
 module.exports = ({rmqSysTopic = '$RMQ', realmTopic = 'realm', userTopic = 'user'} = {}) =>
   /**
+   * @function rewriteTopicToInternalRule
    * Rewrite topic from external to internal representation
    *
    * test -> realm/123/test
