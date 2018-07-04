@@ -2,14 +2,14 @@ const stripUndefined = require('../lib/strip-undefined');
 
 /**
  * @typedef {Object} SubscriptionModel
- * @param {string} id
- * @param {string} realmId
- * @param {string} channelId
- * @param {string} userId
- * @param {boolean} allowRead
- * @param {boolean} allowWrite
- * @param {Date} createdAt
- * @param {Date} updatedAt
+ * @property {string} id
+ * @property {string} realmId
+ * @property {string} channelId
+ * @property {string} userId
+ * @property {boolean} allowRead
+ * @property {boolean} allowWrite
+ * @property {Date} createdAt
+ * @property {Date} updatedAt
  */
 
 /**
