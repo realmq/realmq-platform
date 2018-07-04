@@ -33,7 +33,7 @@ module.exports = ({
 }) => {
   // Common tasks
   const {
-    sendSubscriptionCreatedSync,
+    sendSubscriptionSync,
   } = initCommonTasks({mqttClient});
 
   return {
@@ -59,7 +59,7 @@ module.exports = ({
       messageRepository,
       userRepository,
       subscriptionRepository,
-      sendSubscriptionCreatedSync,
+      sendSubscriptionSync,
     }),
   };
 };

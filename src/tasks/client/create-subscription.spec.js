@@ -13,7 +13,7 @@ describe('The client createSubscription task', () => {
     allowRead: true,
     allowWrite: false,
   };
-  const sendSubscriptionCreatedSync = jest.fn();
+  const sendSubscriptionSync = jest.fn();
   let createSubscription;
 
   beforeEach(() => {
@@ -21,7 +21,7 @@ describe('The client createSubscription task', () => {
       channelRepository,
       userRepository,
       subscriptionRepository,
-      sendSubscriptionCreatedSync,
+      sendSubscriptionSync,
     });
   });
 
@@ -60,7 +60,7 @@ describe('The client createSubscription task', () => {
     it('should send a subscription created sync message', async () => {
       await createSubscription({authToken, data: subscriptionData});
 
-      expect(sendSubscriptionCreatedSync).toHaveBeenCalled();
+      expect(sendSubscriptionSync).toHaveBeenCalled();
     });
   });
 });
