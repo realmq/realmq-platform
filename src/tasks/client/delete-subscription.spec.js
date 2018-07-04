@@ -6,11 +6,15 @@ describe('The client deleteSubscription task', () => {
     scope: 'admin',
     realmId: subscriptionRepository.knownRealmId,
   };
+  const sendSubscriptionSync = jest.fn();
   let deleteSubscription;
 
   beforeEach(() => {
     subscriptionRepository.findOneAndDelete = jest.fn();
-    deleteSubscription = initDeleteSubscription({subscriptionRepository});
+    deleteSubscription = initDeleteSubscription({
+      subscriptionRepository,
+      sendSubscriptionSync,
+    });
   });
 
   describe('when called with non-admin scope', () => {
@@ -45,6 +49,16 @@ describe('The client deleteSubscription task', () => {
 
       expect(ok).toBe(true);
       expect(subscriptionRepository.findOneAndDelete).toHaveBeenCalled();
+    });
+
+    it('should send a subscription deleted sync message', async () => {
+      await deleteSubscription({
+        authToken,
+        id: subscriptionRepository.knownSubscriptionId,
+      });
+
+      expect(sendSubscriptionSync).toHaveBeenCalled();
+      expect(sendSubscriptionSync.mock.calls[0][1]).toBe('deleted');
     });
   });
 });

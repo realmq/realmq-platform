@@ -61,6 +61,7 @@ describe('The client createSubscription task', () => {
       await createSubscription({authToken, data: subscriptionData});
 
       expect(sendSubscriptionSync).toHaveBeenCalled();
+      expect(sendSubscriptionSync.mock.calls[0][1]).toBe('created');
     });
   });
 });

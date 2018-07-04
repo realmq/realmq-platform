@@ -6,10 +6,14 @@ describe('The client patchSubscription task', () => {
     scope: 'admin',
     realmId: subscriptionRepository.knownRealmId,
   };
+  const sendSubscriptionSync = jest.fn();
   let patchSubscription;
 
   beforeEach(() => {
-    patchSubscription = initPatchSubscription({subscriptionRepository});
+    patchSubscription = initPatchSubscription({
+      subscriptionRepository,
+      sendSubscriptionSync,
+    });
   });
 
   describe('when called with non-admin scope', () => {
@@ -80,6 +84,17 @@ describe('The client patchSubscription task', () => {
 
         expect(okSecondPatch).toBe(true);
         expect(resultSecondPatch.allowRead).toBe(false);
+      });
+
+      it('should send a subscription updated sync message', async () => {
+        await patchSubscription({
+          authToken,
+          id: subscriptionRepository.knownSubscriptionId,
+          patch: [{op: 'replace', path: '/allowRead', value: true}],
+        });
+
+        expect(sendSubscriptionSync).toHaveBeenCalled();
+        expect(sendSubscriptionSync.mock.calls[0][1]).toBe('updated');
       });
     });
 
