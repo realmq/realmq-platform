@@ -1,10 +1,10 @@
 const subscriptionRepository = require('../lib/test/mocks/repositories/subscription');
-const createSyncSubscriptionMessage = require('./sync-subscription-message');
+const createSubscriptionSyncMessage = require('./subscription-sync-message');
 
 describe('The syncSubscriptionMessage rule', () => {
   it('should generate a valid message', () => {
     const action = 'test';
-    const message = createSyncSubscriptionMessage({
+    const message = createSubscriptionSyncMessage({
       subscription: subscriptionRepository.validSubscription,
       action,
     });
