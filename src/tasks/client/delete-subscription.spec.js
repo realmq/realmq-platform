@@ -58,7 +58,9 @@ describe('The client deleteSubscription task', () => {
       });
 
       expect(sendSubscriptionSync).toHaveBeenCalled();
-      expect(sendSubscriptionSync.mock.calls[0][1]).toBe('deleted');
+
+      const {action} = sendSubscriptionSync.mock.calls[0][0] || {};
+      expect(action).toBe('deleted');
     });
   });
 });

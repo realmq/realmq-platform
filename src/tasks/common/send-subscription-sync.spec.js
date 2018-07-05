@@ -4,10 +4,10 @@ const initSendSubscriptionSync = require('./send-subscription-sync');
 describe('The common sendSubscriptionSync task', () => {
   const message = 'testSendSubscriptionSyncMessage';
   const publish = jest.fn((topic, message, cb) => cb());
-  let sendSubscriptionCreatedSync;
+  let sendSubscriptionSync;
 
   beforeEach(() => {
-    sendSubscriptionCreatedSync = initSendSubscriptionSync({
+    sendSubscriptionSync = initSendSubscriptionSync({
       mqttClient: {publish},
       rewriteTopicToInternal: ({topic}) => topic,
       createSyncSubscriptionMessage: () => message,
@@ -16,7 +16,7 @@ describe('The common sendSubscriptionSync task', () => {
 
   describe('when called without subscription', () => {
     it('should not execute', async () => {
-      const {ok, error} = await sendSubscriptionCreatedSync();
+      const {ok, error} = await sendSubscriptionSync({});
 
       expect(ok).toBe(false);
       expect(error).toBeDefined();
@@ -27,7 +27,9 @@ describe('The common sendSubscriptionSync task', () => {
   describe('when called without action', () => {
     it('should not execute', async () => {
       const {ok, error} =
-        await sendSubscriptionCreatedSync(subscriptionRepository.validSubscription);
+        await sendSubscriptionSync({
+          subscription: subscriptionRepository.validSubscription,
+        });
 
       expect(ok).toBe(false);
       expect(error).toBeDefined();
@@ -37,7 +39,10 @@ describe('The common sendSubscriptionSync task', () => {
 
   describe('when called with invalid subscription', () => {
     it('should not execute', async () => {
-      const {ok, error} = await sendSubscriptionCreatedSync({userId: 'foobar'}, 'updated');
+      const {ok, error} = await sendSubscriptionSync({
+        subscription: {userId: 'foobar'},
+        action: 'updated',
+      });
 
       expect(ok).toBe(false);
       expect(error).toBeDefined();
@@ -47,10 +52,10 @@ describe('The common sendSubscriptionSync task', () => {
 
   describe('when called with valid subscription', () => {
     it('should send a message on the sync channel', async () => {
-      const {ok} = await sendSubscriptionCreatedSync(
-        subscriptionRepository.validSubscription,
-        'updated'
-      );
+      const {ok} = await sendSubscriptionSync({
+        subscription: subscriptionRepository.validSubscription,
+        action: 'updated',
+      });
 
       expect(ok).toBe(true);
 

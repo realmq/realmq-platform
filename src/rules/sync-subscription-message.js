@@ -5,7 +5,7 @@
  * @param {string} action e.g. 'created', 'deleted' or 'updated'
  * @return {string} Message
  */
-module.exports = (subscription, action = 'updated') => {
+module.exports = ({subscription, action = 'updated'}) => {
   return JSON.stringify({
     event: `subscription-${action}`,
     ts: (new Date()).toISOString(),

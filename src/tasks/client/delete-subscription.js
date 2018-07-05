@@ -36,6 +36,6 @@ module.exports = ({
     }
 
     await subscriptionRepository.findOneAndDelete({realmId, id});
-    sendSubscriptionSync(subscription, 'deleted');
+    sendSubscriptionSync({subscription, action: 'deleted'});
     return success(subscription);
   };
