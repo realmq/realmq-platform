@@ -26,14 +26,14 @@ const ensureChannelExists = ({channelRepository, realmId, channelId}) =>
  * @param {UserRepository} userRepository User repository
  * @param {ChannelRepository} channelRepository Channel repository
  * @param {SubscriptionRepository} subscriptionRepository Subscription repository
- * @param {CommonTasks#sendSubscriptionSync} sendSubscriptionSync Task for sending subscription sync
+ * @param {CommonTasks#sendSubscriptionSyncMessage} sendSubscriptionSyncMessage Task for sending subscription sync
  * @returns {ClientTasks#createSubscription} Task
  */
 module.exports = ({
   userRepository,
   channelRepository,
   subscriptionRepository,
-  sendSubscriptionSync,
+  sendSubscriptionSyncMessage,
 }) =>
   /**
    * @function ClientTasks#createSubscription
@@ -65,7 +65,7 @@ module.exports = ({
         channelId: channel.id,
       });
 
-      sendSubscriptionSync({subscription, action: 'created'});
+      sendSubscriptionSyncMessage({subscription, action: 'created'});
 
       return success(subscription);
     } catch (creationError) {

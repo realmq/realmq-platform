@@ -3,7 +3,7 @@ const {success, failure} = require('../../lib/result');
  * @param {MqttClient} mqttClient Mqtt client
  * @param {Rules#rewriteTopicToInternal} rewriteTopicToInternal Topic rewrite rule
  * @param {Rules#subscriptionSyncMessage} createSubscriptionSyncMessage Message creation rule
- * @returns {CommonTasks#sendSubscriptionSync} Task
+ * @returns {CommonTasks#sendSubscriptionSyncMessage} Task
  */
 module.exports = ({
   mqttClient,
