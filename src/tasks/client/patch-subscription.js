@@ -33,12 +33,12 @@ const validateChangeableProperties = properties => {
 /**
  * Init patch subscription task
  * @param {SubscriptionRepository} subscriptionRepository Subscription repository
- * @param {CommonTasks#sendSubscriptionSync} sendSubscriptionSync Task for sending subscription sync
+ * @param {CommonTasks#sendSubscriptionSyncMessage} sendSubscriptionSyncMessage Task for sending subscription sync
  * @returns {ClientTasks#patchSubscription} Task
  */
 module.exports = ({
   subscriptionRepository,
-  sendSubscriptionSync,
+  sendSubscriptionSyncMessage,
 }) =>
   /**
    * @function ClientTasks#patchSubscription
@@ -98,7 +98,7 @@ module.exports = ({
       ...patchedProperties,
     };
     const updatedSubscription = await subscriptionRepository.update(patchedSubscription);
-    sendSubscriptionSync({subscription: updatedSubscription, action: 'updated'});
+    sendSubscriptionSyncMessage({subscription: updatedSubscription, action: 'updated'});
 
     return success(updatedSubscription);
   };

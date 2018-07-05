@@ -41,7 +41,7 @@ module.exports = ({
   messageRepository,
   subscriptionRepository,
   userRepository,
-  sendSubscriptionSync,
+  sendSubscriptionSyncMessage,
 }) => ({
   authenticateUser:
     initAuthenticateUser({authRepository, userRepository}),
@@ -54,7 +54,7 @@ module.exports = ({
       userRepository,
       channelRepository,
       subscriptionRepository,
-      sendSubscriptionSync,
+      sendSubscriptionSyncMessage,
     }),
   createUser:
     initCreateUser({userRepository}),
@@ -63,7 +63,7 @@ module.exports = ({
   deleteChannel:
     initDeleteChannel({channelRepository}),
   deleteSubscription:
-    initDeleteSubscription({subscriptionRepository, sendSubscriptionSync}),
+    initDeleteSubscription({subscriptionRepository, sendSubscriptionSyncMessage}),
   deleteUser:
     initDeleteUser({userRepository, authRepository, subscriptionRepository}),
   fetchAuth:
@@ -89,7 +89,7 @@ module.exports = ({
   patchChannel:
     initPatchChannel({channelRepository}),
   patchSubscription:
-    initPatchSubscription({subscriptionRepository, sendSubscriptionSync}),
+    initPatchSubscription({subscriptionRepository, sendSubscriptionSyncMessage}),
   patchUser:
     initPatchUser({userRepository}),
 });

@@ -6,13 +6,13 @@ describe('The client patchSubscription task', () => {
     scope: 'admin',
     realmId: subscriptionRepository.knownRealmId,
   };
-  const sendSubscriptionSync = jest.fn();
+  const sendSubscriptionSyncMessage = jest.fn();
   let patchSubscription;
 
   beforeEach(() => {
     patchSubscription = initPatchSubscription({
       subscriptionRepository,
-      sendSubscriptionSync,
+      sendSubscriptionSyncMessage,
     });
   });
 
@@ -93,9 +93,9 @@ describe('The client patchSubscription task', () => {
           patch: [{op: 'replace', path: '/allowRead', value: true}],
         });
 
-        expect(sendSubscriptionSync).toHaveBeenCalled();
+        expect(sendSubscriptionSyncMessage).toHaveBeenCalled();
 
-        const {action} = sendSubscriptionSync.mock.calls[0][0] || {};
+        const {action} = sendSubscriptionSyncMessage.mock.calls[0][0] || {};
         expect(action).toBe('updated');
       });
     });
