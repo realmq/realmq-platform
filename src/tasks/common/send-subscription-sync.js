@@ -2,13 +2,13 @@ const {success, failure} = require('../../lib/result');
 /**
  * @param {MqttClient} mqttClient Mqtt client
  * @param {rewriteTopicToInternalRule} rewriteTopicToInternal Topic rewrite rule
- * @param {syncSubscriptionMessageRule} createSyncSubscriptionMessage Message creation rule
+ * @param {syncSubscriptionMessageRule} createSubscriptionSyncMessage Message creation rule
  * @returns {CommonTasks#sendSubscriptionSync} Task
  */
 module.exports = ({
   mqttClient,
   rewriteTopicToInternal,
-  createSyncSubscriptionMessage,
+  createSubscriptionSyncMessage,
 }) => {
   /**
    * Promisified MQTT publish
@@ -45,7 +45,7 @@ module.exports = ({
       client: {realmId, userId},
     });
 
-    const message = createSyncSubscriptionMessage({subscription, action});
+    const message = createSubscriptionSyncMessage({subscription, action});
 
     try {
       await publishMessage(topic, message);

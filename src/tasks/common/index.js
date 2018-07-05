@@ -1,5 +1,5 @@
 const initRewriteTopicToInternal = require('../../rules/rewrite-topic-to-internal');
-const createSyncSubscriptionMessage = require('../../rules/sync-subscription-message');
+const createSubscriptionSyncMessage = require('../../rules/subscription-sync-message');
 const initSendSubscriptionSync = require('./send-subscription-sync');
 
 /** @typedef {object} CommonTasks */
@@ -14,7 +14,7 @@ module.exports = ({mqttClient}) => {
   return {
     sendSubscriptionSync: initSendSubscriptionSync({
       mqttClient,
-      createSyncSubscriptionMessage,
+      createSubscriptionSyncMessage,
       rewriteTopicToInternal,
     }),
   };
