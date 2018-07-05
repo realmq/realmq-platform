@@ -4,7 +4,10 @@ const createSyncSubscriptionMessage = require('./sync-subscription-message');
 describe('The syncSubscriptionMessage rule', () => {
   it('should generate a valid message', () => {
     const action = 'test';
-    const message = createSyncSubscriptionMessage(subscriptionRepository.validSubscription, action);
+    const message = createSyncSubscriptionMessage({
+      subscription: subscriptionRepository.validSubscription,
+      action,
+    });
     const parsedMessage = JSON.parse(message);
 
     expect(typeof message).toBe('string');

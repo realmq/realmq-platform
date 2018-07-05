@@ -65,7 +65,7 @@ module.exports = ({
         channelId: channel.id,
       });
 
-      sendSubscriptionSync(subscription, 'created');
+      sendSubscriptionSync({subscription, action: 'created'});
 
       return success(subscription);
     } catch (creationError) {

@@ -26,7 +26,7 @@ module.exports = ({
    * @param {string} action Subscription sync action
    * @return {Promise<*>} Promise
    */
-  return async (subscription, action) => {
+  return async ({subscription, action}) => {
     if (!subscription) {
       return failure(new Error('Missing subscription'));
     }
@@ -45,7 +45,7 @@ module.exports = ({
       client: {realmId, userId},
     });
 
-    const message = createSyncSubscriptionMessage(subscription, action);
+    const message = createSyncSubscriptionMessage({subscription, action});
 
     try {
       await publishMessage(topic, message);

@@ -98,7 +98,7 @@ module.exports = ({
       ...patchedProperties,
     };
     const updatedSubscription = await subscriptionRepository.update(patchedSubscription);
-    sendSubscriptionSync(updatedSubscription, 'updated');
+    sendSubscriptionSync({subscription: updatedSubscription, action: 'updated'});
 
     return success(updatedSubscription);
   };

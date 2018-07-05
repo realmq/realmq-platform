@@ -94,7 +94,9 @@ describe('The client patchSubscription task', () => {
         });
 
         expect(sendSubscriptionSync).toHaveBeenCalled();
-        expect(sendSubscriptionSync.mock.calls[0][1]).toBe('updated');
+
+        const {action} = sendSubscriptionSync.mock.calls[0][0] || {};
+        expect(action).toBe('updated');
       });
     });
 
