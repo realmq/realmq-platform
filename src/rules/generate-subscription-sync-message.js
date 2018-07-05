@@ -1,6 +1,6 @@
 /**
  * Generate the subscription sync message
- * @function Rules#subscriptionSyncMessage
+ * @function Rules#generateSubscriptionSyncMessage
  * @param {SubscriptionModel} subscription The subscription
  * @param {string} action e.g. 'created', 'deleted' or 'updated'
  * @return {string} Message

@@ -3,7 +3,7 @@ const authToken = require('./auth-token');
 const parseInternalTopic = require('./parse-internal-topic');
 const parsePersistenceDuration = require('./parse-persistence-duration');
 const rewriteTopicToInternal = require('./rewrite-topic-to-internal');
-const subscriptionSyncMessage = require('./subscription-sync-message');
+const generateSubscriptionSyncMessage = require('./generate-subscription-sync-message');
 
 /** @typedef {object} Rules */
 module.exports = {
@@ -12,5 +12,5 @@ module.exports = {
   parseInternalTopic,
   parsePersistenceDuration,
   rewriteTopicToInternal,
-  subscriptionSyncMessage,
+  generateSubscriptionSyncMessage,
 };

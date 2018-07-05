@@ -10,7 +10,7 @@ describe('The common sendSubscriptionSync task', () => {
     sendSubscriptionSyncMessage = initSendSubscriptionSyncMessage({
       mqttClient: {publish},
       rewriteTopicToInternal: ({topic}) => topic,
-      createSubscriptionSyncMessage: () => message,
+      generateSubscriptionSyncMessage: () => message,
     });
   });
 
