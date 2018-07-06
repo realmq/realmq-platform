@@ -4,6 +4,8 @@ This changelog documents all notable changes of the RealMQ Platform.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
+### Added
+- Sending of sync messages for subscriptions
 
 ## [0.1.0]
 ### Added
