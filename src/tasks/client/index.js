@@ -61,7 +61,7 @@ module.exports = ({
   deleteAuth:
     initDeleteAuth({authRepository}),
   deleteChannel:
-    initDeleteChannel({channelRepository}),
+    initDeleteChannel({channelRepository, subscriptionRepository}),
   deleteSubscription:
     initDeleteSubscription({subscriptionRepository, sendSubscriptionSyncMessage}),
   deleteUser:

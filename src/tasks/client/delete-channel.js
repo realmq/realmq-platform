@@ -4,9 +4,13 @@ const error = require('../../lib/error/task');
 /**
  * Init delete channel task
  * @param {ChannelRepository} channelRepository Channel repository
+ * @param {SubscriptionRepository} subscriptionRepository Subscription repository
  * @returns {Function} Task
  */
-module.exports = ({channelRepository}) =>
+module.exports = ({
+  channelRepository,
+  subscriptionRepository,
+}) =>
   /**
    * @function ClientTasks#deleteChannel
    * @param {AuthModel} authToken Authentication
@@ -32,5 +36,7 @@ module.exports = ({channelRepository}) =>
     }
 
     await channelRepository.findOneAndDelete({realmId, id});
+    await subscriptionRepository.deleteAllByChannelId({realmId, channelId: channel.id});
+
     return success(channel);
   };

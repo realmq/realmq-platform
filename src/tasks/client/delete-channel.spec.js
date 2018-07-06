@@ -1,4 +1,5 @@
 const channelRepository = require('../../lib/test/mocks/repositories/channel');
+const subscriptionRepository = require('../../lib/test/mocks/repositories/subscription');
 const initDeleteChannel = require('./delete-channel');
 
 describe('The client deleteChannel task', () => {
@@ -10,7 +11,8 @@ describe('The client deleteChannel task', () => {
 
   beforeEach(() => {
     channelRepository.findOneAndDelete = jest.fn();
-    deleteChannel = initDeleteChannel({channelRepository});
+    subscriptionRepository.deleteAllByChannelId = jest.fn();
+    deleteChannel = initDeleteChannel({channelRepository, subscriptionRepository});
   });
 
   describe('when called with non-admin scope', () => {
@@ -45,6 +47,21 @@ describe('The client deleteChannel task', () => {
 
       expect(ok).toBe(true);
       expect(channelRepository.findOneAndDelete).toHaveBeenCalled();
+    });
+
+    it('should delete all subscriptions on a channel', async () => {
+      const subscription = subscriptionRepository.validSubscription;
+      await deleteChannel({
+        authToken,
+        id: subscription.channelId,
+      });
+
+      const deleteMethod = subscriptionRepository.deleteAllByChannelId;
+      expect(deleteMethod).toHaveBeenCalled();
+
+      const {realmId, channelId} = deleteMethod.mock.calls[0][0];
+      expect(realmId).toBe(subscription.realmId);
+      expect(channelId).toBe(subscription.channelId);
     });
   });
 });
