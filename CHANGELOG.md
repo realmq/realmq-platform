@@ -7,6 +7,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 ### Added
 - Sending of sync messages for subscriptions
 
+### Changed
+- HTTPS scheme is now configurable for smoke test suite
+
 ## [0.1.0]
 ### Added
 - Initial platform setup
