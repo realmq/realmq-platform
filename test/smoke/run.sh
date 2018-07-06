@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 : ${SMOKE_TARGET_HOST=localhost}
 : ${SMOKE_TARGET_PORT=8080}
+: ${SMOKE_TARGET_SCHEME=http}
 
 email="test@example.com"
 password="test"
-baseUrl="http://$SMOKE_TARGET_HOST:$SMOKE_TARGET_PORT"
+baseUrl="${SMOKE_TARGET_SCHEME}://${SMOKE_TARGET_HOST}:${SMOKE_TARGET_PORT}"
 
 adminRequest() {
   method=$1
