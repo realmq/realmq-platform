@@ -59,7 +59,7 @@
       "src/tasks/**/*",
       "!**/index.js"
     ],
-    "coverageDirectory": "./test-coverage",
+    "coverageDirectory": "./.test-coverage",
     "coverageReporters": [
       "lcov"
     ]
