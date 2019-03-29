@@ -5,17 +5,22 @@ services:
     build:
       context: .
     command: npm run start-debug
+    restart: always
     ports:
-      - 8888:8080
+      - ${PORT:-8080}:${PORT:-8080}
       - 9229:9229
     volumes:
       - .:/usr/src/app
     environment:
-      - LOG_LEVEL=debug
+      - PORT=${PORT:-8080}
+      - LOG_LEVEL=${LOG_LEVEL:-debug}
       - BROKER_HOST=broker
       - BROKER_USERNAME=adapter
       - BROKER_PASSWORD=adapter
       - API_BROKER_KEY=broker-key
+    depends_on:
+      - broker
+      - database
 
   database:
     image: bitnami/mongodb
@@ -30,15 +35,14 @@ services:
       - MONGODB_DATABASE=realmq
 
   broker:
-    image: realmq/realmq-broker:master
-    #build: ../broker
+    image: realmq/realmq-broker
     ports:
       - 1883:1883
     environment:
       - HOST=0.0.0.0
       - ADAPTER_KEY=broker-key
       - ADAPTER_HOST=platform
-      - ADAPTER_PORT=8080
+      - ADAPTER_PORT=${PORT:-8080}
       - CREDENTIALS=adapter:adapter
 
 volumes:

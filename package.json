@@ -6,7 +6,11 @@
   "author": "RealMQ GmbH <service@realmq.com> (https://realmq.com)",
   "description": "RealMQ Platform",
   "repository": "https://github.com/realmq/realmq-platform.git",
+  "engines": {
+    "node": ">= 8"
+  },
   "scripts": {
+    "dev": ".npm-scripts/start-dev.sh",
     "precommit": "lint-staged",
     "lint": "xo",
     "lint-fix": "xo --fix",
@@ -17,14 +21,29 @@
     "test": ".npm-scripts/test.sh",
     "test-coverage": "jest --coverage"
   },
+  "dependencies": {
+    "ajv": "^6.5.1",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
+    "bunyan": "^1.8.12",
+    "bunyan-format": "^0.2.1",
+    "compression": "^1.7.2",
+    "cors": "^2.8.4",
+    "dotenv": "^7.0.0",
+    "express": "^4.16.3",
+    "express-openapi": "^1.6.3",
+    "fast-json-patch": "^2.0.6",
+    "js-yaml": "^3.12.0",
+    "mongodb": "^3.0.10",
+    "mqtt": "^2.18.1",
+    "openapi-schema-validation": "^0.4.1",
+    "uuid": "^3.2.1"
+  },
   "devDependencies": {
     "husky": "^0.14.3",
     "jest": "^23.1.0",
     "lint-staged": "^7.1.0",
     "xo": "^0.21.0"
-  },
-  "engines": {
-    "node": ">= 8"
   },
   "lint-staged": {
     "*.js": [
@@ -44,23 +63,5 @@
     "coverageReporters": [
       "lcov"
     ]
-  },
-  "dependencies": {
-    "ajv": "^6.5.1",
-    "bcryptjs": "^2.4.3",
-    "body-parser": "^1.18.3",
-    "bunyan": "^1.8.12",
-    "bunyan-format": "^0.2.1",
-    "compression": "^1.7.2",
-    "cors": "^2.8.4",
-    "dotenv": "^7.0.0",
-    "express": "^4.16.3",
-    "express-openapi": "^1.6.3",
-    "fast-json-patch": "^2.0.6",
-    "js-yaml": "^3.12.0",
-    "mongodb": "^3.0.10",
-    "mqtt": "^2.18.1",
-    "openapi-schema-validation": "^0.4.1",
-    "uuid": "^3.2.1"
   }
 }
