@@ -2,7 +2,7 @@
   "name": "@realmq/realmq-platform",
   "version": "0.1.0",
   "private": true,
-  "license": "UNLICENSED",
+  "license": "OSL-3.0",
   "author": "RealMQ GmbH <service@realmq.com> (https://realmq.com)",
   "description": "RealMQ Platform",
   "repository": "https://github.com/realmq/realmq-platform.git",
