@@ -1,4 +1,5 @@
 .*
 *.md
+!.npm_scripts
 node_modules
 docs
