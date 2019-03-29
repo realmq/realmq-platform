@@ -3,24 +3,18 @@
 
 ## Configuration
 
-The app is aware of the following environment variables,
-that can also be injected via `.env` file:
-
-| Variable | Description | Default |
-|----------|-------------|---------|
-| LOG_LEVEL | App wide logging verbosity | `info` |
-| PORT | The HTTP Port the server will listen to | `8080` |
+The app can be configured via environment variables, that can also be injected via `.env` file.
+For a complete list of configuration options see [config docs](./src/config/README.md).
 
 ## Run
-
-The recommended way of launching the RealMQ platform is using the
-[docker compose setup](https://github.com/realmq/dev-env).
-
-Alternatively run:
+The RealMQ platform comes with a docker compose setup aimed for local development.
+To get you started, simply run:
 
 ```bash
-npm start
+npm run dev
 ```
+
+By default the app will be launched on http://localhost:8080.
 
 ## Documentation
 
