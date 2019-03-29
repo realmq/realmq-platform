@@ -1,11 +1,14 @@
 #!/usr/bin/env node
-
-const config = require('./config');
+const dotenv = require('dotenv');
+const initConfig = require('./config');
 const createApp = require('./app');
 const createLogger = require('./lib/logger');
 
 (async () => {
   try {
+    // Populate variables from .env to process.env
+    dotenv.config();
+    const config = initConfig(process.env);
     const logger = createLogger({name: config.appId, level: config.logging.level});
     const app = createApp({config, logger});
     await app.start();
