@@ -25,4 +25,4 @@ docker-compose up -d
 sleep 2
 
 # attach to the logs
-docker-compose logs -ft --tail 5 platform
+docker-compose logs -f --tail 5 platform
