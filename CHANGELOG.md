@@ -1,4 +1,4 @@
-# Changelog
+# RealMQ Platform Changelog
 
 This changelog documents all notable changes of the RealMQ Platform.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
@@ -6,6 +6,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 ## [Unreleased]
 ### Added
 - Sending of sync messages for subscriptions
+- Introduce `npm run dev` as an easy dev starting point.
 
 ### Changed
 - HTTPS scheme is now configurable for smoke test suite

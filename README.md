@@ -13,8 +13,12 @@ To get you started, simply run:
 ```bash
 npm run dev
 ```
-
-By default the app will be launched on http://localhost:8080.
+This command will:
+- setup `.env` file :checkered_flag:
+- fetch and install all dependencies. :package: :whale:
+- launch the mqtt broker on localhost:1883 :robot:
+- launch the app on http://localhost:8080 :whale:
+- :fire: code reload - restart app upon code changes
 
 ## Documentation
 
