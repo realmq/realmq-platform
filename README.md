@@ -7,7 +7,7 @@ The app can be configured via environment variables, that can also be injected v
 For a complete list of configuration options see [config docs](./src/config/README.md).
 
 ## Run
-The RealMQ platform comes with a docker compose setup aimed for local development.
+The RealMQ platform comes with a docker compose setup aimed for local development.<br/>
 To get you started, simply run:
 
 ```bash

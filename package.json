@@ -17,7 +17,7 @@
     "validate-yaml": ".npm-scripts/validate-yaml.sh",
     "validate-openapi-spec": ".npm-scripts/validate-openapi-spec.sh",
     "start": "node src",
-    "start-debug": "node --inspect=0.0.0.0:9229 src",
+    "start-debug": "nodemon --inspect=0.0.0.0:9229 src",
     "test": ".npm-scripts/test.sh",
     "test-coverage": "jest --coverage"
   },
@@ -43,6 +43,7 @@
     "husky": "^0.14.3",
     "jest": "^23.1.0",
     "lint-staged": "^7.1.0",
+    "nodemon": "^1.18.10",
     "xo": "^0.21.0"
   },
   "lint-staged": {
