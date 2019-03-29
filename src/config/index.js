@@ -1,6 +1,4 @@
-const {env} = process;
-
-module.exports = {
+module.exports = (env = {}) => ({
   appId: 'realmq-platform',
   http: {
     port: env.PORT || 8080,
@@ -23,4 +21,4 @@ module.exports = {
     username: env.BROKER_USERNAME || 'adapter',
     password: env.BROKER_PASSWORD || 'adapter',
   },
-};
+});
