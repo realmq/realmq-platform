@@ -28,3 +28,7 @@ npm start
 * [Code Style](/docs/code-style)
 * [Workflows](/docs/workflow)
 * [Specification](/docs/spec)
+
+## License
+Copyright (c) 2018-2019 RealMQ GmbH.
+Licensed under the [Open Software License version 3.0](LICENSE)
