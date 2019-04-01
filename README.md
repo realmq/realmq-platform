@@ -15,10 +15,10 @@ To get you started, simply run:
 npm run dev
 ```
 This command will:
-- setup `.env` file :checkered_flag:
-- fetch and install all dependencies. :package: :whale:
-- launch the mqtt broker on localhost:1883 :robot:
-- launch the app on http://localhost:8080 :whale:
+- :checkered_flag: setup `.env` file
+- :package: fetch and install all dependencies.
+- :robot: launch the mqtt broker on localhost:1883 
+- :whale: launch the app on http://localhost:8080
 - :fire: code reload - restart app upon code changes
 
 ## Documentation
@@ -29,7 +29,7 @@ This command will:
 * [Specification](/docs/spec)
 
 ## License
-Copyright (c) 2018-2019 RealMQ GmbH.
+Copyright (c) 2018-2019 RealMQ GmbH.<br/>
 Licensed under the [Open Software License version 3.0](LICENSE)
 
 
