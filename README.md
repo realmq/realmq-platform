@@ -1,6 +1,15 @@
-# RealMQ Platform
-![build status](https://drone.rmq.ovh/api/badges/RealMQ/realmq-platform/status.svg)
+<h1 align="center">
+  <img src="media/realmq-platform-logo.svg" alt="RealMQ Logo" />
+  <br><br>
+</h1>
+
+![RealMQ Platform Build Status](https://drone.rmq.ovh/api/badges/RealMQ/realmq-platform/status.svg)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Frealmq%2Frealmq-platform.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Frealmq%2Frealmq-platform?ref=badge_shield)
+
+# RealMQ :rocket: Open Source Real-time Messaging Platform
+
+[RealMQ](https://realmq.com) is a free and open source backbone for real-time telecommunication use-cases.
+
 
 ## Configuration
 
