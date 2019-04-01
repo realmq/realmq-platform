@@ -1,5 +1,6 @@
 # RealMQ Platform
 ![build status](https://drone.rmq.ovh/api/badges/RealMQ/realmq-platform/status.svg)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Frealmq%2Frealmq-platform.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Frealmq%2Frealmq-platform?ref=badge_shield)
 
 ## Configuration
 
@@ -30,3 +31,6 @@ This command will:
 ## License
 Copyright (c) 2018-2019 RealMQ GmbH.
 Licensed under the [Open Software License version 3.0](LICENSE)
+
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Frealmq%2Frealmq-platform.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Frealmq%2Frealmq-platform?ref=badge_large)
