@@ -8,7 +8,7 @@
 
 # RealMQ :rocket: Open Source Real-time Messaging Platform
 
-[RealMQ](https://realmq.com) is a free and open source backbone for real-time telecommunication.
+[RealMQ](https://realmq.com) is a free and open source backbone for real-time communication.
 Our core values are **performance** and **integrability**.
 The platform is built around a convenient REST-API to manage access control, data channels and users/devices.
 Messages, events and data are exchanged via the battle proven MQTT protocol which is lightweight, fast and well established in the world of IoT.
@@ -35,7 +35,11 @@ Once enabled, all messages published to the channel will be kept for a configure
 Persisted messages can be retrieved via API history resource.
 
 <details>
-<summary>Code sample</summary>
+<summary>Explore code samples</summary>
+<br>
+
+[![Using RealMQ via Node SDK](https://badgen.net/badge/-/Node%20SDK/purple?icon=awesome&label "Using RealMQ via Node SDK")](https://realmq.com/docs/node-sdk)
+[![Using RealMQ via Web SDK](https://badgen.net/badge/-/Web%20SDK/purple?icon=awesome&label "Using RealMQ via Web SDK")](https://realmq.com/docs/web-sdk)
 
 ```js
 // Create a new channel that keeps messages for 2 weeks 
@@ -51,33 +55,70 @@ const history = await realmq.history.query({
 
 ```
 
+[![Using RealMQ via CURL](https://badgen.net/badge/example/CURL/purple?icon=awesome&label "Using RealMQ via CURL")](https://realmq.com/docs/client-api)
+
+```bash
+curl -X POST -H 'Authorization: Bearer token...' -H 'Content-Type: application/json' \
+     -d '{"history": "2 weeks"}' \
+     https://api.realmq.com/client/v1/channels
+     
+curl -H 'Authorization: Bearer token...' \
+     https://api.realmq.com/client/v1/channels/:channelId/history?limit=20
+```
+
 </details>
 
 ### Custom Ids
 It’s just a little detail that manifests the seamless integration into your stack:
 All API resources can be operated with optional custom ids.
-Here is an example of how working with custom ids in our nodejs sdk looks like:
+[read more](https://realmq.com/docs/knowledge-base/#custom-ids)
 
 <details>
-<summary>Code sample</summary>
+<summary>Explore code samples</summary>
+<br>
+
+[![Using RealMQ via Node SDK](https://badgen.net/badge/-/Node%20SDK/purple?icon=awesome&label "Using RealMQ via Node SDK")](https://realmq.com/docs/node-sdk)
+[![Using RealMQ via Web SDK](https://badgen.net/badge/-/Web%20SDK/purple?icon=awesome&label "Using RealMQ via Web SDK")](https://realmq.com/docs/web-sdk)
 
 ```js
-// Create and lookup resources with custom ids
+// Create resources with custom ids
 const channel = await realmq.channels.create({ id: 'custom-channel-id' });
+console.log(channel.id); // => custom-channel-id
+
+// Retrieve resources with custom ids
+const channel = await realmq.channels.retrieve('custom-channel-id');
 
 // Or get an id auto generated
-const subscription = await realmq.subscriptions.create();
-subscription.id // => 20f62e87-e689-4a11-bcf3-a78026fffd85
+const channel = await realmq.channels.create();
+console.log(channel.id) // => 20f62e87-e689-4a11-bcf3-a78026fffd85
 
+```
+
+[![Using RealMQ via CURL](https://badgen.net/badge/example/CURL/purple?icon=awesome&label "Using RealMQ via CURL")](https://realmq.com/docs/client-api/)
+
+```bash
+# Create resources with custom ids
+curl -X POST -H 'Authorization: Bearer token...' -H 'Content-Type: application/json' \
+     -d '{"id": "custom-channel-id"}' \
+     https://api.realmq.com/client/v1/channels
+
+# Retrieve resources with custom ids
+curl -H 'Authorization: Bearer token...' /
+     https://api.realmq.com/client/v1/channels/custom-channel-id
+
+# Or get an id auto generated
+curl -X POST -H 'Authorization: Bearer token...' \
+     https://api.realmq.com/client/v1/channels
 ```
 
 </details>
 
-### Multi-Tenancy / Projects
-You have the ability to run our platform with multiple, isolated data containers.
-Our so-called Realms make it a breeze to setup clean separation of different applications and launch on-the-fly environments (like prod, test, demo).
+### Realms
+The RealMQ platform comes with built in **multi-tenancy** / project support.
+You have the ability to operate multiple, **isolated data containers**.
+Our so-called Realms make it a breeze to setup clean separation of different applications and **launch on-the-fly environments** (like prod, test, demo).
 Realms are completely transparent to clients, as we are able to route all RTM and API calls into the correct Realm via auth tokens.
-For Realm administration and access management you can operate directly against a dedicated administration api.
+For Realm administration and access management you can operate directly against a **dedicated administration api**.
 
 ### SDKs
 We provide SDKs for [NodeJS](https://github.com/realmq/realmq-node-sdk) and the [Browser](https://github.com/realmq/realmq-web-sdk).
@@ -85,7 +126,10 @@ Other major platforms will follow.
 The SDKs aim for seamless integration and hence provide you with a convenient interface for interacting with our platform and are first class helpers for building reactive realtime apps.
 
 <details>
-<summary>Code sample</summary>
+<summary>Explore code sample</summary>
+<br>
+
+[![Using RealMQ via Node SDK](https://badgen.net/badge/-/Node%20SDK/purple?icon=awesome&label "Using RealMQ via Node SDK")](https://realmq.com/docs/node-sdk)
 
 ```js
 import RealMQ from '@realmq/node-sdk';
