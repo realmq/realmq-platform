@@ -1,7 +1,7 @@
 const jsonPatch = require('fast-json-patch');
 const schemaValidator = require('../../lib/schema-validator');
 const {success, failure} = require('../../lib/result');
-const error = require('../../lib/error/task');
+const taskError = require('../../lib/error/task');
 
 /**
  * JSON Schema describing the set of changeable properties
@@ -36,7 +36,7 @@ module.exports = ({userRepository}) =>
     const {scope, realmId} = authToken;
 
     if (scope !== 'admin') {
-      return failure(error({
+      return failure(taskError({
         code: 'InsufficientPrivileges',
         message: 'Insufficient privileges to patch users.',
       }));
@@ -44,7 +44,7 @@ module.exports = ({userRepository}) =>
 
     const user = await userRepository.findOne({realmId, id});
     if (!user) {
-      return failure(error({
+      return failure(taskError({
         code: 'UnknownUser',
         message: 'User does not exists.',
       }));
@@ -57,7 +57,7 @@ module.exports = ({userRepository}) =>
     const patchValidationError = jsonPatch.validate(patch, changeableProperties);
     if (patchValidationError) {
       return failure(
-        error({
+        taskError({
           code: 'InvalidPatch',
           message: 'Provided patch is invalid.',
         }),
@@ -70,7 +70,7 @@ module.exports = ({userRepository}) =>
     const {valid, errors: validationErrors} = validateChangeableProperties(patchedChangeableProperties);
     if (!valid) {
       return failure(
-        error({
+        taskError({
           code: 'InvalidUser',
           message: 'Invalid user after applying patch.',
         }),

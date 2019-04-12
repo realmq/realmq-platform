@@ -46,16 +46,17 @@ module.exports = ({authTokenRules, realmRepository, userRepository, authReposito
         description,
       });
       return success(await authRepository.create(entity));
-    } catch (tokenCreationErr) {
-      if (tokenCreationErr.isDuplicateKeyError) {
+    } catch (error) {
+      if (error.isDuplicateKeyError) {
         return failure(
           createTaskError({
             code: 'AuthTokenAlreadyExists',
             message: 'Auth token could not be created, since an auth token with the same id already exists.',
           }),
-          tokenCreationErr
+          error
         );
       }
-      return Promise.reject(tokenCreationErr);
+
+      return Promise.reject(error);
     }
   };

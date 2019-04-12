@@ -1,5 +1,5 @@
 const {success, failure} = require('../../lib/result');
-const error = require('../../lib/error/task');
+const taskError = require('../../lib/error/task');
 
 /**
  * Init create user task
@@ -17,7 +17,7 @@ module.exports = ({userRepository}) =>
     const {scope, realmId} = authToken;
 
     if (scope !== 'admin') {
-      return failure(error({
+      return failure(taskError({
         code: 'InsufficientPrivileges',
         message: 'Insufficient privileges to create a user.',
       }));
@@ -29,16 +29,17 @@ module.exports = ({userRepository}) =>
         realmId,
       });
       return success(user);
-    } catch (creationError) {
-      if (creationError.isDuplicateKeyError) {
+    } catch (error) {
+      if (error.isDuplicateKeyError) {
         return failure(
-          error({
+          taskError({
             code: 'UserAlreadyExists',
             message: 'A user with the same id already exists.',
           }),
-          creationError
+          error
         );
       }
-      return Promise.reject(creationError);
+
+      return Promise.reject(error);
     }
   };

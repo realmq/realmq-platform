@@ -45,9 +45,11 @@ module.exports = ({collection, createModel = createMessageModel}) => {
       if (from || to) {
         query.createdAt = {};
       }
+
       if (from) {
         query.createdAt.$gte = from;
       }
+
       if (to) {
         query.createdAt.$lt = to;
       }

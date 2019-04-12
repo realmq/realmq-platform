@@ -1,5 +1,5 @@
 const {success, failure} = require('../../lib/result');
-const error = require('../../lib/error/task');
+const taskError = require('../../lib/error/task');
 
 /**
  * Init delete subscription task
@@ -21,7 +21,7 @@ module.exports = ({
     const {scope, realmId} = authToken;
 
     if (scope !== 'admin') {
-      return failure(error({
+      return failure(taskError({
         code: 'InsufficientPrivileges',
         message: 'Insufficient privileges to delete a subscription.',
       }));
@@ -29,7 +29,7 @@ module.exports = ({
 
     const subscription = await subscriptionRepository.findOne({realmId, id});
     if (!subscription) {
-      return failure(error({
+      return failure(taskError({
         code: 'UnknownSubscription',
         message: 'Subscription does not exists.',
       }));

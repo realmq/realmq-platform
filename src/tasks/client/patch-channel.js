@@ -1,6 +1,6 @@
 const Ajv = require('ajv');
 const {success, failure} = require('../../lib/result');
-const error = require('../../lib/error/task');
+const taskError = require('../../lib/error/task');
 const {apply: patchDocument, validate: validatePatch} = require('../../lib/json-patch');
 
 /**
@@ -62,7 +62,7 @@ module.exports = ({channelRepository}) =>
     const {scope, realmId} = authToken;
 
     if (scope !== 'admin') {
-      return failure(error({
+      return failure(taskError({
         code: 'InsufficientPrivileges',
         message: 'Insufficient privileges to patch a channel.',
       }));
@@ -70,26 +70,24 @@ module.exports = ({channelRepository}) =>
 
     const channel = await channelRepository.findOne({realmId, id});
     if (!channel) {
-      return failure(error({
+      return failure(taskError({
         code: 'UnknownChannel',
         message: 'Channel does not exists.',
       }));
     }
 
     const changeableProperties = {
-      features: Object.assign({}, channel.features, {
-        persistence: {
-          enabled: false,
-          duration: undefined,
-        },
-      }),
+      features: {...channel.features, persistence: {
+        enabled: false,
+        duration: undefined,
+      }},
       properties: channel.properties || {},
     };
 
     const patchValidationError = validatePatch({patch, document: changeableProperties});
     if (patchValidationError) {
       return failure(
-        error({
+        taskError({
           code: 'InvalidPatch',
           message: 'Provided patch is invalid.',
         }),
@@ -101,7 +99,7 @@ module.exports = ({channelRepository}) =>
     const {valid, errors: validationErrors} = validateChangeableProperties(patchedProperties);
     if (!valid) {
       return failure(
-        error({
+        taskError({
           code: 'InvalidChannel',
           message: 'Invalid channel after applying patch.',
         }),

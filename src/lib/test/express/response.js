@@ -33,6 +33,7 @@ module.exports = (state = {}) => {
       } else {
         state.headers[name] = value;
       }
+
       return response;
     },
     /**

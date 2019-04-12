@@ -18,16 +18,18 @@ const createLogger = require('./lib/logger');
       if (shuttingDown) {
         return;
       }
+
       logger.debug('shutting down...');
       shuttingDown = true;
 
       const status = await app.stop();
       process.exit(status);
     };
+
     process.on('SIGINT', shutdown);
     process.on('SIGTERM', shutdown);
-  } catch (err) {
-    console.error(`FATAL: ${err}`, err);
+  } catch (error) {
+    console.error(`FATAL: ${error}`, error);
     process.exit(1);
   }
 })();

@@ -21,6 +21,7 @@ module.exports = topic => {
   if (isRmqSysTopic) {
     parts.shift();
   }
+
   // Remove "realm"
   parts.shift();
   // Remove ":realmId"

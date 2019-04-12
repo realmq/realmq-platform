@@ -27,6 +27,7 @@ module.exports = ({rmqSysTopic = '$RMQ', realmTopic = 'realm', userTopic = 'user
     if (isSysTopic) {
       internalLevels.push(externalLevels.shift());
     }
+
     // Add realm/:id
     internalLevels.push(realmTopic, client.realmId);
     // Replace sync/my -> sync/user/:id
@@ -39,6 +40,7 @@ module.exports = ({rmqSysTopic = '$RMQ', realmTopic = 'realm', userTopic = 'user
       externalLevels.shift();
       internalLevels.push(userTopic, client.userId);
     }
+
     // Add remaining levels
     internalLevels = internalLevels.concat(externalLevels);
 
