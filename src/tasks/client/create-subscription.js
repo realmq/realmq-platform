@@ -1,5 +1,5 @@
 const {success, failure} = require('../../lib/result');
-const error = require('../../lib/error/task');
+const taskError = require('../../lib/error/task');
 
 /**
  * Ensure user exists
@@ -45,7 +45,7 @@ module.exports = ({
     const {scope, realmId} = authToken;
 
     if (scope !== 'admin') {
-      return failure(error({
+      return failure(taskError({
         code: 'InsufficientPrivileges',
         message: 'Insufficient privileges to create a subscription.',
       }));
@@ -68,19 +68,20 @@ module.exports = ({
       sendSubscriptionSyncMessage({subscription, action: 'created'});
 
       return success(subscription);
-    } catch (creationError) {
+    } catch (error) {
       if (
-        creationError.isRepositoryError &&
-        creationError.isDuplicateKeyError
+        error.isRepositoryError &&
+        error.isDuplicateKeyError
       ) {
         return failure(
-          error({
+          taskError({
             code: 'SubscriptionAlreadyExists',
             message: 'A subscription with the same id already exists.',
           }),
-          creationError
+          error
         );
       }
-      throw creationError;
+
+      throw error;
     }
   };

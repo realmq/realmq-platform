@@ -1,6 +1,6 @@
 const Ajv = require('ajv');
 const {success, failure} = require('../../lib/result');
-const error = require('../../lib/error/task');
+const taskError = require('../../lib/error/task');
 const {apply: patchDocument, validate: validatePatch} = require('../../lib/json-patch');
 
 /**
@@ -51,7 +51,7 @@ module.exports = ({
     const {scope, realmId} = authToken;
 
     if (scope !== 'admin') {
-      return failure(error({
+      return failure(taskError({
         code: 'InsufficientPrivileges',
         message: 'Insufficient privileges to patch a subscription.',
       }));
@@ -59,7 +59,7 @@ module.exports = ({
 
     const subscription = await subscriptionRepository.findOne({realmId, id});
     if (!subscription) {
-      return failure(error({
+      return failure(taskError({
         code: 'UnknownSubscription',
         message: 'Subscription does not exists.',
       }));
@@ -73,7 +73,7 @@ module.exports = ({
     const patchValidationError = validatePatch({patch, document: changeableProperties});
     if (patchValidationError) {
       return failure(
-        error({
+        taskError({
           code: 'InvalidPatch',
           message: 'Provided patch is invalid.',
         }),
@@ -85,7 +85,7 @@ module.exports = ({
     const {valid, errors: validationErrors} = validateChangeableProperties(patchedProperties);
     if (!valid) {
       return failure(
-        error({
+        taskError({
           code: 'InvalidSubscription',
           message: 'Invalid subscription after applying patch.',
         }),

@@ -44,7 +44,7 @@ module.exports = ({logger, channelRepository, messageRepository}) =>
       };
 
       await messageRepository.create(record);
-    } catch (err) {
-      logger.error('Message persistence failed.', err);
+    } catch (error) {
+      logger.error('Message persistence failed.', error);
     }
   };

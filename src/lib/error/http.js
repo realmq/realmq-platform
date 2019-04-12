@@ -29,8 +29,8 @@ error.notAllowed = ({path}) => error({
 
 /**
  * Not found error
- * @param {string} path
- * @returns {HttpError}
+ * @param {string} path The url path that was not found
+ * @returns {HttpError} The not found error object
  */
 error.notFound = ({path}) => error({
   status: 404,
@@ -41,7 +41,7 @@ error.notFound = ({path}) => error({
 /**
  * Internal server error
  * @param {object} [previous] Previous error
- * @returns {HttpError}
+ * @returns {HttpError} The internal server error object
  */
 error.internal = ({previous} = {}) => error({
   status: 500,

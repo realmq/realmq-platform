@@ -1,6 +1,6 @@
 /**
  * @param {function(object, boolean)} callback Callback
- * @returns SecuritySchemeResponder Responder
+ * @returns {SecuritySchemeResponder} Responder
  */
 module.exports = callback => {
   /**

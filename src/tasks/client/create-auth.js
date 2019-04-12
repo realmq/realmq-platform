@@ -36,10 +36,11 @@ module.exports = ({authTokenRules, authRepository, userRepository}) =>
       });
       const persistedAuth = await authRepository.create(ephemeralAuth);
       return success(persistedAuth);
-    } catch (creationError) {
-      if (creationError.isDuplicateKeyError) {
-        return failure(errorAlreadyExists(), creationError);
+    } catch (error) {
+      if (error.isDuplicateKeyError) {
+        return failure(errorAlreadyExists(), error);
       }
-      throw creationError;
+
+      throw error;
     }
   };

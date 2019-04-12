@@ -28,8 +28,8 @@ const main = async () => {
   try {
     const code = await main();
     process.exit(code);
-  } catch (err) {
-    console.error(err);
+  } catch (error) {
+    console.error(error);
     process.exit(1);
   }
 })();

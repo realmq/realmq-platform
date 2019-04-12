@@ -43,8 +43,8 @@ module.exports = ({authenticateUser, logger}) => {
       req.auth = result.auth;
       req.user = result.user;
       return responder.grant();
-    } catch (err) {
-      logger.error(`Unexpected error on authenticating request: ${err}`, {err});
+    } catch (error) {
+      logger.error(`Unexpected error on authenticating request: ${error}`, {error});
       return responder.fail();
     }
   };

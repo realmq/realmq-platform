@@ -21,5 +21,6 @@ module.exports = ({loadTopicPermissions, rewriteTopicToInternal}) =>
       const internalTopic = rewriteTopicToInternal({topic, client});
       return {authorized: true, internalTopic};
     }
+
     return {authorized: false};
   };

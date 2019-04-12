@@ -30,9 +30,10 @@ module.exports = ({config, logger}) => new Promise((resolve, reject) => {
     startupErrorCount += 1;
     if (startupErrorCount >= maxStartupErrors) {
       client.removeListener('error', startupErrorHandler);
-      reject(new Error(`Reached maximum broker connect errors`));
+      reject(new Error('Reached maximum broker connect errors'));
     }
   };
+
   client.on('error', startupErrorHandler);
   client.once('connect', () => {
     client.removeListener('error', startupErrorHandler);

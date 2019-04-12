@@ -1,5 +1,5 @@
 const {success, failure} = require('../../lib/result');
-const error = require('../../lib/error/task');
+const taskError = require('../../lib/error/task');
 
 /**
  * @param {AccountRules} accountRules Account rules
@@ -22,16 +22,17 @@ module.exports = ({accountRules, accountRepository}) =>
       const dataWithPasswordHash = await accountRules.setPassword(data, data.password);
       const account = await accountRepository.create(dataWithPasswordHash);
       return success(account);
-    } catch (err) {
-      if (err.isDuplicateKeyError) {
+    } catch (error) {
+      if (error.isDuplicateKeyError) {
         return failure(
-          error({
+          taskError({
             code: 'EmailAlreadyTaken',
             message: 'Account could not be created, since an account with the same email already exists.',
           }),
-          err
+          error
         );
       }
-      return Promise.reject(err);
+
+      return Promise.reject(error);
     }
   };

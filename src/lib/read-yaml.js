@@ -12,8 +12,8 @@ const buildSchema = (path, readYaml) => {
     construct: path => {
       try {
         return readYaml(absoultizePath(path));
-      } catch (err) {
-        return `[Error: ${err.message}]`;
+      } catch (error) {
+        return `[Error: ${error.message}]`;
       }
     },
   });
@@ -26,10 +26,10 @@ const buildSchema = (path, readYaml) => {
         return contents.reduce((merged, content) => {
           return Array.isArray(merged) ?
             merged.concat(content) :
-            Object.assign({}, content, merged);
+            ({...content, ...merged});
         });
-      } catch (err) {
-        return `[Error: ${err.message}]`;
+      } catch (error) {
+        return `[Error: ${error.message}]`;
       }
     },
   });
@@ -47,11 +47,12 @@ const readYaml = path => new Promise((resolve, reject) => {
     if (loadErr) {
       return reject(loadErr);
     }
+
     try {
       const schema = buildSchema(path, readYamlSync);
       resolve(parseYaml(data, {schema}));
-    } catch (parseErr) {
-      reject(parseErr);
+    } catch (error) {
+      reject(error);
     }
   });
 });
