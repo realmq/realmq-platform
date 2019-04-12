@@ -22,28 +22,28 @@
     "test-coverage": "jest --coverage"
   },
   "dependencies": {
-    "ajv": "^6.5.1",
+    "ajv": "^6.10.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "bunyan": "^1.8.12",
     "bunyan-format": "^0.2.1",
-    "compression": "^1.7.2",
-    "cors": "^2.8.4",
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
     "dotenv": "^7.0.0",
-    "express": "^4.16.3",
+    "express": "^4.16.4",
     "express-openapi": "^1.6.3",
-    "fast-json-patch": "^2.0.6",
-    "js-yaml": "^3.12.0",
+    "fast-json-patch": "^2.1.0",
+    "js-yaml": "^3.13.1",
     "mongodb": "^3.0.10",
-    "mqtt": "^2.18.1",
-    "openapi-schema-validation": "^0.4.1",
-    "uuid": "^3.2.1"
+    "mqtt": "^2.18.8",
+    "openapi-schema-validation": "^0.4.2",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "husky": "^0.14.3",
-    "jest": "^23.1.0",
-    "lint-staged": "^7.1.0",
-    "nodemon": "^1.18.10",
+    "jest": "^23.6.0",
+    "lint-staged": "^7.3.0",
+    "nodemon": "^1.18.11",
     "xo": "^0.21.0"
   },
   "lint-staged": {
