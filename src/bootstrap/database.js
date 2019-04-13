@@ -8,7 +8,7 @@ const {MongoClient} = require('mongodb');
  * @return {Promise<Db>} The database connection
  */
 module.exports = async ({config, logger}) => {
-  const client = await MongoClient.connect(config.database.url);
+  const client = await MongoClient.connect(config.database.url, {useNewUrlParser: true});
   logger.debug('Database connected successfully');
 
   const db = client.db('realmq');
