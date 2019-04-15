@@ -1,8 +1,7 @@
 const {decode: base64Decode} = require('../../base64');
-const status = require('./status');
-const initResponder = require('./responder');
+const httpError = require('../../error/http');
 
-const statusUnauthorized = message => status.unauthorized({
+const unauthorizedError = message => httpError.unauthorized({
   challenge: 'Basic realm="Account credentials"',
   code: 'InvalidAuthorization',
   message,
@@ -21,36 +20,31 @@ module.exports = ({authenticateAccount, logger}) => {
    * @param {object} req Request
    * @param {object} req.headers Request headers
    * @param {?string} req.headers.authorization Authorization header
-   * @param {*} scopes Scopes
-   * @param {*} definitions Definitions
-   * @param {function(status: *, satisfied: boolean)} callback Callback
-   * @returns {Promise<void>} Nothing
+   * @returns {Promise<boolean>} Resolves true on success, otherwise rejects with an http error.
    */
-  return async (req, scopes, definitions, callback) => {
-    const responder = initResponder(callback);
-
+  return async req => {
     try {
       const auth = req.headers.authorization;
       if (!auth) {
-        return responder.decline(statusUnauthorized('Missing authorization'));
+        return Promise.reject(unauthorizedError('Missing authorization'));
       }
 
       const [scheme, value] = auth.trim().split(' ');
       if (scheme.toLowerCase() !== 'basic' || !value) {
-        return responder.decline(statusUnauthorized('Invalid authorization scheme'));
+        return Promise.reject(unauthorizedError('Invalid authorization scheme'));
       }
 
       const [username, password] = base64Decode(value).split(':');
       const result = await authenticateAccount({email: username, password});
       if (!result.authenticated) {
-        return responder.decline(statusUnauthorized('Invalid credentials'));
+        return Promise.reject(unauthorizedError('Invalid credentials'));
       }
 
       req.account = result.account;
-      return responder.grant();
+      return true;
     } catch (error) {
       logger.error(`Unexpected error on authenticating request: ${error}`, {error});
-      return responder.fail();
+      throw httpError.internal({previous: error});
     }
   };
 };
