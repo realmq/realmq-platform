@@ -3,7 +3,7 @@
 : ${SMOKE_TARGET_PORT=8080}
 : ${SMOKE_TARGET_SCHEME=http}
 
-email="$(date +%Y%m%d%H%M%S%3N)@smoketest.realmq.com"
+email="$(date +%Y%m%d%H%M%S%3N)@smoke-test.realmq.com"
 password="test"
 baseUrl="${SMOKE_TARGET_SCHEME}://${SMOKE_TARGET_HOST}:${SMOKE_TARGET_PORT}"
 
