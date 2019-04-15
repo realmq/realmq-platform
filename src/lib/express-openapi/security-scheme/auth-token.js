@@ -1,7 +1,6 @@
-const status = require('./status');
-const initResponder = require('./responder');
+const httpError = require('../../error/http');
 
-const statusUnauthorized = message => status.unauthorized({
+const unauthorizedError = message => httpError.unauthorized({
   challenge: 'Bearer',
   code: 'InvalidAuthorization',
   message,
@@ -13,22 +12,18 @@ module.exports = ({authenticateUser, logger}) => {
    * @param {object} req Request
    * @param {object} req.headers Request headers
    * @param {?string} req.headers.authorization Authorization header
-   * @param {*} scopes Scopes
-   * @param {*} definitions Definitions
-   * @param {function(status: *, satisfied: boolean)} callback Callback
-   * @returns {Promise<void>} Nothing
+   * @returns {Promise<boolean>} Resolves true on success, otherwise rejects with an http error.
    */
-  return async (req, scopes, definitions, callback) => {
-    const responder = initResponder(callback);
+  return async req => {
     try {
       const auth = req.headers.authorization;
       if (!auth) {
-        return responder.decline(statusUnauthorized('Missing authorization'));
+        return Promise.reject(unauthorizedError('Missing authorization'));
       }
 
       const [scheme, token] = auth.trim().split(' ');
       if (scheme.toLowerCase() !== 'bearer' || !token) {
-        return responder.decline(statusUnauthorized('Invalid authorization scheme'));
+        return Promise.reject(unauthorizedError('Invalid authorization scheme'));
       }
 
       const {ok, result, error} = await authenticateUser({token});
@@ -37,15 +32,15 @@ module.exports = ({authenticateUser, logger}) => {
       }
 
       if (!result.authenticated) {
-        return responder.decline(statusUnauthorized('Invalid credentials'));
+        return Promise.reject(unauthorizedError('Invalid credentials'));
       }
 
       req.auth = result.auth;
       req.user = result.user;
-      return responder.grant();
+      return true;
     } catch (error) {
       logger.error(`Unexpected error on authenticating request: ${error}`, {error});
-      return responder.fail();
+      throw httpError.internal({previous: error});
     }
   };
 };
