@@ -2,15 +2,18 @@
  * @param {number} status The http status code
  * @param {string} message The error message
  * @param {string} code The error code
+ * @param {*} [details] Further error specific details
+ * @param {object} [previous] Previous error
  * @return {HttpError} The http error object
  */
-const error = ({status, message, code, previous}) =>
+const error = ({status, message, code, details, previous}) =>
   /**
    * @class HttpError
    * @property {number} status The http status code
    * @property {string} message The error message
    * @property {string} code The error code
    * @property {boolean} isHttpError Flag that indicates http error type.
+   * @property {*} [details] Further error specific details
    * @property {object} [previous] Previous error
    */
   ({
@@ -18,6 +21,7 @@ const error = ({status, message, code, previous}) =>
     status,
     message,
     code,
+    details,
     previous,
   });
 
