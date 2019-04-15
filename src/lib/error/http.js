@@ -50,4 +50,18 @@ error.internal = ({previous} = {}) => error({
   previous,
 });
 
+/**
+ * Create unauthorized error
+ * @param {String} [code] Error code
+ * @param {String} [message] Error message
+ * @param {String} [challenge] Authorization challenge
+ * @returns {HttpError} The unauthorized error
+ */
+error.unauthorized = ({code = 'InvalidAuthorization', message, challenge}) => error({
+  status: 401,
+  code,
+  message,
+  challenge,
+});
+
 module.exports = error;
