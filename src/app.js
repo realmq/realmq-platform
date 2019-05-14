@@ -9,6 +9,7 @@ module.exports = ({config, logger}) => {
       if (started) {
         return;
       }
+
       started = true;
       logger.debug('starting...');
 
@@ -22,6 +23,7 @@ module.exports = ({config, logger}) => {
       if (!started) {
         return;
       }
+
       started = false;
       logger.debug('stopping...');
 

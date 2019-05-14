@@ -11,8 +11,10 @@ module.exports = ({scope, realmId, userId, id}) => {
   if (scope !== 'admin') {
     query.userId = userId;
   }
+
   if (id) {
     query.id = id;
   }
+
   return query;
 };

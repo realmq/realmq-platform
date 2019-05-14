@@ -13,6 +13,7 @@ module.exports = ({authRepository}) =>
     if (!auth) {
       return;
     }
+
     auth.isOnline = false;
     await authRepository.update(auth);
   };

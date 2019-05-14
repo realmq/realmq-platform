@@ -36,6 +36,7 @@ module.exports = {
     if (!password || !account.passwordHash) {
       return false;
     }
+
     return comparePasswordToHash(password, account.passwordHash);
   },
 };

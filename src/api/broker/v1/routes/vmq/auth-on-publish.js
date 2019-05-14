@@ -30,6 +30,7 @@ module.exports = ({authenticateClient, authorizePublish}) =>
     if (!authorization.authorized) {
       return response.json({result: {error: 'unauthorized'}});
     }
+
     response
       .set({'Cache-Control': 'max-age=60'})
       .json({result: 'ok', modifiers: {topic: authorization.internalTopic}});

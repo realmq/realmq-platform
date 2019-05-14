@@ -50,8 +50,8 @@ module.exports = ({
     try {
       await publishMessage(topic, message);
       return success(null);
-    } catch (e) {
-      return failure(e);
+    } catch (error) {
+      return failure(error);
     }
   };
 };

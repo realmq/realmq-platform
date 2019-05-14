@@ -3,7 +3,7 @@
 : ${SMOKE_TARGET_PORT=8080}
 : ${SMOKE_TARGET_SCHEME=http}
 
-email="test@example.com"
+email="$(date +%Y%m%d%H%M%S%3N)@smoke-test.realmq.com"
 password="test"
 baseUrl="${SMOKE_TARGET_SCHEME}://${SMOKE_TARGET_HOST}:${SMOKE_TARGET_PORT}"
 
@@ -36,6 +36,7 @@ clientRequest() {
 
 set -e
 
+echo "Running tests with email: $email"
 echo "Create account"
 adminRequest "POST" "/accounts" "{\"email\":\"$email\",\"password\":\"$password\"}" > /dev/null
 

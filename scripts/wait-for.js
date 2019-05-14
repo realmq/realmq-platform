@@ -33,6 +33,7 @@ const main = async argv => {
       } else {
         timeout = parseInt(arg, 10);
       }
+
       return [endpoints, timeout];
     },
     [[], 30]
@@ -61,6 +62,7 @@ const main = async argv => {
         );
         throw new Error(`Timeout connecting to endpoint(s):${resultReport}`);
       }
+
       await sleep(980);
     }
   } while (!allPresent);
@@ -70,8 +72,8 @@ const main = async argv => {
   try {
     const code = await main(process.argv);
     process.exit(code);
-  } catch (err) {
-    console.error(err.message);
+  } catch (error) {
+    console.error(error.message);
     process.exit(1);
   }
 })();

@@ -10,9 +10,7 @@ const main = async () => {
       const spec = await readYaml(file);
       const version = spec.openapi ? 3 : 2;
       const result = validate(spec, version);
-      return result.errors.length ?
-        {file, error: result} :
-        null;
+      return result.errors.length === 0 ? null : {file, error: result};
     } catch (error) {
       return {file, error};
     }
@@ -33,8 +31,8 @@ const main = async () => {
   try {
     const code = await main();
     process.exit(code);
-  } catch (err) {
-    console.error(err);
+  } catch (error) {
+    console.error(error);
     process.exit(1);
   }
 })();

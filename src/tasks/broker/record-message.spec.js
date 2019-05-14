@@ -48,7 +48,7 @@ describe('The broker recordMessage task', () => {
 
   describe('when called with RMQ sys topic', () => {
     it('should not persist', async () => {
-      const topic = `$RMQ/realm/some-realm-id/some/topic`;
+      const topic = '$RMQ/realm/some-realm-id/some/topic';
       await recordMessage({topic, message: 'foobar'});
 
       expect(messageRepository.create).not.toHaveBeenCalled();

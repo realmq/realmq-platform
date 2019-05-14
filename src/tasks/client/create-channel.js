@@ -1,5 +1,5 @@
 const {success, failure} = require('../../lib/result');
-const error = require('../../lib/error/task');
+const taskError = require('../../lib/error/task');
 
 /**
  * Init create channel task
@@ -17,7 +17,7 @@ module.exports = ({channelRepository}) =>
     const {scope, realmId} = authToken;
 
     if (scope !== 'admin') {
-      return failure(error({
+      return failure(taskError({
         code: 'InsufficientPrivileges',
         message: 'Insufficient privileges to create a channel.',
       }));
@@ -29,16 +29,17 @@ module.exports = ({channelRepository}) =>
         realmId,
       });
       return success(channel);
-    } catch (creationError) {
-      if (creationError.isDuplicateKeyError) {
+    } catch (error) {
+      if (error.isDuplicateKeyError) {
         return failure(
-          error({
+          taskError({
             code: 'ChannelAlreadyExists',
             message: 'A channel with the same id already exists.',
           }),
-          creationError
+          error
         );
       }
-      return Promise.reject(creationError);
+
+      return Promise.reject(error);
     }
   };

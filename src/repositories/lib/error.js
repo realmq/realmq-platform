@@ -60,13 +60,13 @@ function duplicate({previous} = {}) {
  * @return {Promise<*>} Result
  */
 function wrap(op) {
-  return Promise.resolve(op).catch(err => {
-    const {name, code} = err;
+  return Promise.resolve(op).catch(error => {
+    const {name, code} = error;
     if (name !== 'MongoError') {
-      return Promise.reject(err);
+      return Promise.reject(error);
     }
 
-    const wrappedError = (codeMap.get(code) || generic)({previous: err});
+    const wrappedError = (codeMap.get(code) || generic)({previous: error});
     return Promise.reject(wrappedError);
   });
 }

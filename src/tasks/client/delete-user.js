@@ -1,5 +1,5 @@
 const {success, failure} = require('../../lib/result');
-const error = require('../../lib/error/task');
+const taskError = require('../../lib/error/task');
 
 /**
  * Init delete user task.
@@ -20,7 +20,7 @@ module.exports = ({userRepository, authRepository, subscriptionRepository}) =>
     const {scope, realmId} = authToken;
 
     if (scope !== 'admin') {
-      return failure(error({
+      return failure(taskError({
         code: 'InsufficientPrivileges',
         message: 'Insufficient privileges to delete a user.',
       }));
@@ -28,7 +28,7 @@ module.exports = ({userRepository, authRepository, subscriptionRepository}) =>
 
     const user = await userRepository.findOne({realmId, id});
     if (!user) {
-      return failure(error({
+      return failure(taskError({
         code: 'UnknownUser',
         message: 'User does not exists.',
       }));

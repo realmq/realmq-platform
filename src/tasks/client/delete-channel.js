@@ -1,5 +1,5 @@
 const {success, failure} = require('../../lib/result');
-const error = require('../../lib/error/task');
+const taskError = require('../../lib/error/task');
 
 /**
  * Init delete channel task
@@ -21,7 +21,7 @@ module.exports = ({
     const {scope, realmId} = authToken;
 
     if (scope !== 'admin') {
-      return failure(error({
+      return failure(taskError({
         code: 'InsufficientPrivileges',
         message: 'Insufficient privileges to delete a channel.',
       }));
@@ -29,7 +29,7 @@ module.exports = ({
 
     const channel = await channelRepository.findOne({realmId, id});
     if (!channel) {
-      return failure(error({
+      return failure(taskError({
         code: 'UnknownChannel',
         message: 'Channel does not exists.',
       }));

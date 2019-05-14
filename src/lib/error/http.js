@@ -2,15 +2,18 @@
  * @param {number} status The http status code
  * @param {string} message The error message
  * @param {string} code The error code
+ * @param {*} [details] Further error specific details
+ * @param {object} [previous] Previous error
  * @return {HttpError} The http error object
  */
-const error = ({status, message, code, previous}) =>
+const error = ({status, message, code, details, previous}) =>
   /**
    * @class HttpError
    * @property {number} status The http status code
    * @property {string} message The error message
    * @property {string} code The error code
    * @property {boolean} isHttpError Flag that indicates http error type.
+   * @property {*} [details] Further error specific details
    * @property {object} [previous] Previous error
    */
   ({
@@ -18,6 +21,7 @@ const error = ({status, message, code, previous}) =>
     status,
     message,
     code,
+    details,
     previous,
   });
 
@@ -29,8 +33,8 @@ error.notAllowed = ({path}) => error({
 
 /**
  * Not found error
- * @param {string} path
- * @returns {HttpError}
+ * @param {string} path The url path that was not found
+ * @returns {HttpError} The not found error object
  */
 error.notFound = ({path}) => error({
   status: 404,
@@ -41,13 +45,27 @@ error.notFound = ({path}) => error({
 /**
  * Internal server error
  * @param {object} [previous] Previous error
- * @returns {HttpError}
+ * @returns {HttpError} The internal server error object
  */
 error.internal = ({previous} = {}) => error({
   status: 500,
   code: 'InternalServerError',
   message: 'The request could not be processed.',
   previous,
+});
+
+/**
+ * Create unauthorized error
+ * @param {String} [code] Error code
+ * @param {String} [message] Error message
+ * @param {String} [challenge] Authorization challenge
+ * @returns {HttpError} The unauthorized error
+ */
+error.unauthorized = ({code = 'InvalidAuthorization', message, challenge}) => error({
+  status: 401,
+  code,
+  message,
+  challenge,
 });
 
 module.exports = error;
