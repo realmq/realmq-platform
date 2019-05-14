@@ -188,8 +188,8 @@ npm run dev
 This command will:
 - :checkered_flag: setup `.env` file
 - :package: fetch and install all dependencies.
-- :robot: launch the mqtt broker on localhost:1883 
-- :whale: launch the app on http://localhost:8080
+- :robot: launch the mqtt broker on rmt.realmq.local:1883 
+- :whale: launch the app on https://api.realmq.local
 - :fire: code reload - restart app upon code changes
 
 ## Documentation
