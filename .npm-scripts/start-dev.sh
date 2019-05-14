@@ -24,5 +24,12 @@ docker-compose up -d
 # what a little until mongo has started
 sleep 2
 
+# copy dev root ca certificate to user space
+if [[ ! -f certs/dev-ca-root.crt.pem ]]; then
+  echo -e "\e[1;34m☞\e[0m Setting up \e[1mTLS certificates\e[0m.\nCopy dev ROOT CA certificate to \e[4mcerts/dev-ca-root.crt.pem\e[0m."
+  mkdir certs
+  docker cp $(docker-compose ps -q certificates | head -1):/data/certificates/root.crt.pem certs/dev-ca-root.crt.pem
+fi
+
 # attach to the logs
 docker-compose logs -f --tail 5 platform

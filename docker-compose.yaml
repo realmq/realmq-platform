@@ -1,6 +1,23 @@
 version: '3'
 
 services:
+  dispatcher:
+    image: realmq/realmq-dispatcher
+    volumes:
+      - certificates-volume:/data/certificates
+    ports:
+      - ${PORT_HTTP:-80}:80
+      - ${PORT_HTTPS:-443}:443
+    environment:
+      - TLD=${DOMAIN:-realmq.local}
+      - TLS_CERT=/data/certificates/${DOMAIN:-realmq.local}.crt.pem
+      - TLS_CERT_KEY=/data/certificates/${DOMAIN:-realmq.local}.key.pem
+      - TLS_CERT_ROOT=/data/certificates/root.crt.pem
+    depends_on:
+      - broker
+      - certificates
+      - platform
+
   platform:
     build:
       context: .
@@ -45,5 +62,14 @@ services:
       - ADAPTER_PORT=${PORT:-8080}
       - CREDENTIALS=adapter:adapter
 
+  certificates:
+    image: realmq/dev-ca
+    volumes:
+      - certificates-volume:/data/certificates
+    environment:
+      - DOMAIN=${DOMAIN:-realmq.local}
+      - SAN=api.${DOMAIN:-realmq.local} rtm.${DOMAIN:-realmq.local}
 volumes:
   database-volume:
+  certificates-volume:
+

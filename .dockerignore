@@ -3,3 +3,4 @@
 !.npm_scripts
 node_modules
 docs
+certs/*
