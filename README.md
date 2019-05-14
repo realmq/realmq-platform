@@ -188,9 +188,16 @@ npm run dev
 This command will:
 - :checkered_flag: setup `.env` file
 - :package: fetch and install all dependencies.
+- :lock: generate TLS certificates and setup local dns for `[api.|rtm.]realmq.local`
 - :robot: launch the mqtt broker on rmt.realmq.local:1883 
 - :whale: launch the app on https://api.realmq.local
 - :fire: code reload - restart app upon code changes
+
+### Setting up TLS certificate
+`npm run dev` generates self-signed certificates. In order to trust them on your machine, import the ROOT CA cert from `certs/dev-ca-root.crt.pem`.
+
+* **Firefox**: Go to "Preferences > Advanced > Certificates > View Certificates > Authorities > Import" and select the CA certificate.
+* **Chrome**: Go to "Settings > Manage Certificates > Authorities > Import" and select the CA certificate.
 
 ## Documentation
 
