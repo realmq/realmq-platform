@@ -21,7 +21,7 @@ npm install
 # launch docker setup
 docker-compose up -d
 
-# what a little until mongo has started
+# wait a little until mongo has started
 sleep 2
 
 # copy dev root ca certificate to user space
