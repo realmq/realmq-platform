@@ -189,7 +189,7 @@ This command will:
 - :checkered_flag: setup `.env` file
 - :package: fetch and install all dependencies.
 - :lock: generate TLS certificates and setup local dns for `[api.|rtm.]realmq.local`
-- :robot: launch the mqtt broker on rmt.realmq.local:1883 
+- :robot: launch the mqtt broker on rtm.realmq.local:1883 
 - :whale: launch the app on https://api.realmq.local
 - :fire: code reload - restart app upon code changes
 
