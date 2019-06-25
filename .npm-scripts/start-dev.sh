@@ -32,7 +32,7 @@ if [[ ! -f certs/dev-ca-root.crt.pem ]]; then
 fi
 
 # install dev hosts
-if [[ ! -n "$(grep -P "[[:space:]]realmq.local" /etc/hosts)" ]]; then
+if [[ ! -n "$(grep "realmq.local" /etc/hosts)" ]]; then
     echo -e "\033[1;34m☞\033[0m Setting up \033[1mlocal DNS\033[0m.\nAdding \033[1m127.0.0.1 realmq.local api.realmq.local rtm.realmq.local\033[0m to \033[4m/etc/hosts\033[0m."
     printf "127.0.0.1 realmq.local api.realmq.local rtm.realmq.local\n" | sudo tee -a "/etc/hosts" > /dev/null;
 
