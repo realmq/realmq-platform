@@ -1,9 +1,6 @@
 language: node_js
 node_js: 12
 
-services:
-  - docker
-
 git:
   depth: 3
 
@@ -11,14 +8,28 @@ cache: npm
 
 jobs:
   include:
-    - stage: test
-      name: lint
+    - name: Check coding styles
+      stage: test
       script: npm run lint
-    - stage: test
-      name: test
+    - name: Run unit tests
+      stage: test
       script: npm test
-    - stage: test
-      name: validate-spec
+    - name: Validate openapi spec
+      stage: test
       script:
         - npm run validate-yaml
         - npm run validate-openapi-spec
+    - name: Run smoke tests
+      if: branch = master
+      stage: test
+      services: docker
+      before_script:
+        - docker run -d --name rmq-db -p 27017:27017 -e MONGODB_ROOT_PASSWORD=root -e MONGODB_USERNAME=realmq -e MONGODB_PASSWORD=realmq -e MONGODB_DATABASE=realmq bitnami/mongodb
+        - docker run -d --name rmq-broker -p 1883:1883 -e HOST=0.0.0.0 -e ADAPTER_HOST=rmq-platform -e CREDENTIALS=platform:platform realmq/realmq-broker:latest
+        - ./scripts/wait-for.js 0.0.0.0:27017 0.0.0.0:1883
+        - sleep 15
+        - docker run -d --name rmq-platform -p 8080:8080 --link rmq-broker --link rmq-db -v $(pwd):/app -w /app -e NODE_ENV=production -e DB_URL=mongodb://realmq:realmq@rmq-db:27017/realmq -e BROKER_HOST=rmq-broker -e BROKER_USERNAME=platform -e BROKER_PASSWORD=platform node:12 npm start
+      script:
+        - ./scripts/wait-for.js 0.0.0.0:8080 60
+        - sleep 5
+        - SMOKE_TARGET_HOST=0.0.0.0 npm run smoke-test
