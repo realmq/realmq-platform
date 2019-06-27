@@ -1,0 +1,24 @@
+language: node_js
+node_js: 12
+
+services:
+  - docker
+
+git:
+  depth: 3
+
+cache: npm
+
+jobs:
+  include:
+    - stage: test
+      name: lint
+      script: npm run lint
+    - stage: test
+      name: test
+      script: npm test
+    - stage: test
+      name: validate-spec
+      script:
+        - npm run validate-yaml
+        - npm run validate-openapi-spec
