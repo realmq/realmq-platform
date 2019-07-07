@@ -6,6 +6,7 @@ info:
 
 paths: !includeMerged
   - routes/accounts.yaml
+  - routes/me/account.yaml
   - routes/realms.yaml
   - routes/realms/{id}.yaml
   - routes/realms/{realmId}/tokens.yaml

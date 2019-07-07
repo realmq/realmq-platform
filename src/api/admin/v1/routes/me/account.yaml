@@ -1,0 +1,19 @@
+/me/account:
+  get:
+    summary: Retrieve the authenticated account.
+    description: |
+      Retrieve details of authenticated account.
+
+      #### Allowed Scopes
+      **account**
+    tags:
+      - Account
+    responses:
+      200:
+        description: The account was loaded sucessfully.
+        schema:
+          $ref: '#/definitions/Account'
+      400:
+        description: Request validation failed.
+      401:
+        description: The account could not be retrieved due to an authorization error.
