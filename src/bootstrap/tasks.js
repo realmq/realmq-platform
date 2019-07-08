@@ -44,6 +44,7 @@ module.exports = ({
       authRepository,
       realmRepository,
       userRepository,
+      channelRepository,
     }),
     broker: initBrokerTasks({
       logger,

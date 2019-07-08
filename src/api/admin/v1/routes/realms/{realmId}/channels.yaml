@@ -1,0 +1,31 @@
+/realms/{realmId}/channels:
+  parameters:
+  - name: realmId
+    description: The realm id.
+    in: path
+    required: true
+    type: string
+    pattern: ^[\w-]+$
+  get:
+    summary: Search and list channels of a realm.
+    description: |
+      List all channels of the realm.
+
+      #### Allowed Scopes
+      **account**
+    tags:
+    - Realm
+    parameters:
+    - $ref: '#/parameters/paginationOffset'
+    - $ref: '#/parameters/paginationLimit'
+    responses:
+      200:
+        description: The list of channels was successfully retrieved.
+        schema:
+          $ref: '#/definitions/ChannelList'
+      400:
+        description: Request validation failed.
+      401:
+        description: The channels not be listed due to failed authorization.
+      404:
+        description: Realm not accessible.

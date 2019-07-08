@@ -9,6 +9,7 @@ paths: !includeMerged
   - routes/me/account.yaml
   - routes/realms.yaml
   - routes/realms/{id}.yaml
+  - routes/realms/{realmId}/channels.yaml
   - routes/realms/{realmId}/tokens.yaml
   - routes/version.yaml
 
