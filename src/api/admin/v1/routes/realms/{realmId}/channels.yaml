@@ -29,3 +29,38 @@
         description: The channels not be listed due to failed authorization.
       404:
         description: Realm not accessible.
+  post:
+    summary: Create a new channel within the realm.
+    description: |
+      Create a new channel
+
+      #### Allowed Scopes
+      **account**
+    tags:
+      - Realm
+    parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/ChannelCreation'
+    responses:
+      201:
+        description: Channel was created successfully.
+        schema:
+          $ref: '#/definitions/Channel'
+      400:
+        description: |
+          Request validation failed or the channel could not be created since a
+          channel with the same id already exists.
+          Error codes are: **ChannelAlreadyExists**.
+        schema:
+          allOf:
+            - $ref: '#/definitions/RequestError'
+            - example:
+                code: ChannelAlreadyExists
+                message: A channel with the same id already exists.
+      401:
+        description: The channel could not be created due to failed authorization.
+      404:
+        description: Realm not accessible.

@@ -59,6 +59,18 @@ TimestampsTrait:
     - createdAt
     - updatedAt
 
+CustomProperties:
+  title: Custom Properties
+  description: A map of custom properties.
+  type: object
+  additionalProperties: true
+
+CustomId:
+  title: Custom Id
+  description: Custom Id
+  type: string
+  pattern: ^[\w-]+$
+
 Realm:
   allOf:
     - $ref: '#/definitions/BaseEntity'
@@ -104,6 +116,17 @@ Channel:
         - properties
     - $ref: '#/definitions/TimestampsTrait'
 
+ChannelCreation:
+  title: ChannelCreation
+  type: object
+  additionalProperties: false
+  properties:
+    id:
+      $ref: '#/definitions/CustomId'
+    properties:
+      $ref: '#/definitions/CustomProperties'
+    features:
+      $ref: '#/definitions/ChannelFeatures'
 ChannelFeatures:
   type: object
   properties:

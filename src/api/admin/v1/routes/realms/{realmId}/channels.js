@@ -16,4 +16,16 @@ module.exports = (tasks, mappers) => ({
 
     res.json(mappers.channelList(list));
   },
+
+  post: async (req, res) => {
+    const {account, params: {realmId}, body: data} = req;
+    const {ok, result: channel, error} =
+      await tasks.admin.createChannel({...data, account, realmId});
+
+    if (!ok) {
+      throw error;
+    }
+
+    res.status(201).json(mappers.channel(channel));
+  },
 });

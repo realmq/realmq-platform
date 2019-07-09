@@ -1,5 +1,6 @@
 const initAuthenticateAccount = require('./authenticate-account');
 const initCreateAccount = require('./create-account');
+const initCreateChannel = require('./create-channel');
 const initCreateRealm = require('./create-realm');
 const initCreateRealmToken = require('./create-realm-token');
 const initFetchRealm = require('./fetch-realm');
@@ -15,7 +16,7 @@ const initListRealmTokens = require('./list-realm-tokens');
  * @param {AuthRepository} authRepository The auth repository
  * @param {AccountRepository} accountRepository The account repository
  * @param {UserRepository} userRepository The user repository
- * @param {ChannelRepository} channelRepository The channal repository
+ * @param {ChannelRepository} channelRepository The channel repository
  * @returns {AdminTasks} Initialized admin tasks
  */
 module.exports = ({
@@ -26,6 +27,7 @@ module.exports = ({
     fetchRealm: initFetchRealm({realmRepository}),
     authenticateAccount: initAuthenticateAccount({accountRules, accountRepository}),
     createAccount: initCreateAccount({accountRules, accountRepository}),
+    createChannel: initCreateChannel({realmRepository, channelRepository}),
     createRealm: initCreateRealm({realmRepository}),
     createRealmToken: initCreateRealmToken({authTokenRules, realmRepository, userRepository, authRepository}),
     listChannels: initListChannels({channelRepository, realmRepository}),
