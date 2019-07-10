@@ -2,3 +2,7 @@
   description: Signup and account management.
 - name: Realm
   description: Manage realms (project/org).
+- name: User
+  description: Manage users
+- name: Channel
+  description: Manage channels

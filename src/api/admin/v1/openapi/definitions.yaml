@@ -191,3 +191,43 @@ AuthTokenList:
             $ref: '#/definitions/AuthToken'
       required:
         - items
+
+# user entity
+User:
+  allOf:
+    - $ref: '#/definitions/BaseEntity'
+    - properties:
+        isOnline:
+          description: Whether the user is currently connected to the real time broker.
+          type: boolean
+          readOnly: true
+        properties:
+          type: object
+      required:
+        - properties
+        - isOnline
+    - $ref: '#/definitions/TimestampsTrait'
+
+UserList:
+  allOf:
+    - $ref: '#/definitions/BaseList'
+    - properties:
+        items:
+          type: array
+          items:
+            $ref: '#/definitions/User'
+      required:
+        - items
+UserCreation:
+  title: UserCreation
+  type: object
+  additionalProperties: false
+  properties:
+    id:
+      description: Custom Id
+      type: string
+      pattern: ^[\w-]+$
+    properties:
+      description: A map of custom properties.
+      type: object
+      additionalProperties: true
