@@ -16,8 +16,11 @@ module.exports = (tasks, mappers) => ({
   async get(req, res) {
     const {auth: authToken, params: {channelId}, query: {offset, limit, from, to}} = req;
 
+    const sanitizedFrom = (from && new Date(from)) || undefined;
+    const sanitizedTo = (from && new Date(to)) || undefined;
+
     const {ok, result: list, error} = await tasks.client.listMessages({
-      authToken, channelId, offset, limit, from, to,
+      authToken, channelId, offset, limit, from: sanitizedFrom, to: sanitizedTo,
     });
 
     if (!ok) {

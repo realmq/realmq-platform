@@ -40,6 +40,14 @@ module.exports = ({collection, createModel = createMessageModel}) => {
      * @return {Promise<PaginatedList<MessageModel>>} The paginated message list
      */
     find({from, to, ...rest}, {limit, offset, sort} = {}) {
+      if (from && !(from instanceof Date)) {
+        throw new Error(`Invalid value for parameter "from": ${from}`);
+      }
+
+      if (to && !(to instanceof Date)) {
+        throw new Error(`Invalid value for parameter "to": ${to}`);
+      }
+
       const query = {...rest};
 
       if (from || to) {
