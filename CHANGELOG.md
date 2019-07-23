@@ -11,6 +11,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 ### Changed
 - HTTPS scheme is now configurable for smoke test suite
 
+### Security
+- Updated dependencies (`npm audit fix`)
+
 ## [0.1.0]
 ### Added
 - Initial platform setup
