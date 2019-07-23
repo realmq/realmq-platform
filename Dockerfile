@@ -3,7 +3,7 @@ FROM node:8
 LABEL \
   Description="RealMQ Platform" \
   Vendor="RealMQ GmbH" \
-  Version="0.1.0"
+  Version="0.1.1"
 
 WORKDIR /usr/src/app
 
