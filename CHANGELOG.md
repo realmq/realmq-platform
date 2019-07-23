@@ -17,7 +17,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 ### Security
 - Updated dependencies (`npm audit fix`)
 
-## [0.1.0]
+## [0.1.0] - 2018-06-29
 ### Added
 - Initial platform setup
 
