@@ -1,0 +1,98 @@
+/realms/{realmId}/subscriptions:
+  parameters:
+  - name: realmId
+    description: The realm id.
+    in: path
+    required: true
+    type: string
+    pattern: ^[\w-]+$
+  get:
+    summary: Search and list subscriptions.
+    description: |
+      Get paginated subscription listing.
+      When requested with an **admin** token, it will list **all** subscriptions.
+      Otherwise it will list only the subscriptions of the token owning user.
+
+      #### Allowed Scopes
+      **account**
+    tags:
+      - Subscriptions
+    parameters:
+      - $ref: '#/parameters/paginationOffset'
+      - $ref: '#/parameters/paginationLimit'
+    responses:
+      200:
+        description: The list of subscriptions was successfully retrieved.
+        schema:
+          $ref: '#/definitions/SubscriptionList'
+      400:
+        description: Request validation failed.
+      401:
+        description: The subscriptions could not be listed due to failed authorization.
+
+  post:
+    summary: Create a subscription
+    description: |
+      Create a new subscription - grant a user access to a channel.
+
+      #### Allowed Scopes
+      **account**
+    tags:
+      - Subscriptions
+    parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          title: SubscriptionCreation
+          type: object
+          additionalProperties: false
+          properties:
+            id:
+              description: Custom Id
+              type: string
+              pattern: ^[\w-]+$
+            channelId:
+              description: The id of an existing channel.
+              type: string
+              pattern: ^[\w-]+$
+            userId:
+              description: The id of an existing user.
+              type: string
+              pattern: ^[\w-]+$
+            allowRead:
+              description: Boolean flag that indicates whether the user has **read access** to the channel.
+              type: boolean
+              default: false
+            allowWrite:
+              description: Boolean flag that indicates whether the user has **write access** to the channel.
+              type: boolean
+              default: false
+          example:
+            id: some-channel_some-user
+            channelId: some-channel
+            userId: some-user
+            allowRead: true
+            allowWrite: true
+    responses:
+      201:
+        description: Subscription was created successfully.
+        schema:
+          $ref: '#/definitions/Subscription'
+      400:
+        description: |
+          Request validation failed or the subscription could not be created
+          due to unmet constraints like the user is already subscribed to the
+          channel or a subscription with the same id already exists.
+
+          Possible error codes are: **AlreadySubscribed** and **SubscriptionAlreadyExists**.
+        schema:
+          allOf:
+            - $ref: '#/definitions/RequestError'
+            - example:
+                code: SubscriptionAlreadyExists
+                message: A subscription with the same id already exists.
+      401:
+        description: The subscription could not be created due to failed authorization.
+      403:
+        description: Insufficient access rights to create a subscription.

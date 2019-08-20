@@ -5,6 +5,8 @@ const channel = require('./channel');
 const channelList = require('./channel-list');
 const realm = require('./realm');
 const realmList = require('./realm-list');
+const subscription = require('./subscription');
+const subscriptionList = require('./subscription-list');
 const user = require('./user');
 const userList = require('./user-list');
 
@@ -19,6 +21,8 @@ module.exports = {
   channelList,
   realm,
   realmList,
+  subscription,
+  subscriptionList,
   user,
   userList,
 };

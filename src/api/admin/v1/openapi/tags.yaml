@@ -6,3 +6,5 @@
   description: Manage users
 - name: Channel
   description: Manage channels
+- name: Subscriptions
+  description: Manage subscriptions
