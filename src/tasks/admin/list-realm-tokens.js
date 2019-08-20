@@ -2,7 +2,7 @@ const {success, failure} = require('../../lib/result');
 const createTaskError = require('../../lib/error/task');
 
 /**
- * @param {RealmRepository} realmRepository The realmRespository
+ * @param {RealmRepository} realmRepository The realm repository
  * @param {AuthRepository} authRepository Auth repository
  * @returns {AdminTasks#listRealmTokens} Task
  */
