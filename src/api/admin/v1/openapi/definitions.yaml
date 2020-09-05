@@ -59,6 +59,18 @@ TimestampsTrait:
     - createdAt
     - updatedAt
 
+CustomProperties:
+  title: Custom Properties
+  description: A map of custom properties.
+  type: object
+  additionalProperties: true
+
+CustomId:
+  title: Custom Id
+  description: Custom Id
+  type: string
+  pattern: ^[\w-]+$
+
 Realm:
   allOf:
     - $ref: '#/definitions/BaseEntity'
@@ -90,6 +102,60 @@ Account:
           type: string
       required:
         - email
+
+# channel entity
+Channel:
+  allOf:
+    - $ref: '#/definitions/BaseEntity'
+    - properties:
+        features:
+          $ref: '#/definitions/ChannelFeatures'
+        properties:
+          type: object
+      required:
+        - properties
+    - $ref: '#/definitions/TimestampsTrait'
+
+ChannelCreation:
+  title: ChannelCreation
+  type: object
+  additionalProperties: false
+  properties:
+    id:
+      $ref: '#/definitions/CustomId'
+    properties:
+      $ref: '#/definitions/CustomProperties'
+    features:
+      $ref: '#/definitions/ChannelFeatures'
+ChannelFeatures:
+  type: object
+  properties:
+    persistence:
+      $ref: '#/definitions/ChannelFeaturePersistence'
+
+ChannelFeaturePersistence:
+  type: object
+  properties:
+    enabled:
+      type: boolean
+      description: Flag to switch message persistence on/off.
+    duration:
+      type: string
+      pattern: '^\d+[smhd]$'
+      description: |
+        Time interval to persist messages published on channel. If not set messages will be
+        persisted forever. Supported units: s, m, h, d
+
+ChannelList:
+  allOf:
+    - $ref: '#/definitions/BaseList'
+    - properties:
+        items:
+          type: array
+          items:
+            $ref: '#/definitions/Channel'
+      required:
+        - items
 
 AuthToken:
   allOf:
@@ -125,3 +191,75 @@ AuthTokenList:
             $ref: '#/definitions/AuthToken'
       required:
         - items
+
+Subscription:
+  allOf:
+    - $ref: '#/definitions/BaseEntity'
+    - properties:
+        channelId:
+          type: string
+          readOnly: true
+        userId:
+          type: string
+          readOnly: true
+        allowRead:
+          type: boolean
+        allowWrite:
+          type: boolean
+      required:
+        - channelId
+        - userId
+        - allowRead
+        - allowWrite
+    - $ref: '#/definitions/TimestampsTrait'
+
+SubscriptionList:
+  allOf:
+    - $ref: '#/definitions/BaseList'
+    - properties:
+        items:
+          type: array
+          items:
+            $ref: '#/definitions/Subscription'
+      required:
+        - items
+
+# user entity
+User:
+  allOf:
+    - $ref: '#/definitions/BaseEntity'
+    - properties:
+        isOnline:
+          description: Whether the user is currently connected to the real time broker.
+          type: boolean
+          readOnly: true
+        properties:
+          type: object
+      required:
+        - properties
+        - isOnline
+    - $ref: '#/definitions/TimestampsTrait'
+
+UserList:
+  allOf:
+    - $ref: '#/definitions/BaseList'
+    - properties:
+        items:
+          type: array
+          items:
+            $ref: '#/definitions/User'
+      required:
+        - items
+UserCreation:
+  title: UserCreation
+  type: object
+  additionalProperties: false
+  properties:
+    id:
+      description: Custom Id
+      type: string
+      pattern: ^[\w-]+$
+    properties:
+      description: A map of custom properties.
+      type: object
+      additionalProperties: true

@@ -67,7 +67,7 @@
     ],
     "coverageDirectory": "./.test-coverage",
     "coverageReporters": [
-      "lcov"
+      "lcov", "text", "text-summary"
     ]
   }
 }
