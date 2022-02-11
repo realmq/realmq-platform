@@ -22,7 +22,7 @@
     "smoke-test": "test/smoke/run.sh"
   },
   "dependencies": {
-    "ajv": "^6.10.1",
+    "ajv": "^6.12.3",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "bunyan": "^1.8.12",
