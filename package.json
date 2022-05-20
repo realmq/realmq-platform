@@ -7,7 +7,7 @@
   "description": "RealMQ Platform",
   "repository": "https://github.com/realmq/realmq-platform.git",
   "engines": {
-    "node": ">= 8"
+    "node": ">= 16"
   },
   "scripts": {
     "dev": ".npm-scripts/start-dev.sh",
