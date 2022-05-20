@@ -3,25 +3,25 @@ workspace:
 
 pipeline:
   build:
-    image: node:8
+    image: node:16
     commands:
       - npm install
 
   lint:
     group: test
-    image: node:8
+    image: node:16
     commands:
       - npm run lint
 
   test:
     group: test
-    image: node:8
+    image: node:16
     commands:
       - npm test
 
   validate-spec:
     group: test
-    image: node:8
+    image: node:16
     commands:
       - npm run validate-yaml
       - npm run validate-openapi-spec
@@ -48,7 +48,7 @@ pipeline:
       branch: master
 
   start-smoke-test-instance:
-    image: node:8
+    image: node:16
     detach: true
     environment:
       - NODE_ENV=production
@@ -64,7 +64,7 @@ pipeline:
       branch: master
 
   run-smoke-test:
-    image: node:8
+    image: node:16
     environment:
       - SMOKE_TARGET_HOST=start-smoke-test-instance
     commands:
