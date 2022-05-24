@@ -35,7 +35,7 @@
     "fast-json-patch": "^3.1.1",
     "js-yaml": "^4.1.0",
     "mongodb": "^4.6.0",
-    "mqtt": "^2.18.8",
+    "mqtt": "^4.3.7",
     "openapi-schema-validation": "^0.4.2",
     "uuid": "^8.3.2"
   },
