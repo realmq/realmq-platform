@@ -41,7 +41,7 @@
   },
   "devDependencies": {
     "husky": "^8.0.1",
-    "jest": "^24.8.0",
+    "jest": "^28.1.0",
     "lint-staged": "^8.2.1",
     "nodemon": "^1.19.1",
     "xo": "^0.24.0"
