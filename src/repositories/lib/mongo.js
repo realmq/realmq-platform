@@ -1,4 +1,4 @@
-const uuid = require('uuid');
+const {v4: uuid} = require('uuid');
 const paginatedListFactory = require('../../models/paginated-list');
 const {id: assertId} = require('./assert');
 const {wrap: errorWrap} = require('./error');
