@@ -20,16 +20,6 @@ module.exports = async ({config, logger}) => {
   const customIdIdxSpec = {key: {id: 1}, name: 'id', unique: true};
 
   await Promise.all([
-    db.createCollection('accounts'),
-    db.createCollection('auths'),
-    db.createCollection('channels'),
-    db.createCollection('messages'),
-    db.createCollection('realms'),
-    db.createCollection('subscriptions'),
-    db.createCollection('users'),
-  ]);
-
-  await Promise.all([
     db.collection('accounts').createIndexes([
       customIdIdxSpec,
       {key: {email: 1}, name: 'email', unique: true},

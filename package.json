@@ -34,7 +34,7 @@
     "express-openapi": "^4.6.4",
     "fast-json-patch": "^2.1.0",
     "js-yaml": "^4.1.0",
-    "mongodb": "^3.2.7",
+    "mongodb": "^4.6.0",
     "mqtt": "^2.18.8",
     "openapi-schema-validation": "^0.4.2",
     "uuid": "^8.3.2"

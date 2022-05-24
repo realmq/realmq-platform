@@ -29,9 +29,9 @@ module.exports = ({collection, createModel, createPaginatedList = paginatedListF
         createdAt: new Date(),
         updatedAt: new Date(),
       });
-      const {ops} = await errorWrap(collection.insertOne(model));
+      await errorWrap(collection.insertOne(model));
 
-      return createModel(ops[0]);
+      return createModel(model);
     },
 
     /**

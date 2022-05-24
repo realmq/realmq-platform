@@ -16,13 +16,13 @@ module.exports = async ({db}) => {
     subscriptionCollection,
     userCollection,
   ] = await Promise.all([
-    db.createCollection('accounts'),
-    db.createCollection('auths'),
-    db.createCollection('channels'),
-    db.createCollection('messages'),
-    db.createCollection('realms'),
-    db.createCollection('subscriptions'),
-    db.createCollection('users'),
+    db.collection('accounts'),
+    db.collection('auths'),
+    db.collection('channels'),
+    db.collection('messages'),
+    db.collection('realms'),
+    db.collection('subscriptions'),
+    db.collection('users'),
   ]);
   return createRepositories({
     accountCollection,
