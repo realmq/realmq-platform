@@ -16,7 +16,7 @@
     "validate-yaml": ".npm-scripts/validate-yaml.sh",
     "validate-openapi-spec": ".npm-scripts/validate-openapi-spec.sh",
     "start": "node src",
-    "start-debug": "nodemon --inspect=0.0.0.0:9229 src",
+    "start-debug": "nodemon --trace-warnings --inspect=0.0.0.0:9229 src",
     "test": ".npm-scripts/test.sh",
     "test-coverage": "jest --coverage",
     "smoke-test": "test/smoke/run.sh"
