@@ -4,6 +4,12 @@ This changelog documents all notable changes of the RealMQ Platform.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
+### Security
+- Upgraded node to version 16 ([#114])
+- Upgraded dependencies ([#116])
+
+[#116]: https://github.com/realmq/realmq-platform/issues/116
+[#114]: https://github.com/realmq/realmq-platform/issues/114
 
 ## [0.1.1] - 2019-07-23
 ### Added
