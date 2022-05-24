@@ -25,7 +25,7 @@
     "ajv": "^8.11.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.0",
-    "bunyan": "^1.8.12",
+    "bunyan": "^1.8.15",
     "bunyan-format": "^0.2.1",
     "compression": "^1.7.4",
     "cors": "^2.8.5",
