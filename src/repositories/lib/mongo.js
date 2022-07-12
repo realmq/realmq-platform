@@ -1,4 +1,4 @@
-const uuid = require('uuid');
+const {v4: uuid} = require('uuid');
 const paginatedListFactory = require('../../models/paginated-list');
 const {id: assertId} = require('./assert');
 const {wrap: errorWrap} = require('./error');
@@ -29,9 +29,9 @@ module.exports = ({collection, createModel, createPaginatedList = paginatedListF
         createdAt: new Date(),
         updatedAt: new Date(),
       });
-      const {ops} = await errorWrap(collection.insertOne(model));
+      await errorWrap(collection.insertOne(model));
 
-      return createModel(ops[0]);
+      return createModel(model);
     },
 
     /**
@@ -109,7 +109,7 @@ module.exports = ({collection, createModel, createPaginatedList = paginatedListF
 
       if (limit === 0) {
         // No need to fetch records
-        total = await cursor.count(false);
+        total = await cursor.count();
       } else if (limit === undefined) {
         // Fetch all documents without limits
         docs = await cursor.toArray();
@@ -118,7 +118,7 @@ module.exports = ({collection, createModel, createPaginatedList = paginatedListF
         // Fetch range of documents and total number of matching records
         [docs, total] = await Promise.all([
           cursor.toArray(),
-          cursor.count(false),
+          cursor.count(),
         ]);
       }
 

@@ -1,6 +1,6 @@
 const {readFile, readFileSync} = require('fs');
 const {dirname} = require('path');
-const {safeLoad: parseYaml, Type: YamlType, Schema: {create: createSchema}} = require('js-yaml');
+const {load: parseYaml, Type: YamlType, DEFAULT_SCHEMA} = require('js-yaml');
 
 const buildSchema = (path, readYaml) => {
   const dir = dirname(path);
@@ -33,7 +33,7 @@ const buildSchema = (path, readYaml) => {
       }
     },
   });
-  return createSchema([includeType, includeMergedType]);
+  return DEFAULT_SCHEMA.extend([includeType, includeMergedType]);
 };
 
 const readYamlSync = path => {
