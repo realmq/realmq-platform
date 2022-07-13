@@ -7,7 +7,7 @@ module.exports = (tasks, mappers) => ({
   async get(req, res) {
     const {offset, limit} = req.query;
     const {ok, result: list, error} =
-      await tasks.admin.listRealms({account: req.account, offset, limit});
+      await tasks.admin.listRealms({offset, limit});
     if (!ok) {
       throw error;
     }
@@ -16,8 +16,8 @@ module.exports = (tasks, mappers) => ({
   },
 
   async post(req, res) {
-    const {account, body: {name}} = req;
-    const {ok, result: realm, error} = await tasks.admin.createRealm({account, name});
+    const {body: {name}} = req;
+    const {ok, result: realm, error} = await tasks.admin.createRealm({name});
 
     if (!ok) {
       throw error;

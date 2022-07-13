@@ -2,7 +2,7 @@
   get:
     summary: Search and list auth tokens.
     description: |
-      List all auth tokens of the current user, or account-wide if the request is performed as admin.
+      List all auth tokens of the current user, or of the whole realm if the request is performed as admin.
 
       #### Allowed Scopes
       **admin**, **user**

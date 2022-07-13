@@ -13,7 +13,6 @@ describe('The listRealmTokens task', () => {
     it('should fail with a task error and correct error code', async () => {
       const {ok, error} = await listRealmTokens({
         realmId: realmRepository.unknownRealmId,
-        account: {id: realmRepository.knownAccountId},
       });
 
       expect(ok).toBe(false);
@@ -27,7 +26,6 @@ describe('The listRealmTokens task', () => {
     it('should succeed with a list of auth tokens', async () => {
       const {ok, result, error} = await listRealmTokens({
         realmId: realmRepository.knownRealmId,
-        account: {id: realmRepository.knownAccountId},
       });
 
       expect(ok).toBe(true);

@@ -9,14 +9,14 @@ const createTaskError = require('../../lib/error/task');
 module.exports = ({realmRepository, authRepository}) =>
   /**
    * @function AdminTasks#listRealmTokens
-   * @param {{id: string}} account
-   * @param {number} realmId
-   * @param {number} offset
-   * @param {number} limit
+   * @param {object} args
+   * @param {number} args.realmId
+   * @param {number} args.offset
+   * @param {number} args.limit
    * @return {Promise<PaginatedList<AuthModel>>} Paginated list
    */
-  async ({account, realmId, offset, limit}) => {
-    const realm = await realmRepository.findOne({ownerAccountId: account.id, id: realmId});
+  async ({realmId, offset, limit}) => {
+    const realm = await realmRepository.findOne({id: realmId});
     if (!realm) {
       return failure(createTaskError({
         code: 'UnknownRealm',

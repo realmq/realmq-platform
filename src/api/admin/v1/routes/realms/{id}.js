@@ -7,8 +7,8 @@
  */
 module.exports = (tasks, mappers) => ({
   get: async (req, res) => {
-    const {account, params: {id}} = req;
-    const {ok, result: realm, error} = await tasks.admin.fetchRealm({account, id});
+    const {params: {id}} = req;
+    const {ok, result: realm, error} = await tasks.admin.fetchRealm({id});
     if (!ok) {
       throw error;
     }

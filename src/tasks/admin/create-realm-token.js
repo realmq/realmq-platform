@@ -11,16 +11,16 @@ const createTaskError = require('../../lib/error/task');
 module.exports = ({authTokenRules, realmRepository, userRepository, authRepository}) =>
   /**
    * @function AdminTasks#createRealmToken
-   * @param {{id: string}} account
-   * @param {string} realmId
-   * @param {string} [id]
-   * @param {string} [userId]
-   * @param {string} [scope]
-   * @param {string} [description]
+   * @param {object} args
+   * @param {string} args.realmId
+   * @param {string} [args.id]
+   * @param {string} [args.userId]
+   * @param {string} [args.scope]
+   * @param {string} [args.description]
    * @return {Promise<Result<AuthModel>>} Auth Token
    */
-  async ({account, realmId, id, userId, scope, description}) => {
-    const realm = await realmRepository.findOne({ownerAccountId: account.id, id: realmId});
+  async ({realmId, id, userId, scope, description}) => {
+    const realm = await realmRepository.findOne({id: realmId});
     if (!realm) {
       return failure(createTaskError({
         code: 'UnknownRealm',

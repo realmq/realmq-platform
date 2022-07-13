@@ -8,7 +8,6 @@ const createRepositories = require('../repositories');
  */
 module.exports = async ({db}) => {
   const [
-    accountCollection,
     authCollection,
     channelCollection,
     messageCollection,
@@ -16,7 +15,6 @@ module.exports = async ({db}) => {
     subscriptionCollection,
     userCollection,
   ] = await Promise.all([
-    db.collection('accounts'),
     db.collection('auths'),
     db.collection('channels'),
     db.collection('messages'),
@@ -25,7 +23,6 @@ module.exports = async ({db}) => {
     db.collection('users'),
   ]);
   return createRepositories({
-    accountCollection,
     authCollection,
     channelCollection,
     messageCollection,

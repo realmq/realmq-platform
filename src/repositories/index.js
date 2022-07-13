@@ -1,4 +1,3 @@
-const createAccountRepository = require('./account');
 const createAuthRepository = require('./auth');
 const createChannelRepository = require('./channel');
 const createMessageRepository = require('./message');
@@ -9,7 +8,6 @@ const createUserRepository = require('./user');
 /**
  * Create repositories from collections.
  *
- * @param {Collection} accountCollection Dependency
  * @param {Collection} authCollection Dependency
  * @param {Collection} channelCollection Dependency
  * @param {Collection} messageCollection Dependency
@@ -19,12 +17,11 @@ const createUserRepository = require('./user');
  * @return {Repositories} The repositories
  */
 module.exports = ({
-  accountCollection, authCollection, channelCollection, messageCollection,
+  authCollection, channelCollection, messageCollection,
   realmCollection, subscriptionCollection, userCollection,
 }) =>
   /**
    * @typedef {object} Repositories
-   * @property {AccountRepository} account
    * @property {AuthRepository} auth
    * @property {ChannelRepository} channel
    * @property {MessageRepository} message
@@ -33,7 +30,6 @@ module.exports = ({
    * @property {UserRepository} user
    */
   ({
-    account: createAccountRepository({collection: accountCollection}),
     auth: createAuthRepository({collection: authCollection}),
     channel: createChannelRepository({collection: channelCollection}),
     message: createMessageRepository({collection: messageCollection}),

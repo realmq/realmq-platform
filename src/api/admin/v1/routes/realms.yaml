@@ -17,7 +17,7 @@
       400:
         description: Request validation failed.
       401:
-        description: The realms could not be listed since the account authorization failed.
+        description: The realms could not be listed since the authorization failed.
 
   post:
     operationId: createRealm
@@ -48,4 +48,4 @@
       400:
         description: Request validation failed.
       401:
-        description: The realm could not be created since the account authorization failed.
+        description: The realm could not be created since the authorization failed.

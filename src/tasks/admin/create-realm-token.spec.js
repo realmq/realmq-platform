@@ -7,7 +7,6 @@ describe('The createRealmToken task', () => {
   let createRealmToken;
   const validCreateRealmData = {
     realmId: realmRepository.knownRealmId,
-    account: {id: realmRepository.knownAccountId},
     id: authRepository.knownAuthId,
     userId: userRepository.knownUserId,
     scope: 'user',
