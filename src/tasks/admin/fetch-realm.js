@@ -7,9 +7,9 @@ const {success} = require('../../lib/result');
 module.exports = ({realmRepository}) =>
   /**
    * @typedef {Function} AdminTasks#fetchRealm
-   * @param {{id: string}} account Account
-   * @param {string} id Id of realm to fetch
+   * @param {object} args
+   * @param {string} args.id Id of realm to fetch
    * @returns {Promise<Result<?RealmModel>>} Realm
    */
-  async ({account, id}) =>
-    success(await realmRepository.findOne({id, ownerAccountId: account.id}));
+  async ({id}) =>
+    success(await realmRepository.findOne({id}));

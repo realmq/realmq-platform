@@ -7,9 +7,9 @@ const {success} = require('../../lib/result');
 module.exports = ({realmRepository}) =>
   /**
    * @typedef {Function} AdminTasks#createRealm
-   * @param {{id: string}} account Account
-   * @param {string} name The name of the realm
+   * @param {object} args
+   * @param {string} args.name The name of the realm
    * @return {Promise<Result<?RealmModel>>} Realm
    */
-  async ({account, name}) =>
-    success(await realmRepository.create({name, ownerAccountId: account.id}));
+  async ({name}) =>
+    success(await realmRepository.create({name}));

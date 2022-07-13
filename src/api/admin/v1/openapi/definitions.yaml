@@ -80,17 +80,6 @@ RealmList:
       required:
         - items
 
-Account:
-  allOf:
-    - $ref: '#/definitions/BaseEntity'
-    - properties:
-        name:
-          type: string
-        email:
-          type: string
-      required:
-        - email
-
 AuthToken:
   allOf:
     - $ref: '#/definitions/BaseEntity'

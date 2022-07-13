@@ -1,5 +1,4 @@
 const mw = require('../../../lib/bootstrap/openapi-middleware');
-const initAccountCredentialsScheme = require('../../../lib/express-openapi/security-scheme/account-credentials');
 const mappers = require('../../../api/admin/v1/mappers');
 
 /**
@@ -17,11 +16,6 @@ module.exports = async ({tasks, logger}) => ({
       tasks,
       mappers,
     },
-    securityHandlers: {
-      accountCredentialsScheme: initAccountCredentialsScheme({
-        authenticateAccount: tasks.admin.authenticateAccount,
-        logger,
-      }),
-    },
+    securityHandlers: {},
   }),
 });

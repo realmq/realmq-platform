@@ -9,13 +9,12 @@ describe('A createRealm admin task', () => {
       createRealm = initCreateRealm({realmRepository});
     });
 
-    describe('called with proper account and name', () => {
-      const account = {id: '5'};
+    describe('called with proper name', () => {
       const name = 'Test Realm';
-      const realm = {name, ownerAccountId: '5'};
+      const realm = {name};
 
       it('returns realm model in result object', async () => {
-        const result = await createRealm({account, name});
+        const result = await createRealm({name});
         expect(result).toMatchObject({
           ok: true,
           result: realm,
@@ -27,7 +26,7 @@ describe('A createRealm admin task', () => {
           realmRepository.create = () => Promise.reject(new Error('test'));
         });
         it('forwards that error', () => {
-          return expect(createRealm({account, id: '5'})).rejects.toThrow();
+          return expect(createRealm({id: '5'})).rejects.toThrow();
         });
       });
     });

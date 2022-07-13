@@ -4,7 +4,6 @@ const stripUndefined = require('../lib/strip-undefined');
  * @typedef {Object} RealmModel
  * @param {string} [id]
  * @param {string} name
- * @param {string} ownerAccountId
  * @param {Date} [createdAt]
  * @param {Date} [updatedAt]
  */
@@ -14,13 +13,11 @@ const stripUndefined = require('../lib/strip-undefined');
  */
 module.exports = ({
   id,
-  ownerAccountId,
   name,
   createdAt,
   updatedAt,
 }) => stripUndefined({
   id,
-  ownerAccountId,
   name,
   createdAt,
   updatedAt,

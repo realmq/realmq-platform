@@ -8,11 +8,7 @@
     pattern: ^[\w-]+$
   get:
     summary: Search and list auth tokens of a realm.
-    description: |
-      List all auth tokens of the realm.
-
-      #### Allowed Scopes
-      **account**
+    description:  List all auth tokens of the realm.
     tags:
     - Realm
     parameters:
@@ -38,9 +34,6 @@
       If you want to create an auth token for an existing user you have to pass its id as **userId**.
 
       **NOTE**: For unknown userId's or without providing a userId, a user is created and referenced on the fly.
-
-      #### Allowed Scopes
-      **account**
     tags:
     - Realm
     parameters:

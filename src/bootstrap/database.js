@@ -17,13 +17,8 @@ module.exports = async ({config, logger}) => {
     name: 'id_realmId',
     unique: true,
   };
-  const customIdIdxSpec = {key: {id: 1}, name: 'id', unique: true};
 
   await Promise.all([
-    db.collection('accounts').createIndexes([
-      customIdIdxSpec,
-      {key: {email: 1}, name: 'email', unique: true},
-    ]),
     db.collection('auths').createIndexes([
       realmAwareIdxSpec,
       {key: {token: 1}, name: 'token', unique: true},
@@ -32,10 +27,6 @@ module.exports = async ({config, logger}) => {
     db.collection('messages').createIndexes([
       realmAwareIdxSpec,
       {key: {realmId: 1, channelId: 1, createdAt: 1}, name: 'realmId_channelId_createdAt'},
-    ]),
-    db.collection('realms').createIndexes([
-      customIdIdxSpec,
-      {key: {ownerAccountId: 1}, name: 'ownerAccountId'},
     ]),
     db.collection('subscriptions').createIndexes([
       realmAwareIdxSpec,
