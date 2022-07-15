@@ -14,3 +14,4 @@ definitions: !include openapi/definitions.yaml
 parameters: !include openapi/parameters.yaml
 securityDefinitions: !include openapi/security-definitions.yaml
 security:
+  - apiKeyScheme: [ ]

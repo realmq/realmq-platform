@@ -11,7 +11,7 @@ const initError = require('./error');
  * @returns {{admin: function, broker: function, catchAll: function, error: function}} Middlewares
  */
 module.exports = async ({config, tasks, logger}) => ({
-  admin: await initAdmin({tasks, logger}),
+  admin: await initAdmin({config, tasks, logger}),
   broker: await initBroker({config, tasks}),
   client: await initClient({tasks, logger}),
   catchAll: await initCatchAll({logger}),

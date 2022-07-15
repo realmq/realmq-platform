@@ -10,6 +10,9 @@ module.exports = (env = {}) => ({
     url: env.DB_URL || 'mongodb://realmq:realmq@database:27017/realmq',
   },
   api: {
+    admin: {
+      key: env.API_ADMIN_KEY || null,
+    },
     broker: {
       key: env.API_BROKER_KEY || null,
     },
