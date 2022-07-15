@@ -1,0 +1,7 @@
+apiKeyScheme:
+  type: apiKey
+  description: |
+    The apiKeyScheme is a plain bearer token authentication. To authenticate
+    send a header like this: `Authorization: Bearer <apiKey>`.
+  name: Authorization
+  in: header
