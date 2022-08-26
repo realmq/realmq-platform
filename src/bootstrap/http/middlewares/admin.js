@@ -22,6 +22,7 @@ module.exports = async ({config, tasks, logger}) => ({
     securityHandlers: {
       apiKeyScheme: initFixedApiKeyScheme({
         apiKey: config.api.admin.key,
+        logger,
       }),
     },
   }),

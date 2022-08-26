@@ -6,9 +6,9 @@ const unauthorizedError = message => httpError.unauthorized({
   message,
 });
 
-module.exports = ({apiKey}) => {
+module.exports = ({apiKey, logger}) => {
   if (!apiKey) {
-    console.log('Use fixed-api-key security scheme with empty key');
+    logger.warn('Use fixed-api-key security scheme with empty key');
     // No access restriction
     return (req, res, next) => next();
   }
