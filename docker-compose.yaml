@@ -35,6 +35,7 @@ services:
       - BROKER_USERNAME=adapter
       - BROKER_PASSWORD=adapter
       - API_BROKER_KEY=broker-key
+      - API_ADMIN_KEY=${API_ADMIN_KEY}
     depends_on:
       - broker
       - database
