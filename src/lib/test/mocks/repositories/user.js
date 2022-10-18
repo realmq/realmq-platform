@@ -60,7 +60,7 @@ module.exports = {
     return validUser;
   },
 
-  async create({id, realmId, isOnline = false}) {
+  async create({id, realmId, properties = {}, isOnline = false}) {
     if (id === duplicateUserId) {
       throw duplicateError();
     }
@@ -68,6 +68,7 @@ module.exports = {
     return userModel({
       id,
       realmId,
+      properties,
       isOnline,
       createdAt: new Date(),
       updatedAt: new Date(),

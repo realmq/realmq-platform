@@ -4,6 +4,7 @@ const initCreateUser = require('./create-user');
 const initFetchRealm = require('./fetch-realm');
 const initListRealms = require('./list-realms');
 const initListRealmTokens = require('./list-realm-tokens');
+const initListUsers = require('./list-users');
 
 /** @typedef {object} AdminTasks */
 /**
@@ -21,5 +22,6 @@ module.exports = ({authTokenRules, authRepository, realmRepository, userReposito
     createUser: initCreateUser({userRepository, realmRepository}),
     listRealms: initListRealms({realmRepository}),
     listRealmTokens: initListRealmTokens({realmRepository, authRepository}),
+    listUsers: initListUsers({realmRepository, userRepository})
   };
 };
