@@ -114,3 +114,30 @@ AuthTokenList:
             $ref: '#/definitions/AuthToken'
       required:
         - items
+
+User:
+  allOf:
+    - $ref: '#/definitions/BaseEntity'
+    - properties:
+        id:
+          type: string
+        isOnline:
+          type: boolean
+        properties:
+          type: object
+      required:
+        - id
+        - isOnline
+        - properties
+    - $ref: '#/definitions/TimestampsTrait'
+
+UserList:
+  allOf:
+    - $ref: '#/definitions/BaseList'
+    - properties:
+        items:
+          type: array
+          items:
+            $ref: '#/definitions/User'
+      required:
+        - items
