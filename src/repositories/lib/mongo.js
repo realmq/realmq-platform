@@ -76,7 +76,7 @@ module.exports = ({collection, createModel, createPaginatedList = paginatedListF
       const result = await collection.findOneAndUpdate(
         query,
         {$set: updateData},
-        {returnOriginal: false}
+        {returnDocument: 'after'}
       );
 
       return result.value ? createModel(result.value) : null;
