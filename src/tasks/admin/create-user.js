@@ -38,6 +38,6 @@ module.exports = ({userRepository, realmRepository}) =>
         );
       }
 
-      return Promise.reject(error);
+      throw error;
     }
   }
