@@ -1,0 +1,66 @@
+/realms/{realmId}/users:
+  parameters:
+    - name: realmId
+      description: The realm id.
+      in: path
+      required: true
+      type: string
+      pattern: ^[\w-]+$
+  get:
+    summary: Search and list users.
+    description: |
+      Get paginated user listing.
+    tags:
+    - Users
+    parameters:
+    - $ref: '#/parameters/paginationOffset'
+    - $ref: '#/parameters/paginationLimit'
+    responses:
+      200:
+        description: The list of users was successfully retrieved.
+        schema:
+          $ref: '#/definitions/UserList'
+      400:
+        description: Request validation failed.
+      401:
+        description: The realms could not be listed since the authorization failed.
+  post:
+    summary: Create a new user
+    description: |
+      Create a new user.
+    tags:
+      - Users
+    parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          title: UserCreation
+          type: object
+          additionalProperties: false
+          properties:
+            id:
+              description: Custom Id
+              type: string
+              pattern: ^[\w-]+$
+            properties:
+              description: A map of custom properties.
+              type: object
+              additionalProperties: true
+    responses:
+      201:
+        description: User was created successfully.
+        schema:
+          $ref: '#/definitions/User'
+      400:
+        description: |
+          Request validation failed or the user could not be created since a user with the same id already exists.
+          Error codes are: **UserAlreadyExists**.
+        schema:
+          allOf:
+            - $ref: '#/definitions/RequestError'
+            - example:
+                code: UserAlreadyExists
+                message: A user with the same id already exists.
+      401:
+        description: The user could not be created due to failed authorization.
