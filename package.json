@@ -43,7 +43,7 @@
     "husky": "^8.0.1",
     "jest": "^28.1.0",
     "lint-staged": "^12.4.2",
-    "nodemon": "^2.0.16",
+    "nodemon": "^2.0.20",
     "xo": "^0.52.2"
   },
   "lint-staged": {
