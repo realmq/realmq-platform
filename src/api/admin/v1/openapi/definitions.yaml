@@ -1,3 +1,15 @@
+CustomId:
+  title: Custom Id
+  description: Custom Id
+  type: string
+  pattern: ^[\w-]+$
+
+CustomProperties:
+  title: Custom Properties
+  description: A map of custom properties.
+  type: object
+  additionalProperties: true
+
 RequestError:
   type: object
   properties:
@@ -115,6 +127,60 @@ AuthTokenList:
       required:
         - items
 
+# channel entity
+Channel:
+  allOf:
+    - $ref: '#/definitions/BaseEntity'
+    - properties:
+        features:
+          $ref: '#/definitions/ChannelFeatures'
+        properties:
+          type: object
+      required:
+        - properties
+    - $ref: '#/definitions/TimestampsTrait'
+
+ChannelCreation:
+  title: ChannelCreation
+  type: object
+  additionalProperties: false
+  properties:
+    id:
+      $ref: '#/definitions/CustomId'
+    properties:
+      $ref: '#/definitions/CustomProperties'
+    features:
+      $ref: '#/definitions/ChannelFeatures'
+
+ChannelFeatures:
+  type: object
+  properties:
+    persistence:
+      $ref: '#/definitions/ChannelFeaturePersistence'
+
+ChannelFeaturePersistence:
+  type: object
+  properties:
+    enabled:
+      type: boolean
+      description: Flag to switch message persistence on/off.
+    duration:
+      type: string
+      pattern: '^\d+[smhd]$'
+      description: |
+        Time interval to persist messages published on channel. If not set messages will be
+        persisted forever. Supported units: s, m, h, d
+
+ChannelList:
+  allOf:
+    - $ref: '#/definitions/BaseList'
+    - properties:
+        items:
+          type: array
+          items:
+            $ref: '#/definitions/Channel'
+      required:
+        - items
 User:
   allOf:
     - $ref: '#/definitions/BaseEntity'
@@ -124,7 +190,7 @@ User:
         isOnline:
           type: boolean
         properties:
-          type: object
+          $ref: '#/definitions/CustomProperties'
       required:
         - id
         - isOnline

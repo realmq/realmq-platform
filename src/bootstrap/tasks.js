@@ -42,8 +42,9 @@ module.exports = ({
     admin: initAdminTasks({
       authTokenRules,
       authRepository,
+      channelRepository,
       realmRepository,
-      userRepository,
+      userRepository
     }),
     broker: initBrokerTasks({
       logger,

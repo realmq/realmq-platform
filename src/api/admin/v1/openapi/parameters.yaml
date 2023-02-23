@@ -14,3 +14,11 @@ paginationLimit:
   default: 20
   minimum: 1
   maximum: 100
+
+realmIdInPath:
+  name: realmId
+  description: The realm id.
+  in: path
+  required: true
+  type: string
+  pattern: ^[\w-]+$

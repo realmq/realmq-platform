@@ -9,6 +9,7 @@ paths: !includeMerged
   - routes/realms/{id}.yaml
   - routes/realms/{realmId}/tokens.yaml
   - routes/realms/{realmId}/users.yaml
+  - routes/realms/{realmId}/channels.yaml
   - routes/version.yaml
 
 definitions: !include openapi/definitions.yaml
