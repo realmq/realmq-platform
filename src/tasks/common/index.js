@@ -1,4 +1,3 @@
-const initRewriteTopicToInternal = require('../../rules/rewrite-topic-to-internal');
 const generateSubscriptionSyncMessage = require('../../rules/generate-subscription-sync-message');
 const initSendSubscriptionSyncMessage = require('./send-subscription-sync-message');
 
@@ -7,10 +6,10 @@ const initSendSubscriptionSyncMessage = require('./send-subscription-sync-messag
 /**
  * Initialize common tasks
  * @param {MqttClient} mqttClient Mqtt client
+ * @param {Rules#rewriteTopicToInternal} rewriteTopicToInternal Topic rewrite rule
  * @return {CommonTasks} Initialized tasks
  */
-module.exports = ({mqttClient}) => {
-  const rewriteTopicToInternal = initRewriteTopicToInternal();
+module.exports = ({mqttClient, rewriteTopicToInternal}) => {
   return {
     sendSubscriptionSyncMessage: initSendSubscriptionSyncMessage({
       mqttClient,

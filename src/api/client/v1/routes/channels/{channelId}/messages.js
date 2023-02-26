@@ -29,4 +29,26 @@ module.exports = (tasks, mappers) => ({
 
     res.json(mappers.messageList(list));
   },
+
+  /**
+   * POST /channel/{channelId}/messages
+   * @param {object} req Request
+   * @param {object} res Response
+   * @return {void}
+   */
+  async post(req, res) {
+    const {auth: authToken, params: {channelId}, body: {content}} = req;
+
+    const {ok, error} = await tasks.client.createMessage({
+      authToken,
+      channelId,
+      content: Buffer.from(content, 'base64')
+    });
+
+    if (!ok) {
+      throw error;
+    }
+
+    res.status(204).send();
+  }
 });

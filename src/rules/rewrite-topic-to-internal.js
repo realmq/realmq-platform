@@ -3,7 +3,7 @@
  * @param {string} [rmqSysTopic="$RMQ"] Root topic level indicating RealMQ system topics
  * @param {string} [realmTopic="realm"] Topic level proceeding realm ID
  * @param {string} [userTopic="user"] Topic level proceeding user ID
- * @returns {function(string, {realmId: string, userId: string}): string} Rewrite function
+ * @returns {function({topic: string, client: {realmId: string, userId: string}}): string} Rewrite function
  */
 module.exports = ({rmqSysTopic = '$RMQ', realmTopic = 'realm', userTopic = 'user'} = {}) =>
   /**

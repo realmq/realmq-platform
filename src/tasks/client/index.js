@@ -1,6 +1,7 @@
 const initAuthenticateUser = require('./authenticate-user');
 const initCreateAuth = require('./create-auth');
 const initCreateChannel = require('./create-channel');
+const initCreateMessage = require('./create-message');
 const initCreateSubscription = require('./create-subscription');
 const initCreateUser = require('./create-user');
 const initDeleteAuth = require('./delete-auth');
@@ -8,7 +9,6 @@ const initDeleteChannel = require('./delete-channel');
 const initDeleteSubscription = require('./delete-subscription');
 const initDeleteUser = require('./delete-user');
 const initFetchAuth = require('./fetch-auth');
-
 const initFetchChannel = require('./fetch-channel');
 const initFetchSubscription = require('./fetch-subscription');
 const initFetchUser = require('./fetch-user');
@@ -32,6 +32,8 @@ const initPatchUser = require('./patch-user');
  * @param {SubscriptionRepository} subscriptionRepository Auth repository
  * @param {UserRepository} userRepository Auth repository
  * @param {CommonTasks#sendSubscriptionSync} sendSubscriptionSync Send subscription created task
+ * @param {Rules#rewriteTopicToInternal} rewriteTopicToInternal Topic rewrite rule
+ * @param {MqttClient} mqttClient Mqtt client
  * @return {ClientTasks} Initialized tasks
  */
 module.exports = ({
@@ -42,6 +44,8 @@ module.exports = ({
   subscriptionRepository,
   userRepository,
   sendSubscriptionSyncMessage,
+  rewriteTopicToInternal,
+  mqttClient
 }) => ({
   authenticateUser:
     initAuthenticateUser({authRepository, userRepository}),
@@ -49,6 +53,12 @@ module.exports = ({
     initCreateAuth({authTokenRules, authRepository, userRepository}),
   createChannel:
     initCreateChannel({channelRepository}),
+  createMessage: initCreateMessage({
+    channelRepository,
+    mqttClient,
+    subscriptionRepository,
+    rewriteTopicToInternal,
+  }),
   createSubscription:
     initCreateSubscription({
       userRepository,
