@@ -5,7 +5,7 @@ LABEL \
   Vendor="RealMQ GmbH" \
   Version="0.1.1"
 
-WORKDIR /usr/src/app
+WORKDIR /home/node/app
 
 COPY package.json package-lock.json ./
 RUN npm install
@@ -16,4 +16,3 @@ COPY . .
 CMD ["npm", "start"]
 
 EXPOSE 8080
-USER www-data
