@@ -37,14 +37,14 @@ module.exports = (tasks, mappers) => ({
    * @return {void}
    */
   async post(req, res) {
-    const {auth: authToken, params: {channelId}, body: {content}} = req;
+    const {auth: authToken, params: {channelId}, body: {content, encoding}} = req;
 
     const {ok, error} = await tasks.client.createMessage({
       authToken,
       channelId,
-      content: Buffer.from(content, 'base64')
+      content: Buffer.from(content, encoding)
     });
-
+    
     if (!ok) {
       throw error;
     }

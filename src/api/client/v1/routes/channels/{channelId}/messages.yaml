@@ -70,9 +70,17 @@
           type: object
           properties:
             content:
-              description: Base64 encoded message content
+              description: The message content
               type: string
-              format: byte
+            encoding:
+              description: Encoding of the message content
+              default: 'utf-8'
+              enum:
+                - base64
+                - utf-8
+          required:
+            - content
+            - encoding
     responses:
       204:
         description: The message has been successfully published to that channel.
