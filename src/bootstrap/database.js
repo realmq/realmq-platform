@@ -28,6 +28,12 @@ module.exports = async ({config, logger}) => {
       realmAwareIdxSpec,
       {key: {realmId: 1, channelId: 1, createdAt: 1}, name: 'realmId_channelId_createdAt'},
     ]),
+    db.collection('realtime-connections').createIndexes([
+      realmAwareIdxSpec,
+      {key: {realmId: 1, tokenId: 1}, name: 'realmId_tokenId'},
+      {key: {realmId: 1, userId: 1}, name: 'realmId_userId'},
+      {key: {clientId: 1}, name: 'clientId', unique: true},
+    ]),
     db.collection('subscriptions').createIndexes([
       realmAwareIdxSpec,
       {key: {realmId: 1, userId: 1, channelId: 1}, name: 'realmId_userId_channelId', unique: true},
