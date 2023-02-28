@@ -1,19 +1,13 @@
 /**
- * @param {AuthRepository} authRepository Auth repository
+ * @param {RealtimeConnectionRepository} realtimeConnectionRepository Realtime connection repository
  * @returns {BrokerTasks#markClientOffline} Task
  */
-module.exports = ({authRepository}) =>
+module.exports = ({realtimeConnectionRepository}) =>
   /**
    * @typedef {Function} BrokerTasks#markClientOffline
    * @param {string} clientId
    * @return {Promise<void>}
    */
   async clientId => {
-    const auth = await authRepository.findOneByToken(clientId);
-    if (!auth) {
-      return;
-    }
-
-    auth.isOnline = false;
-    await authRepository.update(auth);
+    await realtimeConnectionRepository.deleteOneByClientId(clientId);
   };
