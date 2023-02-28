@@ -10,12 +10,12 @@
     summary: Retrieve persisted messages published on channel.
     description: |
       Look up persisted messages of channel. The total amount of messages stored depends
-      on channel settings (`featues.persistence.enabled` and `featues.persistence.duration`).
+      on channel settings (`features.persistence.enabled` and `features.persistence.duration`).
 
       Messages are sorted from newer to older so newer ones will be returned before older ones.
       Setting the `to` parameter to a past time will result in a stable result set.
 
-      This resource is accessible in admin scope without restircitons. With user scope a
+      This resource is accessible in admin scope without restrictions. With user scope a
       subscription covering the channel and read permissions are required.
 
       #### Allowed Scopes
@@ -46,5 +46,47 @@
         description: Request validation failed.
       401:
         description: The channel messages could not be retrieved due to failed authorization.
+      404:
+        description: The requested channel is not accessible.
+  post:
+    summary: Send a messages to a channel.
+    description: |
+      Send a message to a channel.
+
+      This resource is accessible in admin scope without restrictions. With user scope a
+      subscription covering the channel and write permissions are required.
+
+      #### Allowed Scopes
+      **admin**, **user**
+    tags:
+      - Channels
+    parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          title: MessageCreation
+          additionalProperties: false
+          type: object
+          properties:
+            content:
+              description: The message content
+              type: string
+            encoding:
+              description: Encoding of the message content
+              default: 'utf-8'
+              enum:
+                - base64
+                - utf-8
+          required:
+            - content
+            - encoding
+    responses:
+      204:
+        description: The message has been successfully published to that channel.
+      400:
+        description: Request validation failed.
+      401:
+        description: The channel message could not be published due to failed authorization.
       404:
         description: The requested channel is not accessible.

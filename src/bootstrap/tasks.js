@@ -4,6 +4,7 @@ const initAdminTasks = require('../tasks/admin');
 const initBrokerTasks = require('../tasks/broker');
 const initClientTasks = require('../tasks/client');
 const initCommonTasks = require('../tasks/common');
+const initRewriteTopicToInternal = require('../rules/rewrite-topic-to-internal');
 
 /**
  * @param {Logger} logger Logging
@@ -28,10 +29,12 @@ module.exports = ({
     user: userRepository,
   },
 }) => {
+  const rewriteTopicToInternal = initRewriteTopicToInternal();
+
   // Common tasks
   const {
     sendSubscriptionSyncMessage,
-  } = initCommonTasks({mqttClient});
+  } = initCommonTasks({mqttClient, rewriteTopicToInternal});
 
   return {
     admin: initAdminTasks({
@@ -55,6 +58,8 @@ module.exports = ({
       userRepository,
       subscriptionRepository,
       sendSubscriptionSyncMessage,
+      rewriteTopicToInternal,
+      mqttClient
     }),
   };
 };
