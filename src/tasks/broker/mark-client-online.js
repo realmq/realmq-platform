@@ -22,7 +22,7 @@ module.exports = ({authRepository, realtimeConnectionRepository}) =>
       await realtimeConnectionRepository.create({
         realmId: auth.realmId,
         userId: auth.userId,
-        tokenId: auth.id,
+        authId: auth.id,
         clientId
       });
     } catch (error) {

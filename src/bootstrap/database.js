@@ -30,7 +30,7 @@ module.exports = async ({config, logger}) => {
     ]),
     db.collection('realtime-connections').createIndexes([
       realmAwareIdxSpec,
-      {key: {realmId: 1, tokenId: 1}, name: 'realmId_tokenId'},
+      {key: {realmId: 1, authId: 1}, name: 'realmId_authId'},
       {key: {realmId: 1, userId: 1}, name: 'realmId_userId'},
       {key: {clientId: 1}, name: 'clientId', unique: true},
     ]),

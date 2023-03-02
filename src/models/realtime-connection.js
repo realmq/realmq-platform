@@ -5,7 +5,7 @@ const stripUndefined = require('../lib/strip-undefined');
  * @param {string} id
  * @param {string} realmId
  * @param {string} userId
- * @param {string} tokenId
+ * @param {string} authId
  * @param {string} clientId
  * @param {Date} [createdAt]
  * @param {Date} [updatedAt]
@@ -18,7 +18,7 @@ module.exports = ({
   id,
   realmId,
   userId,
-  tokenId,
+  authId,
   clientId,
   createdAt,
   updatedAt,
@@ -26,7 +26,7 @@ module.exports = ({
   id,
   realmId,
   userId,
-  tokenId,
+  authId,
   clientId,
   createdAt,
   updatedAt,
