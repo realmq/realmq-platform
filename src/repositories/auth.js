@@ -42,6 +42,21 @@ module.exports = ({collection, createModel = createAuthModel}) => {
 
       await multiRealmRepository.deleteMany({realmId, userId});
     },
+
+    /**
+     * Set isOnline status of the given auth record.
+     * @param {string} realmId
+     * @param {string} id
+     * @param {boolean} isOnline
+     * @returns {Promise<void>}
+     */
+    async setIsOnline({realmId, id, isOnline}) {
+      if (!id) {
+        throw new Error('Missing id');
+      }
+
+      await multiRealmRepository.update({realmId, id, isOnline})
+    }
   };
 };
 

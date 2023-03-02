@@ -1,11 +1,17 @@
+const authRepository = require('../../lib/test/mocks/repositories/auth');
 const realtimeConnectionRepository = require('../../lib/test/mocks/repositories/realtime-connection');
+const userRepository = require('../../lib/test/mocks/repositories/user');
 const initMarkClientOffline = require('./mark-client-offline');
 
 describe('The markClientOffline task', () => {
   let markClientOffline;
   beforeEach(() => {
-    realtimeConnectionRepository.deleteOneByClientId = jest.fn();
-    markClientOffline = initMarkClientOffline({realtimeConnectionRepository});
+    realtimeConnectionRepository.findOneAndDeleteByClientId = jest.fn();
+    markClientOffline = initMarkClientOffline({
+      realtimeConnectionRepository,
+      authRepository,
+      userRepository
+    });
   });
 
   describe('when called with unknown clientId', () => {
@@ -18,7 +24,7 @@ describe('The markClientOffline task', () => {
     it('should delete the connection for the given client id', async () => {
       await markClientOffline(realtimeConnectionRepository.knownClientId);
 
-      expect(realtimeConnectionRepository.deleteOneByClientId).toBeCalledWith(realtimeConnectionRepository.knownClientId);
+      expect(realtimeConnectionRepository.findOneAndDeleteByClientId).toBeCalledWith(realtimeConnectionRepository.knownClientId);
     });
   });
 });

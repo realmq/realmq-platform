@@ -20,6 +20,7 @@ const initRecordMessage = require('./record-message');
  * @param {MessageRepository} messageRepository Message repository
  * @param {RealtimeConnectionRepository} realtimeConnectionRepository Subscription repository
  * @param {SubscriptionRepository} subscriptionRepository Subscription repository
+ * @param {UserRepository} userRepository User repository
  * @return {BrokerTasks} Initialized tasks
  */
 module.exports = ({
@@ -27,6 +28,7 @@ module.exports = ({
   authRepository,
   channelRepository,
   messageRepository,
+  userRepository,
   realtimeConnectionRepository,
   subscriptionRepository
 }) => {
@@ -47,9 +49,13 @@ module.exports = ({
     authorizeSubscribe:
       initAuthorizeSubscribe({loadTopicPermissions, rewriteTopicToInternal}),
     markClientOffline:
-      initMarkClientOffline({realtimeConnectionRepository}),
+      initMarkClientOffline({realtimeConnectionRepository, authRepository, userRepository}),
     markClientOnline:
-      initMarkClientOnline({authRepository, realtimeConnectionRepository}),
+      initMarkClientOnline({
+        authRepository,
+        userRepository,
+        realtimeConnectionRepository
+      }),
     recordMessage:
       initRecordMessage({channelRepository, messageRepository, logger}),
   };

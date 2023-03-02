@@ -3,9 +3,14 @@ const {parseTokenFromClientId} = require('../../rules/parse-client-id');
 /**
  * @param {AuthRepository} authRepository Auth repository
  * @param {RealtimeConnectionRepository} realtimeConnectionRepository Realtime connection repository
+ * @param {UserRepository} userRepository User repository
  * @returns {BrokerTasks#markClientOnline} Task
  */
-module.exports = ({authRepository, realtimeConnectionRepository}) =>
+module.exports = ({
+  authRepository,
+  realtimeConnectionRepository,
+  userRepository
+}) =>
   /**
    * @typedef {Function} BrokerTasks#markClientOnline
    * @param {string} clientId
@@ -25,6 +30,14 @@ module.exports = ({authRepository, realtimeConnectionRepository}) =>
         authId: auth.id,
         clientId
       });
+
+      // set auth token and user online if token was previously offline
+      if (!auth.isOnline) {
+        await Promise.all([
+          authRepository.setIsOnline({realmId: auth.realmId, id: auth.id, isOnline: true}),
+          userRepository.setIsOnline({realmId: auth.realmId, id: auth.userId, isOnline: true})
+        ]);
+      }
     } catch (error) {
       // ignore cases where we already have a connection for the given clientId
       if (!error.isDuplicateKeyError) {

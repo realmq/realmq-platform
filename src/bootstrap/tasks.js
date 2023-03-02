@@ -49,6 +49,7 @@ module.exports = ({
       subscriptionRepository,
       realtimeConnectionRepository,
       messageRepository,
+      userRepository
     }),
     client: initClientTasks({
       authTokenRules,

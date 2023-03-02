@@ -83,4 +83,6 @@ module.exports = {
   },
 
   async findOneAndDelete() {},
+
+  async setIsOnline() {}
 };

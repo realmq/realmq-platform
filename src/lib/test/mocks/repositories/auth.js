@@ -82,4 +82,5 @@ module.exports = {
   async deleteOne() {},
   async findOneAndDelete() {},
   async deleteAllByUserId() {},
+  async setIsOnline() {}
 };

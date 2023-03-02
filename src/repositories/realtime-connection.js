@@ -18,8 +18,8 @@ module.exports = ({collection, createModel = createRealtimeConnectionModel}) => 
   return {
     ...multiRealmRepo,
 
-    async deleteOneByClientId(clientId) {
-      return multiRealmRepo.mongoRepo.deleteOne({clientId});
+    async findOneAndDeleteByClientId(clientId) {
+      return multiRealmRepo.mongoRepo.findOneAndDelete({clientId});
     },
 
     /**
@@ -41,7 +41,30 @@ module.exports = ({collection, createModel = createRealtimeConnectionModel}) => 
      * @returns {Promise<void>}
      */
     async deleteAllByUserId({realmId, userId}) {
+      if (!userId) {
+        throw new Error('Missing user id');
+      }
       return multiRealmRepo.deleteMany({realmId, userId});
+    },
+
+    /**
+     * Count the number of connections per user id in a realm.
+     * @param {string} realmId
+     * @param {string} userId
+     * @returns {Promise<number>}
+     */
+    async countByUserId({realmId, userId}) {
+      return multiRealmRepo.count({realmId, userId});
+    },
+
+    /**
+     * Count the number of connections per auth id in a realm.
+     * @param {string} realmId
+     * @param {string} authId
+     * @returns {Promise<number>}
+     */
+    async countByAuthId({realmId, authId}) {
+      return multiRealmRepo.count({realmId, authId});
     }
   };
 };

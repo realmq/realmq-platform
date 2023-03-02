@@ -54,5 +54,5 @@ module.exports = {
 
   deleteAllByUserId() {},
   deleteAllByAuthId() {},
-  deleteOneByClientId() {},
+  findOneAndDeleteByClientId() {},
 };

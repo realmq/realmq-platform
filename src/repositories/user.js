@@ -38,5 +38,20 @@ module.exports = ({collection, createModel = createUserModel}) => {
 
       return user;
     },
+
+    /**
+     * Set isOnline status of the given user record.
+     * @param {string} realmId
+     * @param {string} id
+     * @param {boolean} isOnline
+     * @returns {Promise<void>}
+     */
+    async setIsOnline({realmId, id, isOnline}) {
+      if (!id) {
+        throw new Error('Missing id');
+      }
+
+      await multiRealmRepo.update({realmId, id, isOnline})
+    }
   };
 };

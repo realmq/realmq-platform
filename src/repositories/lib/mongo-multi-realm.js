@@ -37,6 +37,15 @@ module.exports = ({collection, createModel, generateId}) => {
     /**
      * @inheritDoc
      */
+    count: async query => {
+      assertRealmId(query.realmId);
+
+      return mongoRepo.count(query);
+    },
+
+    /**
+     * @inheritDoc
+     */
     deleteMany: async query => {
       assertRealmId(query.realmId);
 

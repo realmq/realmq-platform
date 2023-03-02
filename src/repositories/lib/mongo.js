@@ -35,6 +35,13 @@ module.exports = ({collection, createModel, createPaginatedList = paginatedListF
     },
 
     /**
+     * Count documents that match the given query
+     * @param {object} query
+     * @returns {Promise<number>}
+     */
+    count: query => collection.countDocuments(query),
+
+    /**
      * Delete all documents within a collection that match the query.
      * @param {object} query Record filter
      * @return {Promise} Promised result
