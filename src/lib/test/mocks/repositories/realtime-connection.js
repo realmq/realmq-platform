@@ -52,6 +52,7 @@ module.exports = {
     });
   },
 
-  deleteMany() {},
+  deleteAllByUserId() {},
+  deleteAllByAuthId() {},
   deleteOneByClientId() {},
 };

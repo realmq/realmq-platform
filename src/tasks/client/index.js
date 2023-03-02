@@ -67,7 +67,12 @@ module.exports = ({
   deleteSubscription:
     initDeleteSubscription({subscriptionRepository, sendSubscriptionSyncMessage}),
   deleteUser:
-    initDeleteUser({userRepository, authRepository, subscriptionRepository}),
+    initDeleteUser({
+      userRepository,
+      authRepository,
+      subscriptionRepository,
+      realtimeConnectionRepository
+    }),
   fetchAuth:
     initFetchAuth({authRepository}),
   fetchChannel:

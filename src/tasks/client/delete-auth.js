@@ -36,7 +36,7 @@ module.exports = ({authRepository, realtimeConnectionRepository}) =>
 
     await Promise.all([
       authRepository.deleteOne(query),
-      realtimeConnectionRepository.deleteMany({
+      realtimeConnectionRepository.deleteAllByAuthId({
         realmId,
         authId: id
       })

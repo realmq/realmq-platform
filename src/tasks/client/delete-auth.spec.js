@@ -13,7 +13,7 @@ describe('The client deleteAuth task', () => {
   beforeEach(() => {
     authRepository.findOneAndDelete = jest.fn();
     authRepository.deleteOne = jest.fn();
-    realtimeConnectionRepository.deleteMany = jest.fn();
+    realtimeConnectionRepository.deleteAllByAuthId = jest.fn();
 
     deleteAuth = initDeleteAuth({authRepository, realtimeConnectionRepository});
   });
@@ -44,7 +44,7 @@ describe('The client deleteAuth task', () => {
 
       expect(ok).toBe(true);
       expect(authRepository.deleteOne).toHaveBeenCalled();
-      expect(realtimeConnectionRepository.deleteMany).toHaveBeenCalledWith({
+      expect(realtimeConnectionRepository.deleteAllByAuthId).toHaveBeenCalledWith({
         realmId: authToken.realmId,
         authId: authRepository.knownAuthId,
       })
