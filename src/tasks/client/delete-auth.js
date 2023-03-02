@@ -23,7 +23,7 @@ module.exports = ({authRepository, realtimeConnectionRepository}) =>
 
     if (scope !== 'admin') {
       return failure(errorInsufficientPrivileges({
-        action: 'patch an auth token',
+        action: 'delete an auth token',
       }));
     }
 
@@ -38,7 +38,7 @@ module.exports = ({authRepository, realtimeConnectionRepository}) =>
       authRepository.deleteOne(query),
       realtimeConnectionRepository.deleteMany({
         realmId,
-        authId: authToDelete.id
+        authId: id
       })
     ]);
 

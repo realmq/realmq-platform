@@ -1,35 +1,26 @@
 const authRepository = require('../../lib/test/mocks/repositories/auth');
+const realtimeConnectionRepository = require('../../lib/test/mocks/repositories/realtime-connection');
 const initMarkClientOnline = require('./mark-client-online');
 
 describe('The markClientOnline task', () => {
   let markClientOnline;
   beforeEach(() => {
-    markClientOnline = initMarkClientOnline({authRepository});
+    realtimeConnectionRepository.create = jest.fn();
+    markClientOnline = initMarkClientOnline({authRepository, realtimeConnectionRepository});
   });
 
   describe('when called with unknown clientId', () => {
-    it('should fail gracefully and not return anything', async () => {
-      const auth = await markClientOnline(authRepository.unknownToken);
-
-      expect(auth).toBeUndefined();
+    it('should fail gracefully', async () => {
+      await markClientOnline(realtimeConnectionRepository.unknownClientId);
+      expect(realtimeConnectionRepository.create).not.toHaveBeenCalled();
     });
   });
 
   describe('when called with valid parameters', () => {
-    it('should return with the auth having the presence updated', async () => {
-      const auth = {isOnline: false};
-      markClientOnline = initMarkClientOnline({
-        authRepository: {
-          ...authRepository,
-          findOneByToken() {
-            return auth;
-          },
-        },
-      });
+    it('should create a new realtime connection', async () => {
+      await markClientOnline(realtimeConnectionRepository.knownClientId);
 
-      await markClientOnline(authRepository.knownToken);
-
-      expect(auth.isOnline).toBe(true);
+      expect(realtimeConnectionRepository.create).toHaveBeenCalled();
     });
   });
 });

@@ -79,7 +79,7 @@ module.exports = {
       ...properties,
     };
   },
-
+  async deleteOne() {},
   async findOneAndDelete() {},
   async deleteAllByUserId() {},
 };
