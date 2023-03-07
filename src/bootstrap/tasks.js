@@ -13,6 +13,7 @@ const initRewriteTopicToInternal = require('../rules/rewrite-topic-to-internal')
  * @param {ChannelRepository} channelRepository Channel repository
  * @param {MessageRepository} messageRepository Message repository
  * @param {RealmRepository} realmRepository Realm repository
+ * @param {RealtimeConnectionRepository} realtimeConnectionRepository Realtime connection repository
  * @param {SubscriptionRepository} subscriptionRepository Subscription repository
  * @param {UserRepository} userRepository User repository
  * @returns {{broker: BrokerTasks, admin: AdminTasks, client: ClientTasks}} Tasks
@@ -25,6 +26,7 @@ module.exports = ({
     channel: channelRepository,
     message: messageRepository,
     realm: realmRepository,
+    realtimeConnection: realtimeConnectionRepository,
     subscription: subscriptionRepository,
     user: userRepository,
   },
@@ -48,7 +50,9 @@ module.exports = ({
       authRepository,
       channelRepository,
       subscriptionRepository,
+      realtimeConnectionRepository,
       messageRepository,
+      userRepository
     }),
     client: initClientTasks({
       authTokenRules,
@@ -56,6 +60,7 @@ module.exports = ({
       channelRepository,
       messageRepository,
       userRepository,
+      realtimeConnectionRepository,
       subscriptionRepository,
       sendSubscriptionSyncMessage,
       rewriteTopicToInternal,

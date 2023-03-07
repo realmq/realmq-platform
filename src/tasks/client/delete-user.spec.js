@@ -1,5 +1,6 @@
 const userRepository = require('../../lib/test/mocks/repositories/user');
 const authRepository = require('../../lib/test/mocks/repositories/auth');
+const realtimeConnectionRepository = require('../../lib/test/mocks/repositories/realtime-connection');
 const subscriptionRepository = require('../../lib/test/mocks/repositories/subscription');
 const initDeleteUser = require('./delete-user');
 
@@ -14,7 +15,13 @@ describe('The client deleteUser task', () => {
     userRepository.findOneAndDelete = jest.fn();
     authRepository.deleteAllByUserId = jest.fn();
     subscriptionRepository.deleteAllByUserId = jest.fn();
-    deleteUser = initDeleteUser({userRepository, authRepository, subscriptionRepository});
+    realtimeConnectionRepository.deleteAllByUserId = jest.fn();
+    deleteUser = initDeleteUser({
+      userRepository,
+      authRepository,
+      subscriptionRepository,
+      realtimeConnectionRepository
+    });
   });
 
   describe('when called with non-admin scope', () => {
@@ -51,6 +58,7 @@ describe('The client deleteUser task', () => {
       expect(userRepository.findOneAndDelete).toHaveBeenCalled();
       expect(authRepository.deleteAllByUserId).toHaveBeenCalled();
       expect(subscriptionRepository.deleteAllByUserId).toHaveBeenCalled();
+      expect(realtimeConnectionRepository.deleteAllByUserId).toHaveBeenCalled();
     });
   });
 });

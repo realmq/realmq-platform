@@ -5,10 +5,16 @@ const taskError = require('../../lib/error/task');
  * Init delete user task.
  * @param {UserRepository} userRepository The user repository
  * @param {AuthRepository} authRepository The auth repository
+ * @param {RealtimeConnectionRepository} realtimeConnectionRepository The realtime connection repository
  * @param {SubscriptionRepository} subscriptionRepository The subscription repository
  * @returns {ClientTasks#deleteUser} Task
  */
-module.exports = ({userRepository, authRepository, subscriptionRepository}) =>
+module.exports = ({
+  userRepository,
+  authRepository,
+  subscriptionRepository,
+  realtimeConnectionRepository
+}) =>
   /**
    * Delete a user and its auth tokens and subscriptions.
    * @function ClientTasks#deleteUser
@@ -38,6 +44,7 @@ module.exports = ({userRepository, authRepository, subscriptionRepository}) =>
       userRepository.findOneAndDelete({realmId, id}),
       authRepository.deleteAllByUserId({realmId, userId: id}),
       subscriptionRepository.deleteAllByUserId({realmId, userId: id}),
+      realtimeConnectionRepository.deleteAllByUserId({realmId, userId: id})
     ]);
 
     return success(user);

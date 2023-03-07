@@ -2,6 +2,7 @@ const createAuthRepository = require('./auth');
 const createChannelRepository = require('./channel');
 const createMessageRepository = require('./message');
 const createRealmRepository = require('./realm');
+const createRealtimeConnectionRepository = require('./realtime-connection');
 const createSubscriptionRepository = require('./subscription');
 const createUserRepository = require('./user');
 
@@ -12,6 +13,7 @@ const createUserRepository = require('./user');
  * @param {Collection} channelCollection Dependency
  * @param {Collection} messageCollection Dependency
  * @param {Collection} realmCollection Dependency
+ * @param {Collection} realtimeConnectionCollection Dependency
  * @param {Collection} subscriptionCollection Dependency
  * @param {Collection} userCollection Dependency
  * @return {Repositories} The repositories
@@ -19,6 +21,7 @@ const createUserRepository = require('./user');
 module.exports = ({
   authCollection, channelCollection, messageCollection,
   realmCollection, subscriptionCollection, userCollection,
+  realtimeConnectionCollection
 }) =>
   /**
    * @typedef {object} Repositories
@@ -26,6 +29,7 @@ module.exports = ({
    * @property {ChannelRepository} channel
    * @property {MessageRepository} message
    * @property {RealmRepository} realm
+   * @property {RealtimeConnectionRepository} realtimeConnection
    * @property {SubscriptionRepository} subscription
    * @property {UserRepository} user
    */
@@ -34,6 +38,7 @@ module.exports = ({
     channel: createChannelRepository({collection: channelCollection}),
     message: createMessageRepository({collection: messageCollection}),
     realm: createRealmRepository({collection: realmCollection}),
+    realtimeConnection: createRealtimeConnectionRepository({collection: realtimeConnectionCollection}),
     subscription: createSubscriptionRepository({collection: subscriptionCollection}),
     user: createUserRepository({collection: userCollection}),
   });

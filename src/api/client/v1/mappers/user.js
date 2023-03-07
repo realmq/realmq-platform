@@ -15,6 +15,7 @@ module.exports = entity => mapGeneric({
   entity,
   propertyMap: {
     id: 'id',
+    isOnline: 'isOnline',
     properties: 'properties',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',

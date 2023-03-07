@@ -8,9 +8,10 @@ const createLookupQuery = require('./auth/create-lookup-query');
 /**
  * Init delete auth task
  * @param {AuthRepository} authRepository Auth repository
+ * @param {RealtimeConnectionRepository} realtimeConnectionRepository Realtime connection repository
  * @returns {ClientTasks#deleteAuth} Delete auth task
  */
-module.exports = ({authRepository}) =>
+module.exports = ({authRepository, realtimeConnectionRepository}) =>
   /**
    * @function ClientTasks#deleteAuth
    * @param {AuthModel} authToken Authentication
@@ -22,7 +23,7 @@ module.exports = ({authRepository}) =>
 
     if (scope !== 'admin') {
       return failure(errorInsufficientPrivileges({
-        action: 'patch an auth token',
+        action: 'delete an auth token',
       }));
     }
 
@@ -33,6 +34,13 @@ module.exports = ({authRepository}) =>
       return failure(unknownAuthError());
     }
 
-    await authRepository.findOneAndDelete(query);
+    await Promise.all([
+      authRepository.deleteOne(query),
+      realtimeConnectionRepository.deleteAllByAuthId({
+        realmId,
+        authId: id
+      })
+    ]);
+
     return success(authToDelete);
   };

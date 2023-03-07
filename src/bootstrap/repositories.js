@@ -12,6 +12,7 @@ module.exports = async ({db}) => {
     channelCollection,
     messageCollection,
     realmCollection,
+    realtimeConnectionCollection,
     subscriptionCollection,
     userCollection,
   ] = await Promise.all([
@@ -19,6 +20,7 @@ module.exports = async ({db}) => {
     db.collection('channels'),
     db.collection('messages'),
     db.collection('realms'),
+    db.collection('realtime-connections'),
     db.collection('subscriptions'),
     db.collection('users'),
   ]);
@@ -27,6 +29,7 @@ module.exports = async ({db}) => {
     channelCollection,
     messageCollection,
     realmCollection,
+    realtimeConnectionCollection,
     subscriptionCollection,
     userCollection,
   });

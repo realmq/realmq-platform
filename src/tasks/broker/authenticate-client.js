@@ -1,3 +1,5 @@
+const {extractTokenFromClientId} = require('../../rules/parse-client-id');
+
 /**
  * @typedef {object} BrokerClient
  * @prop {string} id
@@ -23,7 +25,10 @@ module.exports = ({authRepository}) =>
       authenticated: false,
     };
 
-    const auth = await authRepository.findOneByToken(clientId);
+    // parse the actual token from clientId
+    const token = extractTokenFromClientId(clientId);
+
+    const auth = await authRepository.findOneByToken(token);
     if (auth) {
       Object.assign(client, {
         authenticated: true,
