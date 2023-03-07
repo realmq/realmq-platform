@@ -1,4 +1,4 @@
-const {parseTokenFromClientId} = require('../../rules/parse-client-id');
+const {extractTokenFromClientId} = require('../../rules/parse-client-id');
 
 /**
  * @typedef {object} BrokerClient
@@ -26,7 +26,7 @@ module.exports = ({authRepository}) =>
     };
 
     // parse the actual token from clientId
-    const token = parseTokenFromClientId(clientId);
+    const token = extractTokenFromClientId(clientId);
 
     const auth = await authRepository.findOneByToken(token);
     if (auth) {

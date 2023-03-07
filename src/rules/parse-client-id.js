@@ -4,7 +4,7 @@ const SEPARATOR = ':';
  * @param {string} clientId
  * @returns {string}
  */
-function parseClientId(clientId) {
+function extractTokenFromClientId(clientId) {
   if (!clientId) {
     return clientId;
   }
@@ -15,5 +15,5 @@ function parseClientId(clientId) {
 
 
 module.exports = {
-  parseTokenFromClientId: parseClientId
+  extractTokenFromClientId
 }

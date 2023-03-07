@@ -1,4 +1,4 @@
-const {parseTokenFromClientId} = require('../../rules/parse-client-id');
+const {extractTokenFromClientId} = require('../../rules/parse-client-id');
 
 /**
  * @param {AuthRepository} authRepository Auth repository
@@ -17,7 +17,7 @@ module.exports = ({
    * @return {Promise<void>}
    */
   async clientId => {
-    const token = parseTokenFromClientId(clientId)
+    const token = extractTokenFromClientId(clientId)
     const auth = await authRepository.findOneByToken(token);
     if (!auth) {
       return;
