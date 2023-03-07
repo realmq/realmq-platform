@@ -135,7 +135,7 @@ Channel:
         features:
           $ref: '#/definitions/ChannelFeatures'
         properties:
-          type: object
+          $ref: '#/definitions/CustomProperties'
       required:
         - properties
     - $ref: '#/definitions/TimestampsTrait'
