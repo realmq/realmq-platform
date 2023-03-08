@@ -62,6 +62,7 @@ services:
       - ADAPTER_HOST=platform
       - ADAPTER_PORT=${PORT:-8080}
       - CREDENTIALS=adapter:adapter
+      - VERNEMQ_ACCEPT_EULA=${VERNEMQ_ACCEPT_EULA:-no}
 
   certificates:
     image: realmq/dev-ca
