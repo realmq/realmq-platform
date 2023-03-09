@@ -8,12 +8,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 - Introduce new administrative user management endpoints `/admin/v1/realms/{realmId}/users`.
 - Introduce new endpoint `POST /client/v1/channels/{channelId}/messages` for sending messages.
 
+### Changed
+- Switched from account based auth for admin API to fixed API token ([#120]).
+
 ### Security
 - Upgraded node to version 16 ([#114])
 - Upgraded dependencies ([#116])
 
 [#116]: https://github.com/realmq/realmq-platform/issues/116
 [#114]: https://github.com/realmq/realmq-platform/issues/114
+[#120]: https://github.com/realmq/realmq-platform/issues/120
 
 ## [0.1.1] - 2019-07-23
 ### Added
