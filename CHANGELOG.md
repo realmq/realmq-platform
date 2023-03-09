@@ -4,6 +4,9 @@ This changelog documents all notable changes of the RealMQ Platform.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
+
+## [0.2.0] - 2023-03-09
+
 ### Added
 - Introduce new administrative user management endpoints `/admin/v1/realms/{realmId}/users`.
 - Introduce new endpoint `POST /client/v1/channels/{channelId}/messages` for sending messages.
