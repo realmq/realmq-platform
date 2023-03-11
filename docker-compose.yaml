@@ -2,7 +2,7 @@ version: '3'
 
 services:
   dispatcher:
-    image: realmq/realmq-dispatcher
+    image: realmq/realmq-dispatcher:0.8.0
     volumes:
       - certificates-volume:/data/certificates
     ports:
@@ -53,7 +53,7 @@ services:
       - MONGODB_DATABASE=realmq
 
   broker:
-    image: realmq/realmq-broker
+    image: realmq/realmq-broker:0.8.0
     ports:
       - 1883:1883
     environment:
@@ -65,7 +65,7 @@ services:
       - VERNEMQ_ACCEPT_EULA=${VERNEMQ_ACCEPT_EULA:-no}
 
   certificates:
-    image: realmq/dev-ca
+    image: realmq/dev-ca:0.1.0
     volumes:
       - certificates-volume:/data/certificates
     environment:
