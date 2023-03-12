@@ -16,4 +16,24 @@ module.exports = (tasks, mappers) => ({
 
     return res.json(mappers.subscriptionList(list));
   },
+
+  async post(req, res) {
+    const {id, channelId, userId, allowRead, allowWrite} = req.body;
+    const {realmId} = req.params;
+
+    const {ok, result: subscription, error} = await tasks.admin.createSubscription({
+      realmId,
+      id,
+      channelId,
+      userId,
+      allowRead,
+      allowWrite
+    });
+
+    if (!ok) {
+      throw error;
+    }
+
+    return res.status(201).json(mappers.subscription(subscription));
+  },
 });

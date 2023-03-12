@@ -1,6 +1,7 @@
 const initCreateChannel = require('./create-channel');
 const initCreateRealm = require('./create-realm');
 const initCreateRealmToken = require('./create-realm-token');
+const initCreateSubscription = require('./create-subscription');
 const initCreateUser = require('./create-user');
 const initFetchRealm = require('./fetch-realm');
 const initListChannels = require('./list-channels');
@@ -17,6 +18,7 @@ const initListUsers = require('./list-users');
  * @param {ChannelRepository} channelRepository The channel repository
  * @param {SubscriptionRepository} subscriptionRepository The subscription repository
  * @param {UserRepository} userRepository The user repository
+ * @param {CommonTasks#sendSubscriptionSyncMessage} sendSubscriptionSyncMessage Task for sending subscription sync
  * @returns {AdminTasks} Initialized admin tasks
  */
 module.exports = ({
@@ -25,12 +27,20 @@ module.exports = ({
   channelRepository,
   realmRepository,
   subscriptionRepository,
-  userRepository
+  userRepository,
+  sendSubscriptionSyncMessage
 }) => ({
   fetchRealm: initFetchRealm({realmRepository}),
   createChannel: initCreateChannel({realmRepository, channelRepository}),
   createRealm: initCreateRealm({realmRepository}),
   createRealmToken: initCreateRealmToken({authTokenRules, realmRepository, userRepository, authRepository}),
+  createSubscription: initCreateSubscription({
+    userRepository,
+    realmRepository,
+    channelRepository,
+    sendSubscriptionSyncMessage,
+    subscriptionRepository
+  }),
   createUser: initCreateUser({userRepository, realmRepository}),
   listChannels: initListChannels({realmRepository, channelRepository}),
   listRealms: initListRealms({realmRepository}),
