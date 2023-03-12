@@ -39,7 +39,7 @@
       400:
         description: |
           Request validation failed or the channel could not be created since a channel with the same id already exists.
-          Error codes are: **UserAlreadyExists**.
+          Error codes are: **ChannelAlreadyExists**.
         schema:
           allOf:
             - $ref: '#/definitions/RequestError'
