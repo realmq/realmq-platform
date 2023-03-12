@@ -181,6 +181,69 @@ ChannelList:
             $ref: '#/definitions/Channel'
       required:
         - items
+
+Subscription:
+  allOf:
+    - $ref: '#/definitions/BaseEntity'
+    - properties:
+        channelId:
+          type: string
+          readOnly: true
+        userId:
+          type: string
+          readOnly: true
+        allowRead:
+          type: boolean
+        allowWrite:
+          type: boolean
+      required:
+        - channelId
+        - userId
+        - allowRead
+        - allowWrite
+    - $ref: '#/definitions/TimestampsTrait'
+
+SubscriptionCreation:
+  title: SubscriptionCreation
+  type: object
+  additionalProperties: false
+  properties:
+    id:
+      $ref: '#/definitions/CustomId'
+    channelId:
+      description: The id of an existing channel.
+      type: string
+      pattern: ^[\w-]+$
+    userId:
+      description: The id of an existing user.
+      type: string
+      pattern: ^[\w-]+$
+    allowRead:
+      description: Boolean flag that indicates whether the user has **read access** to the channel.
+      type: boolean
+      default: false
+    allowWrite:
+      description: Boolean flag that indicates whether the user has **write access** to the channel.
+      type: boolean
+      default: false
+  example:
+    id: some-channel_some-user
+    channelId: some-channel
+    userId: some-user
+    allowRead: true
+    allowWrite: true
+
+SubscriptionList:
+  allOf:
+    - $ref: '#/definitions/BaseList'
+    - properties:
+        items:
+          type: array
+          items:
+            $ref: '#/definitions/Subscription'
+      required:
+        - items
+
 User:
   allOf:
     - $ref: '#/definitions/BaseEntity'

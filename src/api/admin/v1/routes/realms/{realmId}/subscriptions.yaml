@@ -1,0 +1,53 @@
+/realms/{realmId}/subscriptions:
+  parameters:
+    - $ref: '#/parameters/realmIdInPath'
+  get:
+    summary: Search and list .
+    description: |
+      Get paginated subscription listing.
+    tags:
+    - Subscriptions
+    parameters:
+    - $ref: '#/parameters/paginationOffset'
+    - $ref: '#/parameters/paginationLimit'
+    responses:
+      200:
+        description: The list of subscriptions was successfully retrieved.
+        schema:
+          $ref: '#/definitions/SubscriptionList'
+      400:
+        description: Request validation failed.
+      401:
+        description: The subscriptions could not be listed since the authorization failed.
+  post:
+    summary: Create a new subscription
+    description: |
+      Create a new subscription.
+    tags:
+      - Subscriptions
+    parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/SubscriptionCreation'
+    responses:
+      201:
+        description: Subscription was created successfully.
+        schema:
+          $ref: '#/definitions/Subscription'
+      400:
+        description: |
+          Request validation failed or the subscription could not be created
+          due to unmet constraints like the user is already subscribed to the
+          channel or a subscription with the same id already exists.
+
+          Possible error codes are: **AlreadySubscribed** and **SubscriptionAlreadyExists**.
+        schema:
+          allOf:
+            - $ref: '#/definitions/RequestError'
+            - example:
+                code: SubscriptionAlreadyExists
+                message: A subscription with the same id already exists.
+      401:
+        description: The subscription could not be created due to failed authorization.
