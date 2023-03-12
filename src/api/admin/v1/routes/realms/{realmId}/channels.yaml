@@ -18,7 +18,7 @@
       400:
         description: Request validation failed.
       401:
-        description: The realms could not be listed since the authorization failed.
+        description: The channels could not be listed since the authorization failed.
   post:
     summary: Create a new channel
     description: |
