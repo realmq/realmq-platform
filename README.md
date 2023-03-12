@@ -3,7 +3,7 @@
   <br><br>
 </h1>
 
-![RealMQ Platform Build Status](https://drone.rmq.ovh/api/badges/RealMQ/realmq-platform/status.svg)
+![RealMQ Platform Build Status](https://drone.rmq.ovh/api/badges/realmq/realmq-platform/status.svg?ref=refs/heads/main)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Frealmq%2Frealmq-platform.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Frealmq%2Frealmq-platform?ref=badge_shield)
 [![Join the community on Spectrum](https://withspectrum.github.io/badge/badge.svg)](https://spectrum.chat/realmq)
 
