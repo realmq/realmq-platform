@@ -18,5 +18,5 @@ module.exports = ({code, message}) =>
       isTaskError: true,
       name: 'TaskError',
       code,
-    }
+    },
   );

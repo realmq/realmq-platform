@@ -77,7 +77,7 @@ module.exports = ({
           code: 'InvalidPatch',
           message: 'Provided patch is invalid.',
         }),
-        patchValidationError
+        patchValidationError,
       );
     }
 
@@ -89,7 +89,7 @@ module.exports = ({
           code: 'InvalidSubscription',
           message: 'Invalid subscription after applying patch.',
         }),
-        validationErrors
+        validationErrors,
       );
     }
 

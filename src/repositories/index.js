@@ -21,7 +21,7 @@ const createUserRepository = require('./user');
 module.exports = ({
   authCollection, channelCollection, messageCollection,
   realmCollection, subscriptionCollection, userCollection,
-  realtimeConnectionCollection
+  realtimeConnectionCollection,
 }) =>
   /**
    * @typedef {object} Repositories

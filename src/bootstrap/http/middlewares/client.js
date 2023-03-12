@@ -1,3 +1,4 @@
+const path = require('node:path');
 const mw = require('../../../lib/bootstrap/openapi-middleware');
 const initAuthTokenScheme = require('../../../lib/express-openapi/security-scheme/auth-token');
 const mappers = require('../../../api/client/v1/mappers');
@@ -12,7 +13,7 @@ const mappers = require('../../../api/client/v1/mappers');
 module.exports = async ({tasks, logger}) => ({
   v1: await mw({
     logger,
-    path: `${__dirname}/../../../api/client/v1`,
+    path: path.join(__dirname, '/../../../api/client/v1'),
     dependencies: {
       tasks,
       mappers,

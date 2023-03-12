@@ -1,7 +1,7 @@
 const initAuthorizeSubscribe = require('./authorize-subscribe');
 
-const rewriteTopicToInternal =
-  ({client: {realmId, userId}, topic}) => `${realmId}-${userId}-${topic}`;
+const rewriteTopicToInternal
+  = ({client: {realmId, userId}, topic}) => `${realmId}-${userId}-${topic}`;
 
 describe('The authorizeSubscribe task', () => {
   const subscribableTopic = 'subscribable-topic';
@@ -31,7 +31,7 @@ describe('The authorizeSubscribe task', () => {
     it('comes back with a subscription list having qos errors', async () => {
       const subscriptions = await authorizeSubscribe(
         client,
-        [{topic: unsubscribableTopic, qos: 1}]
+        [{topic: unsubscribableTopic, qos: 1}],
       );
 
       expect(Array.isArray(subscriptions)).toBe(true);

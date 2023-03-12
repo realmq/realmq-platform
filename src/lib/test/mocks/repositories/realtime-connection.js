@@ -1,6 +1,6 @@
-const authRepository = require('./auth');
 const realtimeConnectionModel = require('../../../../models/realtime-connection');
 const {duplicate: duplicateError} = require('../../../../repositories/lib/error');
+const authRepository = require('./auth');
 
 const knownRealtimeConnectionId = 'known-realtime-connection-id';
 const unknownRealtimeConnectionId = 'unknown-realtime-connection-id';

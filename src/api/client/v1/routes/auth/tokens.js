@@ -7,35 +7,35 @@
 module.exports = (tasks, mappers) => ({
   /**
    * GET /auth/tokens
-   * @param {object} req Request
-   * @param {object} res Response
+   * @param {object} request Request
+   * @param {object} response Response
    */
-  get: async (req, res) => {
-    const {auth: authToken, query: {offset, limit}} = req;
-    const {ok, result: list, error} =
-      await tasks.client.listAuths({authToken, offset, limit});
+  async get(request, response) {
+    const {auth: authToken, query: {offset, limit}} = request;
+    const {ok, result: list, error}
+      = await tasks.client.listAuths({authToken, offset, limit});
 
     if (!ok) {
       throw error;
     }
 
-    res.json(mappers.authList(list));
+    response.json(mappers.authList(list));
   },
   /**
    * POST /auth/tokens
-   * @param {object} req Request
-   * @param {object} res Response
+   * @param {object} request Request
+   * @param {object} response Response
    */
-  post: async (req, res) => {
-    const {auth: authToken, body: data} = req;
+  async post(request, response) {
+    const {auth: authToken, body: data} = request;
 
-    const {ok, result: createdAuthToken, error} =
-      await tasks.client.createAuth({authToken, data});
+    const {ok, result: createdAuthToken, error}
+      = await tasks.client.createAuth({authToken, data});
 
     if (!ok) {
       throw error;
     }
 
-    res.status(201).json(mappers.auth(createdAuthToken));
+    response.status(201).json(mappers.auth(createdAuthToken));
   },
 });

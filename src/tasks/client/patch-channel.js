@@ -91,7 +91,7 @@ module.exports = ({channelRepository}) =>
           code: 'InvalidPatch',
           message: 'Provided patch is invalid.',
         }),
-        patchValidationError
+        patchValidationError,
       );
     }
 
@@ -103,7 +103,7 @@ module.exports = ({channelRepository}) =>
           code: 'InvalidChannel',
           message: 'Invalid channel after applying patch.',
         }),
-        validationErrors
+        validationErrors,
       );
     }
 

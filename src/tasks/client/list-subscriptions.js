@@ -1,9 +1,9 @@
 const {success} = require('../../lib/result');
 
 const buildQuery = ({scope, realmId, userId}) => (
-  scope === 'admin' ?
-    {realmId} : // Admins see all subscriptions
-    {realmId, userId} // Non admins see only their subscriptions
+  scope === 'admin'
+    ? {realmId} // Admins see all subscriptions
+    : {realmId, userId} // Non admins see only their subscriptions
 );
 
 /**
@@ -23,7 +23,7 @@ module.exports = ({subscriptionRepository}) =>
     const {scope, realmId, userId} = authToken;
 
     const query = buildQuery({scope, realmId, userId});
-    const list = await subscriptionRepository.find(query, {offset, limit});
+    const list = await subscriptionRepository.find({...query}, {offset, limit});
 
     return success(list);
   };

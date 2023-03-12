@@ -4,9 +4,12 @@
  * @param {Object} obj The source object
  * @return {Object} The cleaned source object
  */
-module.exports = obj => {
-  Object.keys(obj).forEach(
-    key => (obj[key] === undefined) && delete obj[key]
-  );
-  return obj;
+module.exports = object => {
+  for (const key of Object.keys(object)) {
+    if (object[key] === undefined) {
+      delete object[key];
+    }
+  }
+
+  return object;
 };

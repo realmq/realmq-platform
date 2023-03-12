@@ -2,24 +2,24 @@ const mapTaskErrorToHttpError = require('../error/map-task-to-http-error');
 const httpError = require('../error/http');
 
 module.exports = () =>
-  (err, req, res, next) => {
+  (error, request, response, next) => {
     // Map express-openapi validation errors.
-    if (err.status === 400 && err.errors) {
+    if (error.status === 400 && error.errors) {
       return next(httpError({
         status: 400,
         code: 'InvalidRequestSchema',
         message: 'Request validation failed.',
-        details: err.errors,
+        details: error.errors,
       }));
     }
 
-    if (err.isTaskError) {
-      const httpError = mapTaskErrorToHttpError(err);
+    if (error.isTaskError) {
+      const httpError = mapTaskErrorToHttpError(error);
 
       if (httpError) {
         return next(httpError);
       }
     }
 
-    return next(err);
+    return next(error);
   };

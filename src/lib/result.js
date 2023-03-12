@@ -26,7 +26,7 @@ module.exports = {
    * @param {*[]} errors More errors
    * @returns {Result} Negative operation result
    */
-  failure: (error, ...errors) => {
+  failure(error, ...errors) {
     return {
       ok: false,
       error,

@@ -11,5 +11,5 @@ module.exports = ({entity, propertyMap = {}}) =>
       mapped[propertyMap[prop]] = entity[prop];
       return mapped;
     },
-    {}
+    {},
   );

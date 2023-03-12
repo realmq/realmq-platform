@@ -17,7 +17,7 @@ module.exports = ({
    * @return {Promise<void>} Promise
    */
   const publishMessage = (topic, message) => new Promise((resolve, reject) => {
-    mqttClient.publish(topic, message, err => (err ? reject(err) : resolve()));
+    mqttClient.publish(topic, message, error => (error ? reject(error) : resolve()));
   });
 
   /**

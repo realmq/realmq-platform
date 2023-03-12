@@ -4,9 +4,9 @@
  * @return {object} The express-openapi router
  */
 module.exports = (tasks, mappers) => ({
-  async get(req, res) {
-    const {offset, limit} = req.query;
-    const {realmId} = req.params;
+  async get(request, response) {
+    const {offset, limit} = request.query;
+    const {realmId} = request.params;
 
     const {ok, result: list, error} = await tasks.admin.listUsers({realmId, offset, limit});
 
@@ -14,12 +14,12 @@ module.exports = (tasks, mappers) => ({
       throw error;
     }
 
-    return res.json(mappers.userList(list));
+    return response.json(mappers.userList(list));
   },
 
-  async post(req, res) {
-    const {id, properties} = req.body;
-    const {realmId} = req.params;
+  async post(request, response) {
+    const {id, properties} = request.body;
+    const {realmId} = request.params;
 
     const {ok, result: user, error} = await tasks.admin.createUser({realmId, id, properties});
 
@@ -27,6 +27,6 @@ module.exports = (tasks, mappers) => ({
       throw error;
     }
 
-    return res.status(201).json(mappers.user(user));
+    return response.status(201).json(mappers.user(user));
   },
 });

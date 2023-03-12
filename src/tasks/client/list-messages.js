@@ -49,7 +49,7 @@ module.exports = ({
 
     const list = await messageRepository.find(
       {realmId, channelId, from, to},
-      {offset, limit, sort: {createdAt: -1}}
+      {offset, limit, sort: {createdAt: -1}},
     );
 
     return success(list);

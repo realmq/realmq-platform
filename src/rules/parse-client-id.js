@@ -9,11 +9,10 @@ function extractTokenFromClientId(clientId) {
     return clientId;
   }
 
-  // consider everything BEFORE separator as token.
+  // Consider everything BEFORE separator as token.
   return clientId.split(SEPARATOR)[0];
 }
 
-
 module.exports = {
-  extractTokenFromClientId
-}
+  extractTokenFromClientId,
+};

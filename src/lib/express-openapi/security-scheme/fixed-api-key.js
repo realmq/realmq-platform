@@ -10,18 +10,18 @@ module.exports = ({apiKey, logger}) => {
   if (!apiKey) {
     logger.warn('Use fixed-api-key security scheme with empty key');
     // No access restriction
-    return (req, res, next) => next();
+    return (request, response, next) => next();
   }
 
-  return async req => {
-    const authorizationValue = req.headers.authorization;
+  return async request => {
+    const authorizationValue = request.headers.authorization;
     if (!authorizationValue) {
       throw unauthorizedError('Missing authorization');
     }
 
     const [scheme, presentedApiKey] = authorizationValue.trim().split(' ');
     if (scheme.toLowerCase() !== 'bearer' || !presentedApiKey) {
-      return Promise.reject(unauthorizedError('Invalid authorization scheme'));
+      throw unauthorizedError('Invalid authorization scheme');
     }
 
     if (presentedApiKey !== apiKey) {

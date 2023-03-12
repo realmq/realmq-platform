@@ -10,7 +10,7 @@ describe('The markClientOffline task', () => {
     markClientOffline = initMarkClientOffline({
       realtimeConnectionRepository,
       authRepository,
-      userRepository
+      userRepository,
     });
   });
 

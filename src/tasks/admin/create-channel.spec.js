@@ -27,7 +27,7 @@ describe('A createChannel admin task', () => {
       it('should fail with a task error and correct error code', async () => {
         const {ok, error} = await createChannel({
           realmId: realmRepository.knownRealmId,
-          id: channelRepository.duplicateChannelId
+          id: channelRepository.duplicateChannelId,
         });
 
         expect(ok).toBe(false);
@@ -41,7 +41,7 @@ describe('A createChannel admin task', () => {
       it('should succeed with a created channel', async () => {
         const {ok, result, error} = await createChannel({
           realmId: realmRepository.knownRealmId,
-          id: channelRepository.unknownChannelId
+          id: channelRepository.unknownChannelId,
         });
 
         expect(ok).toBe(true);

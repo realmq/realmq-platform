@@ -18,6 +18,6 @@ module.exports = ({authRepository}) =>
     const {scope, realmId, userId} = authToken;
 
     const query = createLookupQuery({scope, realmId, userId});
-    const list = await authRepository.find(query, {offset, limit});
+    const list = await authRepository.find({...query}, {offset, limit});
     return success(list);
   };

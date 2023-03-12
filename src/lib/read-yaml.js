@@ -1,5 +1,5 @@
-const {readFile, readFileSync} = require('fs');
-const {dirname} = require('path');
+const {readFileSync, promises: {readFile}} = require('fs');
+const {dirname} = require('node:path');
 const {load: parseYaml, Type: YamlType, DEFAULT_SCHEMA} = require('js-yaml');
 
 const buildSchema = (path, readYaml) => {
@@ -9,7 +9,7 @@ const buildSchema = (path, readYaml) => {
   const includeType = new YamlType('!include', {
     kind: 'scalar',
     resolve: data => data !== null,
-    construct: path => {
+    construct(path) {
       try {
         return readYaml(absoultizePath(path));
       } catch (error) {
@@ -20,14 +20,12 @@ const buildSchema = (path, readYaml) => {
   const includeMergedType = new YamlType('!includeMerged', {
     kind: 'sequence',
     resolve: data => data !== null && data.length > 0,
-    construct: paths => {
+    construct(paths) {
       try {
         const contents = paths.map(path => readYaml(absoultizePath(path)));
-        return contents.reduce((merged, content) => {
-          return Array.isArray(merged) ?
-            merged.concat(content) :
-            ({...content, ...merged});
-        });
+        return contents.reduce((merged, content) => Array.isArray(merged)
+          ? [...merged, ...content]
+          : ({...content, ...merged}));
       } catch (error) {
         return `[Error: ${error.message}]`;
       }
@@ -37,24 +35,15 @@ const buildSchema = (path, readYaml) => {
 };
 
 const readYamlSync = path => {
-  const data = readFileSync(path, {encoding: 'utf-8'});
+  const data = readFileSync(path, {encoding: 'utf8'});
   const schema = buildSchema(path, readYamlSync);
   return parseYaml(data, {schema});
 };
 
-const readYaml = path => new Promise((resolve, reject) => {
-  readFile(path, {encoding: 'utf-8'}, (loadErr, data) => {
-    if (loadErr) {
-      return reject(loadErr);
-    }
-
-    try {
-      const schema = buildSchema(path, readYamlSync);
-      resolve(parseYaml(data, {schema}));
-    } catch (error) {
-      reject(error);
-    }
-  });
-});
+const readYaml = async path => {
+  const data = await readFile(path, {encoding: 'utf8'});
+  const schema = buildSchema(path, readYamlSync);
+  return parseYaml(data, {schema});
+};
 
 module.exports = readYaml;

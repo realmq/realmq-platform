@@ -28,7 +28,7 @@ module.exports = ({collection, createModel, generateId}) => {
     /**
      * @inheritDoc
      */
-    create: async data => {
+    async create(data) {
       assertRealmId(data.realmId);
 
       return mongoRepo.create(data);
@@ -37,7 +37,7 @@ module.exports = ({collection, createModel, generateId}) => {
     /**
      * @inheritDoc
      */
-    count: async query => {
+    async count(query) {
       assertRealmId(query.realmId);
 
       return mongoRepo.count(query);
@@ -46,7 +46,7 @@ module.exports = ({collection, createModel, generateId}) => {
     /**
      * @inheritDoc
      */
-    deleteMany: async query => {
+    async deleteMany(query) {
       assertRealmId(query.realmId);
 
       return mongoRepo.deleteMany(query);
@@ -55,7 +55,7 @@ module.exports = ({collection, createModel, generateId}) => {
     /**
      * @inheritDoc
      */
-    findOne: async query => {
+    async findOne(query) {
       assertRealmId(query.realmId);
 
       return mongoRepo.findOne(query);
@@ -64,7 +64,7 @@ module.exports = ({collection, createModel, generateId}) => {
     /**
      * @inheritDoc
      */
-    findOneAndDelete: async query => {
+    async findOneAndDelete(query) {
       assertRealmId(query.realmId);
 
       return mongoRepo.findOneAndDelete(query);
@@ -73,7 +73,7 @@ module.exports = ({collection, createModel, generateId}) => {
     /**
      * @inheritDoc
      */
-    findOneAndUpdate: async (query, data) => {
+    async findOneAndUpdate(query, data) {
       assertRealmId(query.realmId);
 
       // Strip off realmId
@@ -85,7 +85,7 @@ module.exports = ({collection, createModel, generateId}) => {
     /**
      * @inheritDoc
      */
-    update: async model => {
+    async update(model) {
       assertId(model.id);
 
       return multiRealmRepo.findOneAndUpdate({
@@ -96,10 +96,10 @@ module.exports = ({collection, createModel, generateId}) => {
     /**
      * @inheritDoc
      */
-    find: async (query, {limit, offset, sort} = {}) => {
+    async find(query, {limit, offset, sort} = {}) {
       assertRealmId(query.realmId);
 
-      return mongoRepo.find(query, {limit, offset, sort});
+      return mongoRepo.find({...query}, {limit, offset, sort});
     },
   };
 

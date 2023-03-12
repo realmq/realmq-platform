@@ -14,10 +14,10 @@ describe('The client auth error module', () => {
   };
 
   it('should create correct errors', () => {
-    Object.entries(errorCodeToGeneratorMap).forEach(([errorCode, generator]) => {
+    for (const [errorCode, generator] of Object.entries(errorCodeToGeneratorMap)) {
       const error = generator();
 
       expect(error.code).toEqual(errorCode);
-    });
+    }
   });
 });

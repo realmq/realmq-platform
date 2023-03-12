@@ -36,10 +36,10 @@ module.exports = ({channelRepository}) =>
             code: 'ChannelAlreadyExists',
             message: 'A channel with the same id already exists.',
           }),
-          error
+          error,
         );
       }
 
-      return Promise.reject(error);
+      throw error;
     }
   };

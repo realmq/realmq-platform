@@ -25,7 +25,7 @@ module.exports = ({authRepository}) =>
       authenticated: false,
     };
 
-    // parse the actual token from clientId
+    // Parse the actual token from clientId
     const token = extractTokenFromClientId(clientId);
 
     const auth = await authRepository.findOneByToken(token);

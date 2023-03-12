@@ -19,8 +19,8 @@ module.exports = ({config, logger}) => new Promise((resolve, reject) => {
   });
 
   // Install general error logger
-  client.on('error', err => {
-    logger.warn(`Broker connection error: ${err}`, {error: err});
+  client.on('error', error => {
+    logger.warn(`Broker connection error: ${error}`, {error});
   });
 
   // Check for start up errors

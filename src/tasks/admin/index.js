@@ -22,17 +22,15 @@ module.exports = ({
   authRepository,
   channelRepository,
   realmRepository,
-  userRepository
-}) => {
-  return {
-    fetchRealm: initFetchRealm({realmRepository}),
-    createChannel: initCreateChannel({realmRepository, channelRepository}),
-    createRealm: initCreateRealm({realmRepository}),
-    createRealmToken: initCreateRealmToken({authTokenRules, realmRepository, userRepository, authRepository}),
-    createUser: initCreateUser({userRepository, realmRepository}),
-    listChannels: initListChannels({realmRepository, channelRepository}),
-    listRealms: initListRealms({realmRepository}),
-    listRealmTokens: initListRealmTokens({realmRepository, authRepository}),
-    listUsers: initListUsers({realmRepository, userRepository})
-  };
-};
+  userRepository,
+}) => ({
+  fetchRealm: initFetchRealm({realmRepository}),
+  createChannel: initCreateChannel({realmRepository, channelRepository}),
+  createRealm: initCreateRealm({realmRepository}),
+  createRealmToken: initCreateRealmToken({authTokenRules, realmRepository, userRepository, authRepository}),
+  createUser: initCreateUser({userRepository, realmRepository}),
+  listChannels: initListChannels({realmRepository, channelRepository}),
+  listRealms: initListRealms({realmRepository}),
+  listRealmTokens: initListRealmTokens({realmRepository, authRepository}),
+  listUsers: initListUsers({realmRepository, userRepository}),
+});

@@ -44,7 +44,7 @@ module.exports = ({
       authRepository,
       channelRepository,
       realmRepository,
-      userRepository
+      userRepository,
     }),
     broker: initBrokerTasks({
       logger,
@@ -53,7 +53,7 @@ module.exports = ({
       subscriptionRepository,
       realtimeConnectionRepository,
       messageRepository,
-      userRepository
+      userRepository,
     }),
     client: initClientTasks({
       authTokenRules,
@@ -65,7 +65,7 @@ module.exports = ({
       subscriptionRepository,
       sendSubscriptionSyncMessage,
       rewriteTopicToInternal,
-      mqttClient
+      mqttClient,
     }),
   };
 };

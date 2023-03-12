@@ -47,7 +47,7 @@ module.exports = ({
   userRepository,
   sendSubscriptionSyncMessage,
   rewriteTopicToInternal,
-  mqttClient
+  mqttClient,
 }) => ({
   authenticateUser:
     initAuthenticateUser({authRepository, userRepository}),
@@ -81,7 +81,7 @@ module.exports = ({
       userRepository,
       authRepository,
       subscriptionRepository,
-      realtimeConnectionRepository
+      realtimeConnectionRepository,
     }),
   fetchAuth:
     initFetchAuth({authRepository}),

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /* eslint no-await-in-loop: "off" */
-
+const process = require('node:process');
 const {createConnection} = require('net');
 
 const connect = ({host, port}) => new Promise((resolve, reject) => {
@@ -9,34 +9,36 @@ const connect = ({host, port}) => new Promise((resolve, reject) => {
     connection.end();
     resolve(connection);
   });
-  connection.once('error', err => reject(err));
+  connection.once('error', error => reject(error));
 });
 
 const test = async ({host, port}) => {
   try {
     await connect({host, port});
     return true;
-  } catch (_) {
+  } catch {
     return false;
   }
 };
 
-const sleep = time => new Promise(resolve => setTimeout(resolve, time));
+const sleep = time => new Promise(resolve => {
+  setTimeout(resolve, time);
+});
 
 const main = async argv => {
   const args = argv.slice(2);
   const [endpoints, timeout] = args.reduce(
     ([endpoints, timeout], arg) => {
-      if (arg.indexOf(':') > -1) {
+      if (arg.includes(':')) {
         const [host, port] = arg.split(':');
         endpoints.push({host, port});
       } else {
-        timeout = parseInt(arg, 10);
+        timeout = Number.parseInt(arg, 10);
       }
 
       return [endpoints, timeout];
     },
-    [[], 30]
+    [[], 30],
   );
 
   if (endpoints.length === 0) {
@@ -58,7 +60,7 @@ const main = async argv => {
             const online = lastResults[index];
             return online ? report : `${report}\n${host}:${port}`;
           },
-          ''
+          '',
         );
         throw new Error(`Timeout connecting to endpoint(s):${resultReport}`);
       }

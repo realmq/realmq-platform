@@ -26,8 +26,8 @@ describe('The common sendSubscriptionSync task', () => {
 
   describe('when called without action', () => {
     it('should not execute', async () => {
-      const {ok, error} =
-        await sendSubscriptionSyncMessage({
+      const {ok, error}
+        = await sendSubscriptionSyncMessage({
           subscription: subscriptionRepository.validSubscription,
         });
 

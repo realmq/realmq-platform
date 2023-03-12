@@ -17,7 +17,7 @@ module.exports = (state = {}) => {
      * @memberOf ExpressTestResponse
      * @returns {ExpressTestResponse} Response
      */
-    send: () => {
+    send() {
       state.isSend = true;
       return response;
     },
@@ -27,7 +27,7 @@ module.exports = (state = {}) => {
      * @param {string} [value] Header value
      * @returns {ExpressTestResponse} Response
      */
-    set: (name, value) => {
+    set(name, value) {
       if (value === undefined) {
         Object.assign(state.headers, name);
       } else {
@@ -41,7 +41,7 @@ module.exports = (state = {}) => {
      * @param {number} value Status code
      * @returns {ExpressTestResponse} Response
      */
-    status: value => {
+    status(value) {
       state.status = value;
       return response;
     },
@@ -50,7 +50,7 @@ module.exports = (state = {}) => {
      * @param {*} value JSON response value
      * @returns {ExpressTestResponse} Response
      */
-    json: value => {
+    json(value) {
       state.data = value;
       state.isSend = true;
       return response;

@@ -38,8 +38,8 @@ module.exports = ({authRepository, realtimeConnectionRepository}) =>
       authRepository.deleteOne(query),
       realtimeConnectionRepository.deleteAllByAuthId({
         realmId,
-        authId: id
-      })
+        authId: id,
+      }),
     ]);
 
     return success(authToDelete);

@@ -35,10 +35,10 @@ module.exports = ({channelRepository, realmRepository}) =>
             code: 'ChannelAlreadyExists',
             message: 'Channel could not be created, since a channel with the same id already exists.',
           }),
-          error
+          error,
         );
       }
 
       throw error;
     }
-  }
+  };

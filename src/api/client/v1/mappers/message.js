@@ -1,4 +1,6 @@
+const {Buffer} = require('node:buffer');
 const mapGeneric = require('../../../../lib/mappers/generic-entity');
+
 /**
  * @class MessageViewModel
  * @property {string} id

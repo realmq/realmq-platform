@@ -13,7 +13,7 @@ module.exports = ({
   userRepository,
   authRepository,
   subscriptionRepository,
-  realtimeConnectionRepository
+  realtimeConnectionRepository,
 }) =>
   /**
    * Delete a user and its auth tokens and subscriptions.
@@ -44,7 +44,7 @@ module.exports = ({
       userRepository.findOneAndDelete({realmId, id}),
       authRepository.deleteAllByUserId({realmId, userId: id}),
       subscriptionRepository.deleteAllByUserId({realmId, userId: id}),
-      realtimeConnectionRepository.deleteAllByUserId({realmId, userId: id})
+      realtimeConnectionRepository.deleteAllByUserId({realmId, userId: id}),
     ]);
 
     return success(user);

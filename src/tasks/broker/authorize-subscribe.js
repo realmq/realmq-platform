@@ -16,17 +16,15 @@ module.exports = ({loadTopicPermissions, rewriteTopicToInternal}) =>
    * @param {authorizeSubscribe~subscription[]} subscriptions
    * @return {Promise<authorizeSubscribe~subscription[]>}
    */
-  async (client, subscriptions) => {
-    return Promise.all(subscriptions.map(async ({topic, qos}) => {
-      const internalTopic = rewriteTopicToInternal({topic, client});
-      const permissions = await loadTopicPermissions({
-        realmId: client.realmId,
-        userId: client.userId,
-        topic,
-      });
-      return {
-        topic: internalTopic,
-        qos: permissions.read ? qos : QOS_FAILURE,
-      };
-    }));
-  };
+  async (client, subscriptions) => Promise.all(subscriptions.map(async ({topic, qos}) => {
+    const internalTopic = rewriteTopicToInternal({topic, client});
+    const permissions = await loadTopicPermissions({
+      realmId: client.realmId,
+      userId: client.userId,
+      topic,
+    });
+    return {
+      topic: internalTopic,
+      qos: permissions.read ? qos : QOS_FAILURE,
+    };
+  }));

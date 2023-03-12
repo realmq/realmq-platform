@@ -8,10 +8,10 @@
 module.exports = (tasks, mappers) => ({
   /**
    * GET /me/auth/token
-   * @param {object} req Request
-   * @param {object} res Response
+   * @param {object} request Request
+   * @param {object} response Response
    */
-  async get(req, res) {
-    res.json(mappers.auth(req.auth));
+  async get(request, response) {
+    response.json(mappers.auth(request.auth));
   },
 });

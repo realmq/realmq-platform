@@ -28,7 +28,7 @@ module.exports = ({collection, createModel = createChannelModel}) => {
      * @param {number} limit Max results
      * @return {Promise<PaginatedList<ChannelModel>>} Paginated list of channels
      */
-    findByIds: async ({realmId, ids}, {offset, limit} = {}) => {
+    async findByIds({realmId, ids}, {offset, limit} = {}) {
       assertRealmId(realmId);
 
       return multiRealmRepo.find({

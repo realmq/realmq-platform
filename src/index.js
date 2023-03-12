@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+const process = require('node:process');
 const dotenv = require('dotenv');
 const initConfig = require('./config');
 const createApp = require('./app');

@@ -19,19 +19,32 @@ describe('The broker recordMessage task', () => {
       messageRepository,
       channelRepository: {
         ...channelRepository,
-        findOne: async ({realmId, id}) => {
+        async findOne({realmId, id}) {
           if (id === channelRepository.unknownChannelId) {
             return null;
           }
 
           const features = {};
 
-          if (id === channelIdWithoutPersistence) {
+          switch (id) {
+          case channelIdWithoutPersistence: {
             features.persistence = {enabled: false};
-          } else if (id === channelIdWithPersistence) {
+
+            break;
+          }
+
+          case channelIdWithPersistence: {
             features.persistence = {enabled: true};
-          } else if (id === channelIdWithZeroDurationPersistence) {
+
+            break;
+          }
+
+          case channelIdWithZeroDurationPersistence: {
             features.persistence = {enabled: true, duration: '0d'};
+
+            break;
+          }
+          // No default
           }
 
           return channelModel({
@@ -59,7 +72,7 @@ describe('The broker recordMessage task', () => {
     it('should not persist', async () => {
       const topic = assembleTopic(
         channelRepository.knownRealmId,
-        channelRepository.unknownChannelId
+        channelRepository.unknownChannelId,
       );
       await recordMessage({topic, message: 'foobar'});
 
@@ -71,7 +84,7 @@ describe('The broker recordMessage task', () => {
     it('should not persist', async () => {
       const topic = assembleTopic(
         channelRepository.knownRealmId,
-        channelIdWithoutPersistence
+        channelIdWithoutPersistence,
       );
       await recordMessage({topic, message: 'foobar'});
 
@@ -83,7 +96,7 @@ describe('The broker recordMessage task', () => {
     it('should not persist', async () => {
       const topic = assembleTopic(
         channelRepository.knownRealmId,
-        channelIdWithZeroDurationPersistence
+        channelIdWithZeroDurationPersistence,
       );
       await recordMessage({topic, message: 'foobar'});
 
@@ -95,7 +108,7 @@ describe('The broker recordMessage task', () => {
     it('should persist', async () => {
       const topic = assembleTopic(
         channelRepository.knownRealmId,
-        channelIdWithPersistence
+        channelIdWithPersistence,
       );
       await recordMessage({topic, message: 'foobar'});
 

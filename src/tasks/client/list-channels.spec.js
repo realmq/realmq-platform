@@ -21,15 +21,15 @@ describe('The client listChannels task', () => {
     it('should come back with a paginated list of channels of all users', async () => {
       const {ok, result} = await listChannels({authToken, offset, limit});
 
-      const mockedFindChannelsCallParams = channelRepository.find.mock.calls[0][0];
+      const mockedFindChannelsCallParameters = channelRepository.find.mock.calls[0][0];
 
       expect(ok).toBe(true);
       expect(isPaginatedList(result)).toBe(true);
       expect(result.offset).toBe(offset);
       expect(result.limit).toBe(limit);
       expect(channelRepository.find).toHaveBeenCalled();
-      expect(mockedFindChannelsCallParams.realmId).toBeDefined();
-      expect(mockedFindChannelsCallParams.userId).not.toBeDefined();
+      expect(mockedFindChannelsCallParameters.realmId).toBeDefined();
+      expect(mockedFindChannelsCallParameters.userId).not.toBeDefined();
     });
   });
 

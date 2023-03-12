@@ -22,7 +22,7 @@ module.exports = ({collection, createModel, createPaginatedList = paginatedListF
      * @param {object} data Model data
      * @return {Promise<object>} The created model
      */
-    create: async data => {
+    async create(data) {
       const model = createModel({
         ...data,
         id: data.id || generateId(),
@@ -60,7 +60,7 @@ module.exports = ({collection, createModel, createPaginatedList = paginatedListF
      * @param {object} query Record filter
      * @return {Promise<object>} Promised model
      */
-    findOne: async query => {
+    async findOne(query) {
       const result = await collection.findOne(query);
 
       return result ? createModel(result) : null;
@@ -71,7 +71,7 @@ module.exports = ({collection, createModel, createPaginatedList = paginatedListF
      * @param {object} query Record filter
      * @return {Promise<object>} Promised model
      */
-    findOneAndDelete: async query => {
+    async findOneAndDelete(query) {
       const {value} = await collection.findOneAndDelete(query);
       return value ? createModel(value) : null;
     },
@@ -82,7 +82,7 @@ module.exports = ({collection, createModel, createPaginatedList = paginatedListF
      * @param {object} data Update data
      * @return {Promise<object>} Promised updated model
      */
-    findOneAndUpdate: async (query, data) => {
+    async findOneAndUpdate(query, data) {
       // Strip createdAt
       const {createdAt, ...updateData} = createModel(data);
 
@@ -90,7 +90,7 @@ module.exports = ({collection, createModel, createPaginatedList = paginatedListF
       const result = await collection.findOneAndUpdate(
         query,
         {$set: updateData},
-        {returnDocument: 'after'}
+        {returnDocument: 'after'},
       );
 
       return result.value ? createModel(result.value) : null;
@@ -101,7 +101,7 @@ module.exports = ({collection, createModel, createPaginatedList = paginatedListF
      * @param {object} model The model to update
      * @return {Promise<object>} Promised updated model
      */
-    update: async model => {
+    async update(model) {
       assertId(model.id);
 
       return mongoRepo.findOneAndUpdate({id: model.id}, model);
@@ -115,8 +115,8 @@ module.exports = ({collection, createModel, createPaginatedList = paginatedListF
      * @param {Object} [sort] Sorting of the result
      * @return {Promise<PaginatedList>} The paginated list of records
      */
-    find: async (query, {limit, offset = 0, sort = {createdAt: -1}} = {}) => {
-      const cursor = await collection.find(query, {skip: offset, limit, sort});
+    async find(query, {limit, offset = 0, sort = {createdAt: -1}} = {}) {
+      const cursor = await collection.find({...query}, {skip: offset, limit, sort});
 
       let docs = [];
       let total = 0;

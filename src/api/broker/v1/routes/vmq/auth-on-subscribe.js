@@ -16,8 +16,8 @@ module.exports = ({authenticateClient, authorizeSubscribe}) =>
   async (request, response) => {
     const {client_id: clientId, topics: subscriptions} = request.body || {};
     if (
-      !clientId ||
-      !subscriptions
+      !clientId
+      || !subscriptions
     ) {
       return response.status(400).send();
     }

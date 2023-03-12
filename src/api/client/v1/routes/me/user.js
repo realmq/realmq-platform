@@ -6,11 +6,11 @@
 module.exports = mappers => ({
   /**
    * GET /me/user
-   * @param {object} req Request
-   * @param {object} res Response
+   * @param {object} request Request
+   * @param {object} response Response
    * @return {void}
    */
-  async get(req, res) {
-    res.json(mappers.user(req.user));
+  async get(request, response) {
+    response.json(mappers.user(request.user));
   },
 });

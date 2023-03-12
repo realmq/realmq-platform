@@ -20,7 +20,7 @@ describe('The client deleteUser task', () => {
       userRepository,
       authRepository,
       subscriptionRepository,
-      realtimeConnectionRepository
+      realtimeConnectionRepository,
     });
   });
 

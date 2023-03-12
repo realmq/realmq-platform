@@ -55,8 +55,8 @@ module.exports = ({collection, createModel = createAuthModel}) => {
         throw new Error('Missing id');
       }
 
-      await multiRealmRepository.update({realmId, id, isOnline})
-    }
+      await multiRealmRepository.update({realmId, id, isOnline});
+    },
   };
 };
 

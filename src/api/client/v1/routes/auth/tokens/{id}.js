@@ -7,36 +7,36 @@
 module.exports = (tasks, mappers) => ({
   /**
    * GET /auth/tokens/{id}
-   * @param {object} req Request
-   * @param {object} res Response
+   * @param {object} request Request
+   * @param {object} response Response
    * @returns {Promise<void>} Nothing
    */
-  get: async (req, res) => {
-    const {auth: authToken, params: {id}} = req;
-    const {ok, result: fetchedAuthToken, error} =
-      await tasks.client.fetchAuth({authToken, id});
+  async get(request, response) {
+    const {auth: authToken, params: {id}} = request;
+    const {ok, result: fetchedAuthToken, error}
+      = await tasks.client.fetchAuth({authToken, id});
 
     if (!ok) {
       throw error;
     }
 
     if (!fetchedAuthToken) {
-      return res.status(404).json({
+      return response.status(404).json({
         code: 'UnknownAuthToken',
         message: 'AuthToken does not exists.',
       });
     }
 
-    res.json(mappers.auth(fetchedAuthToken));
+    response.json(mappers.auth(fetchedAuthToken));
   },
 
   /**
    * PATCH /auth/tokens/{id}
-   * @param {object} req Request
-   * @param {object} res Response
+   * @param {object} request Request
+   * @param {object} response Response
    */
-  patch: async (req, res) => {
-    const {auth: authToken, params: {id}, body: patch} = req;
+  async patch(request, response) {
+    const {auth: authToken, params: {id}, body: patch} = request;
 
     const {ok, result: patchedAuthToken, error} = await tasks.client.patchAuth({authToken, id, patch});
 
@@ -44,16 +44,16 @@ module.exports = (tasks, mappers) => ({
       throw error;
     }
 
-    res.json(mappers.auth(patchedAuthToken));
+    response.json(mappers.auth(patchedAuthToken));
   },
 
   /**
    * DELETE /auth/tokens/{id}
-   * @param {object} req Request
-   * @param {object} res Response
+   * @param {object} request Request
+   * @param {object} response Response
    */
-  delete: async (req, res) => {
-    const {auth: authToken, params: {id}} = req;
+  async delete(request, response) {
+    const {auth: authToken, params: {id}} = request;
 
     const {ok, error} = await tasks.client.deleteAuth({authToken, id});
 
@@ -61,6 +61,6 @@ module.exports = (tasks, mappers) => ({
       throw error;
     }
 
-    res.status(204).send();
+    response.status(204).send();
   },
 });

@@ -13,5 +13,5 @@ module.exports = ({
   offset,
   count: count === null ? items.length : count,
   total: total === null ? items.length : total,
-  items: items.map(mapItem),
+  items: items.map(item => mapItem(item)),
 });

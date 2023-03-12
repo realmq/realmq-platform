@@ -30,10 +30,10 @@ module.exports = topic => {
   let isSync = false;
   let userId = null;
   if (
-    isRmqSysTopic &&
-    parts.length >= 3 &&
-    parts[0] === 'sync' &&
-    parts[1] === 'user'
+    isRmqSysTopic
+    && parts.length >= 3
+    && parts[0] === 'sync'
+    && parts[1] === 'user'
   ) {
     // Like: sync/user/:uid
     parts.shift();
