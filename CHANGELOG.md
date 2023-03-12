@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+- Introduce new administrative channel management endpoints `/admin/v1/realms/{realmId}/channels`.
+
 ### Changed
 - Add support for upgraded verneMQ broker. This requires the acceptance of their [EULA](https://vernemq.com/end-user-license-agreement/),
   by setting the environment variable `VERNEMQ_ACCEPT_EULA` needs to be set to `yes`.

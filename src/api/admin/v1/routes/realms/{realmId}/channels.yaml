@@ -1,0 +1,50 @@
+/realms/{realmId}/channels:
+  parameters:
+    - $ref: '#/parameters/realmIdInPath'
+  get:
+    summary: Search and list channels.
+    description: |
+      Get paginated channel listing.
+    tags:
+    - Channels
+    parameters:
+    - $ref: '#/parameters/paginationOffset'
+    - $ref: '#/parameters/paginationLimit'
+    responses:
+      200:
+        description: The list of channels was successfully retrieved.
+        schema:
+          $ref: '#/definitions/ChannelList'
+      400:
+        description: Request validation failed.
+      401:
+        description: The channels could not be listed since the authorization failed.
+  post:
+    summary: Create a new channel
+    description: |
+      Create a new channel.
+    tags:
+      - Channels
+    parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          $ref: '#/definitions/ChannelCreation'
+    responses:
+      201:
+        description: Channel was created successfully.
+        schema:
+          $ref: '#/definitions/Channel'
+      400:
+        description: |
+          Request validation failed or the channel could not be created since a channel with the same id already exists.
+          Error codes are: **ChannelAlreadyExists**.
+        schema:
+          allOf:
+            - $ref: '#/definitions/RequestError'
+            - example:
+                code: ChannelAlreadyExists
+                message: A channel with the same id already exists.
+      401:
+        description: The channel could not be created due to failed authorization.
