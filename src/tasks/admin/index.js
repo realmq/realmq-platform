@@ -6,6 +6,7 @@ const initFetchRealm = require('./fetch-realm');
 const initListChannels = require('./list-channels');
 const initListRealms = require('./list-realms');
 const initListRealmTokens = require('./list-realm-tokens');
+const initListSubscriptions = require('./list-subscriptions');
 const initListUsers = require('./list-users');
 
 /** @typedef {object} AdminTasks */
@@ -14,6 +15,7 @@ const initListUsers = require('./list-users');
  * @param {RealmRepository} realmRepository The realm repository
  * @param {AuthRepository} authRepository The auth repository
  * @param {ChannelRepository} channelRepository The channel repository
+ * @param {SubscriptionRepository} subscriptionRepository The subscription repository
  * @param {UserRepository} userRepository The user repository
  * @returns {AdminTasks} Initialized admin tasks
  */
@@ -22,7 +24,8 @@ module.exports = ({
   authRepository,
   channelRepository,
   realmRepository,
-  userRepository,
+  subscriptionRepository,
+  userRepository
 }) => ({
   fetchRealm: initFetchRealm({realmRepository}),
   createChannel: initCreateChannel({realmRepository, channelRepository}),
@@ -32,5 +35,6 @@ module.exports = ({
   listChannels: initListChannels({realmRepository, channelRepository}),
   listRealms: initListRealms({realmRepository}),
   listRealmTokens: initListRealmTokens({realmRepository, authRepository}),
-  listUsers: initListUsers({realmRepository, userRepository}),
+  listSubscriptions: initListSubscriptions({realmRepository, subscriptionRepository}),
+  listUsers: initListUsers({realmRepository, userRepository})
 });
