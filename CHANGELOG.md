@@ -12,6 +12,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 - Add support for upgraded verneMQ broker. This requires the acceptance of their [EULA](https://vernemq.com/end-user-license-agreement/),
   by setting the environment variable `VERNEMQ_ACCEPT_EULA` needs to be set to `yes`.
 
+### Security
+- Obfuscate sensitive information from api request logs.
+
 ## [0.2.0] - 2023-03-09
 
 ### Added
