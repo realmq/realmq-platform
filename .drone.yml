@@ -1,3 +1,4 @@
+---
 workspace:
   base: /platform
 
@@ -80,3 +81,8 @@ pipeline:
     repo: realmq/realmq-platform
     secrets: [docker_username, docker_password]
     auto_tag: true
+---
+kind: signature
+hmac: a9dc223207ebec48b211f47d11708b3bbf987a3a4a37347f185db0c3e1b5d456
+
+...
