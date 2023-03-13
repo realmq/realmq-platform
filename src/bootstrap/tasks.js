@@ -44,7 +44,9 @@ module.exports = ({
       authRepository,
       channelRepository,
       realmRepository,
+      subscriptionRepository,
       userRepository,
+      sendSubscriptionSyncMessage,
     }),
     broker: initBrokerTasks({
       logger,
