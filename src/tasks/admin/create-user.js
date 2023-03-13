@@ -34,10 +34,10 @@ module.exports = ({userRepository, realmRepository}) =>
             code: 'UserAlreadyExists',
             message: 'User could not be created, since a user with the same id already exists.',
           }),
-          error
+          error,
         );
       }
 
       throw error;
     }
-  }
+  };

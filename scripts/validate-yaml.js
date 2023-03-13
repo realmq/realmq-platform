@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-
+const process = require('node:process');
 const readYaml = require('../src/lib/read-yaml');
 
 const main = async () => {
@@ -18,9 +18,10 @@ const main = async () => {
     return 0;
   }
 
-  filteredResults.forEach(({file, error}) => {
+  for (const {file, error} of filteredResults) {
     console.error(`Error in ${file}:\n${error}`);
-  });
+  }
+
   return 2;
 };
 

@@ -1,3 +1,4 @@
+const path = require('node:path');
 const mw = require('../../../lib/bootstrap/openapi-middleware');
 const mappers = require('../../../api/admin/v1/mappers');
 const initFixedApiKeyScheme = require('../../../lib/express-openapi/security-scheme/fixed-api-key');
@@ -14,7 +15,7 @@ const initFixedApiKeyScheme = require('../../../lib/express-openapi/security-sch
 module.exports = async ({config, tasks, logger}) => ({
   v1: await mw({
     logger,
-    path: `${__dirname}/../../../api/admin/v1`,
+    path: path.join(__dirname, '/../../../api/admin/v1'),
     dependencies: {
       tasks,
       mappers,

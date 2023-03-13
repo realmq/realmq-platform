@@ -7,7 +7,7 @@ describe('The loadTopicPermissions task', () => {
   const topicWithStaticPermissions = 'topic-with-static-permissions';
   const staticPermissions = {read: true, write: false};
   const unavailablePermissions = {read: false, write: false};
-  const validParams = {
+  const validParameters = {
     realmId: channelRepository.knownRealmId,
     userId: subscriptionRepository.knownUserId,
     topic: channelRepository.knownChannelId,
@@ -28,7 +28,7 @@ describe('The loadTopicPermissions task', () => {
   describe('when called with a topic that has static permissions', () => {
     it('should come back with those permissions', async () => {
       const permissions = await loadTopicPermissions({
-        ...validParams,
+        ...validParameters,
         topic: topicWithStaticPermissions,
       });
 
@@ -39,7 +39,7 @@ describe('The loadTopicPermissions task', () => {
   describe('when called with unknown realm', () => {
     it('should come back with falsy persmissions', async () => {
       const permissions = await loadTopicPermissions({
-        ...validParams,
+        ...validParameters,
         realmId: channelRepository.unknownRealmId,
       });
 
@@ -50,7 +50,7 @@ describe('The loadTopicPermissions task', () => {
   describe('when called with unknown user', () => {
     it('should come back with falsy persmissions', async () => {
       const permissions = await loadTopicPermissions({
-        ...validParams,
+        ...validParameters,
         userId: subscriptionRepository.unknownUserId,
       });
 
@@ -60,7 +60,7 @@ describe('The loadTopicPermissions task', () => {
 
   describe('when called with valid parameters', () => {
     it('should come back with expected permissions', async () => {
-      const permissions = await loadTopicPermissions(validParams);
+      const permissions = await loadTopicPermissions(validParameters);
 
       expect(permissions).toEqual({read: true, write: false});
     });

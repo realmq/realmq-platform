@@ -8,11 +8,11 @@
 module.exports = (tasks, mappers) => ({
   /**
    * GET /channel/{id}
-   * @param {object} req Request
-   * @param {object} res Response
+   * @param {object} request Request
+   * @param {object} response Response
    */
-  get: async (req, res) => {
-    const {auth: authToken, params: {id}} = req;
+  async get(request, response) {
+    const {auth: authToken, params: {id}} = request;
 
     const {ok, result: channel, error} = await tasks.client.fetchChannel({authToken, id});
     if (!ok) {
@@ -20,43 +20,43 @@ module.exports = (tasks, mappers) => ({
     }
 
     if (!channel) {
-      return res.status(404).json({
+      return response.status(404).json({
         code: 'UnknownChannel',
         message: 'Channel does not exists.',
       });
     }
 
-    res.json(mappers.channel(channel));
+    response.json(mappers.channel(channel));
   },
 
   /**
    * PATCH /channel/{id}
-   * @param {object} req Request
-   * @param {object} res Response
+   * @param {object} request Request
+   * @param {object} response Response
    */
-  patch: async (req, res) => {
-    const {auth: authToken, params: {id}, body: patch} = req;
+  async patch(request, response) {
+    const {auth: authToken, params: {id}, body: patch} = request;
 
     const {ok, result: channel, error} = await tasks.client.patchChannel({authToken, id, patch});
     if (!ok) {
       throw error;
     }
 
-    res.json(mappers.channel(channel));
+    response.json(mappers.channel(channel));
   },
   /**
    * DELETE /channel/{id}
-   * @param {object} req Request
-   * @param {object} res Response
+   * @param {object} request Request
+   * @param {object} response Response
    */
-  delete: async (req, res) => {
-    const {auth: authToken, params: {id}} = req;
+  async delete(request, response) {
+    const {auth: authToken, params: {id}} = request;
 
     const {ok, error} = await tasks.client.deleteChannel({authToken, id});
     if (!ok) {
       throw error;
     }
 
-    res.status(204).send();
+    response.status(204).send();
   },
 });

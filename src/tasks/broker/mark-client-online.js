@@ -9,7 +9,7 @@ const {extractTokenFromClientId} = require('../../rules/parse-client-id');
 module.exports = ({
   authRepository,
   realtimeConnectionRepository,
-  userRepository
+  userRepository,
 }) =>
   /**
    * @typedef {Function} BrokerTasks#markClientOnline
@@ -17,7 +17,7 @@ module.exports = ({
    * @return {Promise<void>}
    */
   async clientId => {
-    const token = extractTokenFromClientId(clientId)
+    const token = extractTokenFromClientId(clientId);
     const auth = await authRepository.findOneByToken(token);
     if (!auth) {
       return;
@@ -28,14 +28,14 @@ module.exports = ({
         realmId: auth.realmId,
         userId: auth.userId,
         authId: auth.id,
-        clientId
+        clientId,
       });
 
-      // set auth token and user online if token was previously offline
+      // Set auth token and user online if token was previously offline
       if (!auth.isOnline) {
         await Promise.all([
           authRepository.setIsOnline({realmId: auth.realmId, id: auth.id, isOnline: true}),
-          userRepository.setIsOnline({realmId: auth.realmId, id: auth.userId, isOnline: true})
+          userRepository.setIsOnline({realmId: auth.realmId, id: auth.userId, isOnline: true}),
         ]);
       }
     } catch (error) {

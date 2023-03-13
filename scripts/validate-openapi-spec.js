@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-
+const process = require('node:process');
 const {validate} = require('openapi-schema-validation');
 const readYaml = require('../src/lib/read-yaml');
 
@@ -21,9 +21,10 @@ const main = async () => {
     return 0;
   }
 
-  filteredResults.forEach(({file, error}) => {
+  for (const {file, error} of filteredResults) {
     console.error(`Error(s) in ${file}:\n${error}`);
-  });
+  }
+
   return 2;
 };
 

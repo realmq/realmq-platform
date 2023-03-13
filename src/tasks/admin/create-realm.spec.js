@@ -5,7 +5,7 @@ describe('A createRealm admin task', () => {
     let realmRepository;
     let createRealm;
     beforeEach(() => {
-      realmRepository = {create: async obj => obj};
+      realmRepository = {create: async object => object};
       createRealm = initCreateRealm({realmRepository});
     });
 
@@ -23,11 +23,11 @@ describe('A createRealm admin task', () => {
 
       describe('confronted with an error', () => {
         beforeEach(() => {
-          realmRepository.create = () => Promise.reject(new Error('test'));
+          realmRepository.create = () => {
+            throw new Error('test');
+          };
         });
-        it('forwards that error', () => {
-          return expect(createRealm({id: '5'})).rejects.toThrow();
-        });
+        it('forwards that error', () => expect(createRealm({id: '5'})).rejects.toThrow());
       });
     });
   });

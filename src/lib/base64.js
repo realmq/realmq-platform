@@ -1,3 +1,5 @@
+const {Buffer} = require('node:buffer');
+
 module.exports = {
   /**
    * Decode base64

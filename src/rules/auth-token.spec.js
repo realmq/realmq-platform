@@ -1,7 +1,7 @@
 const {generateToken} = require('./auth-token');
 
-const isValidBase64 =
-    str => /^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$/.test(str);
+const isValidBase64
+    = string_ => /^(?:[A-Za-z\d+/]{4})*(?:[A-Za-z\d+/]{2}==|[A-Za-z\d+/]{3}=)?$/.test(string_);
 
 describe('The auth token rules', () => {
   describe('for generating an auth token', () => {

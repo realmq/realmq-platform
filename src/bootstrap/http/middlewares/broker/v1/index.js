@@ -4,25 +4,25 @@ const initRoutes = require('./routes');
 
 const initAuth = ({apiKey}) => {
   if (!apiKey) {
-    return (req, res, next) => next();
+    return (request, response, next) => next();
   }
 
-  return (req, res, next) => {
-    const requestingApiKey = req.headers['api-key'] || req.query['api-key'];
+  return (request, response, next) => {
+    const requestingApiKey = request.headers['api-key'] || request.query['api-key'];
     if (requestingApiKey === apiKey) {
       return next();
     }
 
     // Check for ...?api-key:xxx param style
-    const matchingEqualLessKey = Object.keys(req.query)
+    const matchingEqualLessKey = Object.keys(request.query)
       .filter(key => key.startsWith('api-key:'))
       .map(key => key.split(':')[1] || '')
-      .some(val => val === apiKey);
+      .includes(apiKey);
     if (matchingEqualLessKey) {
       return next();
     }
 
-    return next(notAllowedError({path: req.originalUrl}));
+    return next(notAllowedError({path: request.originalUrl}));
   };
 };
 

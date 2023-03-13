@@ -7,7 +7,7 @@ const jsonPatch = require('fast-json-patch');
  * @returns {object} Patched document
  */
 module.exports = ({patch, document}) => {
-  const {newDocument: patchedDocument} =
-    jsonPatch.applyPatch(document, patch, false, true);
+  const {newDocument: patchedDocument}
+    = jsonPatch.applyPatch(document, patch, false, true);
   return patchedDocument;
 };

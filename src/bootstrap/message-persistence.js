@@ -12,25 +12,25 @@ module.exports = ({tasks: {broker: {recordMessage}}, mqttClient}) => new Promise
   mqttClient.subscribe(
     '$share/message-forwarder/#',
     {qos: 2},
-    (err, granted) => {
-      if (err) {
-        return reject(err);
+    (error, granted) => {
+      if (error) {
+        return reject(error);
       }
 
       if (granted[0].qos !== 2) {
         return reject(new Error('Failed to setup subscribe for message forwarding'));
       }
 
-      resolve(null);
-    }
-  );
-
-  return {
-    stop() {
-      return new Promise(resolve => mqttClient.unsubscribe(
-        '$share/message-forwarder/#',
-        resolve
-      ));
+      resolve({
+        stop() {
+          return new Promise(resolve => {
+            mqttClient.unsubscribe(
+              '$share/message-forwarder/#',
+              resolve,
+            );
+          });
+        },
+      });
     },
-  };
+  );
 });

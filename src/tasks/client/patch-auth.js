@@ -58,7 +58,7 @@ module.exports = ({authRepository}) =>
           code: 'InvalidPatch',
           message: 'Provided patch is invalid.',
         }),
-        patchValidationError
+        patchValidationError,
       );
     }
 
@@ -67,7 +67,7 @@ module.exports = ({authRepository}) =>
     if (!valid) {
       return failure(
         errorInvalidAfterPatch(),
-        changeablePropertiesValidator.errors
+        changeablePropertiesValidator.errors,
       );
     }
 

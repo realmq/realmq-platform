@@ -13,7 +13,7 @@ describe('An auth-on-subscribe handler', () => {
 
     beforeEach(() => {
       authOnSubscribe = initAuthOnSubscribe({
-        authenticateClient: async id => {
+        async authenticateClient(id) {
           switch (id) {
           case authorizedClientId:
           case unauthorizedClientId:
@@ -24,7 +24,7 @@ describe('An auth-on-subscribe handler', () => {
             return null;
           }
         },
-        authorizeSubscribe: async (client, subscriptions) => {
+        async authorizeSubscribe(client, subscriptions) {
           switch (client.id) {
           case authorizedClientId:
             return subscriptions;

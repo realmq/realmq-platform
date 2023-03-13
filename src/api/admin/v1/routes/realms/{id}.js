@@ -6,20 +6,20 @@
  * @returns {{get: get}} The realm controller
  */
 module.exports = (tasks, mappers) => ({
-  get: async (req, res) => {
-    const {params: {id}} = req;
+  async get(request, response) {
+    const {params: {id}} = request;
     const {ok, result: realm, error} = await tasks.admin.fetchRealm({id});
     if (!ok) {
       throw error;
     }
 
     if (!realm) {
-      return res.status(404).json({
+      return response.status(404).json({
         code: 'UnknownRealm',
         message: 'Cannot lookup the given realm.',
       });
     }
 
-    res.json(mappers.realm(realm));
+    response.json(mappers.realm(realm));
   },
 });

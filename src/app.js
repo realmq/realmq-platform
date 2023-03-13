@@ -5,7 +5,7 @@ module.exports = ({config, logger}) => {
   let httpServer;
 
   return {
-    start: async () => {
+    async start() {
       if (started) {
         return;
       }
@@ -19,7 +19,7 @@ module.exports = ({config, logger}) => {
 
       logger.info('started');
     },
-    stop: async () => {
+    async stop() {
       if (!started) {
         return;
       }
@@ -29,9 +29,9 @@ module.exports = ({config, logger}) => {
 
       await new Promise((resolve, reject) => {
         logger.debug('closing http connections');
-        httpServer.close(err => {
-          if (err) {
-            return reject(err);
+        httpServer.close(error => {
+          if (error) {
+            return reject(error);
           }
 
           resolve();

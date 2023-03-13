@@ -27,7 +27,7 @@ describe('A createUser admin task', () => {
       it('should fail with a task error and correct error code', async () => {
         const {ok, error} = await createUser({
           realmId: realmRepository.knownRealmId,
-          id: userRepository.duplicateUserId
+          id: userRepository.duplicateUserId,
         });
 
         expect(ok).toBe(false);
@@ -41,7 +41,7 @@ describe('A createUser admin task', () => {
       it('should succeed with a created user', async () => {
         const {ok, result, error} = await createUser({
           realmId: realmRepository.knownRealmId,
-          id: userRepository.unknownUserId
+          id: userRepository.unknownUserId,
         });
 
         expect(ok).toBe(true);

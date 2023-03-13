@@ -6,6 +6,4 @@ const jsonPatch = require('fast-json-patch');
  * @param {object} [document] Reference document to check patch for
  * @returns {object} Patched document
  */
-module.exports = ({patch, document = null}) => {
-  return jsonPatch.validate(patch, document);
-};
+module.exports = ({patch, document = null}) => jsonPatch.validate(patch, document);

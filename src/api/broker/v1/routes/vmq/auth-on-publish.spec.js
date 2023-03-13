@@ -13,7 +13,7 @@ describe('An auth-on-register handler', () => {
 
     beforeEach(() => {
       authOnPublish = initAuthOnPublish({
-        authenticateClient: async id => {
+        async authenticateClient(id) {
           switch (id) {
           case authorizedClientId:
           case unauthorizedClientId:
@@ -24,7 +24,7 @@ describe('An auth-on-register handler', () => {
             return null;
           }
         },
-        authorizePublish: async client => {
+        async authorizePublish(client) {
           switch (client.id) {
           case authorizedClientId:
             return {authorized: true, internalTopic: 'internal-topic'};

@@ -6,24 +6,24 @@ const unauthorizedError = message => httpError.unauthorized({
   message,
 });
 
-module.exports = ({authenticateUser, logger}) => {
+module.exports = ({authenticateUser, logger}) =>
   /**
    * @function authTokenScheme
-   * @param {object} req Request
+   * @param {object} request Request
    * @param {object} req.headers Request headers
    * @param {?string} req.headers.authorization Authorization header
    * @returns {Promise<boolean>} Resolves true on success, otherwise rejects with an http error.
    */
-  return async req => {
+  async request => {
     try {
-      const auth = req.headers.authorization;
+      const auth = request.headers.authorization;
       if (!auth) {
-        return Promise.reject(unauthorizedError('Missing authorization'));
+        throw unauthorizedError('Missing authorization');
       }
 
       const [scheme, token] = auth.trim().split(' ');
       if (scheme.toLowerCase() !== 'bearer' || !token) {
-        return Promise.reject(unauthorizedError('Invalid authorization scheme'));
+        throw unauthorizedError('Invalid authorization scheme');
       }
 
       const {ok, result, error} = await authenticateUser({token});
@@ -32,15 +32,15 @@ module.exports = ({authenticateUser, logger}) => {
       }
 
       if (!result.authenticated) {
-        return Promise.reject(unauthorizedError('Invalid credentials'));
+        throw unauthorizedError('Invalid credentials');
       }
 
-      req.auth = result.auth;
-      req.user = result.user;
+      request.auth = result.auth;
+      request.user = result.user;
       return true;
     } catch (error) {
       logger.error(`Unexpected error on authenticating request: ${error}`, {error});
       throw httpError.internal({previous: error});
     }
   };
-};
+

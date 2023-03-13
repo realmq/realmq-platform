@@ -7,7 +7,7 @@
 module.exports = ({
   authRepository,
   realtimeConnectionRepository,
-  userRepository
+  userRepository,
 }) =>
   /**
    * @typedef {Function} BrokerTasks#markClientOffline
@@ -21,11 +21,11 @@ module.exports = ({
       const [connectionsByUser, connectionsByAuth] = await Promise.all([
         realtimeConnectionRepository.countByUserId({
           realmId: realtimeConnection.realmId,
-          userId: realtimeConnection.userId
+          userId: realtimeConnection.userId,
         }),
         realtimeConnectionRepository.countByAuthId({
           realmId: realtimeConnection.realmId,
-          authId: realtimeConnection.authId
+          authId: realtimeConnection.authId,
         }),
       ]);
 
@@ -33,13 +33,13 @@ module.exports = ({
         connectionsByUser === 0 ? userRepository.setIsOnline({
           realmId: realtimeConnection.realmId,
           id: realtimeConnection.userId,
-          isOnline: false
+          isOnline: false,
         }) : null,
         connectionsByAuth === 0 ? authRepository.setIsOnline({
           realmId: realtimeConnection.realmId,
           id: realtimeConnection.authId,
-          isOnline: false
-        }) : null
+          isOnline: false,
+        }) : null,
       ]);
     }
   };

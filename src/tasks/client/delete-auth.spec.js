@@ -47,7 +47,7 @@ describe('The client deleteAuth task', () => {
       expect(realtimeConnectionRepository.deleteAllByAuthId).toHaveBeenCalledWith({
         realmId: authToken.realmId,
         authId: authRepository.knownAuthId,
-      })
+      });
     });
   });
 });

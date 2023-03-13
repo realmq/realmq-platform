@@ -1,7 +1,7 @@
 const initAuthorizePublish = require('./authorize-publish');
 
-const rewriteTopicToInternal =
-  ({client: {realmId, userId}, topic}) => `${realmId}-${userId}-${topic}`;
+const rewriteTopicToInternal
+  = ({client: {realmId, userId}, topic}) => `${realmId}-${userId}-${topic}`;
 
 describe('The authorizePublish task', () => {
   const writableTopic = 'writable-topic';

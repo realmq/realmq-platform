@@ -31,12 +31,12 @@ describe('The markClientOnline task', () => {
       expect(authRepository.setIsOnline).toHaveBeenCalledWith({
         realmId: realtimeConnectionRepository.knownRealmId,
         id: realtimeConnectionRepository.knownAuthId,
-        isOnline: true
+        isOnline: true,
       });
       expect(userRepository.setIsOnline).toHaveBeenCalledWith({
         realmId: realtimeConnectionRepository.knownRealmId,
         id: realtimeConnectionRepository.knownUserId,
-        isOnline: true
+        isOnline: true,
       });
     });
   });

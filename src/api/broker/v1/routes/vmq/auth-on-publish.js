@@ -14,8 +14,8 @@ module.exports = ({authenticateClient, authorizePublish}) =>
   async (request, response) => {
     const {client_id: clientId, topic} = request.body || {};
     if (
-      !clientId ||
-      !topic
+      !clientId
+      || !topic
     ) {
       return response.status(400).send();
     }

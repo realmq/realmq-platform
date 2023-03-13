@@ -1,5 +1,5 @@
 const codeMap = new Map([
-  [11000, duplicate],
+  [11_000, duplicate],
 ]);
 
 /**
@@ -63,11 +63,11 @@ function wrap(op) {
   return Promise.resolve(op).catch(error => {
     const {name, code} = error;
     if (name !== 'MongoError') {
-      return Promise.reject(error);
+      throw error;
     }
 
     const wrappedError = (codeMap.get(code) || generic)({previous: error});
-    return Promise.reject(wrappedError);
+    throw wrappedError;
   });
 }
 

@@ -14,8 +14,8 @@ module.exports = ({logger}) => {
   http.use(compression());
   http.use(jsonBodyParser());
   http.use(cors());
-  http.use((req, res, next) => {
-    logHttpRequest({ logger, req });
+  http.use((request, response, next) => {
+    logHttpRequest({logger, request});
     next();
   });
 
@@ -26,12 +26,12 @@ module.exports = ({logger}) => {
  * Safely log http requests.
  *
  * @param {Object} logger
- * @param {Object} req
+ * @param {Object} request
  */
-function logHttpRequest({ logger, req }) {
-  const url = obfuscateUrl(req.originalUrl);
+function logHttpRequest({logger, request}) {
+  const url = obfuscateUrl(request.originalUrl);
 
-  logger.info(`HTTP: ${req.method} ${url}`);
+  logger.info(`HTTP: ${request.method} ${url}`);
 }
 
 /**

@@ -61,7 +61,7 @@ module.exports = ({userRepository}) =>
           code: 'InvalidPatch',
           message: 'Provided patch is invalid.',
         }),
-        patchValidationError
+        patchValidationError,
       );
     }
 
@@ -74,7 +74,7 @@ module.exports = ({userRepository}) =>
           code: 'InvalidUser',
           message: 'Invalid user after applying patch.',
         }),
-        validationErrors
+        validationErrors,
       );
     }
 

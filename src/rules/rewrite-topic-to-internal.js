@@ -32,9 +32,9 @@ module.exports = ({rmqSysTopic = '$RMQ', realmTopic = 'realm', userTopic = 'user
     internalLevels.push(realmTopic, client.realmId);
     // Replace sync/my -> sync/user/:id
     if (
-      externalLevels.length >= 2 &&
-      externalLevels[0] === 'sync' &&
-      externalLevels[1] === 'my'
+      externalLevels.length >= 2
+      && externalLevels[0] === 'sync'
+      && externalLevels[1] === 'my'
     ) {
       internalLevels.push(externalLevels.shift());
       externalLevels.shift();
@@ -42,7 +42,7 @@ module.exports = ({rmqSysTopic = '$RMQ', realmTopic = 'realm', userTopic = 'user
     }
 
     // Add remaining levels
-    internalLevels = internalLevels.concat(externalLevels);
+    internalLevels = [...internalLevels, ...externalLevels];
 
     return internalLevels.join('/');
   };

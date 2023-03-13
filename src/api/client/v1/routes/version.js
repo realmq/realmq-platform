@@ -1,5 +1,5 @@
 module.exports = openApiSpec => ({
-  get: (req, res) => res.status(200).send({
+  get: (request, response) => response.status(200).send({
     version: openApiSpec.info.version,
   }),
 });

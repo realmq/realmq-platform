@@ -24,7 +24,7 @@ describe('The client authenticateUser task', () => {
     it('should not authenticate', async () => {
       const unknownUserRepository = {
         ...userRepository,
-        findOne: async () => {
+        async findOne() {
           return null;
         },
       };

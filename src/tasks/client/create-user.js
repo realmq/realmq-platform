@@ -36,10 +36,10 @@ module.exports = ({userRepository}) =>
             code: 'UserAlreadyExists',
             message: 'A user with the same id already exists.',
           }),
-          error
+          error,
         );
       }
 
-      return Promise.reject(error);
+      throw error;
     }
   };

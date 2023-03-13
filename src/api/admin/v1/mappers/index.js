@@ -18,5 +18,5 @@ module.exports = {
   realm,
   realmList,
   user,
-  userList
+  userList,
 };

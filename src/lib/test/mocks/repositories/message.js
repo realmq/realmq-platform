@@ -1,3 +1,4 @@
+const {Buffer} = require('node:buffer');
 const messageModel = require('../../../../models/message');
 
 const knownRealmId = 'known-realm-id';

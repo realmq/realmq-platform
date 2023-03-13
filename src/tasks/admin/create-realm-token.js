@@ -53,10 +53,10 @@ module.exports = ({authTokenRules, realmRepository, userRepository, authReposito
             code: 'AuthTokenAlreadyExists',
             message: 'Auth token could not be created, since an auth token with the same id already exists.',
           }),
-          error
+          error,
         );
       }
 
-      return Promise.reject(error);
+      throw error;
     }
   };

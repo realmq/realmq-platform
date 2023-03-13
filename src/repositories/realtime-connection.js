@@ -44,6 +44,7 @@ module.exports = ({collection, createModel = createRealtimeConnectionModel}) => 
       if (!userId) {
         throw new Error('Missing user id');
       }
+
       return multiRealmRepo.deleteMany({realmId, userId});
     },
 
@@ -65,6 +66,6 @@ module.exports = ({collection, createModel = createRealtimeConnectionModel}) => 
      */
     async countByAuthId({realmId, authId}) {
       return multiRealmRepo.count({realmId, authId});
-    }
+    },
   };
 };

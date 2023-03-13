@@ -7,35 +7,35 @@
 module.exports = (tasks, mappers) => ({
   /**
    * GET /subscriptions
-   * @param {object} req Request
-   * @param {object} res Response
+   * @param {object} request Request
+   * @param {object} response Response
    */
-  get: async (req, res) => {
-    const {auth: authToken, query: {offset, limit}} = req;
-    const {ok, result: list, error} =
-      await tasks.client.listSubscriptions({authToken, offset, limit});
+  async get(request, response) {
+    const {auth: authToken, query: {offset, limit}} = request;
+    const {ok, result: list, error}
+      = await tasks.client.listSubscriptions({authToken, offset, limit});
 
     if (!ok) {
       throw error;
     }
 
-    res.json(mappers.subscriptionList(list));
+    response.json(mappers.subscriptionList(list));
   },
   /**
    * POST /subscriptions
-   * @param {object} req Request
-   * @param {object} res Response
+   * @param {object} request Request
+   * @param {object} response Response
    */
-  post: async (req, res) => {
-    const {auth: authToken, body: data} = req;
+  async post(request, response) {
+    const {auth: authToken, body: data} = request;
 
-    const {ok, result: subscription, error} =
-      await tasks.client.createSubscription({authToken, data});
+    const {ok, result: subscription, error}
+      = await tasks.client.createSubscription({authToken, data});
 
     if (!ok) {
       throw error;
     }
 
-    res.status(201).json(mappers.subscription(subscription));
+    response.status(201).json(mappers.subscription(subscription));
   },
 });

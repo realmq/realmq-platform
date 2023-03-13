@@ -1,9 +1,9 @@
 const {success} = require('../../lib/result');
 
 const buildQuery = ({scope, id, realmId, userId}) => (
-  scope === 'admin' ?
-    {realmId, id} : // Admins see all subscriptions
-    {realmId, id, userId} // Non admins see only their subscriptions
+  scope === 'admin'
+    ? {realmId, id} // Admins see all subscriptions
+    : {realmId, id, userId} // Non admins see only their subscriptions
 );
 
 /**

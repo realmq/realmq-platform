@@ -8,35 +8,35 @@
 module.exports = (tasks, mappers) => ({
   /**
    * GET /users
-   * @param {object} req Request
-   * @param {object} res Response
+   * @param {object} request Request
+   * @param {object} response Response
    */
-  async get(req, res) {
-    const {auth: authToken, user, query: {offset, limit}} = req;
-    const {ok, result: list, error} =
-      await tasks.client.listUsers({authToken, user, offset, limit});
+  async get(request, response) {
+    const {auth: authToken, user, query: {offset, limit}} = request;
+    const {ok, result: list, error}
+      = await tasks.client.listUsers({authToken, user, offset, limit});
 
     if (!ok) {
       throw error;
     }
 
-    res.json(mappers.userList(list));
+    response.json(mappers.userList(list));
   },
 
   /**
    * POST /users
-   * @param {object} req Request
-   * @param {object} res Response
+   * @param {object} request Request
+   * @param {object} response Response
    */
-  async post(req, res) {
-    const {auth: authToken, body: payload} = req;
-    const {ok, result: user, error} =
-      await tasks.client.createUser({authToken, data: payload});
+  async post(request, response) {
+    const {auth: authToken, body: payload} = request;
+    const {ok, result: user, error}
+      = await tasks.client.createUser({authToken, data: payload});
 
     if (!ok) {
       throw error;
     }
 
-    res.json(mappers.user(user));
+    response.json(mappers.user(user));
   },
 });

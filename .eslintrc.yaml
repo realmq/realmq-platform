@@ -1,7 +1,6 @@
-extends:
-  - xo/esnext
-  - ./node_modules/xo/config/plugins.js
 rules:
+  unicorn/prefer-module: off
+  import/extensions: off
   indent:
     - error
     - 2

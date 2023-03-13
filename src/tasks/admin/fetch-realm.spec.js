@@ -38,11 +38,11 @@ describe('A fetchRealm admin task', () => {
 
     describe('confronted with an error', () => {
       beforeEach(() => {
-        realmRepository.findOne = () => Promise.reject(new Error('test'));
+        realmRepository.findOne = () => {
+          throw new Error('test');
+        };
       });
-      it('forwards that error', () => {
-        return expect(fetchRealm({id: '5'})).rejects.toThrow();
-      });
+      it('forwards that error', () => expect(fetchRealm({id: '5'})).rejects.toThrow());
     });
   });
 });

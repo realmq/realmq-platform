@@ -1,3 +1,4 @@
+const {Buffer} = require('node:buffer');
 const authModel = require('../../../../models/auth');
 const paginatedList = require('../../../../models/paginated-list');
 const {duplicate: duplicateError} = require('../../../../repositories/lib/error');
@@ -82,5 +83,5 @@ module.exports = {
   async deleteOne() {},
   async findOneAndDelete() {},
   async deleteAllByUserId() {},
-  async setIsOnline() {}
+  async setIsOnline() {},
 };

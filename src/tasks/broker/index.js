@@ -30,7 +30,7 @@ module.exports = ({
   messageRepository,
   userRepository,
   realtimeConnectionRepository,
-  subscriptionRepository
+  subscriptionRepository,
 }) => {
   const lookupStaticPermissions = initLookupStaticPermissions();
   const loadTopicPermissions = initLoadTopicPermissions({
@@ -54,7 +54,7 @@ module.exports = ({
       initMarkClientOnline({
         authRepository,
         userRepository,
-        realtimeConnectionRepository
+        realtimeConnectionRepository,
       }),
     recordMessage:
       initRecordMessage({channelRepository, messageRepository, logger}),

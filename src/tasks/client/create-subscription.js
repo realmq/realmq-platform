@@ -70,15 +70,15 @@ module.exports = ({
       return success(subscription);
     } catch (error) {
       if (
-        error.isRepositoryError &&
-        error.isDuplicateKeyError
+        error.isRepositoryError
+        && error.isDuplicateKeyError
       ) {
         return failure(
           taskError({
             code: 'SubscriptionAlreadyExists',
             message: 'A subscription with the same id already exists.',
           }),
-          error
+          error,
         );
       }
 

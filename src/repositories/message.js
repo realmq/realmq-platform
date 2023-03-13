@@ -62,7 +62,7 @@ module.exports = ({collection, createModel = createMessageModel}) => {
         query.createdAt.$lt = to;
       }
 
-      return multiRealmRepo.find(query, {limit, offset, sort});
+      return multiRealmRepo.find({...query}, {limit, offset, sort});
     },
   };
 };

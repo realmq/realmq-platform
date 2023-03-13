@@ -1,7 +1,7 @@
 const {internal: internalError} = require('../../../lib/error/http');
 
 module.exports = ({logger}) =>
-  (error, req, res, _) => {
+  (error, request, response, _) => {
     // Map all unknown errors to internal server errors
     if (!error.isHttpError) {
       logger.error(`Unhandled error in http call: ${error}`, {error});
@@ -10,18 +10,18 @@ module.exports = ({logger}) =>
 
     // Set challenge headers
     if (error.status === 401 && error.challenge) {
-      res.set('www-authenticate', error.challenge);
+      response.set('www-authenticate', error.challenge);
     }
 
-    const response = {
+    const payload = {
       code: error.code,
       message: error.message,
     };
 
     // Include optional details
     if (error.details) {
-      response.details = error.details;
+      payload.details = error.details;
     }
 
-    res.status(error.status).json(response);
+    response.status(error.status).json(payload);
   };

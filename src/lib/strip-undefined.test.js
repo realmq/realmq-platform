@@ -1,7 +1,7 @@
 const stripUndefined = require('./strip-undefined');
 
 test('undefined values get stripped from object', () => {
-  const obj = {
+  const object = {
     a: 0,
     b: false,
     c: null,
@@ -14,8 +14,8 @@ test('undefined values get stripped from object', () => {
     c: null,
   };
 
-  const result = stripUndefined(obj);
+  const result = stripUndefined(object);
 
-  expect(result).toEqual(obj);
+  expect(result).toEqual(object);
   expect(result).toMatchObject(expectedResult);
 });

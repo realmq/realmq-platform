@@ -15,7 +15,7 @@ module.exports = ({
   channelRepository = required('channelRepository'),
   mqttClient = required('mqttClient'),
   subscriptionRepository = required('subscriptionRepository'),
-  rewriteTopicToInternal = required('rewriteTopicToInternal')
+  rewriteTopicToInternal = required('rewriteTopicToInternal'),
 }) =>
   /**
    * @function ClientTasks#createMessage
@@ -44,7 +44,7 @@ module.exports = ({
       }
     }
 
-    const topic = rewriteTopicToInternal({topic: channelId, client: { realmId }});
+    const topic = rewriteTopicToInternal({topic: channelId, client: {realmId}});
     await publishMessage({mqttClient, topic, message: content});
 
     return success(null);
