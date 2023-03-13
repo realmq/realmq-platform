@@ -44,7 +44,7 @@ describe('The client createSubscription task', () => {
     it('should fail with an appropriate error', async () => {
       const {ok, error} = await createSubscription({
         ...subscriptionData,
-        id: subscriptionRepository.duplicateSubscriptionId
+        id: subscriptionRepository.duplicateSubscriptionId,
       });
 
       expect(ok).toEqual(false);

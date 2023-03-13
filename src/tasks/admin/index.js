@@ -28,7 +28,7 @@ module.exports = ({
   realmRepository,
   subscriptionRepository,
   userRepository,
-  sendSubscriptionSyncMessage
+  sendSubscriptionSyncMessage,
 }) => ({
   fetchRealm: initFetchRealm({realmRepository}),
   createChannel: initCreateChannel({realmRepository, channelRepository}),
@@ -39,12 +39,12 @@ module.exports = ({
     realmRepository,
     channelRepository,
     sendSubscriptionSyncMessage,
-    subscriptionRepository
+    subscriptionRepository,
   }),
   createUser: initCreateUser({userRepository, realmRepository}),
   listChannels: initListChannels({realmRepository, channelRepository}),
   listRealms: initListRealms({realmRepository}),
   listRealmTokens: initListRealmTokens({realmRepository, authRepository}),
   listSubscriptions: initListSubscriptions({realmRepository, subscriptionRepository}),
-  listUsers: initListUsers({realmRepository, userRepository})
+  listUsers: initListUsers({realmRepository, userRepository}),
 });

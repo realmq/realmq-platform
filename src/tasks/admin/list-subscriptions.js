@@ -24,7 +24,7 @@ module.exports = ({subscriptionRepository, realmRepository}) =>
       }));
     }
 
-    const list = await subscriptionRepository.find({ realmId }, {offset, limit});
+    const list = await subscriptionRepository.find({realmId}, {offset, limit});
 
     return success(list);
   };

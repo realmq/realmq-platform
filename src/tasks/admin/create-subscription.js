@@ -48,7 +48,7 @@ module.exports = ({
    * @param {boolean} allowRead Whether user can subscribe to the channel
    * @returns {Result<SubscriptionModel>}
    */
-  async ({realmId, id,  userId, channelId, allowWrite, allowRead}) => {
+  async ({realmId, id, userId, channelId, allowWrite, allowRead}) => {
     const realm = await realmRepository.findOne({id: realmId});
     if (!realm) {
       return failure(createTaskError({
@@ -56,7 +56,6 @@ module.exports = ({
         message: 'Cannot lookup the given realm.',
       }));
     }
-
 
     const [user, channel] = await Promise.all([
       ensureUserExists({userRepository, realmId, userId}),
@@ -78,15 +77,15 @@ module.exports = ({
       return success(subscription);
     } catch (error) {
       if (
-        error.isRepositoryError &&
-        error.isDuplicateKeyError
+        error.isRepositoryError
+        && error.isDuplicateKeyError
       ) {
         return failure(
           taskError({
             code: 'SubscriptionAlreadyExists',
             message: 'A subscription with the same id already exists.',
           }),
-          error
+          error,
         );
       }
 

@@ -4,9 +4,9 @@
  * @return {object} The express-openapi router
  */
 module.exports = (tasks, mappers) => ({
-  async get(req, res) {
-    const {offset, limit} = req.query;
-    const {realmId} = req.params;
+  async get(request, response) {
+    const {offset, limit} = request.query;
+    const {realmId} = request.params;
 
     const {ok, result: list, error} = await tasks.admin.listSubscriptions({realmId, offset, limit});
 
@@ -14,12 +14,12 @@ module.exports = (tasks, mappers) => ({
       throw error;
     }
 
-    return res.json(mappers.subscriptionList(list));
+    return response.json(mappers.subscriptionList(list));
   },
 
-  async post(req, res) {
-    const {id, channelId, userId, allowRead, allowWrite} = req.body;
-    const {realmId} = req.params;
+  async post(request, response) {
+    const {id, channelId, userId, allowRead, allowWrite} = request.body;
+    const {realmId} = request.params;
 
     const {ok, result: subscription, error} = await tasks.admin.createSubscription({
       realmId,
@@ -27,13 +27,13 @@ module.exports = (tasks, mappers) => ({
       channelId,
       userId,
       allowRead,
-      allowWrite
+      allowWrite,
     });
 
     if (!ok) {
       throw error;
     }
 
-    return res.status(201).json(mappers.subscription(subscription));
+    return response.status(201).json(mappers.subscription(subscription));
   },
 });
