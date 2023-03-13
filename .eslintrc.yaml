@@ -1,7 +1,6 @@
 rules:
   unicorn/prefer-module: off
   import/extensions: off
-  unicorn/no-array-reduce: off
   indent:
     - error
     - 2
