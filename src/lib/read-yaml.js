@@ -23,9 +23,24 @@ const buildSchema = (path, readYaml) => {
     construct(paths) {
       try {
         const contents = paths.map(path => readYaml(absoultizePath(path)));
-        return contents.reduce((merged, content) => Array.isArray(merged)
-          ? [...merged, ...content]
-          : ({...content, ...merged}));
+
+        if (contents.length === 0) {
+          return contents;
+        }
+
+        let merged;
+
+        if (Array.isArray(contents[0])) {
+          for (const content of contents) {
+            merged = [...merged, ...content];
+          }
+        } else {
+          for (const content of contents) {
+            merged = {...merged, ...content};
+          }
+        }
+
+        return merged;
       } catch (error) {
         return `[Error: ${error.message}]`;
       }

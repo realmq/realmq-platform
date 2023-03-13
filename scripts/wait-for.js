@@ -27,19 +27,17 @@ const sleep = time => new Promise(resolve => {
 
 const main = async argv => {
   const args = argv.slice(2);
-  const [endpoints, timeout] = args.reduce(
-    ([endpoints, timeout], arg) => {
-      if (arg.includes(':')) {
-        const [host, port] = arg.split(':');
-        endpoints.push({host, port});
-      } else {
-        timeout = Number.parseInt(arg, 10);
-      }
+  const endpoints = [];
+  let timeout = 30;
 
-      return [endpoints, timeout];
-    },
-    [[], 30],
-  );
+  for (const arg of args) {
+    if (arg.includes(':')) {
+      const [host, port] = arg.split(':');
+      endpoints.push({host, port});
+    } else {
+      timeout = Number.parseInt(arg, 10);
+    }
+  }
 
   if (endpoints.length === 0) {
     console.error(`usage: ${argv[1]} <host>:<port> [...<host>:<port>] [timeout]`);
@@ -51,18 +49,17 @@ const main = async argv => {
   let lastResults = [];
   do {
     lastResults = await Promise.all(endpoints.map(endpoint => test(endpoint)));
-    allPresent = lastResults.reduce((acc, present) => acc && present);
+    allPresent = lastResults.every(Boolean);
 
     if (!allPresent) {
       if (Date.now() - start > (timeout * 1000)) {
-        const resultReport = endpoints.reduce(
-          (report, {host, port}, index) => {
-            const online = lastResults[index];
-            return online ? report : `${report}\n${host}:${port}`;
-          },
-          '',
-        );
-        throw new Error(`Timeout connecting to endpoint(s):${resultReport}`);
+        let report = '';
+        for (const [index, {host, port}] of endpoints.entries()) {
+          const online = lastResults[index];
+          report += online ? '' : `\n${host}:${port}`;
+        }
+
+        throw new Error(`Timeout connecting to endpoint(s):${report}`);
       }
 
       await sleep(980);
