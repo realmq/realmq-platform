@@ -69,7 +69,7 @@
       201:
         description: Auth token was successfully created.
         schema:
-          $ref: '#/definitions/AuthToken'
+          $ref: '#/definitions/AuthTokenCreated'
       400:
         description: |
           Request validation failed or the auth token could not be created

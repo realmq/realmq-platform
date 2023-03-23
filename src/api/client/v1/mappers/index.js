@@ -14,6 +14,7 @@ const userList = require('./user-list');
  */
 module.exports = {
   auth,
+  authWithToken: auth.authWithToken,
   authList,
   channel,
   channelList,

@@ -36,6 +36,6 @@ module.exports = (tasks, mappers) => ({
       throw error;
     }
 
-    response.status(201).json(mappers.auth(createdAuthToken));
+    response.status(201).json(mappers.authWithToken(createdAuthToken));
   },
 });

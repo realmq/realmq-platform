@@ -12,9 +12,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 ### Changed
 - Add support for upgraded verneMQ broker. This requires the acceptance of their [EULA](https://vernemq.com/end-user-license-agreement/),
   by setting the environment variable `VERNEMQ_ACCEPT_EULA` needs to be set to `yes`.
+- **BREAKING**: Secret `auth.token` is removed from list, detail & update responses of `/client/v1/auths/*`. ([#138])
 
 ### Security
 - Obfuscate sensitive information from api request logs.
+- Hide secret `auth.token` from all responses, except token creation, to avoid access right escalation. ([#138])
+
+[#138]: https://github.com/realmq/realmq-platform/issues/138
 
 ## [0.2.0] - 2023-03-09
 
