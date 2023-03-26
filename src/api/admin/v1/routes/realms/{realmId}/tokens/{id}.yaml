@@ -1,0 +1,25 @@
+/realms/{realmId}/tokens/{id}:
+  parameters:
+    - $ref: '#/parameters/realmIdInPath'
+    - name: id
+      description: The auth token id.
+      in: path
+      required: true
+      type: string
+      pattern: ^[\w-]+$
+
+  delete:
+    summary: Delete the auth token referenced by id.
+    description: |
+      Delete the auth token and invalidates the session.
+    tags:
+      - Tokens
+    responses:
+      204:
+        description: Auth token has been deleted successfully.
+      400:
+        description: Request validation failed.
+      401:
+        description: The auth token could not be deleted due to failed authorization.
+      404:
+        description: The requested auth token does not exist.
