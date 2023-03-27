@@ -4,6 +4,7 @@ const initCreateRealmToken = require('./create-realm-token');
 const initCreateSubscription = require('./create-subscription');
 const initCreateUser = require('./create-user');
 const initDeleteChannel = require('./delete-channel');
+const initDeleteSubscription = require('./delete-subscription');
 const initDeleteToken = require('./delete-token');
 const initDeleteUser = require('./delete-user');
 const initFetchRealm = require('./fetch-realm');
@@ -54,6 +55,11 @@ module.exports = ({
     realmRepository,
     channelRepository,
     subscriptionRepository,
+  }),
+  deleteSubscription: initDeleteSubscription({
+    realmRepository,
+    subscriptionRepository,
+    sendSubscriptionSyncMessage
   }),
   deleteToken: initDeleteToken({
     authRepository,
