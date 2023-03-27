@@ -55,6 +55,15 @@ module.exports = ({collection, createModel, generateId}) => {
     /**
      * @inheritDoc
      */
+    async deleteOne(query) {
+      assertRealmId(query.realmId);
+
+      return mongoRepo.deleteOne(query);
+    },
+
+    /**
+     * @inheritDoc
+     */
     async findOne(query) {
       assertRealmId(query.realmId);
 
