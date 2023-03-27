@@ -59,7 +59,7 @@ module.exports = ({
   deleteSubscription: initDeleteSubscription({
     realmRepository,
     subscriptionRepository,
-    sendSubscriptionSyncMessage
+    sendSubscriptionSyncMessage,
   }),
   deleteToken: initDeleteToken({
     authRepository,

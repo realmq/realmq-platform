@@ -19,7 +19,7 @@ describe('The admin deleteSubscription task', () => {
     it('should fail with appropriate error', async () => {
       const {ok, error} = await deleteSubscription({
         realmId: realmRepository.unknownRealmId,
-        id: subscriptionRepository.knownSubscriptionId
+        id: subscriptionRepository.knownSubscriptionId,
       });
 
       expect(ok).toBe(false);
@@ -61,7 +61,7 @@ describe('The admin deleteSubscription task', () => {
       expect(ok).toBe(true);
       expect(sendSubscriptionSyncMessage).toHaveBeenCalledWith({
         subscription: result,
-        action: 'deleted'
+        action: 'deleted',
       });
     });
   });

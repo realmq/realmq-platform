@@ -15,7 +15,7 @@ describe('The client deleteChannel task', () => {
       realmRepository,
       messageRepository,
       channelRepository,
-      subscriptionRepository
+      subscriptionRepository,
     });
   });
 
@@ -63,7 +63,7 @@ describe('The client deleteChannel task', () => {
       const deleteMethod = subscriptionRepository.deleteAllByChannelId;
       expect(deleteMethod).toHaveBeenCalledWith({
         realmId: subscription.realmId,
-        channelId: subscription.channelId
+        channelId: subscription.channelId,
       });
     });
 
@@ -77,7 +77,7 @@ describe('The client deleteChannel task', () => {
       const deleteMethod = messageRepository.deleteAllByChannelId;
       expect(deleteMethod).toHaveBeenCalledWith({
         realmId: message.realmId,
-        channelId: message.channelId
+        channelId: message.channelId,
       });
     });
   });
