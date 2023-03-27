@@ -47,6 +47,7 @@ module.exports = ({
       subscriptionRepository,
       userRepository,
       sendSubscriptionSyncMessage,
+      realtimeConnectionRepository,
     }),
     broker: initBrokerTasks({
       logger,
