@@ -3,7 +3,7 @@
  * @param {{admin: AdminTasks}} tasks Tasks
  * @returns {{delete: delete}} Method handlers
  */
-module.exports = (tasks) => ({
+module.exports = tasks => ({
   /**
    * DELETE /realms/{realmId}/auth/tokens/{id}
    * @param {object} request Request

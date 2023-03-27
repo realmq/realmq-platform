@@ -13,7 +13,7 @@ describe('The admin deleteToken task', () => {
     deleteToken = initDeleteToken({
       authRepository,
       realmRepository,
-      realtimeConnectionRepository
+      realtimeConnectionRepository,
     });
   });
 
