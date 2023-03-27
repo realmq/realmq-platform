@@ -1,0 +1,25 @@
+/realms/{realmId}/channels/{id}:
+  parameters:
+    - $ref: '#/parameters/realmIdInPath'
+    - name: id
+      description: The channel id.
+      in: path
+      required: true
+      type: string
+      pattern: ^[\w-]+$
+
+  delete:
+    summary: Delete the channel referenced by id.
+    description: |
+      Delete the channel and all sub resources like subscriptions and messages.
+    tags:
+      - Channels
+    responses:
+      204:
+        description: Channel has been deleted successfully.
+      400:
+        description: Request validation failed.
+      401:
+        description: The channel could not be deleted due to failed authorization.
+      404:
+        description: The requested channel does not exist.

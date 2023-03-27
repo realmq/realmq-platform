@@ -43,6 +43,7 @@ module.exports = ({
       authTokenRules,
       authRepository,
       channelRepository,
+      messageRepository,
       realmRepository,
       subscriptionRepository,
       userRepository,
