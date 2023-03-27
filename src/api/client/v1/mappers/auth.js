@@ -47,4 +47,4 @@ module.exports.authWithToken = entity => {
   mapped.token = entity.token;
 
   return mapped;
-}
+};
