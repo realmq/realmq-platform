@@ -104,8 +104,6 @@ AuthToken:
           type: string
         userId:
           type: string
-        token:
-          type: string
         isOnline:
           description: Whether the access token is currently connected to the real time broker.
           type: boolean
@@ -119,6 +117,16 @@ AuthToken:
         - token
         - isOnline
     - $ref: '#/definitions/TimestampsTrait'
+
+AuthTokenCreated:
+  allOf:
+    - $ref: '#/definitions/AuthToken'
+    - properties:
+        token:
+          description: |
+            Secret token used for authentication.
+            This field will be revealed only once upon creation.
+          type: string
 
 AuthTokenList:
   allOf:
