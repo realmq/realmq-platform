@@ -3,6 +3,7 @@ const initCreateRealm = require('./create-realm');
 const initCreateRealmToken = require('./create-realm-token');
 const initCreateSubscription = require('./create-subscription');
 const initCreateUser = require('./create-user');
+const initDeleteToken = require('./delete-token');
 const initFetchRealm = require('./fetch-realm');
 const initListChannels = require('./list-channels');
 const initListRealms = require('./list-realms');
@@ -16,6 +17,7 @@ const initListUsers = require('./list-users');
  * @param {RealmRepository} realmRepository The realm repository
  * @param {AuthRepository} authRepository The auth repository
  * @param {ChannelRepository} channelRepository The channel repository
+ * @param {RealtimeConnectionRepository} realtimeConnectionRepository The real-time connection repository
  * @param {SubscriptionRepository} subscriptionRepository The subscription repository
  * @param {UserRepository} userRepository The user repository
  * @param {CommonTasks#sendSubscriptionSyncMessage} sendSubscriptionSyncMessage Task for sending subscription sync
@@ -26,6 +28,7 @@ module.exports = ({
   authRepository,
   channelRepository,
   realmRepository,
+  realtimeConnectionRepository,
   subscriptionRepository,
   userRepository,
   sendSubscriptionSyncMessage,
@@ -42,6 +45,11 @@ module.exports = ({
     subscriptionRepository,
   }),
   createUser: initCreateUser({userRepository, realmRepository}),
+  deleteToken: initDeleteToken({
+    authRepository,
+    realmRepository,
+    realtimeConnectionRepository,
+  }),
   listChannels: initListChannels({realmRepository, channelRepository}),
   listRealms: initListRealms({realmRepository}),
   listRealmTokens: initListRealmTokens({realmRepository, authRepository}),
