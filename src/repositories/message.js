@@ -64,5 +64,19 @@ module.exports = ({collection, createModel = createMessageModel}) => {
 
       return multiRealmRepo.find({...query}, {limit, offset, sort});
     },
+
+    /**
+     * Remove all messages from the given channel.
+     *
+     * @param {string} realmId Realm context
+     * @param {string} channelId Id of channel to remove messages for
+     */
+    async deleteAllByChannelId({realmId, channelId}) {
+      if (!channelId) {
+        throw new Error('Missing channel id.');
+      }
+
+      await multiRealmRepo.deleteMany({realmId, channelId});
+    },
   };
 };

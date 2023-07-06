@@ -3,7 +3,10 @@ const initCreateRealm = require('./create-realm');
 const initCreateRealmToken = require('./create-realm-token');
 const initCreateSubscription = require('./create-subscription');
 const initCreateUser = require('./create-user');
+const initDeleteChannel = require('./delete-channel');
+const initDeleteSubscription = require('./delete-subscription');
 const initDeleteToken = require('./delete-token');
+const initDeleteUser = require('./delete-user');
 const initFetchRealm = require('./fetch-realm');
 const initListChannels = require('./list-channels');
 const initListRealms = require('./list-realms');
@@ -17,6 +20,7 @@ const initListUsers = require('./list-users');
  * @param {RealmRepository} realmRepository The realm repository
  * @param {AuthRepository} authRepository The auth repository
  * @param {ChannelRepository} channelRepository The channel repository
+ * @param {MessageRepository} messageRepository The message repository
  * @param {RealtimeConnectionRepository} realtimeConnectionRepository The real-time connection repository
  * @param {SubscriptionRepository} subscriptionRepository The subscription repository
  * @param {UserRepository} userRepository The user repository
@@ -27,6 +31,7 @@ module.exports = ({
   authTokenRules,
   authRepository,
   channelRepository,
+  messageRepository,
   realmRepository,
   realtimeConnectionRepository,
   subscriptionRepository,
@@ -45,10 +50,28 @@ module.exports = ({
     subscriptionRepository,
   }),
   createUser: initCreateUser({userRepository, realmRepository}),
+  deleteChannel: initDeleteChannel({
+    messageRepository,
+    realmRepository,
+    channelRepository,
+    subscriptionRepository,
+  }),
+  deleteSubscription: initDeleteSubscription({
+    realmRepository,
+    subscriptionRepository,
+    sendSubscriptionSyncMessage,
+  }),
   deleteToken: initDeleteToken({
     authRepository,
     realmRepository,
     realtimeConnectionRepository,
+  }),
+  deleteUser: initDeleteUser({
+    authRepository,
+    realmRepository,
+    realtimeConnectionRepository,
+    userRepository,
+    subscriptionRepository,
   }),
   listChannels: initListChannels({realmRepository, channelRepository}),
   listRealms: initListRealms({realmRepository}),

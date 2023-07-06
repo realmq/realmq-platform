@@ -1,0 +1,25 @@
+/realms/{realmId}/subscriptions/{id}:
+  parameters:
+    - $ref: '#/parameters/realmIdInPath'
+    - name: id
+      description: The subscription id.
+      in: path
+      required: true
+      type: string
+      pattern: ^[\w-]+$
+
+  delete:
+    summary: Delete the subscription referenced by id.
+    description: |
+      Delete the subscription and emit a subscription sync event.
+    tags:
+      - Subscriptions
+    responses:
+      204:
+        description: Subscription has been deleted successfully.
+      400:
+        description: Request validation failed.
+      401:
+        description: The subscription could not be deleted due to failed authorization.
+      404:
+        description: The requested subscription does not exist.
