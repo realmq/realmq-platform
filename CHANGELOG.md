@@ -3,7 +3,7 @@
 This changelog documents all notable changes of the RealMQ Platform.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
-## [Unreleased]
+## [0.3.0] - 2023-07-06
 
 ### Added
 - Introduce new administrative channel management endpoints `/admin/v1/realms/{realmId}/channels`.
