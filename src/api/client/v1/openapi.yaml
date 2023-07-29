@@ -24,7 +24,7 @@ info:
 
     ## Custom Ids
 
-    * In order to provide optimal integratability, you can work with custom ids on channels, users, subscriptions and auth-tokens.
+    * In order to provide optimal integrability, you can work with custom ids on channels, users, subscriptions and auth-tokens.
     * When creating these resources, you can pass an `id` property to the payload.
     * You can then reference the resource by its custom id: eg. `GET /users/test-bot-1`.
     * Valid ids must match `^[\w-]+$` (**alpha-numeric**, **-**, **_**).
