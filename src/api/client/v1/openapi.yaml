@@ -6,8 +6,10 @@ info:
   description: |
     ## Getting Started
 
-    * Get in touch with us to get an account set up. You can do that by sending an email to <a href="mailto:service@realmq.com">service@realmq.com</a>
-    * We'll provide you with an `accessToken` with admin scope that allows you to create further users and access tokens.
+    * Create an account on [cloud.realmq.com](https://cloud.realmq.com).
+    * Open the _test_ project and navigate to the _Tokens_ section.
+    * Create a new token with the _admin_ scope.
+    * Copy the token and store it securely (it's not accessible after initial display)
     * Paste the `accessToken` into the access token input field in the header of the api browser.
     * There are two access groups (**scopes**). Every API endpoint has a description of what scopes are allowed to perform requests.
       - **admin** Full management capabilities, administration capabilities
