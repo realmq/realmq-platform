@@ -40,11 +40,13 @@
             name:
               description: The name of the real, eg. project/org name
               type: string
+            limits:
+              $ref: '#/definitions/RealmLimits'
     responses:
       201:
         description: Realm was successfully created.
         schema:
-          $ref: '#/definitions/Realm'
+          $ref: '#/definitions/RealmDetails'
       400:
         description: Request validation failed.
       401:

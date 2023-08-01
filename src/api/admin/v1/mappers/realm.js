@@ -8,7 +8,7 @@ const mapGenericEntity = require('../../../../lib/mappers/generic-entity');
  * @property {Date} updatedAt
  */
 /**
- * Map an realm to response view model
+ * Map a realm to response view model
  * @param {RealmModel} realm The realm entity
  * @return {RealmViewModel} The realm view model
  */

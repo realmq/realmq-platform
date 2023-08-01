@@ -3,6 +3,7 @@ const authList = require('./auth-list');
 const channel = require('./channel');
 const channelList = require('./channel-list');
 const realm = require('./realm');
+const realmDetails = require('./realm-details');
 const realmList = require('./realm-list');
 const subscription = require('./subscription');
 const subscriptionList = require('./subscription-list');
@@ -18,6 +19,7 @@ module.exports = {
   channel,
   channelList,
   realm,
+  realmDetails,
   realmList,
   subscription,
   subscriptionList,
