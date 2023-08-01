@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 - Introduce new administrative channel management endpoints `/admin/v1/realms/{realmId}/channels`.
 - Introduce new administrative subscription management endpoints `/admin/v1/realms/{realmId}/subscriptions`.
 - Introduce new administrative endpoint for deleting auth tokens `DELETE /admin/v1/realms/{realmId}/tokens/{tokenId}`
+- Introduce limit settings on realm level ([#151]).
 
 ### Changed
 - Add support for upgraded verneMQ broker. This requires the acceptance of their [EULA](https://vernemq.com/end-user-license-agreement/),
@@ -20,6 +21,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 - Hide secret `auth.token` from all responses, except token creation, to avoid access right escalation. ([#138])
 
 [#138]: https://github.com/realmq/realmq-platform/issues/138
+[#151]: https://github.com/realmq/realmq-platform/issues/151
 
 ## [0.2.0] - 2023-03-09
 
