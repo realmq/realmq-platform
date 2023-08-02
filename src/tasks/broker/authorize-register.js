@@ -7,7 +7,7 @@
 module.exports = ({
   authenticateClient,
   realmLimitsRepository,
-  realtimeConnectionRepository
+  realtimeConnectionRepository,
 }) =>
   /**
    * Authorize client connection
@@ -21,16 +21,16 @@ module.exports = ({
       return {authorized: false};
     }
 
-    const [realmLimits, numOfRealmConnections] = await Promise.all([
+    const [realmLimits, numberOfRealmConnections] = await Promise.all([
       realmLimitsRepository.findOneByRealmId(client.realmId),
       realtimeConnectionRepository.countByRealmId(client.realmId),
     ]);
 
     if (
-      realmLimits &&
-      isFinite(realmLimits.maxConnections) &&
-      realmLimits.maxConnections > 0 &&
-      realmLimits.maxConnections < numOfRealmConnections
+      realmLimits
+      && Number.isFinite(realmLimits.maxConnections)
+      && realmLimits.maxConnections > 0
+      && realmLimits.maxConnections < numberOfRealmConnections
     ) {
       return {authorized: false};
     }
@@ -38,5 +38,5 @@ module.exports = ({
     return {
       authorized: true,
       realmLimits,
-    }
+    };
   };

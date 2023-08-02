@@ -24,6 +24,7 @@ module.exports = ({authorizeRegister}) =>
     }
 
     const modifiers = stripUndefined({
+      // eslint-disable-next-line camelcase
       max_message_size: realmLimits?.sessionMaxMessageSize,
     });
 

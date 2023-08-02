@@ -15,7 +15,7 @@ module.exports = ({realmRepository, realmLimitsRepository}) =>
   async ({id}) => {
     const [realm, realmLimits] = await Promise.all([
       realmRepository.findOne({id}),
-      realmLimitsRepository.findOneByRealmId(id)
+      realmLimitsRepository.findOneByRealmId(id),
     ]);
     return success({realm, realmLimits});
-  }
+  };

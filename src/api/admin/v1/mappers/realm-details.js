@@ -1,5 +1,5 @@
-const mapRealm = require('./realm');
 const mapGenericEntity = require('../../../../lib/mappers/generic-entity');
+const mapRealm = require('./realm');
 
 /**
  * @class RealmViewModel
@@ -24,7 +24,7 @@ module.exports = ({realm, realmLimits}) => ({
       sessionMaxMessageRate: 'sessionMaxMessageRate',
       sessionMaxConnectionLifetime: 'sessionMaxConnectionLifetime',
       sessionMaxMessageSize: 'sessionMaxMessageSize',
-    }
+    },
   }),
 });
 

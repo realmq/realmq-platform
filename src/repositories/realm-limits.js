@@ -25,7 +25,7 @@ module.exports = ({collection, createModel = createRealmLimitsModel}) => {
      */
     async findOneByRealmId(realmId) {
       return mongoRepo.findOne({realmId});
-    }
+    },
   };
 };
 

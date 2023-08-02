@@ -22,7 +22,7 @@ module.exports = (tasks, mappers) => ({
 
     response.json(mappers.realmDetails({
       realm: result.realm,
-      realmLimits: result.realmLimits
+      realmLimits: result.realmLimits,
     }));
   },
 });

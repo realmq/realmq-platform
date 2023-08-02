@@ -25,7 +25,7 @@ module.exports = (tasks, mappers) => ({
 
     return response.status(201).json(mappers.realmDetails({
       realm: result.realm,
-      realmLimits: result.realmLimits
+      realmLimits: result.realmLimits,
     }));
   },
 });
