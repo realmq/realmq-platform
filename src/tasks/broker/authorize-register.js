@@ -30,7 +30,7 @@ module.exports = ({
       realmLimits
       && Number.isFinite(realmLimits.maxConnections)
       && realmLimits.maxConnections > 0
-      && realmLimits.maxConnections < numberOfRealmConnections
+      && realmLimits.maxConnections <= numberOfRealmConnections
     ) {
       return {authorized: false};
     }
