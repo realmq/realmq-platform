@@ -17,5 +17,5 @@ module.exports = ({realmRepository, realmLimitsRepository}) =>
   async ({name, limits}) => {
     const realm = await realmRepository.create({name});
     const realmLimits = await realmLimitsRepository.create({realmId: realm.id, ...limits});
-    success({realm, realmLimits});
+    return success({realm, realmLimits});
   }

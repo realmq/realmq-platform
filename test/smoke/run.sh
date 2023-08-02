@@ -37,17 +37,18 @@ clientRequest() {
 set -e
 
 echo "Running tests with email: $email"
-echo "Create account"
-adminRequest "POST" "/accounts" "{\"email\":\"$email\",\"password\":\"$password\"}" > /dev/null
 
 echo "Create realm"
 realmId=$(adminRequest "POST" "/realms" '{"name":"test"}' | jq -r .id)
+echo "Realm ID: $realmId"
 
 echo "Create admin user via admin api"
 adminAuthToken=$(adminRequest "POST" "/realms/${realmId}/tokens" '{"scope":"admin","userId":"admin"}' | jq -r .token)
+echo "Admin auth token: $adminAuthToken"
 
 echo "Create client user via client api"
 userAuthToken=$(clientRequest "$adminAuthToken" "POST" "/auth/tokens" '{"scope":"user","userId":"user"}' | jq -r .token)
+echo "User auth token: $userAuthToken"
 
 echo "Create channel"
 clientRequest "$adminAuthToken" "POST" "/channels" '{"id":"test"}' > /dev/null

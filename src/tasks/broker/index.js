@@ -18,6 +18,7 @@ const initRecordMessage = require('./record-message');
  * @param {AuthRepository} authRepository Auth repository
  * @param {ChannelRepository} channelRepository Channel repository
  * @param {MessageRepository} messageRepository Message repository
+ * @param {RealmLimitsRepository} realmLimitsRepository Realm limits repository
  * @param {RealtimeConnectionRepository} realtimeConnectionRepository Subscription repository
  * @param {SubscriptionRepository} subscriptionRepository Subscription repository
  * @param {UserRepository} userRepository User repository
@@ -29,6 +30,7 @@ module.exports = ({
   channelRepository,
   messageRepository,
   userRepository,
+  realmLimitsRepository,
   realtimeConnectionRepository,
   subscriptionRepository,
 }) => {
@@ -45,7 +47,7 @@ module.exports = ({
     authorizePublish:
       initAuthorizePublish({loadTopicPermissions, rewriteTopicToInternal}),
     authorizeRegister:
-      initAuthorizeRegister({authenticateClient}),
+      initAuthorizeRegister({authenticateClient, realmLimitsRepository}),
     authorizeSubscribe:
       initAuthorizeSubscribe({loadTopicPermissions, rewriteTopicToInternal}),
     markClientOffline:

@@ -17,6 +17,15 @@ module.exports = ({collection, createModel = createRealmLimitsModel}) => {
    */
   return {
     ...mongoRepo,
+
+    /**
+     *
+     * @param {string} realmId
+     * @return {Promise<RealmLimitsModel|null>}
+     */
+    async findOneByRealmId(realmId) {
+      return mongoRepo.findOne({realmId});
+    }
   };
 };
 

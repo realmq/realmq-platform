@@ -23,7 +23,7 @@ module.exports = (tasks, mappers) => ({
       throw error;
     }
 
-    return response.status(201).json(mappers.realm({
+    return response.status(201).json(mappers.realmDetails({
       realm: result.realm,
       realmLimits: result.realmLimits
     }));

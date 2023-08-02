@@ -16,7 +16,19 @@ module.exports = ({authorizeRegister}) =>
       return response.status(400).send();
     }
 
-    const authorized = await authorizeRegister(clientId);
-    const result = authorized ? 'ok' : 'next';
-    response.json({result});
+    const {authorized, realmLimits} = await authorizeRegister(clientId);
+    if (!authorized) {
+      response.json({result: 'next'});
+    }
+
+    const modifiers = realmLimits ? {
+      max_connection_lifetime: realmLimits.sessionMaxConnectionLifetime,
+      max_message_rate: realmLimits.sessionMaxMessageRate,
+      max_message_size: realmLimits.sessionMaxMessageSize,
+    } : undefined;
+
+    response.json({
+      result: 'ok',
+      modifiers,
+    });
   };
