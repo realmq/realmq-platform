@@ -49,6 +49,15 @@ module.exports = ({collection, createModel = createRealtimeConnectionModel}) => 
     },
 
     /**
+     * Count the number of connections in a realm.
+     * @param {string} realmId
+     * @return {Promise<number>}
+     */
+    async countByRealmId(realmId) {
+      return multiRealmRepo.count({realmId});
+    },
+
+    /**
      * Count the number of connections per user id in a realm.
      * @param {string} realmId
      * @param {string} userId

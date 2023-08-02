@@ -1,9 +1,14 @@
 /**
  * @param {BrokerTasks#authenticateClient} authenticateClient Task
  * @param {RealmLimitsRepository} realmLimitsRepository Realm limits repository
+ * @param {RealtimeConnectionRepository} realtimeConnectionRepository Realtime connection repository
  * @returns {BrokerTasks#authorizeRegister} Task
  */
-module.exports = ({authenticateClient, realmLimitsRepository}) =>
+module.exports = ({
+  authenticateClient,
+  realmLimitsRepository,
+  realtimeConnectionRepository
+}) =>
   /**
    * Authorize client connection
    * @typedef {Function} BrokerTasks#authorizeRegister
@@ -16,7 +21,20 @@ module.exports = ({authenticateClient, realmLimitsRepository}) =>
       return {authorized: false};
     }
 
-    const realmLimits = await realmLimitsRepository.findOneByRealmId(client.realmId);
+    const [realmLimits, numOfRealmConnections] = await Promise.all([
+      realmLimitsRepository.findOneByRealmId(client.realmId),
+      realtimeConnectionRepository.countByRealmId(client.realmId),
+    ]);
+
+    if (
+      realmLimits &&
+      isFinite(realmLimits.maxConnections) &&
+      realmLimits.maxConnections > 0 &&
+      realmLimits.maxConnections < numOfRealmConnections
+    ) {
+      return {authorized: false};
+    }
+
     return {
       authorized: true,
       realmLimits,

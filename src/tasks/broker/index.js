@@ -47,7 +47,11 @@ module.exports = ({
     authorizePublish:
       initAuthorizePublish({loadTopicPermissions, rewriteTopicToInternal}),
     authorizeRegister:
-      initAuthorizeRegister({authenticateClient, realmLimitsRepository}),
+      initAuthorizeRegister({
+        authenticateClient,
+        realmLimitsRepository,
+        realtimeConnectionRepository
+      }),
     authorizeSubscribe:
       initAuthorizeSubscribe({loadTopicPermissions, rewriteTopicToInternal}),
     markClientOffline:
