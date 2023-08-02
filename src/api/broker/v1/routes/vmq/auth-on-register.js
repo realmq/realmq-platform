@@ -1,3 +1,5 @@
+const stripUndefined = require('../../../../../lib/strip-undefined');
+
 /**
  *
  * @param {BrokerTasks#authorizeRegister} authorizeRegister Task
@@ -18,17 +20,16 @@ module.exports = ({authorizeRegister}) =>
 
     const {authorized, realmLimits} = await authorizeRegister(clientId);
     if (!authorized) {
-      response.json({result: 'next'});
+      return response.json({result: 'next'});
     }
 
-    const modifiers = realmLimits ? {
-      max_connection_lifetime: realmLimits.sessionMaxConnectionLifetime,
-      max_message_rate: realmLimits.sessionMaxMessageRate,
-      max_message_size: realmLimits.sessionMaxMessageSize,
-    } : undefined;
+    const modifiers = stripUndefined({
+      max_message_size: realmLimits?.sessionMaxMessageSize,
+    });
 
     response.json({
       result: 'ok',
-      modifiers,
+      // VerneMQ fails if modifiers is an empty object
+      modifiers: Object.entries(modifiers).length > 0 ? modifiers : undefined,
     });
   };
