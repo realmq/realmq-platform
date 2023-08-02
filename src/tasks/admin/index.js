@@ -40,7 +40,7 @@ module.exports = ({
   userRepository,
   sendSubscriptionSyncMessage,
 }) => ({
-  fetchRealm: initFetchRealm({realmRepository}),
+  fetchRealm: initFetchRealm({realmRepository, realmLimitsRepository}),
   createChannel: initCreateChannel({realmRepository, channelRepository}),
   createRealm: initCreateRealm({realmRepository, realmLimitsRepository}),
   createRealmToken: initCreateRealmToken({authTokenRules, realmRepository, userRepository, authRepository}),

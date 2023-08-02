@@ -18,7 +18,7 @@
       200:
         description: The realm was loaded sucessfully.
         schema:
-          $ref: '#/definitions/Realm'
+          $ref: '#/definitions/RealmDetails'
       400:
         description: Request validation failed.
       401:

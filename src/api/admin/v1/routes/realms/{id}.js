@@ -8,18 +8,21 @@
 module.exports = (tasks, mappers) => ({
   async get(request, response) {
     const {params: {id}} = request;
-    const {ok, result: realm, error} = await tasks.admin.fetchRealm({id});
+    const {ok, result, error} = await tasks.admin.fetchRealm({id});
     if (!ok) {
       throw error;
     }
 
-    if (!realm) {
+    if (!result.realm) {
       return response.status(404).json({
         code: 'UnknownRealm',
         message: 'Cannot lookup the given realm.',
       });
     }
 
-    response.json(mappers.realm(realm));
+    response.json(mappers.realmDetails({
+      realm: result.realm,
+      realmLimits: result.realmLimits
+    }));
   },
 });
