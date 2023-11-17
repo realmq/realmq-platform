@@ -12,7 +12,7 @@ describe('An auth-on-register handler', () => {
     beforeEach(() => {
       authOnRegister = initAuthOnRegister({
         async authorizeRegister(clientId) {
-          return { authorized: clientId === authorizedClientId };
+          return {authorized: clientId === authorizedClientId};
         },
       });
       responseState = {};

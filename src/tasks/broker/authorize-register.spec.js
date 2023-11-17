@@ -13,7 +13,7 @@ describe('The authorizeRegister task', () => {
     };
     realtimeConnectionRepository = {
       countByRealmId: async () => 0,
-    }
+    };
     authorizeRegister = initAuthorizeRegister({
       authenticateClient(clientId) {
         return {authenticated: clientId === authenticatedClientId};
@@ -49,7 +49,7 @@ describe('The authorizeRegister task', () => {
               authorized: expectedAuthorized,
             });
           });
-        }
+        },
       );
     });
   });
