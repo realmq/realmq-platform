@@ -3,10 +3,12 @@ const initFetchRealm = require('./fetch-realm');
 describe('A fetchRealm admin task', () => {
   describe('with proper configuration', () => {
     let realmRepository;
+    let realmLimitsRepository;
     let fetchRealm;
     beforeEach(() => {
       realmRepository = {findOne: async () => null};
-      fetchRealm = initFetchRealm({realmRepository});
+      realmLimitsRepository = {findOneByRealmId: async () => null};
+      fetchRealm = initFetchRealm({realmRepository, realmLimitsRepository});
     });
 
     describe('for existing realm', () => {
@@ -18,7 +20,7 @@ describe('A fetchRealm admin task', () => {
         const result = await fetchRealm({id: '5'});
         expect(result).toMatchObject({
           ok: true,
-          result: realm,
+          result: {realm},
         });
       });
     });
@@ -31,7 +33,7 @@ describe('A fetchRealm admin task', () => {
         const result = await fetchRealm({id: '5'});
         expect(result).toMatchObject({
           ok: true,
-          result: null,
+          result: {realm: null},
         });
       });
     });

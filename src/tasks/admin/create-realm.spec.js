@@ -3,10 +3,12 @@ const initCreateRealm = require('./create-realm');
 describe('A createRealm admin task', () => {
   describe('with proper configuration', () => {
     let realmRepository;
+    let realmLimitsRepository;
     let createRealm;
     beforeEach(() => {
-      realmRepository = {create: async object => object};
-      createRealm = initCreateRealm({realmRepository});
+      realmRepository = {create: async realm => ({id: 'realm-id', ...realm})};
+      realmLimitsRepository = {create: async limits => limits};
+      createRealm = initCreateRealm({realmRepository, realmLimitsRepository});
     });
 
     describe('called with proper name', () => {
@@ -17,7 +19,7 @@ describe('A createRealm admin task', () => {
         const result = await createRealm({name});
         expect(result).toMatchObject({
           ok: true,
-          result: realm,
+          result: {realm, realmLimits: {realmId: 'realm-id'}},
         });
       });
 

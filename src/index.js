@@ -34,3 +34,4 @@ const createLogger = require('./lib/logger');
     process.exit(1);
   }
 })();
+

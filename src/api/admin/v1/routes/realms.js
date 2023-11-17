@@ -16,13 +16,16 @@ module.exports = (tasks, mappers) => ({
   },
 
   async post(request, response) {
-    const {body: {name}} = request;
-    const {ok, result: realm, error} = await tasks.admin.createRealm({name});
+    const {body: {name, limits = {}}} = request;
+    const {ok, result, error} = await tasks.admin.createRealm({name, limits});
 
     if (!ok) {
       throw error;
     }
 
-    return response.status(201).json(mappers.realm(realm));
+    return response.status(201).json(mappers.realmDetails({
+      realm: result.realm,
+      realmLimits: result.realmLimits,
+    }));
   },
 });

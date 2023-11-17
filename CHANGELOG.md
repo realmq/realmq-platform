@@ -3,6 +3,13 @@
 This changelog documents all notable changes of the RealMQ Platform.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
+## [Unreleased]
+
+### Added
+- Introduce limit settings on realm level ([#151]).
+
+[#151]: https://github.com/realmq/realmq-platform/issues/151
+
 ## [0.3.0] - 2023-07-06
 
 ### Added

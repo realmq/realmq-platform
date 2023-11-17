@@ -74,12 +74,38 @@ TimestampsTrait:
 Realm:
   allOf:
     - $ref: '#/definitions/BaseEntity'
-    - properties:
+    - type: object
+      properties:
         name:
           type: string
       required:
         - name
     - $ref: '#/definitions/TimestampsTrait'
+
+RealmDetails:
+  allOf:
+    - $ref: '#/definitions/Realm'
+    - type: object
+      properties:
+        limits:
+          $ref: '#/definitions/RealmLimits'
+
+RealmLimits:
+  type: object
+  properties:
+    maxConnections:
+      description: Maximum number of simultaneously online connections
+      type: integer
+    sessionMaxMessageRate:
+      description: Maximum incoming publish rate per session per second
+      type: integer
+    sessionMaxConnectionLifetime:
+      description: Maximum lifetime of a connection in seconds
+      type: integer
+    sessionMaxMessageSize:
+      description: Maximum size of a message payload in bytes
+      type: integer
+  additionalProperties: false
 
 RealmList:
   allOf:

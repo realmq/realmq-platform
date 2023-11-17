@@ -18,6 +18,7 @@ const initListUsers = require('./list-users');
 /**
  * @param {AuthTokenRules} authTokenRules The auth token rules
  * @param {RealmRepository} realmRepository The realm repository
+ * @param {RealmLimitsRepository} realmLimitsRepository The realm limits repository
  * @param {AuthRepository} authRepository The auth repository
  * @param {ChannelRepository} channelRepository The channel repository
  * @param {MessageRepository} messageRepository The message repository
@@ -33,14 +34,15 @@ module.exports = ({
   channelRepository,
   messageRepository,
   realmRepository,
+  realmLimitsRepository,
   realtimeConnectionRepository,
   subscriptionRepository,
   userRepository,
   sendSubscriptionSyncMessage,
 }) => ({
-  fetchRealm: initFetchRealm({realmRepository}),
+  fetchRealm: initFetchRealm({realmRepository, realmLimitsRepository}),
   createChannel: initCreateChannel({realmRepository, channelRepository}),
-  createRealm: initCreateRealm({realmRepository}),
+  createRealm: initCreateRealm({realmRepository, realmLimitsRepository}),
   createRealmToken: initCreateRealmToken({authTokenRules, realmRepository, userRepository, authRepository}),
   createSubscription: initCreateSubscription({
     userRepository,
